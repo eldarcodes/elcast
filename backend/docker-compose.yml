@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   db:
     container_name: postgres
@@ -13,7 +11,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - elcast-backend
+      - elcast_backend
 
   redis:
     container_name: redis
@@ -25,11 +23,11 @@ services:
     volumes:
       - redis_data:/data
     networks:
-      - elcast-backend
+      - elcast_backend
 
 volumes:
   postgres_data:
   redis_data:
 
 networks:
-  elcast-backend:
+  elcast_backend:
