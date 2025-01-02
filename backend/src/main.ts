@@ -47,7 +47,7 @@ async function bootstrap() {
   app.enableCors({
     origin: config.getOrThrow<string>('ALLOWED_ORIGIN'),
     credentials: true,
-    exposedHeaders: ['Set-Cookie'],
+    exposedHeaders: ['set-cookie'],
   });
 
   await app.listen(config.getOrThrow<number>('APPLICATION_PORT'));
