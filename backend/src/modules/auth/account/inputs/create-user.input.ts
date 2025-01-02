@@ -7,7 +7,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-@InputType({ description: 'Create User Import' })
+@InputType({ description: 'Create User Input' })
 export class CreateUserInput {
   @Field({
     description: 'Username of the user',
