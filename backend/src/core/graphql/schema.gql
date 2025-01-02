@@ -38,6 +38,9 @@ type Mutation {
 type Query {
   """Find all users"""
   findAllUsers: [UserModel!]!
+
+  """Find profile"""
+  findProfile: UserModel!
 }
 
 """User model"""
