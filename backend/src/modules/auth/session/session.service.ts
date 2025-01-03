@@ -12,6 +12,7 @@ import type { Request } from 'express';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 import { RedisService } from '@/src/core/redis/redis.service';
 import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
+import { destroySession, saveSession } from '@/src/shared/utils/session.util';
 
 import { LoginInput } from './inputs/login.input';
 
@@ -89,39 +90,11 @@ export class SessionService {
 
     const sessionMetadata = getSessionMetadata(req, userAgent);
 
-    return new Promise((resolve, reject) => {
-      req.session.createdAt = new Date();
-      req.session.userId = user.id;
-      req.session.metadata = sessionMetadata;
-
-      req.session.save((err) => {
-        if (err) {
-          return reject(
-            new InternalServerErrorException('Error saving session'),
-          );
-        }
-
-        resolve(user);
-      });
-    });
+    return saveSession(req, user, sessionMetadata);
   }
 
   public async logout(req: Request) {
-    return new Promise((resolve, reject) => {
-      req.session.destroy((err) => {
-        if (err) {
-          return reject(
-            new InternalServerErrorException('Error destroying session'),
-          );
-        }
-
-        req.res.clearCookie(
-          this.configService.getOrThrow<string>('SESSION_NAME'),
-        );
-
-        resolve(true);
-      });
-    });
+    return destroySession(req, this.configService);
   }
 
   public async clearSession(req: Request) {
