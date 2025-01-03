@@ -46,7 +46,7 @@ export function VerificationTemplate({
               Verify Your Email
             </Link>
 
-            <Text className="text-base text-black mt-4">
+            <Text className="text-gray-600 text-black mt-4">
               If you didn’t sign up for an account, please ignore this email.
             </Text>
           </Section>
