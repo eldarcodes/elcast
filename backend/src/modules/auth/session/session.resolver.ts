@@ -4,7 +4,7 @@ import { Authorization } from '@/src/shared/decorators/auth.decorator';
 import { UserAgent } from '@/src/shared/decorators/user-agent.decorator';
 import type { GraphQLContext } from '@/src/shared/types/graphql-context.type';
 
-import { UserModel } from '../account/models/user.model';
+import { AuthModel } from '../account/models/auth.model';
 
 import { LoginInput } from './inputs/login.input';
 import { SessionModel } from './models/session.model';
@@ -30,7 +30,7 @@ export class SessionResolver {
     return this.sessionService.findCurrent(req);
   }
 
-  @Mutation(() => UserModel, {
+  @Mutation(() => AuthModel, {
     name: 'loginUser',
   })
   public async login(

@@ -21,7 +21,7 @@ export function saveSession(
         return reject(new InternalServerErrorException('Error saving session'));
       }
 
-      resolve(user);
+      resolve({ user });
     });
   });
 }
