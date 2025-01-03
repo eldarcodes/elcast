@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AuthModel {
+  message: String
+  user: UserModel
+}
+
 """Create User Input"""
 input CreateUserInput {
   """Email of the user"""
@@ -25,6 +30,11 @@ type DeviceModel {
   type: String!
 }
 
+input EnableTotpInput {
+  pin: String!
+  secret: String!
+}
+
 type LocationModel {
   city: String!
   country: String!
@@ -39,6 +49,9 @@ input LoginInput {
 
   """Auth password"""
   password: String!
+
+  """Auth password"""
+  pin: String
 }
 
 type Mutation {
@@ -46,7 +59,9 @@ type Mutation {
 
   """Create a user"""
   createUser(data: CreateUserInput!): Boolean!
-  loginUser(data: LoginInput!): UserModel!
+  disableTotp: Boolean!
+  enableTotp(data: EnableTotpInput!): Boolean!
+  loginUser(data: LoginInput!): AuthModel!
   logoutUser: Boolean!
   newPassword(data: NewPasswordInput!): Boolean!
   removeSession(id: String!): Boolean!
@@ -68,6 +83,7 @@ type Query {
   """Find profile"""
   findProfile: UserModel!
   findSessionsByUser: [SessionModel!]!
+  generateTotpSecret: TotpModel!
 }
 
 input ResetPasswordInput {
@@ -87,6 +103,11 @@ type SessionModel {
   userId: String!
 }
 
+type TotpModel {
+  qrcodeUrl: String!
+  secret: String!
+}
+
 """User model"""
 type UserModel {
   avatar: String
@@ -96,8 +117,10 @@ type UserModel {
   email: String!
   id: ID!
   isEmailVerified: Boolean!
+  isTotpEnabled: Boolean!
   isVerified: Boolean!
   password: String!
+  totpSecret: String
   updatedAt: DateTime!
   username: String!
 }
