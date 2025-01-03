@@ -3,36 +3,65 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import * as argon2 from 'argon2';
 import { Request } from 'express';
 
-import { TokenType, User } from '@/prisma/generated';
+import { TokenType } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 import { generateToken } from '@/src/shared/utils/generate-token.util';
 import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
-import { saveSession } from '@/src/shared/utils/session.util';
 
 import { MailService } from '../../libs/mail/mail.service';
 
-import { VerificationInput } from './inputs/verification.input';
+import { NewPasswordInput } from './inputs/new-password.input';
+import { ResetPasswordInput } from './inputs/reset-password.input';
 
 @Injectable()
-export class VerificationService {
+export class PasswordRecoveryService {
   public constructor(
     private readonly prismaService: PrismaService,
     private readonly mailService: MailService,
   ) {}
 
-  public async verify(
+  public async resetPassword(
     req: Request,
-    input: VerificationInput,
+    input: ResetPasswordInput,
     userAgent: string,
   ) {
-    const { token } = input;
+    const { email } = input;
+
+    const user = await this.prismaService.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const resetToken = await generateToken(
+      this.prismaService,
+      user,
+      TokenType.PASSWORD_RESET,
+    );
+
+    const sessionMetadata = getSessionMetadata(req, userAgent);
+
+    await this.mailService.sendPasswordResetToken(
+      email,
+      resetToken.token,
+      sessionMetadata,
+    );
+
+    return true;
+  }
+
+  public async newPassword(input: NewPasswordInput) {
+    const { password, token } = input;
 
     const existingToken = await this.prismaService.token.findUnique({
       where: {
         token,
-        type: TokenType.EMAIL_VERIFY,
+        type: TokenType.PASSWORD_RESET,
       },
     });
 
@@ -51,32 +80,16 @@ export class VerificationService {
         id: existingToken.userId,
       },
       data: {
-        isEmailVerified: true,
+        password: await argon2.hash(password),
       },
     });
 
     await this.prismaService.token.delete({
       where: {
         id: existingToken.id,
+        type: TokenType.PASSWORD_RESET,
       },
     });
-
-    const sessionMetadata = getSessionMetadata(req, userAgent);
-
-    return saveSession(req, user, sessionMetadata);
-  }
-
-  public async sendVerificationToken(user: User) {
-    const verificationToken = await generateToken(
-      this.prismaService,
-      user,
-      TokenType.EMAIL_VERIFY,
-    );
-
-    await this.mailService.sendVerificationToken(
-      user.email,
-      verificationToken.token,
-    );
 
     return true;
   }
