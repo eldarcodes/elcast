@@ -3,11 +3,16 @@ import * as argon2 from 'argon2';
 
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 
+import { VerificationService } from '../verification/verification.service';
+
 import { CreateUserInput } from './inputs/create-user.input';
 
 @Injectable()
 export class AccountService {
-  public constructor(private readonly prismaService: PrismaService) {}
+  public constructor(
+    private readonly prismaService: PrismaService,
+    private readonly verificationService: VerificationService,
+  ) {}
 
   public async findAll() {
     const users = await this.prismaService.user.findMany();
@@ -42,7 +47,7 @@ export class AccountService {
       throw new ConflictException('Email is already taken');
     }
 
-    await this.prismaService.user.create({
+    const user = await this.prismaService.user.create({
       data: {
         email,
         username,
@@ -50,6 +55,8 @@ export class AccountService {
         displayName: username,
       },
     });
+
+    await this.verificationService.sendVerificationToken(user);
 
     return true;
   }
