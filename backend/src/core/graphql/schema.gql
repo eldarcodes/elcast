@@ -7,6 +7,21 @@ type AuthModel {
   user: UserModel
 }
 
+"""Change user E-Email"""
+input ChangeEmailInput {
+  """Email of the user"""
+  email: String!
+}
+
+"""Change user password"""
+input ChangePasswordInput {
+  """New password of the user"""
+  newPassword: String!
+
+  """Password of the user"""
+  oldPassword: String!
+}
+
 """Create User Input"""
 input CreateUserInput {
   """Email of the user"""
@@ -59,6 +74,8 @@ input LoginInput {
 }
 
 type Mutation {
+  changeEmail(data: ChangeEmailInput!): Boolean!
+  changePassword(data: ChangePasswordInput!): Boolean!
   clearSessionCookie: Boolean!
 
   """Create a user"""
