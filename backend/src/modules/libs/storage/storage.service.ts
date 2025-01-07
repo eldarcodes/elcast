@@ -15,17 +15,17 @@ export class StorageService {
 
   public constructor(private readonly configService: ConfigService) {
     this.client = new S3Client({
-      endpoint: this.configService.getOrThrow<string>('AWS_ENDPOINT'),
-      region: this.configService.getOrThrow<string>('AWS_REGION'),
+      endpoint: this.configService.getOrThrow<string>('S3_ENDPOINT'),
+      region: this.configService.getOrThrow<string>('S3_REGION'),
       credentials: {
-        accessKeyId: this.configService.getOrThrow<string>('AWS_ACCESS_KEY_ID'),
+        accessKeyId: this.configService.getOrThrow<string>('S3_ACCESS_KEY_ID'),
         secretAccessKey: this.configService.getOrThrow<string>(
-          'AWS_SECRET_ACCESS_KEY',
+          'S3_SECRET_ACCESS_KEY',
         ),
       },
     });
 
-    this.bucket = this.configService.getOrThrow<string>('AWS_BUCKET_NAME');
+    this.bucket = this.configService.getOrThrow<string>('S3_BUCKET_NAME');
   }
 
   public async upload(buffer: Buffer, key: string, mimeType: string) {
