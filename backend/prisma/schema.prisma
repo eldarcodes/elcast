@@ -29,6 +29,8 @@ model User {
 
   tokens Token[]
 
+  socialLinks SocialLink[]
+
   deactivatedAt DateTime? @map("deactivated_at")
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
@@ -58,4 +60,20 @@ enum TokenType {
   DEACTIVATE_ACCOUNT
 
   @@map("token_types")
+}
+
+model SocialLink {
+  id String @id @default(uuid())
+
+  title    String
+  url      String
+  position Int
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String? @map("user_id")
+
+  @@map("social_links")
 }

@@ -1,10 +1,17 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import * as argon2 from 'argon2';
 
+import { User } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 
 import { VerificationService } from '../verification/verification.service';
 
+import { ChangeEmailInput } from './inputs/change-email.input';
+import { ChangePasswordInput } from './inputs/change-password.input';
 import { CreateUserInput } from './inputs/create-user.input';
 
 @Injectable()
@@ -23,6 +30,7 @@ export class AccountService {
   public async me(id: string) {
     const user = await this.prismaService.user.findUnique({
       where: { id },
+      include: { socialLinks: true },
     });
 
     return user;
@@ -57,6 +65,38 @@ export class AccountService {
     });
 
     await this.verificationService.sendVerificationToken(user);
+
+    return true;
+  }
+
+  public async changeEmail(user: User, input: ChangeEmailInput) {
+    const { email } = input;
+
+    await this.prismaService.user.update({
+      where: { id: user.id },
+      data: {
+        email,
+      },
+    });
+
+    return true;
+  }
+
+  public async changePassword(user: User, input: ChangePasswordInput) {
+    const { oldPassword, newPassword } = input;
+
+    const isValidPassword = await argon2.verify(user.password, oldPassword);
+
+    if (!isValidPassword) {
+      throw new UnauthorizedException('Invalid password');
+    }
+
+    await this.prismaService.user.update({
+      where: { id: user.id },
+      data: {
+        password: await argon2.hash(newPassword),
+      },
+    });
 
     return true;
   }

@@ -1,0 +1,38 @@
+import {
+  type ArgumentMetadata,
+  BadRequestException,
+  Injectable,
+  type PipeTransform,
+} from '@nestjs/common';
+import { ReadStream } from 'fs';
+
+import { validateFileFormat, validateFileSize } from '../utils/file.util';
+
+@Injectable()
+export class FileValidationPipe implements PipeTransform {
+  public async transform(value: any, metadata: ArgumentMetadata) {
+    if (!value.filename) {
+      throw new BadRequestException('File is not uploaded');
+    }
+
+    const { filename, createReadStream } = value;
+
+    const fileStream = createReadStream() as ReadStream;
+
+    const allowedFormats = ['png', 'jpg', 'jpeg', 'gif', 'webp'];
+    const isFileFormatValid = validateFileFormat(filename, allowedFormats);
+
+    if (!isFileFormatValid) {
+      throw new BadRequestException('File format is not allowed');
+    }
+
+    const maxFileSize = 10 * 1024 * 1024; // 10MB
+    const isFileSizeValid = await validateFileSize(fileStream, maxFileSize);
+
+    if (!isFileSizeValid) {
+      throw new BadRequestException('File size is too large');
+    }
+
+    return value;
+  }
+}
