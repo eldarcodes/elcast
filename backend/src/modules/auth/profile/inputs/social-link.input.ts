@@ -1,32 +1,38 @@
 import { Field, InputType } from '@nestjs/graphql';
 import {
-  IsEmail,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
-  Matches,
+  IsUrl,
   MaxLength,
   MinLength,
 } from 'class-validator';
 
 @InputType()
-export class ChangeProfileInfoInput {
+export class SocialLinkInput {
   @Field(() => String)
   @IsString()
   @IsNotEmpty()
   @MinLength(3)
-  @Matches(/^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$/)
-  public username: string;
+  public title: string;
 
   @Field(() => String)
   @IsString()
   @IsNotEmpty()
-  public displayName: string;
+  @IsUrl()
+  public url: string;
+}
 
+@InputType()
+export class SocialLinkOrderInput {
   @Field(() => String)
   @IsString()
   @IsNotEmpty()
-  @IsOptional()
-  @MaxLength(300)
-  public bio?: string;
+  public id: string;
+
+  @Field(() => Number)
+  @IsNumber()
+  @IsNotEmpty()
+  public position: number;
 }

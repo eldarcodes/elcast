@@ -2,12 +2,16 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import * as Upload from 'graphql-upload/Upload.js';
 import * as sharp from 'sharp';
 
-import { User } from '@/prisma/generated';
+import type { User } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 
 import { StorageService } from '../../libs/storage/storage.service';
 
 import { ChangeProfileInfoInput } from './inputs/change-info.input';
+import {
+  SocialLinkInput,
+  SocialLinkOrderInput,
+} from './inputs/social-link.input';
 
 @Injectable()
 export class ProfileService {
@@ -79,6 +83,73 @@ export class ProfileService {
       where: { id: user.id },
       data: { username, displayName, bio },
     });
+
+    return true;
+  }
+
+  public async findSocialLinks(user: User) {
+    const socialLinks = await this.prismaService.socialLink.findMany({
+      where: { userId: user.id },
+      orderBy: { position: 'asc' },
+    });
+
+    return socialLinks;
+  }
+
+  public async createSocialLink(user: User, input: SocialLinkInput) {
+    const { title, url } = input;
+
+    const lastSocialLink = await this.prismaService.socialLink.findFirst({
+      where: { userId: user.id },
+      orderBy: { position: 'desc' },
+    });
+
+    const newPosition = lastSocialLink ? lastSocialLink.position + 1 : 1;
+
+    await this.prismaService.socialLink.create({
+      data: {
+        title,
+        url,
+        position: newPosition,
+        user: {
+          connect: { id: user.id },
+        },
+      },
+    });
+
+    return true;
+  }
+
+  public async reorderSocialLinks(list: SocialLinkOrderInput[]) {
+    if (!list.length) {
+      return;
+    }
+
+    const updatePromises = list.map(({ id, position }) => {
+      return this.prismaService.socialLink.update({
+        where: { id },
+        data: { position },
+      });
+    });
+
+    await Promise.all(updatePromises);
+
+    return true;
+  }
+
+  public async updateSocialLink(id: string, input: SocialLinkInput) {
+    const { title, url } = input;
+
+    await this.prismaService.socialLink.update({
+      where: { id },
+      data: { title, url },
+    });
+
+    return true;
+  }
+
+  public async removeSocialLink(id: string) {
+    await this.prismaService.socialLink.delete({ where: { id } });
 
     return true;
   }

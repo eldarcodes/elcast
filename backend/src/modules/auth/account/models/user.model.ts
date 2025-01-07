@@ -2,6 +2,8 @@ import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 import { User } from '@/prisma/generated';
 
+import { SocialLinkModel } from '../../profile/models/social-link.model';
+
 @ObjectType({
   description: 'User model',
 })
@@ -41,6 +43,9 @@ export class UserModel implements User {
 
   @Field(() => Boolean)
   isEmailVerified: boolean;
+
+  @Field(() => [SocialLinkModel])
+  socialLinks: SocialLinkModel[];
 
   @Field(() => Boolean)
   isVerified: boolean;
