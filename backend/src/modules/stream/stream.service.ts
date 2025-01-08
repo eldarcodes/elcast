@@ -1,13 +1,21 @@
 import { Injectable } from '@nestjs/common';
+import * as Upload from 'graphql-upload/Upload.js';
+import * as sharp from 'sharp';
 
-import type { Prisma } from '@/prisma/generated';
+import type { Prisma, User } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 
+import { StorageService } from '../libs/storage/storage.service';
+
+import { ChangeStreamInfoInput } from './inputs/change-stream-info.input';
 import { FiltersInput } from './inputs/filters.input';
 
 @Injectable()
 export class StreamService {
-  public constructor(private readonly prismaService: PrismaService) {}
+  public constructor(
+    private readonly prismaService: PrismaService,
+    private readonly storageService: StorageService,
+  ) {}
 
   public async findAll(input: FiltersInput = {}) {
     const { skip, take, searchTerm } = input;
@@ -69,6 +77,85 @@ export class StreamService {
     });
 
     return Array.from(randomIndexes).map((index) => streams[index]);
+  }
+
+  public async changeInfo(user: User, input: ChangeStreamInfoInput) {
+    const { title, categoryId } = input;
+
+    await this.prismaService.stream.update({
+      where: {
+        userId: user.id,
+      },
+      data: {
+        title,
+      },
+    });
+
+    return true;
+  }
+
+  public async changeThumbnail(user: User, file: Upload) {
+    const stream = await this.findByUserId(user);
+
+    if (stream.thumbnailUrl) {
+      await this.storageService.remove(stream.thumbnailUrl);
+    }
+
+    const chunks: Buffer[] = [];
+
+    for await (const chunk of file.createReadStream()) {
+      chunks.push(chunk);
+    }
+
+    const buffer = Buffer.concat(chunks);
+
+    const fileName = `/streams/${user.username}.webp`;
+
+    const options =
+      file.fileName && file.fileName.endsWith('.gif') ? { animated: true } : {};
+
+    const processedBuffer = await sharp(buffer, options)
+      .resize(1920, 1080)
+      .webp()
+      .toBuffer();
+
+    await this.storageService.upload(processedBuffer, fileName, 'image/webp');
+
+    await this.prismaService.stream.update({
+      where: { userId: user.id },
+      data: {
+        thumbnailUrl: fileName,
+      },
+    });
+
+    return true;
+  }
+
+  public async removeThumbnail(user: User) {
+    const stream = await this.findByUserId(user);
+
+    if (!stream.thumbnailUrl) {
+      return;
+    }
+
+    await this.storageService.remove(stream.thumbnailUrl);
+
+    await this.prismaService.stream.update({
+      where: { userId: user.id },
+      data: {
+        thumbnailUrl: null,
+      },
+    });
+
+    return true;
+  }
+
+  private async findByUserId(user: User) {
+    const stream = await this.prismaService.stream.findUnique({
+      where: { userId: user.id },
+    });
+
+    return stream;
   }
 
   private findBySearchTermFilter(searchTerm: string): Prisma.StreamWhereInput {
