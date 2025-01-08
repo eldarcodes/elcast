@@ -61,6 +61,11 @@ export class AccountService {
         username,
         password: await argon2.hash(password),
         displayName: username,
+        stream: {
+          create: {
+            title: `Stream ${username}`,
+          },
+        },
       },
     });
 

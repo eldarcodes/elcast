@@ -7,6 +7,17 @@ type AuthModel {
   user: UserModel
 }
 
+type CategoryModel {
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  slug: String!
+  streams: [StreamModel!]!
+  thumbnailUrl: String!
+  title: String!
+  updatedAt: DateTime!
+}
+
 """Change user E-Email"""
 input ChangeEmailInput {
   """Email of the user"""
@@ -26,6 +37,11 @@ input ChangeProfileInfoInput {
   bio: String!
   displayName: String!
   username: String!
+}
+
+input ChangeStreamInfoInput {
+  categoryId: String!
+  title: String!
 }
 
 """Create User Input"""
@@ -62,6 +78,21 @@ input EnableTotpInput {
   secret: String!
 }
 
+input FiltersInput {
+  searchTerm: String
+  skip: Float
+  take: Float
+}
+
+input GenerateStreamTokenInput {
+  channelId: String!
+  userId: String!
+}
+
+type GenerateTokenModel {
+  token: String!
+}
+
 type LocationModel {
   city: String!
   country: String!
@@ -84,7 +115,10 @@ type Mutation {
   changePassword(data: ChangePasswordInput!): Boolean!
   changeProfileAvatar(avatar: Upload!): Boolean!
   changeProfileInfo(data: ChangeProfileInfoInput!): Boolean!
+  changeStreamInfo(data: ChangeStreamInfoInput!): Boolean!
+  changeStreamThumbnail(thumbnail: Upload!): Boolean!
   clearSessionCookie: Boolean!
+  createIngress(ingressType: Float!): Boolean!
   createSocialLink(data: SocialLinkInput!): Boolean!
 
   """Create a user"""
@@ -92,16 +126,18 @@ type Mutation {
   deactivateAccount(data: DeactivateAccountInput!): AuthModel!
   disableTotp: Boolean!
   enableTotp(data: EnableTotpInput!): Boolean!
+  generateStreamToken(data: GenerateStreamTokenInput!): GenerateTokenModel!
   loginUser(data: LoginInput!): AuthModel!
   logoutUser: Boolean!
   newPassword(data: NewPasswordInput!): Boolean!
   removeProfileAvatar: Boolean!
   removeSession(id: String!): Boolean!
   removeSocialLink(id: String!): Boolean!
+  removeStreamThumbnail: Boolean!
   reorderSocialLinks(list: [SocialLinkOrderInput!]!): Boolean!
   resetPassword(data: ResetPasswordInput!): Boolean!
   updateSocialLink(data: SocialLinkInput!, id: String!): Boolean!
-  verifyAccount(data: VerificationInput!): UserModel!
+  verifyAccount(data: VerificationInput!): AuthModel!
 }
 
 input NewPasswordInput {
@@ -111,12 +147,18 @@ input NewPasswordInput {
 }
 
 type Query {
+  findAllCategories: [CategoryModel!]!
+  findAllStreams(filters: FiltersInput!): [StreamModel!]!
+
   """Find all users"""
   findAllUsers: [UserModel!]!
+  findCategoryBySlug(slug: String!): CategoryModel!
   findCurrentSession: SessionModel!
 
   """Find profile"""
   findProfile: UserModel!
+  findRandomCategories: [CategoryModel!]!
+  findRandomStreams: [StreamModel!]!
   findSessionsByUser: [SessionModel!]!
   findSocialLinks: [SocialLinkModel!]!
   generateTotpSecret: TotpModel!
@@ -159,6 +201,22 @@ input SocialLinkOrderInput {
   position: Float!
 }
 
+type StreamModel {
+  category: CategoryModel!
+  categoryId: String!
+  createdAt: DateTime!
+  id: ID!
+  ingressId: String
+  isLive: Boolean!
+  serverUrl: String
+  streamKey: String
+  thumbnailUrl: String
+  title: String!
+  updatedAt: DateTime!
+  user: UserModel!
+  userId: String!
+}
+
 type TotpModel {
   qrcodeUrl: String!
   secret: String!
@@ -182,6 +240,7 @@ type UserModel {
   isVerified: Boolean!
   password: String!
   socialLinks: [SocialLinkModel!]!
+  stream: StreamModel!
   totpSecret: String
   updatedAt: DateTime!
   username: String!
