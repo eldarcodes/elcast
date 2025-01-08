@@ -40,6 +40,7 @@ export class StreamService {
       },
       include: {
         user: true,
+        category: true,
       },
       orderBy: {
         createdAt: 'desc',
@@ -126,6 +127,7 @@ export class StreamService {
       },
       include: {
         user: true,
+        category: true,
       },
       skip: 0,
       take: total,
@@ -143,6 +145,11 @@ export class StreamService {
       },
       data: {
         title,
+        category: {
+          connect: {
+            id: categoryId,
+          },
+        },
       },
     });
 
