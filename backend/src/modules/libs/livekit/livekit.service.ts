@@ -17,7 +17,8 @@ export class LivekitService {
   private webhookReceiver: WebhookReceiver;
 
   public constructor(
-    @Inject(LiveKitOptionsSymbol) private readonly options: TypeLiveKitOptions,
+    @Inject(LiveKitOptionsSymbol)
+    private readonly options: TypeLiveKitOptions,
   ) {
     this.roomService = new RoomServiceClient(
       this.options.apiUrl,
@@ -47,7 +48,7 @@ export class LivekitService {
 
   private createProxy<T extends object>(target: T) {
     return new Proxy(target, {
-      get(obj, prop) {
+      get: (obj, prop) => {
         const value = obj[prop as keyof T];
 
         if (typeof value === 'function') {

@@ -35,7 +35,7 @@ export class StreamService {
         ...whereClause,
       },
       include: {
-        user: { where: { isDeactivated: false } },
+        user: true,
       },
       orderBy: {
         createdAt: 'desc',

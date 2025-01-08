@@ -96,8 +96,9 @@ type Mutation {
   changeProfileAvatar(avatar: Upload!): Boolean!
   changeProfileInfo(data: ChangeProfileInfoInput!): Boolean!
   changeStreamInfo(data: ChangeStreamInfoInput!): Boolean!
-  changeStreamThumbnail(avatar: Upload!): Boolean!
+  changeStreamThumbnail(thumbnail: Upload!): Boolean!
   clearSessionCookie: Boolean!
+  createIngress(ingressType: Float!): Boolean!
   createSocialLink(data: SocialLinkInput!): Boolean!
 
   """Create a user"""

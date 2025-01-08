@@ -47,7 +47,7 @@ export class StreamResolver {
   })
   public async changeThumbnail(
     @Authorized() user: User,
-    @Args('avatar', { type: () => GraphQLUpload }, FileValidationPipe)
+    @Args('thumbnail', { type: () => GraphQLUpload }, FileValidationPipe)
     thumbnail: Upload,
   ) {
     return this.streamService.changeThumbnail(user, thumbnail);
