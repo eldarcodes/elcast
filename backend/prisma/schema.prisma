@@ -32,7 +32,7 @@ model User {
   socialLinks  SocialLink[]
   chatMessages ChatMessage[]
   followers    Follow[]      @relation(name: "followers")
-  following    Follow[]      @relation(name: "followings")
+  followings   Follow[]      @relation(name: "followings")
 
   stream Stream?
 
