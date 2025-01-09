@@ -4,6 +4,7 @@ import { Stream } from '@/prisma/generated';
 
 import { UserModel } from '../../auth/account/models/user.model';
 import { CategoryModel } from '../../category/models/category.model';
+import { ChatMessageModel } from '../../chat/models/chat-message.model';
 
 @ObjectType()
 export class StreamModel implements Stream {
@@ -36,6 +37,18 @@ export class StreamModel implements Stream {
 
   @Field(() => CategoryModel)
   category: CategoryModel;
+
+  @Field(() => Boolean)
+  isChatEnabled: boolean;
+
+  @Field(() => Boolean)
+  isChatFollowersOnly: boolean;
+
+  @Field(() => Boolean)
+  isChatSubscribersOnly: boolean;
+
+  @Field(() => [ChatMessageModel])
+  chatMessages: ChatMessageModel[];
 
   @Field(() => String)
   categoryId: string;
