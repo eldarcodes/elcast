@@ -71,7 +71,7 @@ export class StreamService {
       };
     }
 
-    const channel = await this.prismaService.stream.findUnique({
+    const channel = await this.prismaService.user.findUnique({
       where: { id: channelId },
     });
 
@@ -79,7 +79,7 @@ export class StreamService {
       throw new NotFoundException('Channel not found');
     }
 
-    const isHost = channel.userId === self.id;
+    const isHost = channel.id === self.id;
 
     const token = new AccessToken(
       this.configService.getOrThrow<string>('LIVEKIT_API_KEY'),
