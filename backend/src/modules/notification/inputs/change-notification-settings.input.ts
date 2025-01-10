@@ -2,16 +2,12 @@ import { Field, InputType } from '@nestjs/graphql';
 import { IsBoolean } from 'class-validator';
 
 @InputType()
-export class ChangeChatSettingsInput {
+export class ChangeNotificationSettingsInput {
   @Field(() => Boolean)
   @IsBoolean()
-  public isChatEnabled: boolean;
+  public siteNotifications: boolean;
 
   @Field(() => Boolean)
   @IsBoolean()
-  public isChatFollowersOnly: boolean;
-
-  @Field(() => Boolean)
-  @IsBoolean()
-  public isChatSubscribersOnly: boolean;
+  public telegramNotifications: boolean;
 }
