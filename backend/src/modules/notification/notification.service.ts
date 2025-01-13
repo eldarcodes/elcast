@@ -111,8 +111,8 @@ export class NotificationService {
   public async createStreamStart(userId: string, channel: User) {
     const notification = await this.prismaService.notification.create({
       data: {
-        message: `<b className='font-medium'>Не пропустите!</b>
-				<p>Присоединяйтесь к стриму на канале <a href='/${channel.username}' className='font-semibold'>${channel.displayName}</a>.</p>`,
+        message: `<b className='font-medium'>Don't miss out!</b>
+        <p>Join the stream on the channel <a href='/${channel.username}' className='font-semibold'>${channel.displayName}</a>.</p>`,
         type: NotificationType.STREAM_START,
         user: {
           connect: {
@@ -128,8 +128,8 @@ export class NotificationService {
   public async createNewFollowing(userId: string, follower: User) {
     const notification = await this.prismaService.notification.create({
       data: {
-        message: `<b className='font-medium'>У вас новый подписчик!</b>
-				<p>Это пользователь <a href='/${follower.username}' className='font-semibold'>${follower.displayName}</a>.</p>`,
+        message: `<b className='font-medium'>You have a new follower!</b>
+        <p>It's the user <a href='/${follower.username}' className='font-semibold'>${follower.displayName}</a>.</p>`,
         type: NotificationType.NEW_FOLLOWER,
         user: {
           connect: {
@@ -145,8 +145,8 @@ export class NotificationService {
   public async createEnableTwoFactor(userId: string) {
     const notification = await this.prismaService.notification.create({
       data: {
-        message: `<b className='font-medium'>Обеспечьте свою безопасность!</b>
-				<p>Включите двухфакторную аутентификацию в настройках вашего аккаунта, чтобы повысить уровень защиты.</p>`,
+        message: `<b className='font-medium'>Secure your account!</b>
+        <p>Enable two-factor authentication in your account settings to enhance your security.</p>`,
         type: NotificationType.ENABLE_TWO_FACTOR,
         userId,
       },
@@ -158,8 +158,8 @@ export class NotificationService {
   public async createVerifyChannel(userId: string) {
     const notification = await this.prismaService.notification.create({
       data: {
-        message: `<b className='font-medium'>Поздравляем!</b>
-			  <p>Ваш канал верифицирован, и теперь рядом с вашим каналом будет галочка.</p>`,
+        message: `<b className='font-medium'>Congratulations!</b>
+        <p>Your channel has been verified, and now a verification badge will appear next to your channel.</p>`,
         type: NotificationType.VERIFIED_CHANNEL,
         userId,
       },

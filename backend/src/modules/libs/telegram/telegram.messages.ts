@@ -66,4 +66,12 @@ Click the button below and go to the <b>Notifications</b> section to complete th
     `<b>You have a new follower!</b>\n\n` +
     `Meet <a href="https://elcast.eldarcodes.com/${follower.username}">${follower.displayName}</a>\n\n` +
     `Your channel now has a total of ${followersCount} followers.`,
+  enableTwoFactor:
+    `🔐 Protect your account!\n\n` +
+    `Enable two-factor authentication in your <a href="https://elcast.eldarcodes.com/dashboard/settings">account settings</a>.`,
+  verifyChannel:
+    `<b>🎉 Congratulations! Your channel is now verified</b>\n\n` +
+    `We’re excited to let you know that your channel has been verified, and you’ve received the official verification badge.\n\n` +
+    `The verification badge confirms the authenticity of your channel and helps build trust with your audience.\n\n` +
+    `Thank you for being with us and continuing to grow your channel with Elcast!`,
 };
