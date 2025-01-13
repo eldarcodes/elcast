@@ -5,6 +5,7 @@ import { PrismaService } from '@/src/core/prisma/prisma.service';
 
 import { MailService } from '../libs/mail/mail.service';
 import { StorageService } from '../libs/storage/storage.service';
+import { TelegramService } from '../libs/telegram/telegram.service';
 
 @Injectable()
 export class CronService {
@@ -12,9 +13,10 @@ export class CronService {
     private readonly prismaService: PrismaService,
     private readonly mailService: MailService,
     private readonly storageService: StorageService,
+    private readonly telegramService: TelegramService,
   ) {}
 
-  //   @Cron('*/10 * * * * *')
+  // @Cron('*/10 * * * * *')
   @Cron('0 0 * * *')
   public async deleteDeactivatedAccounts() {
     const sevenDaysAgo = new Date();
@@ -28,12 +30,26 @@ export class CronService {
           lte: sevenDaysAgo,
         },
       },
+      include: {
+        notificationSettings: true,
+        stream: true,
+      },
     });
 
     for (const user of deactivatedAccounts) {
       await this.mailService.sendAccountDeletion(user.email);
 
-      await this.storageService.remove(user.avatar);
+      if (user.notificationSettings.telegramNotifications && user.telegramId) {
+        await this.telegramService.sendAccountDeletion(user.telegramId);
+      }
+
+      if (user.avatar) {
+        await this.storageService.remove(user.avatar);
+      }
+
+      if (user.stream.thumbnailUrl) {
+        await this.storageService.remove(user.stream.thumbnailUrl);
+      }
     }
 
     await this.prismaService.user.deleteMany({
