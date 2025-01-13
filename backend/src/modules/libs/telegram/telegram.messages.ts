@@ -59,4 +59,11 @@ Click the button below and go to the <b>Notifications</b> section to complete th
     `Thank you for being with us! We will always be happy to have you back on the platform. 🚀\n\n` +
     `Best regards,\n` +
     `The Elcast Team`,
+  streamStart: (channel: User) =>
+    `<b>📡 Live stream started on ${channel.displayName}'s channel!</b>\n\n` +
+    `Watch it here: <a href="https://elcast.eldarcodes.com/${channel.username}">Join the stream</a>`,
+  newFollowing: (follower: User, followersCount: number) =>
+    `<b>You have a new follower!</b>\n\n` +
+    `Meet <a href="https://elcast.eldarcodes.com/${follower.username}">${follower.displayName}</a>\n\n` +
+    `Your channel now has a total of ${followersCount} followers.`,
 };

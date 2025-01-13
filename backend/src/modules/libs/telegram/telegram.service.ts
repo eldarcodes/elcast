@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { Action, Command, Ctx, Start, Update } from 'nestjs-telegraf';
 import { Context, Telegraf } from 'telegraf';
 
-import { TokenType } from '@/prisma/generated';
+import { TokenType, User } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 import type { SessionMetadata } from '@/src/shared/types/session-metadata.type';
 
@@ -129,6 +129,41 @@ export class TelegramService extends Telegraf {
       TELEGRAM_MESSAGES.resetPassword(token, metadata),
       { parse_mode: 'HTML' },
     );
+  }
+
+  public async sendDeactivate(
+    chatId: string,
+    token: string,
+    metadata: SessionMetadata,
+  ) {
+    this.telegram.sendMessage(
+      chatId,
+      TELEGRAM_MESSAGES.deactivate(token, metadata),
+      { parse_mode: 'HTML' },
+    );
+  }
+
+  public async sendStreamStart(chatId: string, channel: User) {
+    this.telegram.sendMessage(chatId, TELEGRAM_MESSAGES.streamStart(channel), {
+      parse_mode: 'HTML',
+    });
+  }
+
+  public async sendNewFollowing(chatId: string, follower: User) {
+    const user = await this.findUserByChatId(chatId);
+    console.log(user, follower);
+
+    this.telegram.sendMessage(
+      chatId,
+      TELEGRAM_MESSAGES.newFollowing(follower, user.followings.length),
+      { parse_mode: 'HTML' },
+    );
+  }
+
+  public async sendAccountDeletion(chatId: string) {
+    this.telegram.sendMessage(chatId, TELEGRAM_MESSAGES.accountDeleted, {
+      parse_mode: 'HTML',
+    });
   }
 
   private async connectTelegram(userId: string, chatId: string) {
