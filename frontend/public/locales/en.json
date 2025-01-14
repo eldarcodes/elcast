@@ -15,7 +15,9 @@
       "errorMessage": "Couldn't create account"
     },
     "verify": {
-      "successMessage": "Your account has been verified. You can now log in."
+      "heading": "Account verification",
+      "successMessage": "Your account has been verified. You can now log in.",
+      "errorMessage": "Couldn't verify account"
     }
   }
 }
