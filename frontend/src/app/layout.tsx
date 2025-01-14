@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 
 import { ApolloClientProvider } from '@/providers/apollo-client-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
+import { ToastProvider } from '@/providers/toast-provider';
 
 import '@/styles/globals.css';
 
@@ -73,10 +74,11 @@ export default async function RootLayout({
           <NextIntlClientProvider messages={messages}>
             <ThemeProvider
               attribute="class"
-              defaultTheme="system"
-              enableSystem
+              defaultTheme="light"
               disableTransitionOnChange
             >
+              <ToastProvider />
+
               {children}
             </ThemeProvider>
           </NextIntlClientProvider>
