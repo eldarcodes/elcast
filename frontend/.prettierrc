@@ -1,0 +1,30 @@
+{
+  "singleQuote": true,
+  "trailingComma": "all",
+
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderCaseInsensitive": true,
+  "importOrderParserPlugins": ["typescript", "decorators-legacy", "jsx"],
+
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "^@/app/(.*)$",
+    "^@/components/(.*)$",
+    "^@/graphql/(.*)$",
+    "^@/hooks/(.*)$",
+    "^@/libs/(.*)$",
+    "^@/providers/(.*)$",
+    "^@/schemas/(.*)$",
+    "^@/store/(.*)$",
+    "^@/styles/(.*)$",
+    "^@/utils/(.*)$",
+    "^../(.*)$",
+    "^./(.*)$",
+    "(.scss)$"
+  ],
+  "plugins": [
+    "@trivago/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ]
+}
