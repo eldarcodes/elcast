@@ -56,6 +56,7 @@ export class PasswordRecoveryService {
       resetToken.token,
       sessionMetadata,
     );
+    console.log(resetToken.user);
 
     if (
       resetToken.user.notificationSettings.telegramNotifications &&

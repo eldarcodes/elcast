@@ -31,6 +31,16 @@
       "submitButton": "Log in",
       "successMessage": "You're now logged in",
       "errorMessage": "Error logging in"
+    },
+    "resetPassword": {
+      "heading": "Getting back into your Elcast account",
+      "backButtonLabel": "Have an account? Log in",
+      "emailLabel": "Email",
+      "emailDescription": "Your Email that you used to create your account",
+      "submitButton": "Reset password",
+      "successAlertTitle": "The password reset link has been sent",
+      "successAlertDescription": "We've sent you an email with a link to reset your password. Please check your inbox.",
+      "errorMessage": "There was an error resetting your password"
     }
   }
 }

@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -122,7 +123,13 @@ export function LoginForm() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('passwordLabel')}</FormLabel>
+                    <div className="flex items-center justify-between">
+                      <FormLabel>{t('passwordLabel')}</FormLabel>
+                      <Link href="/account/recovery" className="text-xs">
+                        {t('forgotPassword')}
+                      </Link>
+                    </div>
+
                     <FormControl>
                       <Input
                         disabled={isLoadingLogin}
