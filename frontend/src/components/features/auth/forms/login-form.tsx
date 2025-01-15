@@ -63,7 +63,6 @@ export function LoginForm() {
   }
 
   const currentPin = form.watch('pin');
-  console.log({ currentPin });
 
   const twoFactorValid = isShowTwoFactor ? currentPin?.length === 6 : true;
 

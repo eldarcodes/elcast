@@ -41,6 +41,16 @@
       "successAlertTitle": "The password reset link has been sent",
       "successAlertDescription": "We've sent you an email with a link to reset your password. Please check your inbox.",
       "errorMessage": "There was an error resetting your password"
+    },
+    "newPassword": {
+      "heading": "Getting back into your Elcast account",
+      "backButtonLabel": "Have an account? Log in",
+      "passwordLabel": "New password",
+      "passwordDescription": "Password must be at least 8 characters long.",
+      "passwordRepeatLabel": "Repeat new password",
+      "submitButton": "Set new password",
+      "successMessage": "Password has been reset successfully",
+      "errorMessage": "There was an error resetting your password"
     }
   }
 }
