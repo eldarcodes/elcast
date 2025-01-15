@@ -16,7 +16,6 @@ export class LoginInput {
   @IsString()
   @IsNotEmpty()
   @MinLength(3)
-  @Matches(/^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$/)
   public login: string;
 
   @Field(() => String, {

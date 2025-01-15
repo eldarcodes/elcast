@@ -1,5 +1,56 @@
 {
-  "home": {
-    "hello": "Привет!"
+  "auth": {
+    "register": {
+      "heading": "Присоединяйтесь к Elcast сегодня",
+      "backButtonLabel": "Уже есть аккаунт? Войти",
+      "usernameLabel": "Имя пользователя",
+      "usernameDescription": "Это имя, под которым вас будут знать на Elcast. Вы всегда сможете изменить его позже.",
+      "emailLabel": "Электронная почта",
+      "passwordLabel": "Пароль",
+      "passwordDescription": "Пароль должен содержать не менее 8 символов.",
+      "submitButton": "Зарегистрироваться",
+      "successAlertTitle": "Аккаунт успешно создан",
+      "successAlertDescription": "Мы отправили вам письмо для подтверждения аккаунта. Пожалуйста, проверьте ваш почтовый ящик.",
+      "successMessage": "Аккаунт успешно создан",
+      "errorMessage": "Не удалось создать аккаунт"
+    },
+    "verify": {
+      "heading": "Подтверждение аккаунта",
+      "successMessage": "Ваш аккаунт был подтвержден. Теперь вы можете войти.",
+      "errorMessage": "Не удалось подтвердить аккаунт"
+    },
+    "login": {
+      "heading": "Войдите в Elcast",
+      "backButtonLabel": "Нет аккаунта? Зарегистрируйтесь",
+      "loginLabel": "Логин",
+      "loginDescription": "Ваше имя пользователя или email",
+      "passwordLabel": "Пароль",
+      "pinLabel": "6-значный PIN-код",
+      "pinDescription": "Введите 6-значный PIN-код из приложения-аутентификатора",
+      "forgotPassword": "Забыли пароль?",
+      "submitButton": "Войти",
+      "successMessage": "Вы успешно вошли в систему",
+      "errorMessage": "Ошибка при входе"
+    },
+    "resetPassword": {
+      "heading": "Возвращение в ваш аккаунт Elcast",
+      "backButtonLabel": "Уже есть аккаунт? Войдите",
+      "emailLabel": "Электронная почта",
+      "emailDescription": "Электронная почта, которую вы использовали при создании аккаунта",
+      "submitButton": "Сбросить пароль",
+      "successAlertTitle": "Ссылка для сброса пароля отправлена",
+      "successAlertDescription": "Мы отправили вам письмо со ссылкой для сброса пароля. Пожалуйста, проверьте ваш почтовый ящик.",
+      "errorMessage": "Произошла ошибка при сбросе пароля"
+    },
+    "newPassword": {
+      "heading": "Возвращение в ваш аккаунт Elcast",
+      "backButtonLabel": "Есть аккаунт? Войти",
+      "passwordLabel": "Новый пароль",
+      "passwordDescription": "Пароль должен быть длиной не менее 8 символов.",
+      "passwordRepeatLabel": "Повторите новый пароль",
+      "submitButton": "Установить новый пароль",
+      "successMessage": "Пароль успешно сброшен",
+      "errorMessage": "Произошла ошибка при сбросе пароля"
+    }
   }
 }
