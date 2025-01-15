@@ -18,6 +18,19 @@
       "heading": "Подтверждение аккаунта",
       "successMessage": "Ваш аккаунт был подтвержден. Теперь вы можете войти.",
       "errorMessage": "Не удалось подтвердить аккаунт"
+    },
+    "login": {
+      "heading": "Войдите в Elcast",
+      "backButtonLabel": "Нет аккаунта? Зарегистрируйтесь",
+      "loginLabel": "Логин",
+      "loginDescription": "Ваше имя пользователя или email",
+      "passwordLabel": "Пароль",
+      "pinLabel": "6-значный PIN-код",
+      "pinDescription": "Введите 6-значный PIN-код из приложения-аутентификатора",
+      "forgotPassword": "Забыли пароль?",
+      "submitButton": "Войти",
+      "successMessage": "Вы успешно вошли в систему",
+      "errorMessage": "Ошибка при входе"
     }
   }
 }

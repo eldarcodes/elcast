@@ -18,6 +18,19 @@
       "heading": "Account verification",
       "successMessage": "Your account has been verified. You can now log in.",
       "errorMessage": "Couldn't verify account"
+    },
+    "login": {
+      "heading": "Log in to Elcast",
+      "backButtonLabel": "Don't have an account? Sign up",
+      "loginLabel": "Login",
+      "loginDescription": "Your username or email",
+      "passwordLabel": "Password",
+      "pinLabel": "6-digit PIN",
+      "pinDescription": "Enter the 6-digit PIN from your authenticator app",
+      "forgotPassword": "Forgot password?",
+      "submitButton": "Log in",
+      "successMessage": "You're now logged in",
+      "errorMessage": "Error logging in"
     }
   }
 }

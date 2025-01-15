@@ -129,7 +129,11 @@ export function CreateAccountForm() {
               )}
             />
 
-            <Button className="mt-2 w-full" disabled={!isValid} type="submit">
+            <Button
+              className="mt-2 w-full"
+              disabled={!isValid || isLoadingCreate}
+              type="submit"
+            >
               {t('submitButton')}
             </Button>
           </form>
