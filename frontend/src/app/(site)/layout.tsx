@@ -1,4 +1,6 @@
+import { LayoutContainer } from '@/components/layout/container';
 import { Header } from '@/components/layout/header/header';
+import { Sidebar } from '@/components/layout/sidebar/sidebar';
 
 export default function SiteLayout({ children }: React.PropsWithChildren) {
   return (
@@ -8,7 +10,9 @@ export default function SiteLayout({ children }: React.PropsWithChildren) {
           <Header />
         </div>
 
-        <main className="mt-[75px]">{children}</main>
+        <Sidebar />
+
+        <LayoutContainer>{children}</LayoutContainer>
       </div>
     </div>
   );
