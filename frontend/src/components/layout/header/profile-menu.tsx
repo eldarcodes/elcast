@@ -18,6 +18,8 @@ import { useLogoutUserMutation } from '@/graphql/generated/output';
 import { useAuth } from '@/hooks/use-auth';
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
+import { Notifications } from './notifications/notifications';
+
 export function ProfileMenu() {
   const t = useTranslations('layout.header.headerMenu.profileMenu');
   const router = useRouter();
@@ -39,40 +41,44 @@ export function ProfileMenu() {
   return isLoadingProfile || !user ? (
     <Loader className="size-6 animate-spin text-muted-foreground" />
   ) : (
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <ChannelAvatar channel={user} />
-      </DropdownMenuTrigger>
+    <div className="flex items-center gap-x-4">
+      <Notifications />
 
-      <DropdownMenuContent align="end" className="w-[230px]">
-        <div className="flex items-center gap-x-3 p-2">
+      <DropdownMenu>
+        <DropdownMenuTrigger>
           <ChannelAvatar channel={user} />
-          <h2 className="font-medium text-foreground">{user.username}</h2>
-        </div>
+        </DropdownMenuTrigger>
 
-        <DropdownMenuSeparator />
+        <DropdownMenuContent align="end" className="w-[230px]">
+          <div className="flex items-center gap-x-3 p-2">
+            <ChannelAvatar channel={user} />
+            <h2 className="font-medium text-foreground">{user.username}</h2>
+          </div>
 
-        <Link href={`/${user.username}`}>
-          <DropdownMenuItem className="cursor-pointer">
-            <User className="mr-2 size-4" />
-            {t('channel')}
+          <DropdownMenuSeparator />
+
+          <Link href={`/${user.username}`}>
+            <DropdownMenuItem className="cursor-pointer">
+              <User className="mr-2 size-4" />
+              {t('channel')}
+            </DropdownMenuItem>
+          </Link>
+
+          <Link href="/dashboard/settings">
+            <DropdownMenuItem className="cursor-pointer">
+              <LayoutDashboard className="mr-2 size-4" />
+              {t('dashboard')}
+            </DropdownMenuItem>
+          </Link>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem className="cursor-pointer" onClick={() => logout()}>
+            <LogOut className="mr-2 size-4" />
+            {t('logout')}
           </DropdownMenuItem>
-        </Link>
-
-        <Link href="/dashboard/settings">
-          <DropdownMenuItem className="cursor-pointer">
-            <LayoutDashboard className="mr-2 size-4" />
-            {t('dashboard')}
-          </DropdownMenuItem>
-        </Link>
-
-        <DropdownMenuSeparator />
-
-        <DropdownMenuItem className="cursor-pointer" onClick={() => logout()}>
-          <LogOut className="mr-2 size-4" />
-          {t('logout')}
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }
