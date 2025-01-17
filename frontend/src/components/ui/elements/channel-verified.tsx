@@ -15,8 +15,7 @@ const channelVerifiedSizes = cva('', {
   },
 });
 
-interface ChannelVerifiedProps
-  extends VariantProps<typeof channelVerifiedSizes> {}
+type ChannelVerifiedProps = VariantProps<typeof channelVerifiedSizes>;
 
 export function ChannelVerified({ size }: ChannelVerifiedProps) {
   return (

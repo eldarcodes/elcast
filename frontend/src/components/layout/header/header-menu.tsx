@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/common/button';
 import { ThemeToggle } from '@/components/ui/elements/theme-toggle';
 
 import { useAuth } from '@/hooks/use-auth';
-import { useCurrentProfile } from '@/hooks/use-current-profile';
 
 import { ProfileMenu } from './profile-menu';
 
