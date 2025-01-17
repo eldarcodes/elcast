@@ -4,5 +4,6 @@ query FindProfile {
     username
     displayName
     avatar
+    bio
   }
 }

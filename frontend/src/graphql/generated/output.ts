@@ -572,6 +572,13 @@ export type ChangeProfileAvatarMutationVariables = Exact<{
 
 export type ChangeProfileAvatarMutation = { __typename?: 'Mutation', changeProfileAvatar: boolean };
 
+export type ChangeProfileInfoMutationVariables = Exact<{
+  data: ChangeProfileInfoInput;
+}>;
+
+
+export type ChangeProfileInfoMutation = { __typename?: 'Mutation', changeProfileInfo: boolean };
+
 export type ClearSessionCookieMutationVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -600,7 +607,7 @@ export type FindRecommendedChannelsQuery = { __typename?: 'Query', findRecommend
 export type FindProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserModel', email: string, username: string, displayName: string, avatar?: string | null } };
+export type FindProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserModel', email: string, username: string, displayName: string, avatar?: string | null, bio?: string | null } };
 
 
 export const CreateUserDocument = gql`
@@ -829,6 +836,37 @@ export function useChangeProfileAvatarMutation(baseOptions?: Apollo.MutationHook
 export type ChangeProfileAvatarMutationHookResult = ReturnType<typeof useChangeProfileAvatarMutation>;
 export type ChangeProfileAvatarMutationResult = Apollo.MutationResult<ChangeProfileAvatarMutation>;
 export type ChangeProfileAvatarMutationOptions = Apollo.BaseMutationOptions<ChangeProfileAvatarMutation, ChangeProfileAvatarMutationVariables>;
+export const ChangeProfileInfoDocument = gql`
+    mutation ChangeProfileInfo($data: ChangeProfileInfoInput!) {
+  changeProfileInfo(data: $data)
+}
+    `;
+export type ChangeProfileInfoMutationFn = Apollo.MutationFunction<ChangeProfileInfoMutation, ChangeProfileInfoMutationVariables>;
+
+/**
+ * __useChangeProfileInfoMutation__
+ *
+ * To run a mutation, you first call `useChangeProfileInfoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangeProfileInfoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changeProfileInfoMutation, { data, loading, error }] = useChangeProfileInfoMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useChangeProfileInfoMutation(baseOptions?: Apollo.MutationHookOptions<ChangeProfileInfoMutation, ChangeProfileInfoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ChangeProfileInfoMutation, ChangeProfileInfoMutationVariables>(ChangeProfileInfoDocument, options);
+      }
+export type ChangeProfileInfoMutationHookResult = ReturnType<typeof useChangeProfileInfoMutation>;
+export type ChangeProfileInfoMutationResult = Apollo.MutationResult<ChangeProfileInfoMutation>;
+export type ChangeProfileInfoMutationOptions = Apollo.BaseMutationOptions<ChangeProfileInfoMutation, ChangeProfileInfoMutationVariables>;
 export const ClearSessionCookieDocument = gql`
     mutation ClearSessionCookie {
   clearSessionCookie
@@ -1021,6 +1059,7 @@ export const FindProfileDocument = gql`
     username
     displayName
     avatar
+    bio
   }
 }
     `;
