@@ -8,7 +8,7 @@ import { useFindRecommendedChannelsQuery } from '@/graphql/generated/output';
 
 import { useSidebar } from '@/hooks/use-sidebar';
 
-import { ChannelItem } from './channel-item';
+import { ChannelItem, ChannelItemSkeleton } from './channel-item';
 
 export function RecommendedChannels() {
   const t = useTranslations('layout.sidebar.recommended');
@@ -30,13 +30,13 @@ export function RecommendedChannels() {
         </h2>
       )}
 
-      {isLoadingRecommended ? (
-        <div>loading</div>
-      ) : (
-        channels.map((channel) => (
-          <ChannelItem key={channel.id} channel={channel} />
-        ))
-      )}
+      {isLoadingRecommended
+        ? Array.from({ length: 7 }).map((_, index) => (
+            <ChannelItemSkeleton key={index} />
+          ))
+        : channels.map((channel) => (
+            <ChannelItem key={channel.id} channel={channel} />
+          ))}
     </div>
   );
 }
