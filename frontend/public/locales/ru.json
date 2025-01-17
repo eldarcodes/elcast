@@ -52,5 +52,62 @@
       "successMessage": "Пароль успешно сброшен",
       "errorMessage": "Произошла ошибка при сбросе пароля"
     }
+  },
+  "layout": {
+    "header": {
+      "logo": {
+        "platform": "Платформа для стриминга"
+      },
+      "headerMenu": {
+        "login": "Войти",
+        "register": "Зарегистрироваться",
+        "profileMenu": {
+          "notifications": {
+            "heading": "Уведомления",
+            "loading": "Загрузка...",
+            "empty": "У вас нет уведомлений"
+          },
+          "successMessage": "Успешный выход из системы",
+          "errorMessage": "Ошибка выхода из системы",
+          "channel": "Мой канал",
+          "dashboard": "Панель управления",
+          "logout": "Выйти"
+        }
+      },
+      "search": {
+        "placeholder": "Поиск"
+      }
+    },
+    "sidebar": {
+      "header": {
+        "expand": "Развернуть",
+        "collapse": "Свернуть",
+        "navigation": "Навигация"
+      },
+      "userNav": {
+        "home": "Главная",
+        "categories": "Категории",
+        "streams": "Стримы",
+        "recommended": "Рекомендуемое"
+      },
+      "recommended": {
+        "heading": "Рекомендации"
+      },
+      "dashboardNav": {
+        "settings": "Настройки",
+        "streamSettings": "Настройки стрима",
+        "keys": "Ключи стрима",
+        "chatSettings": "Настройки чата",
+        "followers": "Подписчики",
+        "sponsors": "Спонсоры",
+        "premium": "Премиум планы",
+        "transactions": "Транзакции"
+      }
+    }
+  },
+  "components": {
+    "liveBadge": {
+      "text": "В ЭФИРЕ"
+    }
   }
 }

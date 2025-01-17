@@ -3,7 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CircleCheck } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -35,7 +34,6 @@ import { AuthWrapper } from '../auth-wrapper';
 
 export function ResetPasswordForm() {
   const t = useTranslations('auth.resetPassword');
-  const router = useRouter();
 
   const [isSuccess, setIsSuccess] = useState(false);
 

@@ -26,13 +26,17 @@ import {
 
 import { useLoginUserMutation } from '@/graphql/generated/output';
 
+import { useAuth } from '@/hooks/use-auth';
+
 import { loginSchema, LoginSchema } from '@/schemas/auth/login.schema';
 
 import { AuthWrapper } from '../auth-wrapper';
 
 export function LoginForm() {
-  const t = useTranslations('auth.login');
+  const { auth } = useAuth();
+
   const router = useRouter();
+  const t = useTranslations('auth.login');
 
   const [isShowTwoFactor, setIsShowTwoFactor] = useState(false);
 
@@ -49,6 +53,8 @@ export function LoginForm() {
       if (data.loginUser.message) {
         setIsShowTwoFactor(true);
       } else {
+        auth();
+
         toast.success(t('successMessage'));
         router.push('/dashboard/settings');
       }
