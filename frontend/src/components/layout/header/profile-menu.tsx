@@ -46,7 +46,7 @@ export function ProfileMenu() {
 
       <DropdownMenu>
         <DropdownMenuTrigger>
-          {/* <ChannelAvatar channel={user} /> */}
+          <ChannelAvatar channel={user} />
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end" className="w-[230px]">

@@ -179,6 +179,10 @@
   "components": {
     "liveBadge": {
       "text": "В ЭФИРЕ"
+    },
+    "confirmModal": {
+      "cancel": "Отмена",
+      "continue": "Продолжить"
     }
   }
 }

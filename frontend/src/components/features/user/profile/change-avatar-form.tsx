@@ -1,8 +1,9 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Trash } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { ChangeEvent, useRef } from 'react';
+import { type ChangeEvent, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -10,9 +11,13 @@ import { Button } from '@/components/ui/common/button';
 import { Form, FormField } from '@/components/ui/common/form';
 import { Skeleton } from '@/components/ui/common/skeleton';
 import { ChannelAvatar } from '@/components/ui/elements/channel-avatar';
+import { ConfirmModal } from '@/components/ui/elements/confirm-modal';
 import { FormWrapper } from '@/components/ui/elements/form-wrapper';
 
-import { useChangeProfileAvatarMutation } from '@/graphql/generated/output';
+import {
+  useChangeProfileAvatarMutation,
+  useRemoveProfileAvatarMutation,
+} from '@/graphql/generated/output';
 
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
@@ -25,12 +30,13 @@ export function ChangeAvatarForm() {
   const t = useTranslations('dashboard.settings.profile.avatar');
 
   const { user, isLoadingProfile, refetch } = useCurrentProfile();
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const form = useForm<UploadFileSchema>({
     resolver: zodResolver(uploadFileSchema),
-    defaultValues: {
-      file: user?.avatar!,
+    values: {
+      file: user?.avatar || undefined,
     },
   });
 
@@ -43,8 +49,17 @@ export function ChangeAvatarForm() {
       onError: () => toast.error(t('errorUpdateMessage')),
     });
 
-  function onImageChange(e: ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
+  const [removeProfileAvatar, { loading: isLoadingRemove }] =
+    useRemoveProfileAvatarMutation({
+      onCompleted: () => {
+        refetch();
+        toast.success(t('successRemoveMessage'));
+      },
+      onError: () => toast.error(t('errorRemoveMessage')),
+    });
+
+  function onImageChange(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
 
     if (file) {
       form.setValue('file', file);
@@ -64,9 +79,10 @@ export function ChangeAvatarForm() {
           name="file"
           render={({ field }) => (
             <div className="px-5 pb-5">
-              <div className="w-full items-center space-x-6 lg:flex">
+              <div className="flex w-full flex-col justify-center sm:flex-row sm:items-center sm:justify-start sm:space-x-6">
                 <ChannelAvatar
                   size="xl"
+                  className="mb-3 flex justify-center sm:mb-0"
                   channel={{
                     username: user?.username!,
                     avatar:
@@ -76,8 +92,8 @@ export function ChangeAvatarForm() {
                   }}
                 />
 
-                <div className="space-y-3">
-                  <div className="flex items-center gap-x-3">
+                <div>
+                  <div className="flex items-center justify-center gap-x-3 sm:justify-start">
                     <input
                       className="hidden"
                       type="file"
@@ -88,12 +104,30 @@ export function ChangeAvatarForm() {
                     <Button
                       variant="secondary"
                       onClick={() => inputRef.current?.click()}
-                      disabled={isLoadingUpdate}
+                      disabled={isLoadingUpdate || isLoadingRemove}
                     >
                       {t('updateButton')}
                     </Button>
+
+                    {user?.avatar && (
+                      <ConfirmModal
+                        heading={t('confirmModal.heading')}
+                        message={t('confirmModal.message')}
+                        onConfirm={() => removeProfileAvatar()}
+                      >
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          disabled={isLoadingUpdate || isLoadingRemove}
+                        >
+                          <Trash className="size-4" />
+                        </Button>
+                      </ConfirmModal>
+                    )}
                   </div>
-                  <p className="text-sm text-muted-foreground">{t('info')}</p>
+                  <p className="mt-3 text-sm text-muted-foreground">
+                    {t('info')}
+                  </p>
                 </div>
               </div>
             </div>
