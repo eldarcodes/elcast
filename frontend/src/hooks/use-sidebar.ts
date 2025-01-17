@@ -9,7 +9,7 @@ export function useSidebar() {
 
   return {
     isCollapsed,
-    loading: !sidebarStore.persist.hasHydrated(),
+    // loading: !sidebarStore.persist.hasHydrated(),
     open,
     close,
   };

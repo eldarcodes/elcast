@@ -115,6 +115,64 @@
         "appearance": "Внешний вид",
         "notifications": "Уведомления",
         "sessions": "Сессии"
+      },
+      "profile": {
+        "header": {
+          "heading": "Профиль",
+          "description": "Настройте свой профиль, изменив аватар, личную информацию и ссылки на социальные сети. Обновите информацию, чтобы другие пользователи могли узнать о вас больше."
+        },
+        "avatar": {
+          "heading": "Изображение профиля",
+          "updateButton": "Обновить изображение профиля",
+          "confirmModal": {
+            "heading": "Удалить аватар",
+            "message": "Вы уверены, что хотите удалить изображение профиля? Это действие нельзя отменить."
+          },
+          "info": "Поддерживаемые форматы: JPG, JPEG, PNG, WEBP или GIF. Максимальный размер: 10 МБ.",
+          "successUpdateMessage": "Изображение профиля успешно обновлено.",
+          "errorUpdateMessage": "Ошибка обновления изображения профиля.",
+          "successRemoveMessage": "Изображение профиля успешно удалено.",
+          "errorRemoveMessage": "Ошибка удаления изображения профиля."
+        },
+        "info": {
+          "heading": "Настройки профиля",
+          "usernameLabel": "Имя пользователя",
+          "usernamePlaceholder": "johndoe",
+          "usernameDescription": "Так вас будут знать другие пользователи.",
+          "displayNameLabel": "Отображаемое имя",
+          "displayNamePlaceholder": "Джон Доу",
+          "displayNameDescription": "Вы можете использовать заглавные буквы в отображаемом имени, как пожелаете.",
+          "bioLabel": "Обо мне",
+          "bioPlaceholder": "Я люблю программировать",
+          "bioDescription": "Информация о вас должна содержать не более 300 символов.",
+          "successMessage": "Профиль успешно обновлен",
+          "errorMessage": "Ошибка обновления профиля",
+          "submitButton": "Сохранить изменения"
+        },
+        "socialLinks": {
+          "createForm": {
+            "heading": "Ссылки на социальные сети",
+            "titleLabel": "Название ссылки",
+            "titlePlaceholder": "YouTube",
+            "titleDescription": "Текст ссылки",
+            "urlLabel": "URL ссылки",
+            "urlPlaceholder": "https://github.com/TeaCoder52",
+            "urlDescription": "Куда ведет эта ссылка? Пожалуйста, укажите полный URL, например, https://github.com/TeaCoder52",
+            "submitButton": "Добавить",
+            "successMessage": "Ссылка на социальные сети успешно добавлена",
+            "errorMessage": "Ошибка добавления ссылки на социальные сети"
+          },
+          "editForm": {
+            "cancelButton": "Отмена",
+            "submitButton": "Сохранить",
+            "successUpdateMessage": "Ссылка на социальные сети успешно обновлена",
+            "errorUpdateMessage": "Ошибка обновления ссылки на социальные сети",
+            "successRemoveMessage": "Ссылка на социальные сети успешно удалена",
+            "errorRemoveMessage": "Ошибка удаления ссылки на социальные сети"
+          },
+          "successReorderMessage": "Порядок ссылок на социальные сети изменен",
+          "errorReorderMessage": "Ошибка изменения порядка ссылок на социальные сети"
+        }
       }
     }
   },
