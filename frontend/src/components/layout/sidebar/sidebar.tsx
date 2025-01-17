@@ -8,6 +8,7 @@ import { cn } from '@/utils/tw-merge';
 
 import { DashboardNav } from './dashboard-nav';
 import { SidebarHeader } from './sidebar-header';
+import { UserNav } from './user-nav';
 
 export function Sidebar() {
   const { isCollapsed } = useSidebar();
@@ -24,7 +25,7 @@ export function Sidebar() {
       )}
     >
       <SidebarHeader />
-      {isDashboardPage ? <DashboardNav /> : 'User nav'}
+      {isDashboardPage ? <DashboardNav /> : <UserNav />}
     </aside>
   );
 }

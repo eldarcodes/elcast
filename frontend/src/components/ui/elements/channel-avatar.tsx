@@ -30,7 +30,7 @@ export function ChannelAvatar({ size, channel, isLive }: ChannelAvatarProps) {
   return (
     <div className="relative">
       <Avatar
-        className={cn(avatarSizes({ size }), isLive && 'ring-2 ring-rose-500')}
+        className={cn(avatarSizes({ size }), isLive && 'ring-2 ring-red-500')}
       >
         <AvatarImage
           src={getMediaSource(channel.avatar)}

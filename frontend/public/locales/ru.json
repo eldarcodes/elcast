@@ -104,5 +104,10 @@
         "transactions": "Транзакции"
       }
     }
+  },
+  "components": {
+    "liveBadge": {
+      "text": "В ЭФИРЕ"
+    }
   }
 }

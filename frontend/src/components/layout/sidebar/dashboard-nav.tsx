@@ -1,3 +1,5 @@
+'use client';
+
 import { KeyRound, MessageSquare, Settings, Users } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
