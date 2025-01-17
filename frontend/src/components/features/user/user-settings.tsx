@@ -12,6 +12,7 @@ import { Heading } from '@/components/ui/elements/heading';
 
 import { ChangeAvatarForm } from './profile/change-avatar-form';
 import { ChangeInfoForm } from './profile/change-info-form';
+import { SocialLinksForm } from './profile/social-links/social-links-form';
 
 export function UserSettings() {
   const t = useTranslations('dashboard.settings');
@@ -43,6 +44,7 @@ export function UserSettings() {
             />
             <ChangeAvatarForm />
             <ChangeInfoForm />
+            <SocialLinksForm />
           </div>
         </TabsContent>
         <TabsContent value="account">Account</TabsContent>

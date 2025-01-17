@@ -584,15 +584,12 @@ export type ClearSessionCookieMutationVariables = Exact<{ [key: string]: never; 
 
 export type ClearSessionCookieMutation = { __typename?: 'Mutation', clearSessionCookie: boolean };
 
-export type FindNotificationsByUserQueryVariables = Exact<{ [key: string]: never; }>;
+export type CreateSocialLinkMutationVariables = Exact<{
+  data: SocialLinkInput;
+}>;
 
 
-export type FindNotificationsByUserQuery = { __typename?: 'Query', findNotificationsByUser: Array<{ __typename?: 'NotificationModel', id: string, message: string, isRead: boolean, type: NotificationType, createdAt: any }> };
-
-export type FindNotificationsUnreadCountQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type FindNotificationsUnreadCountQuery = { __typename?: 'Query', findNotificationsUnreadCount: number };
+export type CreateSocialLinkMutation = { __typename?: 'Mutation', createSocialLink: boolean };
 
 export type RemoveProfileAvatarMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -604,10 +601,25 @@ export type FindRecommendedChannelsQueryVariables = Exact<{ [key: string]: never
 
 export type FindRecommendedChannelsQuery = { __typename?: 'Query', findRecommendedChannels: Array<{ __typename?: 'UserModel', id: string, username: string, avatar?: string | null, isVerified: boolean, stream: { __typename?: 'StreamModel', isLive: boolean } }> };
 
+export type FindNotificationsByUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindNotificationsByUserQuery = { __typename?: 'Query', findNotificationsByUser: Array<{ __typename?: 'NotificationModel', id: string, message: string, isRead: boolean, type: NotificationType, createdAt: any }> };
+
+export type FindNotificationsUnreadCountQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindNotificationsUnreadCountQuery = { __typename?: 'Query', findNotificationsUnreadCount: number };
+
 export type FindProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type FindProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserModel', email: string, username: string, displayName: string, avatar?: string | null, bio?: string | null } };
+
+export type FindSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindSocialLinksQuery = { __typename?: 'Query', findSocialLinks: Array<{ __typename?: 'SocialLinkModel', id: string, title: string, url: string, position: number }> };
 
 
 export const CreateUserDocument = gql`
@@ -897,6 +909,112 @@ export function useClearSessionCookieMutation(baseOptions?: Apollo.MutationHookO
 export type ClearSessionCookieMutationHookResult = ReturnType<typeof useClearSessionCookieMutation>;
 export type ClearSessionCookieMutationResult = Apollo.MutationResult<ClearSessionCookieMutation>;
 export type ClearSessionCookieMutationOptions = Apollo.BaseMutationOptions<ClearSessionCookieMutation, ClearSessionCookieMutationVariables>;
+export const CreateSocialLinkDocument = gql`
+    mutation CreateSocialLink($data: SocialLinkInput!) {
+  createSocialLink(data: $data)
+}
+    `;
+export type CreateSocialLinkMutationFn = Apollo.MutationFunction<CreateSocialLinkMutation, CreateSocialLinkMutationVariables>;
+
+/**
+ * __useCreateSocialLinkMutation__
+ *
+ * To run a mutation, you first call `useCreateSocialLinkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSocialLinkMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSocialLinkMutation, { data, loading, error }] = useCreateSocialLinkMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateSocialLinkMutation(baseOptions?: Apollo.MutationHookOptions<CreateSocialLinkMutation, CreateSocialLinkMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSocialLinkMutation, CreateSocialLinkMutationVariables>(CreateSocialLinkDocument, options);
+      }
+export type CreateSocialLinkMutationHookResult = ReturnType<typeof useCreateSocialLinkMutation>;
+export type CreateSocialLinkMutationResult = Apollo.MutationResult<CreateSocialLinkMutation>;
+export type CreateSocialLinkMutationOptions = Apollo.BaseMutationOptions<CreateSocialLinkMutation, CreateSocialLinkMutationVariables>;
+export const RemoveProfileAvatarDocument = gql`
+    mutation RemoveProfileAvatar {
+  removeProfileAvatar
+}
+    `;
+export type RemoveProfileAvatarMutationFn = Apollo.MutationFunction<RemoveProfileAvatarMutation, RemoveProfileAvatarMutationVariables>;
+
+/**
+ * __useRemoveProfileAvatarMutation__
+ *
+ * To run a mutation, you first call `useRemoveProfileAvatarMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveProfileAvatarMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeProfileAvatarMutation, { data, loading, error }] = useRemoveProfileAvatarMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useRemoveProfileAvatarMutation(baseOptions?: Apollo.MutationHookOptions<RemoveProfileAvatarMutation, RemoveProfileAvatarMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveProfileAvatarMutation, RemoveProfileAvatarMutationVariables>(RemoveProfileAvatarDocument, options);
+      }
+export type RemoveProfileAvatarMutationHookResult = ReturnType<typeof useRemoveProfileAvatarMutation>;
+export type RemoveProfileAvatarMutationResult = Apollo.MutationResult<RemoveProfileAvatarMutation>;
+export type RemoveProfileAvatarMutationOptions = Apollo.BaseMutationOptions<RemoveProfileAvatarMutation, RemoveProfileAvatarMutationVariables>;
+export const FindRecommendedChannelsDocument = gql`
+    query FindRecommendedChannels {
+  findRecommendedChannels {
+    id
+    username
+    avatar
+    isVerified
+    stream {
+      isLive
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindRecommendedChannelsQuery__
+ *
+ * To run a query within a React component, call `useFindRecommendedChannelsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindRecommendedChannelsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindRecommendedChannelsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFindRecommendedChannelsQuery(baseOptions?: Apollo.QueryHookOptions<FindRecommendedChannelsQuery, FindRecommendedChannelsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindRecommendedChannelsQuery, FindRecommendedChannelsQueryVariables>(FindRecommendedChannelsDocument, options);
+      }
+export function useFindRecommendedChannelsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindRecommendedChannelsQuery, FindRecommendedChannelsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindRecommendedChannelsQuery, FindRecommendedChannelsQueryVariables>(FindRecommendedChannelsDocument, options);
+        }
+export function useFindRecommendedChannelsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FindRecommendedChannelsQuery, FindRecommendedChannelsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindRecommendedChannelsQuery, FindRecommendedChannelsQueryVariables>(FindRecommendedChannelsDocument, options);
+        }
+export type FindRecommendedChannelsQueryHookResult = ReturnType<typeof useFindRecommendedChannelsQuery>;
+export type FindRecommendedChannelsLazyQueryHookResult = ReturnType<typeof useFindRecommendedChannelsLazyQuery>;
+export type FindRecommendedChannelsSuspenseQueryHookResult = ReturnType<typeof useFindRecommendedChannelsSuspenseQuery>;
+export type FindRecommendedChannelsQueryResult = Apollo.QueryResult<FindRecommendedChannelsQuery, FindRecommendedChannelsQueryVariables>;
 export const FindNotificationsByUserDocument = gql`
     query FindNotificationsByUser {
   findNotificationsByUser {
@@ -977,81 +1095,6 @@ export type FindNotificationsUnreadCountQueryHookResult = ReturnType<typeof useF
 export type FindNotificationsUnreadCountLazyQueryHookResult = ReturnType<typeof useFindNotificationsUnreadCountLazyQuery>;
 export type FindNotificationsUnreadCountSuspenseQueryHookResult = ReturnType<typeof useFindNotificationsUnreadCountSuspenseQuery>;
 export type FindNotificationsUnreadCountQueryResult = Apollo.QueryResult<FindNotificationsUnreadCountQuery, FindNotificationsUnreadCountQueryVariables>;
-export const RemoveProfileAvatarDocument = gql`
-    mutation RemoveProfileAvatar {
-  removeProfileAvatar
-}
-    `;
-export type RemoveProfileAvatarMutationFn = Apollo.MutationFunction<RemoveProfileAvatarMutation, RemoveProfileAvatarMutationVariables>;
-
-/**
- * __useRemoveProfileAvatarMutation__
- *
- * To run a mutation, you first call `useRemoveProfileAvatarMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRemoveProfileAvatarMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [removeProfileAvatarMutation, { data, loading, error }] = useRemoveProfileAvatarMutation({
- *   variables: {
- *   },
- * });
- */
-export function useRemoveProfileAvatarMutation(baseOptions?: Apollo.MutationHookOptions<RemoveProfileAvatarMutation, RemoveProfileAvatarMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RemoveProfileAvatarMutation, RemoveProfileAvatarMutationVariables>(RemoveProfileAvatarDocument, options);
-      }
-export type RemoveProfileAvatarMutationHookResult = ReturnType<typeof useRemoveProfileAvatarMutation>;
-export type RemoveProfileAvatarMutationResult = Apollo.MutationResult<RemoveProfileAvatarMutation>;
-export type RemoveProfileAvatarMutationOptions = Apollo.BaseMutationOptions<RemoveProfileAvatarMutation, RemoveProfileAvatarMutationVariables>;
-export const FindRecommendedChannelsDocument = gql`
-    query FindRecommendedChannels {
-  findRecommendedChannels {
-    id
-    username
-    avatar
-    isVerified
-    stream {
-      isLive
-    }
-  }
-}
-    `;
-
-/**
- * __useFindRecommendedChannelsQuery__
- *
- * To run a query within a React component, call `useFindRecommendedChannelsQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindRecommendedChannelsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFindRecommendedChannelsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useFindRecommendedChannelsQuery(baseOptions?: Apollo.QueryHookOptions<FindRecommendedChannelsQuery, FindRecommendedChannelsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindRecommendedChannelsQuery, FindRecommendedChannelsQueryVariables>(FindRecommendedChannelsDocument, options);
-      }
-export function useFindRecommendedChannelsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindRecommendedChannelsQuery, FindRecommendedChannelsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindRecommendedChannelsQuery, FindRecommendedChannelsQueryVariables>(FindRecommendedChannelsDocument, options);
-        }
-export function useFindRecommendedChannelsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FindRecommendedChannelsQuery, FindRecommendedChannelsQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindRecommendedChannelsQuery, FindRecommendedChannelsQueryVariables>(FindRecommendedChannelsDocument, options);
-        }
-export type FindRecommendedChannelsQueryHookResult = ReturnType<typeof useFindRecommendedChannelsQuery>;
-export type FindRecommendedChannelsLazyQueryHookResult = ReturnType<typeof useFindRecommendedChannelsLazyQuery>;
-export type FindRecommendedChannelsSuspenseQueryHookResult = ReturnType<typeof useFindRecommendedChannelsSuspenseQuery>;
-export type FindRecommendedChannelsQueryResult = Apollo.QueryResult<FindRecommendedChannelsQuery, FindRecommendedChannelsQueryVariables>;
 export const FindProfileDocument = gql`
     query FindProfile {
   findProfile {
@@ -1095,3 +1138,45 @@ export type FindProfileQueryHookResult = ReturnType<typeof useFindProfileQuery>;
 export type FindProfileLazyQueryHookResult = ReturnType<typeof useFindProfileLazyQuery>;
 export type FindProfileSuspenseQueryHookResult = ReturnType<typeof useFindProfileSuspenseQuery>;
 export type FindProfileQueryResult = Apollo.QueryResult<FindProfileQuery, FindProfileQueryVariables>;
+export const FindSocialLinksDocument = gql`
+    query FindSocialLinks {
+  findSocialLinks {
+    id
+    title
+    url
+    position
+  }
+}
+    `;
+
+/**
+ * __useFindSocialLinksQuery__
+ *
+ * To run a query within a React component, call `useFindSocialLinksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindSocialLinksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindSocialLinksQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFindSocialLinksQuery(baseOptions?: Apollo.QueryHookOptions<FindSocialLinksQuery, FindSocialLinksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindSocialLinksQuery, FindSocialLinksQueryVariables>(FindSocialLinksDocument, options);
+      }
+export function useFindSocialLinksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindSocialLinksQuery, FindSocialLinksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindSocialLinksQuery, FindSocialLinksQueryVariables>(FindSocialLinksDocument, options);
+        }
+export function useFindSocialLinksSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FindSocialLinksQuery, FindSocialLinksQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindSocialLinksQuery, FindSocialLinksQueryVariables>(FindSocialLinksDocument, options);
+        }
+export type FindSocialLinksQueryHookResult = ReturnType<typeof useFindSocialLinksQuery>;
+export type FindSocialLinksLazyQueryHookResult = ReturnType<typeof useFindSocialLinksLazyQuery>;
+export type FindSocialLinksSuspenseQueryHookResult = ReturnType<typeof useFindSocialLinksSuspenseQuery>;
+export type FindSocialLinksQueryResult = Apollo.QueryResult<FindSocialLinksQuery, FindSocialLinksQueryVariables>;
