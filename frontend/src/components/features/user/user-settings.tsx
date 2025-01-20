@@ -12,6 +12,7 @@ import { Heading } from '@/components/ui/elements/heading';
 
 import { ChangeEmailForm } from './account/change-email-form';
 import { ChangePasswordForm } from './account/change-password-form';
+import { WrapperTotp } from './account/totp/wrapper-totp';
 import { ChangeAvatarForm } from './profile/change-avatar-form';
 import { ChangeInfoForm } from './profile/change-info-form';
 import { SocialLinksForm } from './profile/social-links/social-links-form';
@@ -53,12 +54,18 @@ export function UserSettings() {
         <TabsContent value="account">
           <div className="mt-5 space-y-6">
             <Heading
-              title={t('profile.header.heading')}
-              description={t('profile.header.description')}
+              title={t('account.header.heading')}
+              description={t('account.header.description')}
             />
 
             <ChangeEmailForm />
             <ChangePasswordForm />
+
+            <Heading
+              title={t('account.header.securityHeading')}
+              description={t('account.header.securityDescription')}
+            />
+            <WrapperTotp />
           </div>
         </TabsContent>
 
