@@ -17,25 +17,19 @@ import {
 import { Input } from '@/components/ui/common/input';
 import { Separator } from '@/components/ui/common/separator';
 import { Skeleton } from '@/components/ui/common/skeleton';
-import { Textarea } from '@/components/ui/common/textarea';
 import { FormWrapper } from '@/components/ui/elements/form-wrapper';
 
 import {
-  useChangeProfileInfoMutation,
   useCreateSocialLinkMutation,
   useFindSocialLinksQuery,
 } from '@/graphql/generated/output';
 
-import { useCurrentProfile } from '@/hooks/use-current-profile';
-
-import {
-  changeInfoSchema,
-  ChangeInfoSchema,
-} from '@/schemas/user/change-info.schema';
 import {
   socialLinksSchema,
   SocialLinksSchema,
 } from '@/schemas/user/social-links.schema';
+
+import { SocialLinksList } from './social-links-list';
 
 export function SocialLinksForm() {
   const t = useTranslations(
@@ -123,6 +117,8 @@ export function SocialLinksForm() {
           </div>
         </form>
       </Form>
+
+      <SocialLinksList />
     </FormWrapper>
   );
 }
