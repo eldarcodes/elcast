@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/common/tabs';
 import { Heading } from '@/components/ui/elements/heading';
 
+import { ChangeEmailForm } from './account/change-email-form';
 import { ChangeAvatarForm } from './profile/change-avatar-form';
 import { ChangeInfoForm } from './profile/change-info-form';
 import { SocialLinksForm } from './profile/social-links/social-links-form';
@@ -47,7 +48,18 @@ export function UserSettings() {
             <SocialLinksForm />
           </div>
         </TabsContent>
-        <TabsContent value="account">Account</TabsContent>
+
+        <TabsContent value="account">
+          <div className="mt-5 space-y-6">
+            <Heading
+              title={t('profile.header.heading')}
+              description={t('profile.header.description')}
+            />
+
+            <ChangeEmailForm />
+          </div>
+        </TabsContent>
+
         <TabsContent value="appearance">Appearance</TabsContent>
         <TabsContent value="notifications">Notifications</TabsContent>
         <TabsContent value="sessions">Sessions</TabsContent>
