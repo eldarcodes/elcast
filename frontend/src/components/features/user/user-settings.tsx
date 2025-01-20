@@ -11,6 +11,7 @@ import {
 import { Heading } from '@/components/ui/elements/heading';
 
 import { ChangeEmailForm } from './account/change-email-form';
+import { ChangePasswordForm } from './account/change-password-form';
 import { ChangeAvatarForm } from './profile/change-avatar-form';
 import { ChangeInfoForm } from './profile/change-info-form';
 import { SocialLinksForm } from './profile/social-links/social-links-form';
@@ -57,6 +58,7 @@ export function UserSettings() {
             />
 
             <ChangeEmailForm />
+            <ChangePasswordForm />
           </div>
         </TabsContent>
 
