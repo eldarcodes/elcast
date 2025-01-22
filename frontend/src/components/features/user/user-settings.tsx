@@ -12,6 +12,7 @@ import { Heading } from '@/components/ui/elements/heading';
 
 import { ChangeEmailForm } from './account/change-email-form';
 import { ChangePasswordForm } from './account/change-password-form';
+import { DeactivateCard } from './account/deactivate-card';
 import { WrapperTotp } from './account/totp/wrapper-totp';
 import { ChangeAvatarForm } from './profile/change-avatar-form';
 import { ChangeInfoForm } from './profile/change-info-form';
@@ -66,6 +67,13 @@ export function UserSettings() {
               description={t('account.header.securityDescription')}
             />
             <WrapperTotp />
+
+            <Heading
+              title={t('account.header.deactivationHeading')}
+              description={t('account.header.deactivationDescription')}
+            />
+
+            <DeactivateCard />
           </div>
         </TabsContent>
 

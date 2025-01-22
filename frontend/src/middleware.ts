@@ -1,20 +1,30 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
 export default function middleware(request: NextRequest) {
-  const session = request.cookies.get('sid')?.value;
+  const { url, cookies, nextUrl } = request;
 
-  const isAuthPage = request.url.includes('/account');
+  const isAuthorized = cookies.get('sid')?.value;
 
-  if (isAuthPage) {
-    if (session) {
-      return NextResponse.redirect(new URL('/dashboard/settings', request.url));
-    }
+  const isAccountPage = nextUrl.pathname.startsWith('/account');
+  const isDeactivatePage = nextUrl.pathname === '/account/deactivate';
+  const isDashboardPage = nextUrl.pathname.startsWith('/dashboard');
+  console.log({
+    isAuthorized,
+    isAccountPage,
+    isDeactivatePage,
+    isDashboardPage,
+  });
 
-    return NextResponse.next();
+  if (!isAuthorized && isDashboardPage) {
+    return NextResponse.redirect(new URL('/account/login', url));
   }
 
-  if (!session) {
-    return NextResponse.redirect(new URL('/account/login', request.url));
+  if (!isAuthorized && isDeactivatePage) {
+    return NextResponse.redirect(new URL('/account/login', url));
+  }
+
+  if (isAuthorized && isAccountPage && !isDeactivatePage) {
+    return NextResponse.redirect(new URL('/dashboard/settings', url));
   }
 
   return NextResponse.next();

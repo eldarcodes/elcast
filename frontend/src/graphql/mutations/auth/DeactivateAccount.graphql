@@ -1,0 +1,10 @@
+mutation DeactivateAccount($data: DeactivateAccountInput!) {
+  deactivateAccount(data: $data) {
+    message
+    user {
+      id
+      isDeactivated
+      deactivatedAt
+    }
+  }
+}
