@@ -14,6 +14,7 @@ import { ChangeEmailForm } from './account/change-email-form';
 import { ChangePasswordForm } from './account/change-password-form';
 import { DeactivateCard } from './account/deactivate-card';
 import { WrapperTotp } from './account/totp/wrapper-totp';
+import { ChangeLocaleForm } from './appearance/change-locale-form';
 import { ChangeThemeForm } from './appearance/change-theme-form';
 import { ChangeAvatarForm } from './profile/change-avatar-form';
 import { ChangeInfoForm } from './profile/change-info-form';
@@ -86,6 +87,7 @@ export function UserSettings() {
             />
 
             <ChangeThemeForm />
+            <ChangeLocaleForm />
           </div>
         </TabsContent>
         <TabsContent value="notifications">Notifications</TabsContent>

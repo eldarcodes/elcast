@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import { Form, FormField } from '@/components/ui/common/form';
-import { Skeleton } from '@/components/ui/common/skeleton';
 import { ToggleCard } from '@/components/ui/elements/toggle-card';
 
 import {
@@ -51,8 +50,4 @@ export function ChangeThemeForm() {
       />
     </Form>
   );
-}
-
-export function ChangeThemeFormSkeleton() {
-  return <Skeleton className="h-96 w-full" />;
 }
