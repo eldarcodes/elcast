@@ -14,6 +14,7 @@ import { ChangeEmailForm } from './account/change-email-form';
 import { ChangePasswordForm } from './account/change-password-form';
 import { DeactivateCard } from './account/deactivate-card';
 import { WrapperTotp } from './account/totp/wrapper-totp';
+import { ChangeThemeForm } from './appearance/change-theme-form';
 import { ChangeAvatarForm } from './profile/change-avatar-form';
 import { ChangeInfoForm } from './profile/change-info-form';
 import { SocialLinksForm } from './profile/social-links/social-links-form';
@@ -77,7 +78,16 @@ export function UserSettings() {
           </div>
         </TabsContent>
 
-        <TabsContent value="appearance">Appearance</TabsContent>
+        <TabsContent value="appearance">
+          <div className="mt-5 space-y-6">
+            <Heading
+              title={t('appearance.header.heading')}
+              description={t('appearance.header.description')}
+            />
+
+            <ChangeThemeForm />
+          </div>
+        </TabsContent>
         <TabsContent value="notifications">Notifications</TabsContent>
         <TabsContent value="sessions">Sessions</TabsContent>
       </Tabs>

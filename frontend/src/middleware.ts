@@ -8,12 +8,6 @@ export default function middleware(request: NextRequest) {
   const isAccountPage = nextUrl.pathname.startsWith('/account');
   const isDeactivatePage = nextUrl.pathname === '/account/deactivate';
   const isDashboardPage = nextUrl.pathname.startsWith('/dashboard');
-  console.log({
-    isAuthorized,
-    isAccountPage,
-    isDeactivatePage,
-    isDashboardPage,
-  });
 
   if (!isAuthorized && isDashboardPage) {
     return NextResponse.redirect(new URL('/account/login', url));
