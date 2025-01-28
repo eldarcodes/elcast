@@ -16,6 +16,7 @@ import { DeactivateCard } from './account/deactivate-card';
 import { WrapperTotp } from './account/totp/wrapper-totp';
 import { ChangeLocaleForm } from './appearance/change-locale-form';
 import { ChangeThemeForm } from './appearance/change-theme-form';
+import { ChangeNotificationsSettingsForm } from './notifications/change-notifications-settings-form';
 import { ChangeAvatarForm } from './profile/change-avatar-form';
 import { ChangeInfoForm } from './profile/change-info-form';
 import { SocialLinksForm } from './profile/social-links/social-links-form';
@@ -90,7 +91,18 @@ export function UserSettings() {
             <ChangeLocaleForm />
           </div>
         </TabsContent>
-        <TabsContent value="notifications">Notifications</TabsContent>
+
+        <TabsContent value="notifications">
+          <div className="mt-5 space-y-6">
+            <Heading
+              title={t('notifications.header.heading')}
+              description={t('notifications.header.description')}
+            />
+
+            <ChangeNotificationsSettingsForm />
+          </div>
+        </TabsContent>
+
         <TabsContent value="sessions">Sessions</TabsContent>
       </Tabs>
     </div>

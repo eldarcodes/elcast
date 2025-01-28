@@ -17,7 +17,6 @@ import {
 import { Input } from '@/components/ui/common/input';
 import { Separator } from '@/components/ui/common/separator';
 import { Skeleton } from '@/components/ui/common/skeleton';
-import { Textarea } from '@/components/ui/common/textarea';
 import { FormWrapper } from '@/components/ui/elements/form-wrapper';
 
 import { useChangeEmailMutation } from '@/graphql/generated/output';

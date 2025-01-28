@@ -30,7 +30,7 @@ export class AccountService {
   public async me(id: string) {
     const user = await this.prismaService.user.findUnique({
       where: { id },
-      include: { socialLinks: true },
+      include: { socialLinks: true, notificationSettings: true },
     });
 
     return user;
