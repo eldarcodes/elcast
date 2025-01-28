@@ -36,12 +36,14 @@ export function ChangeNotificationsSettingsForm() {
   const [changeNotificationSettings, { loading: isLoadingChange }] =
     useChangeNotificationsSettingsMutation({
       onCompleted: (data) => {
+        toast.success(t('successMessage'));
         refetch();
 
-        toast.success(t('successMessage'));
-        if (data.changeNotificationSettings.telegramAuthToken) {
+        const { telegramAuthToken } = data.changeNotificationSettings;
+
+        if (telegramAuthToken) {
           window.open(
-            `https://t.me/elcast_bot?start=${data.changeNotificationSettings.telegramAuthToken}`,
+            `${process.env.NEXT_PUBLIC_TELEGRAM_BOT_URL}?start=${telegramAuthToken}`,
             '_blank',
           );
         }
