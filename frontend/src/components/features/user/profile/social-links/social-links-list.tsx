@@ -7,7 +7,7 @@ import {
   type DropResult,
 } from '@hello-pangea/dnd';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 
 import { Separator } from '@/components/ui/common/separator';
@@ -23,7 +23,7 @@ export function SocialLinksList() {
   const t = useTranslations('dashboard.settings.profile.socialLinks');
   const { data, refetch } = useFindSocialLinksQuery();
 
-  const items = data?.findSocialLinks ?? [];
+  const items = useMemo(() => data?.findSocialLinks ?? [], [data]);
 
   const [socialLinks, setSocialLinks] = useState(items);
 

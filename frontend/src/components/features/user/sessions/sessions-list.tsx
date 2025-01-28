@@ -21,20 +21,22 @@ export function SessionsList() {
   const { data: sessionsData, loading: isLoadingSessions } =
     useFindSessionsByUserQuery();
 
-  const currentSession = sessionData?.findCurrentSession!;
+  const currentSession = sessionData?.findCurrentSession;
   const sessions = sessionsData?.findSessionsByUser ?? [];
 
   return (
     <>
-      <div className="space-y-4">
-        <Heading title={t('info.current')} size="sm" />
+      {currentSession && (
+        <div className="space-y-4">
+          <Heading title={t('info.current')} size="sm" />
 
-        {isLoadingCurrentSession ? (
-          <ToggleCardSkeleton />
-        ) : (
-          <SessionItem session={currentSession} isCurrentSession />
-        )}
-      </div>
+          {isLoadingCurrentSession ? (
+            <ToggleCardSkeleton />
+          ) : (
+            <SessionItem session={currentSession} isCurrentSession />
+          )}
+        </div>
+      )}
 
       <div className="space-y-4">
         <Heading title={t('info.active')} size="sm" />

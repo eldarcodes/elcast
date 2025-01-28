@@ -47,6 +47,7 @@ export function ChangeLocaleForm() {
       try {
         await setLocale(data.locale);
       } catch (error) {
+        console.error(error);
         toast.success(t('successMessage'));
       }
     });

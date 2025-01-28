@@ -84,7 +84,7 @@ export function ChangeAvatarForm() {
                   size="xl"
                   className="mb-3 flex justify-center sm:mb-0"
                   channel={{
-                    username: user?.username!,
+                    username: user?.username || '',
                     avatar:
                       field.value instanceof File
                         ? URL.createObjectURL(field.value)

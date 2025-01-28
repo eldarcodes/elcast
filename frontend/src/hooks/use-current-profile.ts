@@ -24,7 +24,7 @@ export function useCurrentProfile() {
 
       exit();
     }
-  }, [isAuthenticated, exit, clearSessionCookie]);
+  }, [isAuthenticated, error, exit, clearSessionCookie]);
 
   return {
     user: data?.findProfile,

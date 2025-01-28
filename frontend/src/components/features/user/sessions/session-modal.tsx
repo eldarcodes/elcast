@@ -12,8 +12,6 @@ import {
 
 import { FindSessionsByUserQuery } from '@/graphql/generated/output';
 
-import { getBrowserIcon } from '@/utils/get-browser-icon';
-
 interface SessionModalProps {
   session: FindSessionsByUserQuery['findSessionsByUser'][0];
 }
@@ -25,8 +23,6 @@ export function SessionModal({
   const t = useTranslations('dashboard.settings.sessions.sessionModal');
 
   if (!session || !session.metadata) return null;
-
-  const Icon = getBrowserIcon(session.metadata.device.browser);
 
   return (
     <Dialog>
