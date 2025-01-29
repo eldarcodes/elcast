@@ -19,7 +19,9 @@ export function SessionsList() {
     useFindCurrentSessionQuery();
 
   const { data: sessionsData, loading: isLoadingSessions } =
-    useFindSessionsByUserQuery();
+    useFindSessionsByUserQuery({
+      pollInterval: 10000,
+    });
 
   const currentSession = sessionData?.findCurrentSession;
   const sessions = sessionsData?.findSessionsByUser ?? [];

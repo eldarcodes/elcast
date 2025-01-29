@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import {
   useClearSessionCookieMutation,
   useFindProfileQuery,
@@ -10,21 +8,15 @@ import { useAuth } from './use-auth';
 export function useCurrentProfile() {
   const { isAuthenticated, exit } = useAuth();
 
-  const { data, loading, error, refetch } = useFindProfileQuery({
-    skip: !isAuthenticated,
-  });
-
   const [clearSessionCookie] = useClearSessionCookieMutation();
 
-  useEffect(() => {
-    if (error) {
-      if (isAuthenticated) {
-        clearSessionCookie();
-      }
-
+  const { data, loading, error, refetch } = useFindProfileQuery({
+    skip: !isAuthenticated,
+    onError: () => {
+      clearSessionCookie();
       exit();
-    }
-  }, [isAuthenticated, error, exit, clearSessionCookie]);
+    },
+  });
 
   return {
     user: data?.findProfile,

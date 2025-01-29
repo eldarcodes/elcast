@@ -25,6 +25,7 @@ export function ToggleCard({
       rightContent={
         <Switch
           checked={value}
+          className="ml-4"
           onCheckedChange={onChange}
           disabled={isDisabled}
         />
