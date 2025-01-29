@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { Button } from '@/components/ui/common/button';
+import { Skeleton } from '@/components/ui/common/skeleton';
 import { ChannelAvatar } from '@/components/ui/elements/channel-avatar';
 import { ChannelVerified } from '@/components/ui/elements/channel-verified';
 import { Hint } from '@/components/ui/elements/hint';
@@ -36,7 +37,7 @@ export function ChannelItem({ channel }: ChannelItemProps) {
     </Hint>
   ) : (
     <Button
-      className={cn('h-11 w-full justify-start', isActive && 'bg-accent')}
+      className={cn('mt-1 h-11 w-full justify-start', isActive && 'bg-accent')}
       variant="ghost"
       asChild
     >
@@ -50,7 +51,7 @@ export function ChannelItem({ channel }: ChannelItemProps) {
           <h2 className="truncate px-1">{channel.username}</h2>
           {channel.isVerified && <ChannelVerified size="sm" />}
         </div>
-        {!channel.stream.isLive && (
+        {channel.stream.isLive && (
           <div className="absolute right-5">
             <LiveBadge />
           </div>
@@ -58,4 +59,8 @@ export function ChannelItem({ channel }: ChannelItemProps) {
       </Link>
     </Button>
   );
+}
+
+export function ChannelItemSkeleton() {
+  return <Skeleton className="mt-1 h-11 w-full px-4 py-2" />;
 }

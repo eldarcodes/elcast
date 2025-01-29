@@ -4,5 +4,11 @@ query FindProfile {
     username
     displayName
     avatar
+    bio
+    isTotpEnabled
+    notificationSettings {
+      siteNotifications
+      telegramNotifications
+    }
   }
 }

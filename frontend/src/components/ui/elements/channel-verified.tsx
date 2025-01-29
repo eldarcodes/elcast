@@ -15,8 +15,7 @@ const channelVerifiedSizes = cva('', {
   },
 });
 
-interface ChannelVerifiedProps
-  extends VariantProps<typeof channelVerifiedSizes> {}
+type ChannelVerifiedProps = VariantProps<typeof channelVerifiedSizes>;
 
 export function ChannelVerified({ size }: ChannelVerifiedProps) {
   return (
@@ -28,7 +27,7 @@ export function ChannelVerified({ size }: ChannelVerifiedProps) {
     >
       <Check
         className={cn(
-          'stroke-[4px] text-white',
+          'stroke-[4px] text-background',
           size === 'sm' ? 'size-2' : 'size-[11px]',
         )}
       />

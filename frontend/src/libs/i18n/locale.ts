@@ -12,8 +12,9 @@ export async function getCurrentLocale() {
   return cookieLanguage ?? defaultLocale;
 }
 
-export async function sendLanguage(locale: Locale) {
+export async function setLocale(locale: Locale) {
   const cookiesStore = await cookies();
+  console.log(cookiesStore);
 
   return cookiesStore.set(COOKIE_NAME, locale);
 }

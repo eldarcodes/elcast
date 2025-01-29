@@ -31,7 +31,7 @@ export class StorageService {
   public async upload(buffer: Buffer, key: string, mimeType: string) {
     const command: PutObjectCommandInput = {
       Bucket: this.bucket,
-      Key: String(key),
+      Key: key.startsWith('/') ? key.slice(1) : key,
       Body: buffer,
       ContentType: mimeType,
     };
@@ -46,7 +46,7 @@ export class StorageService {
   public async remove(key: string) {
     const command: DeleteObjectCommandInput = {
       Bucket: this.bucket,
-      Key: String(key),
+      Key: key.startsWith('/') ? key.slice(1) : key,
     };
 
     try {

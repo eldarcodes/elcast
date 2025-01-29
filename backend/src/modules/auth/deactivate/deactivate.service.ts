@@ -9,6 +9,7 @@ import type { Request } from 'express';
 
 import { TokenType, type User } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
+import { RedisService } from '@/src/core/redis/redis.service';
 import { generateToken } from '@/src/shared/utils/generate-token.util';
 import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
 import { destroySession } from '@/src/shared/utils/session.util';
@@ -25,6 +26,7 @@ export class DeactivateService {
     private readonly mailService: MailService,
     private readonly configService: ConfigService,
     private readonly telegramService: TelegramService,
+    private readonly redisService: RedisService,
   ) {}
 
   private async validateDeactivateToken(req: Request, token: string) {
@@ -45,7 +47,7 @@ export class DeactivateService {
       throw new BadRequestException('Token has expired');
     }
 
-    await this.prismaService.user.update({
+    const user = await this.prismaService.user.update({
       where: {
         id: existingToken.userId,
       },
@@ -61,6 +63,8 @@ export class DeactivateService {
         type: TokenType.DEACTIVATE_ACCOUNT,
       },
     });
+
+    await this.clearSessions(user.id);
 
     return destroySession(req, this.configService);
   }
@@ -132,5 +136,21 @@ export class DeactivateService {
     await this.validateDeactivateToken(req, pin);
 
     return { user };
+  }
+
+  private async clearSessions(userId: string) {
+    const keys = await this.redisService.keys('*');
+
+    for (const key of keys) {
+      const sessionData = await this.redisService.get(key);
+
+      if (sessionData) {
+        const session = JSON.parse(sessionData);
+
+        if (session.userId === userId) {
+          await this.redisService.del(key);
+        }
+      }
+    }
   }
 }

@@ -2,7 +2,6 @@
 
 import { ArrowLeftFromLine, ArrowRightFromLine } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { usePathname } from 'next/navigation';
 
 import { Button } from '@/components/ui/common/button';
 import { Hint } from '@/components/ui/elements/hint';
@@ -11,7 +10,6 @@ import { useSidebar } from '@/hooks/use-sidebar';
 
 export function SidebarHeader() {
   const t = useTranslations('layout.sidebar.header');
-  const pathname = usePathname();
 
   const { isCollapsed, open, close } = useSidebar();
 

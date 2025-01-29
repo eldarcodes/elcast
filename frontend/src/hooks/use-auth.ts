@@ -9,7 +9,6 @@ export function useAuth() {
 
   return {
     isAuthenticated,
-    loading: !authStore.persist.hasHydrated(),
     auth,
     exit,
   };

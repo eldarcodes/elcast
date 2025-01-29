@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/common/button';
 
 import { useAuth } from '@/hooks/use-auth';
-import { useCurrentProfile } from '@/hooks/use-current-profile';
 
 import { ProfileMenu } from './profile-menu';
 
@@ -16,7 +15,7 @@ export function HeaderMenu() {
   const { isAuthenticated } = useAuth();
 
   return (
-    <div className="ml-auto flex items-center gap-x-2">
+    <div className="ml-auto flex items-center gap-x-4">
       {isAuthenticated ? (
         <ProfileMenu />
       ) : (
