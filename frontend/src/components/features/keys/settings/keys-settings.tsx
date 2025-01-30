@@ -3,10 +3,13 @@
 import { useTranslations } from 'next-intl';
 
 import { Heading } from '@/components/ui/elements/heading';
+import { ToggleCardSkeleton } from '@/components/ui/elements/toggle-card';
 
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
 import { CreateIngressForm } from './forms/create-ingress-form';
+import { StreamKey } from './forms/stream-key';
+import { StreamUrl } from './forms/stream-url';
 import { InstructionModal } from './instruction-modal';
 
 export function KeysSettings() {
@@ -27,6 +30,19 @@ export function KeysSettings() {
           <InstructionModal />
           <CreateIngressForm />
         </div>
+      </div>
+
+      <div className="mt-5 space-y-6">
+        {isLoadingProfile ? (
+          Array.from({ length: 2 }).map((_, index) => (
+            <ToggleCardSkeleton key={index} />
+          ))
+        ) : (
+          <>
+            <StreamUrl value={user?.stream.serverUrl} />
+            <StreamKey value={user?.stream.streamKey} />
+          </>
+        )}
       </div>
     </div>
   );
