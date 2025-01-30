@@ -1,0 +1,3 @@
+mutation CreateIngress($type: Float!) {
+  createIngress(ingressType: $type)
+}
