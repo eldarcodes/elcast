@@ -35,5 +35,5 @@ export function ToggleCard({
 }
 
 export function ToggleCardSkeleton() {
-  return <Skeleton className="mt-6 h-20 w-full" />;
+  return <Skeleton className="mt-6 h-20 w-full rounded-xl" />;
 }
