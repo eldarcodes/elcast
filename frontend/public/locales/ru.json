@@ -396,6 +396,20 @@
       }
     }
   },
+  "home": {
+    "streamsHeading": "Каналы, которые вам могут понравиться",
+    "categoriesHeading": "Категории, которые вам могут понравиться"
+  },
+  "categories": {
+    "heading": "Категории",
+    "overview": {
+      "heading": "Стримы в этой категории"
+    }
+  },
+  "streams": {
+    "heading": "Стримы",
+    "searchHeading": "Поиск по запросу"
+  },
   "components": {
     "liveBadge": {
       "text": "В ЭФИРЕ"
