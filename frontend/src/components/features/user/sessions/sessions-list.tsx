@@ -48,8 +48,8 @@ export function SessionsList() {
             <ToggleCardSkeleton key={index} />
           ))
         ) : sessions.length ? (
-          sessions.map((session, index) => (
-            <SessionItem key={index} session={session} />
+          sessions.map((session) => (
+            <SessionItem key={session.id} session={session} />
           ))
         ) : (
           <div className="text-muted-foreground">{t('info.notFound')}</div>

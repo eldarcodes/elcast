@@ -16,8 +16,8 @@ export function StreamsList({ heading, streams }: StreamsListProps) {
       {heading && <Heading title={heading} />}
 
       <div className="mt-6 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {streams.map((stream, index) => (
-          <StreamCard key={index} stream={stream} />
+        {streams.map((stream) => (
+          <StreamCard key={stream.id} stream={stream} />
         ))}
       </div>
     </>
