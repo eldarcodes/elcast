@@ -61,7 +61,7 @@ async function findRandomCategories() {
     return { categories };
   } catch (error) {
     console.log(error);
-    throw new Error('Ошибка при получении категорий');
+    throw new Error('Error while fetching categories');
   }
 }
 

@@ -2,26 +2,28 @@
 
 import { SearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { FormEvent, useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/common/button';
 import { Input } from '@/components/ui/common/input';
 
 export function Search() {
+  const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
 
   const router = useRouter();
   const t = useTranslations('layout.header.search');
 
+  useEffect(() => {
+    const term = searchParams.get('term');
+    if (term) setSearchTerm(term);
+  }, [searchParams]);
+
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
-    if (searchTerm) {
-      router.push(`/streams?term=${searchTerm}`);
-    } else {
-      router.push('/streams');
-    }
+    const query = searchTerm ? `?term=${searchTerm}` : '';
+    router.push(`/streams${query}`);
   }
 
   return (
