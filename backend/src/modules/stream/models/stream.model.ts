@@ -1,6 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
-import { Stream } from '@/prisma/generated';
+import type { Stream } from '@/prisma/generated';
 
 import { UserModel } from '../../auth/account/models/user.model';
 import { CategoryModel } from '../../category/models/category.model';
@@ -9,53 +9,53 @@ import { ChatMessageModel } from '../../chat/models/chat-message.model';
 @ObjectType()
 export class StreamModel implements Stream {
   @Field(() => ID)
-  id: string;
+  public id: string;
 
   @Field(() => String)
-  title: string;
+  public title: string;
 
   @Field(() => String, { nullable: true })
-  thumbnailUrl: string;
+  public thumbnailUrl: string;
 
   @Field(() => String, { nullable: true })
-  ingressId: string;
+  public ingressId: string;
 
   @Field(() => String, { nullable: true })
-  serverUrl: string;
+  public serverUrl: string;
 
   @Field(() => String, { nullable: true })
-  streamKey: string;
+  public streamKey: string;
 
   @Field(() => Boolean)
-  isLive: boolean;
+  public isLive: boolean;
 
   @Field(() => UserModel)
-  user: UserModel;
+  public user: UserModel;
 
   @Field(() => String)
-  userId: string;
+  public userId: string;
 
-  @Field(() => CategoryModel)
-  category: CategoryModel;
-
-  @Field(() => Boolean)
-  isChatEnabled: boolean;
+  @Field(() => CategoryModel, { nullable: true })
+  public category: CategoryModel;
 
   @Field(() => Boolean)
-  isChatFollowersOnly: boolean;
+  public isChatEnabled: boolean;
 
   @Field(() => Boolean)
-  isChatSubscribersOnly: boolean;
+  public isChatFollowersOnly: boolean;
+
+  @Field(() => Boolean)
+  public isChatSubscribersOnly: boolean;
 
   @Field(() => [ChatMessageModel])
-  chatMessages: ChatMessageModel[];
+  public chatMessages: ChatMessageModel[];
 
-  @Field(() => String)
-  categoryId: string;
-
-  @Field(() => Date)
-  createdAt: Date;
+  @Field(() => String, { nullable: true })
+  public categoryId: string;
 
   @Field(() => Date)
-  updatedAt: Date;
+  public createdAt: Date;
+
+  @Field(() => Date)
+  public updatedAt: Date;
 }

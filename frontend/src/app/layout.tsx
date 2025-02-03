@@ -1,3 +1,4 @@
+import 'leaflet/dist/leaflet.css';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';

@@ -5,6 +5,17 @@ const withNextIntl = createNextIntlPlugin('./src/libs/i18n/request.ts');
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'elcast-dev.s3.eu-central-1.amazonaws.com',
+        port: '',
+        pathname: '/**',
+        search: '',
+      },
+    ],
+  },
 };
 
 export default withNextIntl(nextConfig);
