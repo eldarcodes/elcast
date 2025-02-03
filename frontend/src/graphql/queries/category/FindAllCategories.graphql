@@ -1,0 +1,10 @@
+query FindAllCategories {
+  findAllCategories {
+    id
+    title
+    description
+    slug
+    createdAt
+    thumbnailUrl
+  }
+}
