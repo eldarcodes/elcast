@@ -8,6 +8,8 @@ import { useStreamToken } from '@/hooks/use-stream-token';
 
 import { LIVEKIT_URL } from '@/libs/constants/url.constants';
 
+import { AboutChannel } from './info/about-channel';
+import { StreamInfo, StreamInfoSkeleton } from './info/stream-info';
 import { StreamVideo, StreamVideoSkeleton } from './player/stream-video';
 
 interface StreamOverviewProps {
@@ -29,6 +31,8 @@ export function StreamOverview({ channel }: StreamOverviewProps) {
     >
       <div className="order-1 col-span-1 flex flex-col lg:col-span-5">
         <StreamVideo channel={channel} />
+        <StreamInfo channel={channel} />
+        <AboutChannel channel={channel} />
       </div>
       <div className="order-2 col-span-1 flex h-80 flex-col space-y-6 lg:col-span-2">
         test2
@@ -42,7 +46,7 @@ export function StreamOverviewSkeleton() {
     <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-6 lg:grid-cols-7">
       <div className="order-1 col-span-1 flex flex-col lg:col-span-5">
         <StreamVideoSkeleton />
-        {/* <StreamInfoSkeleton /> */}
+        <StreamInfoSkeleton />
         {/* <AboutChannelSkeleton />  */}
       </div>
       <div className="order-2 col-span-1 flex h-80 flex-col space-y-6 lg:col-span-2">
