@@ -410,6 +410,43 @@
     "heading": "Streams",
     "searchHeading": "Search by query"
   },
+  "stream": {
+    "video": {
+      "offline": "is offline",
+      "loading": "Connecting...",
+      "player": {
+        "volume": "Volume",
+        "fullscreen": {
+          "open": "Fullscreen",
+          "exit": "Exit Fullscreen"
+        }
+      }
+    },
+    "info": {
+      "viewers": "viewers",
+      "offline": "Offline"
+    },
+    "actions": {
+      "follow": {
+        "confirmUnfollowHeading": "Unfollow",
+        "confirmUnfollowMessage": "You will no longer receive notifications from this channel and it will disappear from your followed list.",
+        "unfollowButton": "Unfollow",
+        "followButton": "Follow",
+        "successFollowMessage": "You have successfully followed",
+        "errorFollowMessage": "Error while following",
+        "successUnfollowMessage": "You have successfully unfollowed",
+        "errorUnfollowMessage": "Error while unfollowing"
+      },
+      "share": {
+        "heading": "Share"
+      }
+    },
+    "aboutChannel": {
+      "heading": "About",
+      "followersCount": "followers",
+      "noDescription": "Description not provided."
+    }
+  },
   "components": {
     "liveBadge": {
       "text": "LIVE"

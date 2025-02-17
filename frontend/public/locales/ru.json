@@ -410,6 +410,43 @@
     "heading": "Стримы",
     "searchHeading": "Поиск по запросу"
   },
+  "stream": {
+    "video": {
+      "offline": "не в сети",
+      "loading": "Подключение...",
+      "player": {
+        "volume": "Громкость",
+        "fullscreen": {
+          "open": "Полный экран",
+          "exit": "Выйти из полноэкранного режима"
+        }
+      }
+    },
+    "info": {
+      "viewers": "зрителей",
+      "offline": "Не в сети"
+    },
+    "actions": {
+      "follow": {
+        "confirmUnfollowHeading": "Отписаться",
+        "confirmUnfollowMessage": "Вы больше не будете получать уведомления от этого канала, и он исчезнет из вашего списка подписок.",
+        "unfollowButton": "Отписаться",
+        "followButton": "Подписаться",
+        "successFollowMessage": "Вы успешно подписались",
+        "errorFollowMessage": "Ошибка при подписке",
+        "successUnfollowMessage": "Вы успешно отписались",
+        "errorUnfollowMessage": "Ошибка при отписке"
+      },
+      "share": {
+        "heading": "Поделиться"
+      }
+    },
+    "aboutChannel": {
+      "heading": "О канале",
+      "followersCount": "подписчиков",
+      "noDescription": "Описание не предоставлено."
+    }
+  },
   "components": {
     "liveBadge": {
       "text": "В ЭФИРЕ"
