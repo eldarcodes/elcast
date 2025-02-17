@@ -16,7 +16,6 @@ interface OfflineStreamProps {
 
 export function StreamOffline({ channel }: OfflineStreamProps) {
   const t = useTranslations('stream.video');
-  console.log(channel.stream);
 
   const backgroundStyle: CSSProperties = channel.stream.thumbnailUrl
     ? {
