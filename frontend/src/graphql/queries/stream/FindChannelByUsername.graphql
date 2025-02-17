@@ -1,0 +1,31 @@
+query FindChannelByUsername($username: String!) {
+  findChannelByUsername(username: $username) {
+    id
+    username
+    displayName
+    avatar
+    bio
+    isVerified
+    socialLinks {
+      id
+      title
+      url
+    }
+    stream {
+      id
+      title
+      thumbnailUrl
+      isLive
+      isChatEnabled
+      isChatFollowersOnly
+      isChatSubscribersOnly
+      category {
+        id
+        title
+      }
+    }
+    followings {
+      id
+    }
+  }
+}

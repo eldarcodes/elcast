@@ -10,7 +10,7 @@ export function useCurrentProfile() {
 
   const [clearSessionCookie] = useClearSessionCookieMutation();
 
-  const { data, loading, error, refetch } = useFindProfileQuery({
+  const { data, loading, refetch } = useFindProfileQuery({
     skip: !isAuthenticated,
     onError: () => {
       clearSessionCookie();

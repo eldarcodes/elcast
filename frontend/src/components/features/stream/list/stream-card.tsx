@@ -17,8 +17,8 @@ export function StreamCard({ stream }: StreamCardProps) {
     <div className="h-full w-full">
       <Link href={`/${stream.user.username}`}>
         <StreamThumbnail
-          //   url={stream.thumbnailUrl}
-          url={''}
+          url={stream.thumbnailUrl}
+          // url={''}
           user={stream.user}
           isLive={stream.isLive}
         />
