@@ -96,7 +96,7 @@ export function ChangeChatSettingsForm() {
           <ToggleCard
             heading={t('isChatSubscribersOnly.heading')}
             description={t('isChatSubscribersOnly.description')}
-            isDisabled={isLoadingChange}
+            isDisabled={isLoadingChange || !user?.isVerified}
             value={field.value}
             onChange={(value) => onChange('isChatSubscribersOnly', value)}
           />
