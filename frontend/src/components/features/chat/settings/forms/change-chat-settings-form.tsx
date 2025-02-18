@@ -18,7 +18,7 @@ import { useCurrentProfile } from '@/hooks/use-current-profile';
 import {
   changeChatSettingsSchema,
   ChangeChatSettingsSchema,
-} from '@/schemas/stream/change-chat-settings.schema';
+} from '@/schemas/chat/change-chat-settings.schema';
 
 export function ChangeChatSettingsForm() {
   const t = useTranslations('dashboard.chat');

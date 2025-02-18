@@ -443,6 +443,23 @@
       "heading": "О канале",
       "followersCount": "подписчиков",
       "noDescription": "Описание не предоставлено."
+    },
+    "chat": {
+      "heading": "Чат",
+      "unavailable": "Чат недоступен",
+      "unavailableMessage": "Чат недоступен, пока на канале нет трансляции. Пожалуйста, попробуйте позже!",
+      "loading": "Подключение...",
+      "info": {
+        "authRequired": "Требуется авторизация",
+        "chatDisabled": "Чат отключен",
+        "subscribersOnly": "Только для подписчиков",
+        "followersOnly": "Только для фолловеров"
+      },
+      "sendMessage": {
+        "placeholder": "Отправить сообщение",
+        "emojiPlaceholder": "Поиск",
+        "errorMessage": "Ошибка при отправке сообщения."
+      }
     }
   },
   "components": {

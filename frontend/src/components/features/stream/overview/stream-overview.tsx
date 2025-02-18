@@ -8,7 +8,9 @@ import { useStreamToken } from '@/hooks/use-stream-token';
 
 import { LIVEKIT_URL } from '@/libs/constants/url.constants';
 
-import { AboutChannel } from './info/about-channel';
+import { LiveChat, LiveChatSkeleton } from '../../chat/live/live-chat';
+
+import { AboutChannel, AboutChannelSkeleton } from './info/about-channel';
 import { StreamInfo, StreamInfoSkeleton } from './info/stream-info';
 import { StreamVideo, StreamVideoSkeleton } from './player/stream-video';
 
@@ -35,7 +37,12 @@ export function StreamOverview({ channel }: StreamOverviewProps) {
         <AboutChannel channel={channel} />
       </div>
       <div className="order-2 col-span-1 flex h-80 flex-col space-y-6 lg:col-span-2">
-        test2
+        <LiveChat
+          channel={channel}
+          isChatEnabled={channel.stream.isChatEnabled}
+          isChatFollowersOnly={channel.stream.isChatFollowersOnly}
+          isChatSubscribersOnly={channel.stream.isChatSubscribersOnly}
+        />
       </div>
     </LiveKitRoom>
   );
@@ -47,10 +54,10 @@ export function StreamOverviewSkeleton() {
       <div className="order-1 col-span-1 flex flex-col lg:col-span-5">
         <StreamVideoSkeleton />
         <StreamInfoSkeleton />
-        {/* <AboutChannelSkeleton />  */}
+        <AboutChannelSkeleton />
       </div>
       <div className="order-2 col-span-1 flex h-80 flex-col space-y-6 lg:col-span-2">
-        {/* <LiveChatSkeleton /> */}
+        <LiveChatSkeleton />
       </div>
     </div>
   );
