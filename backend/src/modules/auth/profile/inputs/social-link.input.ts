@@ -12,7 +12,7 @@ export class SocialLinkInput {
   @Field(() => String)
   @IsString()
   @IsNotEmpty()
-  @MinLength(3)
+  @MinLength(1)
   public title: string;
 
   @Field(() => String)
