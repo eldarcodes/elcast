@@ -24,7 +24,6 @@ export class ChangeProfileInfoInput {
 
   @Field(() => String)
   @IsString()
-  @IsNotEmpty()
   @IsOptional()
   @MaxLength(300)
   public bio?: string;
