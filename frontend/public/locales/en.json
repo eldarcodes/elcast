@@ -488,6 +488,10 @@
       }
     }
   },
+  "notFound": {
+    "description": "Oops, something went wrong.",
+    "backToHome": "Back to Home"
+  },
   "components": {
     "liveBadge": {
       "text": "LIVE"

@@ -4,6 +4,13 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import { Geist, Geist_Mono } from 'next/font/google';
 
+import {
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  SITE_NAME,
+} from '@/libs/constants/seo.constants';
+import { APP_URL } from '@/libs/constants/url.constants';
+
 import { ApolloClientProvider } from '@/providers/apollo-client-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { ToastProvider } from '@/providers/toast-provider';
@@ -21,19 +28,48 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://elcast.eldarcodes.com'),
+  applicationName: SITE_NAME,
+  metadataBase: new URL(APP_URL),
   title: {
-    default: 'Elcast',
-    template: '%s | Elcast',
+    absolute: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
   },
-  description: 'A streaming platform offering interactive live content.',
+  authors: {
+    name: 'Eldar Mirzabekov',
+    url: 'https://eldarcodes.com',
+  },
+  description: SITE_DESCRIPTION,
+  keywords: SITE_KEYWORDS,
+  generator: 'Next.js',
+  creator: 'Eldar Mirzabekov',
+  publisher: 'Eldar Mirzabekov',
   openGraph: {
-    title: 'Elcast',
-    description: 'A streaming platform offering interactive live content.',
-    url: 'https://elcast.eldarcodes.com',
-    siteName: 'Elcast',
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: new URL(APP_URL),
+    siteName: SITE_NAME,
     locale: 'en_US',
     type: 'website',
+    emails: ['info@eldarcodes.com'],
+    images: [
+      {
+        url: '/touch-icons/512x512.png',
+        width: 512,
+        height: 512,
+        alt: SITE_NAME,
+      },
+    ],
+  },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/touch-icons/256x256.png',
+    other: {
+      rel: 'touch-icons',
+      url: '/touch-icons/256x256.png',
+      sizes: '256x256',
+      type: 'image/png',
+    },
   },
   robots: {
     index: true,
@@ -47,8 +83,16 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: 'Elcast',
+    title: SITE_NAME,
     card: 'summary_large_image',
+    images: [
+      {
+        url: '/touch-icons/512x512.png',
+        width: 512,
+        height: 512,
+        alt: SITE_NAME,
+      },
+    ],
   },
 
   // @TODO: Add verification keys
