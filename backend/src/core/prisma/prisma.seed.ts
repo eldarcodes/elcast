@@ -36,76 +36,85 @@ async function main() {
       categories.map((category) => [category.slug, category]),
     );
 
-    await prisma.$transaction(async (tx) => {
-      for (const username of USERNAMES) {
-        const randomCategory =
-          categoriesBySlug[
-            Object.keys(categoriesBySlug)[
-              Math.floor(Math.random() * Object.keys(categoriesBySlug).length)
-            ]
-          ];
+    await prisma.$transaction(
+      async (tx) => {
+        for (const username of USERNAMES) {
+          const randomCategory =
+            categoriesBySlug[
+              Object.keys(categoriesBySlug)[
+                Math.floor(Math.random() * Object.keys(categoriesBySlug).length)
+              ]
+            ];
 
-        const userExists = await tx.user.findUnique({
-          where: {
-            username,
-          },
-        });
-
-        if (!userExists) {
-          const createdUser = await tx.user.create({
-            data: {
-              email: `${username}@eldarcodes.com`,
-              password: await hash('12345678'),
+          const userExists = await tx.user.findUnique({
+            where: {
               username,
-              displayName: username,
-              avatar: `/channels/${username}.webp`,
-              isEmailVerified: true,
-              socialLinks: {
-                createMany: {
-                  data: [
-                    {
-                      title: 'X',
-                      url: `https://x.com/${username}`,
-                      position: 1,
-                    },
-                    {
-                      title: 'GitHub',
-                      url: `https://github.com/${username}`,
-                      position: 2,
-                    },
-                  ],
-                },
-              },
             },
           });
 
-          const randomTitles = STREAMS[randomCategory.slug];
-          const randomTitle =
-            randomTitles[Math.floor(Math.random() * randomTitles.length)];
-
-          await tx.stream.create({
-            data: {
-              title: randomTitle,
-              thumbnailUrl: `/streams/${createdUser.username}.webp`,
-              user: {
-                connect: {
-                  id: createdUser.id,
+          if (!userExists) {
+            const createdUser = await tx.user.create({
+              data: {
+                email: `${username}@eldarcodes.com`,
+                password: await hash('12345678'),
+                username,
+                displayName: username,
+                avatar: `/channels/${username}.webp`,
+                isEmailVerified: true,
+                notificationSettings: {
+                  create: {
+                    siteNotifications: false,
+                    telegramNotifications: false,
+                  },
+                },
+                socialLinks: {
+                  createMany: {
+                    data: [
+                      {
+                        title: 'X',
+                        url: `https://x.com/${username}`,
+                        position: 1,
+                      },
+                      {
+                        title: 'GitHub',
+                        url: `https://github.com/${username}`,
+                        position: 2,
+                      },
+                    ],
+                  },
                 },
               },
-              category: {
-                connect: {
-                  id: randomCategory.id,
+            });
+
+            const randomTitles = STREAMS[randomCategory.slug];
+            const randomTitle =
+              randomTitles[Math.floor(Math.random() * randomTitles.length)];
+
+            await tx.stream.create({
+              data: {
+                title: randomTitle,
+                thumbnailUrl: `/streams/${createdUser.username}.webp`,
+                user: {
+                  connect: {
+                    id: createdUser.id,
+                  },
+                },
+                category: {
+                  connect: {
+                    id: randomCategory.id,
+                  },
                 },
               },
-            },
-          });
+            });
 
-          Logger.log(
-            `User "${createdUser.username}" and his stream have been successfully created`,
-          );
+            Logger.log(
+              `User "${createdUser.username}" and his stream have been successfully created`,
+            );
+          }
         }
-      }
-    });
+      },
+      { timeout: 60000 },
+    );
   } catch (error) {
     Logger.error(error);
     throw new BadRequestException('Error while seeding the database');
