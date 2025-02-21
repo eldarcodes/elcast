@@ -14,8 +14,6 @@ RUN bun install
 
 COPY . .
 
-RUN bun graphql-codegen --config graphql.config.ts
-
 RUN bun run build
 
 EXPOSE 3000
