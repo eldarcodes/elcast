@@ -4,25 +4,25 @@ RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package.json yarn.lock ./
 
-RUN npm ci --omit=dev --legacy-peer-deps
+RUN yarn install --frozen-lockfile
 
 FROM base as build
 
 COPY . .
 
-RUN npx prisma generate
+RUN yarn prisma generate
 
-RUN npm run build
+RUN yarn build
 
 FROM base AS production
 
 WORKDIR /app
 
-COPY --from=build /app/package.json /app/package-lock.json ./
+COPY --from=build /app/package.json /app/yarn.lock ./
 
-RUN npm ci --omit=dev
+RUN yarn install --production --frozen-lockfile
 
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/prisma/generated ./prisma/generated
