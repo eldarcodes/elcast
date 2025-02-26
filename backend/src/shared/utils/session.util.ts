@@ -6,6 +6,8 @@ import type { User } from '@/prisma/generated';
 
 import type { SessionMetadata } from '../types/session-metadata.type';
 
+import { parseBoolean } from './parse-boolean.util';
+
 export function saveSession(
   req: Request,
   user: User,
@@ -35,7 +37,16 @@ export function destroySession(req: Request, configService: ConfigService) {
         );
       }
 
-      req.res.clearCookie(configService.getOrThrow<string>('SESSION_NAME'));
+      req.res.clearCookie(configService.getOrThrow<string>('SESSION_NAME'), {
+        domain: configService.getOrThrow<string>('SESSION_DOMAIN'),
+        path: '/',
+        httpOnly: parseBoolean(
+          configService.getOrThrow<string>('SESSION_HTTP_ONLY'),
+        ),
+        secure: parseBoolean(
+          configService.getOrThrow<string>('SESSION_SECURE'),
+        ),
+      });
 
       resolve(true);
     });
