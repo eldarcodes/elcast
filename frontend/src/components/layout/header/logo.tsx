@@ -14,7 +14,7 @@ export function Logo() {
     >
       <Image src="/images/logo.svg" alt="Elcast" width={35} height={35} />
 
-      <div className="hidden leading-tight lg:block">
+      <div className="leading-tight">
         <h2 className="text-md font-semibold tracking-wider text-accent-foreground">
           Elcast
         </h2>

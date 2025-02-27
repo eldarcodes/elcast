@@ -41,7 +41,7 @@ export function ProfileMenu() {
   return isLoadingProfile || !user ? (
     <Loader className="size-6 animate-spin text-muted-foreground" />
   ) : (
-    <div className="flex items-center gap-x-4">
+    <div className="flex items-center gap-x-6">
       <Notifications />
 
       <DropdownMenu>
