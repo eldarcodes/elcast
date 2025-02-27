@@ -5,7 +5,7 @@ import { Prisma, PrismaClient } from '../../../prisma/generated';
 
 import { CATEGORIES } from './data/categories.data';
 import { STREAMS } from './data/streams.data';
-import { USERNAMES } from './data/users.data';
+import { DISPLAY_NAMES } from './data/users.data';
 
 const prisma = new PrismaClient({
   transactionOptions: {
@@ -38,7 +38,9 @@ async function main() {
 
     await prisma.$transaction(
       async (tx) => {
-        for (const username of USERNAMES) {
+        for (const displayName of DISPLAY_NAMES) {
+          const username = displayName.toLowerCase();
+
           const randomCategory =
             categoriesBySlug[
               Object.keys(categoriesBySlug)[
@@ -58,7 +60,7 @@ async function main() {
                 email: `${username}@eldarcodes.com`,
                 password: await hash('12345678'),
                 username,
-                displayName: username,
+                displayName,
                 avatar: `/channels/${username}.webp`,
                 isEmailVerified: true,
                 notificationSettings: {
