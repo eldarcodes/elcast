@@ -56,7 +56,6 @@ export class PasswordRecoveryService {
       resetToken.token,
       sessionMetadata,
     );
-    console.log(resetToken.user);
 
     if (
       resetToken.user.notificationSettings.telegramNotifications &&
@@ -92,7 +91,7 @@ export class PasswordRecoveryService {
       throw new BadRequestException('Token has expired');
     }
 
-    const user = await this.prismaService.user.update({
+    await this.prismaService.user.update({
       where: {
         id: existingToken.userId,
       },

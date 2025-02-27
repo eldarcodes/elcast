@@ -25,7 +25,6 @@ export function MessagesList({ channel }: MessagesListProps) {
       streamId: channel.stream.id,
     },
   });
-  console.log(newMessageData);
 
   const [messages, setMessages] = useState<
     FindChatMessagesByStreamQuery['findChatMessagesByStream']

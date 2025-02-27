@@ -18,7 +18,7 @@ export class RawBodyMiddleware implements NestMiddleware {
         req.body = rawBody;
         next();
       })
-      .catch((error) => {
+      .catch(() => {
         throw new BadRequestException('Error parsing request body');
       });
   }

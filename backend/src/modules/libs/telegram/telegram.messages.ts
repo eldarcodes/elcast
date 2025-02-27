@@ -55,7 +55,7 @@ Click the button below and go to the <b>Notifications</b> section to complete th
     `Your account has been completely removed from the Elcast database. All your data and information have been permanently deleted. ❌\n\n` +
     `🔒 You will no longer receive notifications on Telegram or by email.\n\n` +
     `If you wish to return to the platform, you can register using the following link:\n` +
-    `<b><a href="https://elcast.com/account/create">Register on Elcast</a></b>\n\n` +
+    `<b><a href="https://elcast.eldarcodes.com/account/create">Register on Elcast</a></b>\n\n` +
     `Thank you for being with us! We will always be happy to have you back on the platform. 🚀\n\n` +
     `Best regards,\n` +
     `The Elcast Team`,

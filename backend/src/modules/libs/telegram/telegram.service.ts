@@ -151,7 +151,6 @@ export class TelegramService extends Telegraf {
 
   public async sendNewFollowing(chatId: string, follower: User) {
     const user = await this.findUserByChatId(chatId);
-    console.log(user, follower);
 
     this.telegram.sendMessage(
       chatId,

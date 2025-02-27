@@ -19,7 +19,7 @@ export class IsPasswordsMatchingConstraint
     return passwordRepeat === object.password;
   }
 
-  public defaultMessage(args: ValidationArguments): string {
+  public defaultMessage(): string {
     return `Passwords do not match`;
   }
 }

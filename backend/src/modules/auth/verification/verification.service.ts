@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Request } from 'express';
+import type { Request } from 'express';
 
 import { TokenType, User } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
@@ -58,6 +58,7 @@ export class VerificationService {
     await this.prismaService.token.delete({
       where: {
         id: existingToken.id,
+        type: TokenType.EMAIL_VERIFY,
       },
     });
 

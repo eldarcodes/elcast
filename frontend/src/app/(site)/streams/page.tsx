@@ -36,7 +36,7 @@ async function findAllStreams() {
 
     return { streams };
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw new Error('Error while fetching streams');
   }
 }
