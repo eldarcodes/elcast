@@ -12,6 +12,7 @@ import { TOTP } from 'otpauth';
 
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 import { RedisService } from '@/src/core/redis/redis.service';
+import { parseBoolean } from '@/src/shared/utils/parse-boolean.util';
 import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
 import { destroySession, saveSession } from '@/src/shared/utils/session.util';
 
@@ -136,7 +137,16 @@ export class SessionService {
   }
 
   public async clearSession(req: Request) {
-    req.res.clearCookie(this.configService.getOrThrow<string>('SESSION_NAME'));
+    req.res.clearCookie(this.configService.getOrThrow<string>('SESSION_NAME'), {
+      domain: this.configService.getOrThrow<string>('SESSION_DOMAIN'),
+      path: '/',
+      httpOnly: parseBoolean(
+        this.configService.getOrThrow<string>('SESSION_HTTP_ONLY'),
+      ),
+      secure: parseBoolean(
+        this.configService.getOrThrow<string>('SESSION_SECURE'),
+      ),
+    });
 
     return true;
   }
