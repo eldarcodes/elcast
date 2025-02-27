@@ -46,10 +46,12 @@ export class SessionService {
       if (sessionData) {
         const session = JSON.parse(sessionData);
 
+        const SESSION_ID_INDEX = 1;
+
         if (session.userId === userId) {
           userSessions.push({
             ...session,
-            id: key.split(':')[1],
+            id: key.split(':')[SESSION_ID_INDEX],
           });
         }
       }

@@ -14,6 +14,7 @@ export class TotpService {
   public constructor(private readonly prismaService: PrismaService) {}
 
   public async generate(user: User) {
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     const secret = encode(randomBytes(15)).replace(/=/g, '').substring(0, 24);
 
     const totp = new TOTP({

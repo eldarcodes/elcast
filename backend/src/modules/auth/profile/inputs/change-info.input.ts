@@ -8,13 +8,19 @@ import {
   MinLength,
 } from 'class-validator';
 
+import {
+  MAX_BIO_LENGTH,
+  MIN_USERNAME_LENGTH,
+  USERNAME_REGEX,
+} from '@/src/shared/constants/account.constants';
+
 @InputType()
 export class ChangeProfileInfoInput {
   @Field(() => String)
   @IsString()
   @IsNotEmpty()
-  @MinLength(3)
-  @Matches(/^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$/)
+  @MinLength(MIN_USERNAME_LENGTH)
+  @Matches(USERNAME_REGEX)
   public username: string;
 
   @Field(() => String)
@@ -25,6 +31,6 @@ export class ChangeProfileInfoInput {
   @Field(() => String)
   @IsString()
   @IsOptional()
-  @MaxLength(300)
+  @MaxLength(MAX_BIO_LENGTH)
   public bio?: string;
 }

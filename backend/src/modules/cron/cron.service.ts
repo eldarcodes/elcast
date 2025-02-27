@@ -2,6 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 
 import { PrismaService } from '@/src/core/prisma/prisma.service';
+import {
+  DAYS_TO_KEEP_DEACTIVATED_ACCOUNTS,
+  DAYS_TO_KEEP_OLD_NOTIFICATIONS,
+  MIN_FOLLOWERS_TO_GET_VERIFIED,
+} from '@/src/shared/constants/account.constants';
 
 import { MailService } from '../libs/mail/mail.service';
 import { StorageService } from '../libs/storage/storage.service';
@@ -22,7 +27,9 @@ export class CronService {
   public async deleteDeactivatedAccounts() {
     const sevenDaysAgo = new Date();
 
-    sevenDaysAgo.setDate(sevenDaysAgo.getDay() - 7);
+    sevenDaysAgo.setDate(
+      sevenDaysAgo.getDay() - DAYS_TO_KEEP_DEACTIVATED_ACCOUNTS,
+    );
 
     const deactivatedAccounts = await this.prismaService.user.findMany({
       where: {
@@ -102,7 +109,7 @@ export class CronService {
         },
       });
 
-      if (followersCount > 10 && !user.isVerified) {
+      if (followersCount > MIN_FOLLOWERS_TO_GET_VERIFIED && !user.isVerified) {
         await this.prismaService.user.update({
           where: {
             id: user.id,
@@ -132,7 +139,9 @@ export class CronService {
   public async deleteOldNotifications() {
     const sevenDaysAgo = new Date();
 
-    sevenDaysAgo.setDate(sevenDaysAgo.getDay() - 7);
+    sevenDaysAgo.setDate(
+      sevenDaysAgo.getDay() - DAYS_TO_KEEP_OLD_NOTIFICATIONS,
+    );
 
     await this.prismaService.notification.deleteMany({
       where: {

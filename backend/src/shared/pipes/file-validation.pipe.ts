@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { ReadStream } from 'fs';
 
+import { MAX_FILE_SIZE } from '../constants/file.constants';
 import { validateFileFormat, validateFileSize } from '../utils/file.util';
 
 @Injectable()
@@ -26,8 +27,7 @@ export class FileValidationPipe implements PipeTransform {
       throw new BadRequestException('File format is not allowed');
     }
 
-    const maxFileSize = 10 * 1024 * 1024; // 10MB
-    const isFileSizeValid = await validateFileSize(fileStream, maxFileSize);
+    const isFileSizeValid = await validateFileSize(fileStream, MAX_FILE_SIZE);
 
     if (!isFileSizeValid) {
       throw new BadRequestException('File size is too large');

@@ -7,6 +7,12 @@ import {
   MinLength,
 } from 'class-validator';
 
+import {
+  MIN_PASSWORD_LENGTH,
+  MIN_USERNAME_LENGTH,
+  PIN_LENGTH,
+} from '@/src/shared/constants/account.constants';
+
 @InputType({ description: 'Login input' })
 export class LoginInput {
   @Field(() => String, {
@@ -14,7 +20,7 @@ export class LoginInput {
   })
   @IsString()
   @IsNotEmpty()
-  @MinLength(3)
+  @MinLength(MIN_USERNAME_LENGTH)
   public login: string;
 
   @Field(() => String, {
@@ -22,12 +28,12 @@ export class LoginInput {
   })
   @IsString()
   @IsNotEmpty()
-  @MinLength(8)
+  @MinLength(MIN_PASSWORD_LENGTH)
   public password: string;
 
   @Field(() => String, { nullable: true })
   @IsOptional()
   @IsString()
-  @Length(6, 6)
+  @Length(PIN_LENGTH, PIN_LENGTH)
   public pin?: string;
 }

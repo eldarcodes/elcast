@@ -1,0 +1,2 @@
+export const STREAM_THUMBNAIL_WIDTH = 1920;
+export const STREAM_THUMBNAIL_HEIGHT = 1080;

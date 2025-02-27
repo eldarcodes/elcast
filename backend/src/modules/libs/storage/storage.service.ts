@@ -13,6 +13,8 @@ export class StorageService {
   private readonly client: S3Client;
   private readonly bucket: string;
 
+  private static readonly BUCKET_KEY_INDEX = 1;
+
   public constructor(private readonly configService: ConfigService) {
     this.client = new S3Client({
       endpoint: this.configService.getOrThrow<string>('S3_ENDPOINT'),
@@ -31,7 +33,9 @@ export class StorageService {
   public async upload(buffer: Buffer, key: string, mimeType: string) {
     const command: PutObjectCommandInput = {
       Bucket: this.bucket,
-      Key: key.startsWith('/') ? key.slice(1) : key,
+      Key: key.startsWith('/')
+        ? key.slice(StorageService.BUCKET_KEY_INDEX)
+        : key,
       Body: buffer,
       ContentType: mimeType,
     };
@@ -46,7 +50,9 @@ export class StorageService {
   public async remove(key: string) {
     const command: DeleteObjectCommandInput = {
       Bucket: this.bucket,
-      Key: key.startsWith('/') ? key.slice(1) : key,
+      Key: key.startsWith('/')
+        ? key.slice(StorageService.BUCKET_KEY_INDEX)
+        : key,
     };
 
     try {

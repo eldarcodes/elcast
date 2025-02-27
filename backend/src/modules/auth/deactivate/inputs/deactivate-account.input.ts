@@ -8,6 +8,11 @@ import {
   MinLength,
 } from 'class-validator';
 
+import {
+  MIN_PASSWORD_LENGTH,
+  PIN_LENGTH,
+} from '@/src/shared/constants/account.constants';
+
 @InputType()
 export class DeactivateAccountInput {
   @Field(() => String)
@@ -19,12 +24,12 @@ export class DeactivateAccountInput {
   @Field(() => String)
   @IsString()
   @IsNotEmpty()
-  @MinLength(8)
+  @MinLength(MIN_PASSWORD_LENGTH)
   public password: string;
 
   @Field(() => String, { nullable: true })
   @IsString()
   @IsOptional()
-  @Length(6, 6)
+  @Length(PIN_LENGTH, PIN_LENGTH)
   public pin?: string;
 }

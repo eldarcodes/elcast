@@ -6,6 +6,10 @@ import * as sharp from 'sharp';
 
 import type { Prisma, User } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
+import {
+  STREAM_THUMBNAIL_HEIGHT,
+  STREAM_THUMBNAIL_WIDTH,
+} from '@/src/shared/constants/stream.constants';
 
 import { StorageService } from '../libs/storage/storage.service';
 
@@ -21,6 +25,10 @@ export class StreamService {
     private readonly storageService: StorageService,
   ) {}
 
+  private static readonly STREAM_PAGE_SIZE = 12;
+  private static readonly STREAM_INITIAL_SKIP = 0;
+  private static readonly MAX_RANDOM_STREAMS = 4;
+
   public async findAll(input: FiltersInput = {}) {
     const { skip, take, searchTerm } = input;
 
@@ -29,8 +37,8 @@ export class StreamService {
       : undefined;
 
     const streams = await this.prismaService.stream.findMany({
-      take: take ?? 12,
-      skip: skip ?? 0,
+      take: take ?? StreamService.STREAM_PAGE_SIZE,
+      skip: skip ?? StreamService.STREAM_INITIAL_SKIP,
 
       where: {
         user: {
@@ -67,6 +75,7 @@ export class StreamService {
     } else {
       self = {
         id: userId,
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
         username: `Viewer ${Math.floor(Math.random() * 100_000)}`,
       };
     }
@@ -111,7 +120,7 @@ export class StreamService {
     });
 
     const randomIndexes = new Set<number>();
-    const requiredSize = Math.min(total, 4);
+    const requiredSize = Math.min(total, StreamService.MAX_RANDOM_STREAMS);
 
     while (randomIndexes.size < requiredSize) {
       const randomIndex = Math.floor(Math.random() * total);
@@ -177,7 +186,7 @@ export class StreamService {
       file.fileName && file.fileName.endsWith('.gif') ? { animated: true } : {};
 
     const processedBuffer = await sharp(buffer, options)
-      .resize(1920, 1080)
+      .resize(STREAM_THUMBNAIL_WIDTH, STREAM_THUMBNAIL_HEIGHT)
       .webp()
       .toBuffer();
 

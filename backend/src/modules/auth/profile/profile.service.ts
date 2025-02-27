@@ -4,6 +4,10 @@ import * as sharp from 'sharp';
 
 import type { User } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
+import {
+  AVATAR_HEIGHT,
+  AVATAR_WIDTH,
+} from '@/src/shared/constants/account.constants';
 
 import { StorageService } from '../../libs/storage/storage.service';
 
@@ -39,7 +43,7 @@ export class ProfileService {
       file.fileName && file.fileName.endsWith('.gif') ? { animated: true } : {};
 
     const processedBuffer = await sharp(buffer, options)
-      .resize(512, 512)
+      .resize(AVATAR_WIDTH, AVATAR_HEIGHT)
       .webp()
       .toBuffer();
 
@@ -104,7 +108,11 @@ export class ProfileService {
       orderBy: { position: 'desc' },
     });
 
-    const newPosition = lastSocialLink ? lastSocialLink.position + 1 : 1;
+    const INITIAL_POSITION = 1;
+
+    const newPosition = lastSocialLink
+      ? lastSocialLink.position + INITIAL_POSITION
+      : INITIAL_POSITION;
 
     await this.prismaService.socialLink.create({
       data: {

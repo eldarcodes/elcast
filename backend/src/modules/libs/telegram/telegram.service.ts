@@ -15,6 +15,8 @@ import { TELEGRAM_MESSAGES } from './telegram.messages';
 export class TelegramService extends Telegraf {
   private readonly _token: string;
 
+  private static readonly MESSAGE_TOKEN_INDEX = 1;
+
   public constructor(
     private readonly configService: ConfigService,
     private readonly prismaService: PrismaService,
@@ -27,7 +29,8 @@ export class TelegramService extends Telegraf {
   @Start()
   public async onStart(@Ctx() ctx: any) {
     const chatId = ctx.chat.id.toString();
-    const token = ctx.message.text.split(' ')[1];
+    const token =
+      ctx.message.text.split(' ')[TelegramService.MESSAGE_TOKEN_INDEX];
 
     if (token) {
       const authToken = await this.prismaService.token.findUnique({
@@ -106,7 +109,9 @@ export class TelegramService extends Telegraf {
       },
     });
 
-    if (user && follows.length > 0) {
+    const minFollows = 1;
+
+    if (user && follows.length > minFollows) {
       const followsList = follows
         .map((follow) => TELEGRAM_MESSAGES.follows(follow.following))
         .join('\n');

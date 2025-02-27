@@ -4,6 +4,8 @@ import { PrismaService } from '@/src/core/prisma/prisma.service';
 
 @Injectable()
 export class CategoryService {
+  private static readonly MAX_RANDOM_CATEGORIES = 7;
+
   public constructor(private readonly prismaService: PrismaService) {}
 
   public async findAll() {
@@ -28,7 +30,7 @@ export class CategoryService {
     const total = await this.prismaService.category.count();
 
     const randomIndexes = new Set<number>();
-    const requiredSize = Math.min(total, 7);
+    const requiredSize = Math.min(total, CategoryService.MAX_RANDOM_CATEGORIES);
 
     while (randomIndexes.size < requiredSize) {
       const randomIndex = Math.floor(Math.random() * total);

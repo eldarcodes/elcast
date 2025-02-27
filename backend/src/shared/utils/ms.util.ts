@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 const s = 1000;
 const m = s * 60;
 const h = m * 60;
