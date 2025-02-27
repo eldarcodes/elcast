@@ -22,6 +22,7 @@ import {
   FormLabel,
 } from '@/components/ui/common/form';
 import { Input } from '@/components/ui/common/input';
+import { PasswordInput } from '@/components/ui/elements/password-input';
 
 import { useCreateUserMutation } from '@/graphql/generated/output';
 
@@ -117,10 +118,9 @@ export function CreateAccountForm() {
                 <FormItem>
                   <FormLabel>{t('passwordLabel')}</FormLabel>
                   <FormControl>
-                    <Input
+                    <PasswordInput
                       disabled={isLoadingCreate}
                       placeholder="********"
-                      type="password"
                       {...field}
                     />
                   </FormControl>

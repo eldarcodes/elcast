@@ -14,9 +14,9 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/common/form';
-import { Input } from '@/components/ui/common/input';
 import { Separator } from '@/components/ui/common/separator';
 import { FormWrapper } from '@/components/ui/elements/form-wrapper';
+import { PasswordInput } from '@/components/ui/elements/password-input';
 
 import { useChangePasswordMutation } from '@/graphql/generated/output';
 
@@ -62,10 +62,9 @@ export function ChangePasswordForm() {
               <FormItem className="px-5 pb-3">
                 <FormLabel>{t('oldPasswordLabel')}</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="********"
-                    type="password"
+                  <PasswordInput
                     disabled={isLoadingChange}
+                    placeholder="********"
                     {...field}
                   />
                 </FormControl>
@@ -83,10 +82,9 @@ export function ChangePasswordForm() {
               <FormItem className="px-5 pb-3">
                 <FormLabel>{t('newPasswordLabel')}</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="********"
-                    type="password"
+                  <PasswordInput
                     disabled={isLoadingChange}
+                    placeholder="********"
                     {...field}
                   />
                 </FormControl>

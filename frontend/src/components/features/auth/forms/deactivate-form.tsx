@@ -22,6 +22,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from '@/components/ui/common/input-otp';
+import { PasswordInput } from '@/components/ui/elements/password-input';
 
 import { useDeactivateAccountMutation } from '@/graphql/generated/output';
 
@@ -133,10 +134,9 @@ export function DeactivateForm() {
                   <FormItem>
                     <FormLabel>{t('passwordLabel')}</FormLabel>
                     <FormControl>
-                      <Input
+                      <PasswordInput
                         disabled={isLoadingDeactivate}
                         placeholder="********"
-                        type="password"
                         {...field}
                       />
                     </FormControl>

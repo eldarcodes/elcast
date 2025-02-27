@@ -23,6 +23,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from '@/components/ui/common/input-otp';
+import { PasswordInput } from '@/components/ui/elements/password-input';
 
 import { useLoginUserMutation } from '@/graphql/generated/output';
 
@@ -136,10 +137,9 @@ export function LoginForm() {
                     </div>
 
                     <FormControl>
-                      <Input
+                      <PasswordInput
                         disabled={isLoadingLogin}
                         placeholder="********"
-                        type="password"
                         {...field}
                       />
                     </FormControl>
