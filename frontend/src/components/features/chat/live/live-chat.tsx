@@ -1,9 +1,5 @@
-import {
-  useConnectionState,
-  useRemoteParticipant,
-} from '@livekit/components-react';
+import { useConnectionState } from '@livekit/components-react';
 import { ConnectionState } from 'livekit-client';
-import { MessageSquareOff } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import {
@@ -57,12 +53,8 @@ export function LiveChat({
   );
 
   const connectionState = useConnectionState();
-  const participant = useRemoteParticipant(channel.id);
-
-  const isOnline = participant && connectionState === ConnectionState.Connected;
 
   const isDisabled =
-    !isOnline ||
     !isAuthenticated ||
     !isChatEnabled ||
     (isChatFollowersOnly && !isFollower && !isOwnerChannel);
@@ -82,31 +74,17 @@ export function LiveChat({
       </CardHeader>
 
       <CardContent className="flex h-full flex-col overflow-y-auto p-4">
-        {isOnline ? (
-          <>
-            <MessagesList channel={channel} />
+        <MessagesList channel={channel} />
 
-            <ChatInfo
-              isOwnerChannel={isOwnerChannel}
-              isFollower={isFollower}
-              isChatEnabled={isChatEnabled}
-              isChatFollowersOnly={isChatFollowersOnly}
-              isChatSubscribersOnly={isChatSubscribersOnly}
-            />
+        <ChatInfo
+          isOwnerChannel={isOwnerChannel}
+          isFollower={isFollower}
+          isChatEnabled={isChatEnabled}
+          isChatFollowersOnly={isChatFollowersOnly}
+          isChatSubscribersOnly={isChatSubscribersOnly}
+        />
 
-            <SendMessageForm channel={channel} isDisabled={isDisabled} />
-          </>
-        ) : (
-          <div className="flex h-full flex-col items-center justify-center">
-            <MessageSquareOff className="size-10 text-muted-foreground" />
-
-            <h2 className="mt-3 text-xl font-medium">{t('unavailable')}</h2>
-
-            <p className="mt-1 w-full text-center text-muted-foreground">
-              {t('unavailableMessage')}
-            </p>
-          </div>
-        )}
+        <SendMessageForm channel={channel} isDisabled={isDisabled} />
       </CardContent>
     </Card>
   );

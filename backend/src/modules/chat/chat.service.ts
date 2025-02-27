@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { User } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
@@ -37,10 +33,6 @@ export class ChatService {
 
     if (!stream) {
       throw new NotFoundException('Stream not found');
-    }
-
-    if (!stream.isLive) {
-      throw new BadRequestException('Stream is not live');
     }
 
     const message = await this.prismaService.chatMessage.create({
