@@ -29,6 +29,8 @@ import {
   ChangeInfoSchema,
 } from '@/schemas/user/change-info.schema';
 
+import { ChangeUsernameForm } from './change-username-form';
+
 export function ChangeInfoForm() {
   const t = useTranslations('dashboard.settings.profile.info');
 
@@ -63,13 +65,17 @@ export function ChangeInfoForm() {
 
   return (
     <FormWrapper heading={t('heading')}>
+      <ChangeUsernameForm />
+
+      <Separator className="my-4" />
+
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-3">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-4">
           <FormField
             control={form.control}
             name="displayName"
             render={({ field }) => (
-              <FormItem className="px-5 pb-3">
+              <FormItem>
                 <FormLabel>{t('displayNameLabel')}</FormLabel>
                 <FormControl>
                   <Input
@@ -83,13 +89,11 @@ export function ChangeInfoForm() {
             )}
           />
 
-          <Separator />
-
           <FormField
             control={form.control}
             name="bio"
             render={({ field }) => (
-              <FormItem className="px-5 pb-3">
+              <FormItem>
                 <FormLabel>{t('bioLabel')}</FormLabel>
                 <FormControl>
                   <Textarea
@@ -103,9 +107,7 @@ export function ChangeInfoForm() {
             )}
           />
 
-          <Separator />
-
-          <div className="flex justify-end px-3 pb-3">
+          <div className="flex justify-end">
             <Button
               disabled={!isValid || !isDirty || isLoadingUpdate}
               type="submit"

@@ -147,9 +147,6 @@
         },
         "info": {
           "heading": "Настройки профиля",
-          "usernameLabel": "Имя пользователя",
-          "usernamePlaceholder": "johndoe",
-          "usernameDescription": "Так вас будут знать другие пользователи.",
           "displayNameLabel": "Отображаемое имя",
           "displayNamePlaceholder": "Джон Доу",
           "displayNameDescription": "Вы можете использовать заглавные буквы в отображаемом имени, как пожелаете.",
@@ -159,6 +156,20 @@
           "successMessage": "Профиль успешно обновлен",
           "errorMessage": "Ошибка обновления профиля",
           "submitButton": "Сохранить изменения"
+        },
+        "username": {
+          "usernameLabel": "Имя пользователя",
+          "usernamePlaceholder": "Ваше имя пользователя",
+          "usernameDescription": "Вы можете изменить имя пользователя.",
+          "modal": {
+            "heading": "Изменение имени пользователя",
+            "description": "Изменять имя пользователя можно раз в 7 дней. Изменение вступает в силу немедленно и повлияет на то, как вас видят подписчики.",
+            "cancelButton": "Отмена",
+            "usernameUrlPreview": "Новый URL канала",
+            "submitButton": "Обновить",
+            "successMessage": "Имя пользователя успешно обновлено",
+            "errorMessage": "Ошибка при обновлении имени пользователя"
+          }
         },
         "socialLinks": {
           "createForm": {

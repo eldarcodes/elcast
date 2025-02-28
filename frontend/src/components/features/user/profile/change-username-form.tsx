@@ -1,11 +1,22 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Pencil } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/common/button';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/common/dialog';
 import {
   Form,
   FormControl,
@@ -15,14 +26,12 @@ import {
   FormLabel,
 } from '@/components/ui/common/form';
 import { Input } from '@/components/ui/common/input';
-import { Separator } from '@/components/ui/common/separator';
-import { Skeleton } from '@/components/ui/common/skeleton';
-import { Textarea } from '@/components/ui/common/textarea';
-import { FormWrapper } from '@/components/ui/elements/form-wrapper';
 
 import { useChangeProfileUsernameMutation } from '@/graphql/generated/output';
 
 import { useCurrentProfile } from '@/hooks/use-current-profile';
+
+import { APP_URL } from '@/libs/constants/url.constants';
 
 import {
   changeUsernameSchema,
@@ -30,14 +39,16 @@ import {
 } from '@/schemas/user/change-username.schema';
 
 export function ChangeUsernameForm() {
-  const t = useTranslations('dashboard.settings.profile.info');
+  const t = useTranslations('dashboard.settings.profile.username');
 
-  const { user, isLoadingProfile, refetch } = useCurrentProfile();
+  const [open, setOpen] = useState(false);
+
+  const { user, refetch } = useCurrentProfile();
 
   const form = useForm<ChangeUsernameSchema>({
     resolver: zodResolver(changeUsernameSchema),
-    values: {
-      username: user?.username ?? '',
+    defaultValues: {
+      username: '',
     },
   });
 
@@ -45,9 +56,10 @@ export function ChangeUsernameForm() {
     useChangeProfileUsernameMutation({
       onCompleted: () => {
         refetch();
-        toast.success(t('successMessage'));
+        toast.success(t('modal.successMessage'));
+        setOpen(false);
       },
-      onError: () => toast.error(t('errorMessage')),
+      onError: () => toast.error(t('modal.errorMessage')),
     });
 
   function onSubmit(data: ChangeUsernameSchema) {
@@ -56,48 +68,84 @@ export function ChangeUsernameForm() {
 
   const { isValid, isDirty } = form.formState;
 
-  if (isLoadingProfile) {
-    return <ChangeUsernameFormSkeleton />;
-  }
-
   return (
-    <FormWrapper heading={t('heading')}>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-3">
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem className="px-5 pb-3">
-                <FormLabel>{t('usernameLabel')}</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder={t('usernamePlaceholder')}
-                    disabled={isLoadingUpdate}
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription>{t('usernameDescription')}</FormDescription>
-              </FormItem>
-            )}
+    <Form {...form}>
+      <FormItem>
+        <FormLabel>{t('usernameLabel')}</FormLabel>
+
+        <div className="flex flex-nowrap">
+          <Input
+            placeholder={t('usernamePlaceholder')}
+            disabled
+            className="rounded-r-none"
+            value={user?.username}
           />
 
-          <Separator />
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="icon" className="rounded-l-none">
+                <Pencil className="size-5" />
+              </Button>
+            </DialogTrigger>
 
-          <div className="flex justify-end px-3 pb-3">
-            <Button
-              disabled={!isValid || !isDirty || isLoadingUpdate}
-              type="submit"
-            >
-              {t('submitButton')}
-            </Button>
-          </div>
-        </form>
-      </Form>
-    </FormWrapper>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle className="text-xl">
+                  {t('modal.heading')}
+                </DialogTitle>
+                <DialogDescription>{t('modal.description')}</DialogDescription>
+              </DialogHeader>
+
+              <form onSubmit={form.handleSubmit(onSubmit)}>
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('usernameLabel')}</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder={t('usernamePlaceholder')}
+                          disabled={isLoadingUpdate}
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+
+                <div className="my-3">
+                  <strong className="text-sm font-medium leading-none">
+                    {t('modal.usernameUrlPreview')}
+                  </strong>
+                  <div>
+                    {APP_URL}
+                    {'/'}
+                    {form.watch('username')}
+                  </div>
+                </div>
+
+                <div className="mt-3 flex justify-end gap-2">
+                  <DialogClose asChild>
+                    <Button type="button" variant="outline">
+                      {t('modal.cancelButton')}
+                    </Button>
+                  </DialogClose>
+
+                  <Button
+                    disabled={!isValid || !isDirty || isLoadingUpdate}
+                    type="submit"
+                  >
+                    {t('modal.submitButton')}
+                  </Button>
+                </div>
+              </form>
+            </DialogContent>
+          </Dialog>
+        </div>
+
+        <FormDescription>{t('usernameDescription')}</FormDescription>
+      </FormItem>
+    </Form>
   );
-}
-
-export function ChangeUsernameFormSkeleton() {
-  return <Skeleton className="h-96 w-full" />;
 }

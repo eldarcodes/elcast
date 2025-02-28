@@ -52,7 +52,6 @@ export function UserSettings() {
               description={t('profile.header.description')}
             />
             <ChangeAvatarForm />
-            <ChangeUsernameForm />
             <ChangeInfoForm />
             <SocialLinksForm />
           </div>
