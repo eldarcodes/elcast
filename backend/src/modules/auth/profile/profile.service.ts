@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+} from '@nestjs/common';
 import * as Upload from 'graphql-upload/Upload.js';
 import * as sharp from 'sharp';
 
@@ -76,6 +80,12 @@ export class ProfileService {
     const { username: rawUsername, displayName, bio } = input;
 
     const username = rawUsername.toLowerCase();
+
+    if (displayName.toLowerCase() !== username) {
+      throw new BadRequestException(
+        'displayName must match username (case insensitive)',
+      );
+    }
 
     const usernameExists = await this.prismaService.user.findFirst({
       where: { username },
