@@ -24,10 +24,10 @@ export function ChannelItem({ channel }: ChannelItemProps) {
   const pathname = usePathname();
   const { isCollapsed } = useSidebar();
 
-  const isActive = pathname === `/${channel.username}`;
+  const isActive = pathname.toLowerCase() === `/${channel.username}`;
 
   return isCollapsed ? (
-    <Hint label={channel.username} side="right" asChild>
+    <Hint label={channel.displayName} side="right" asChild>
       <Link
         href={`/${channel.username}`}
         className="mt-3 flex w-full items-center justify-center"
@@ -48,7 +48,7 @@ export function ChannelItem({ channel }: ChannelItemProps) {
           isLive={channel.stream.isLive}
         />
         <div className="flex items-center gap-0">
-          <h2 className="truncate px-1">{channel.username}</h2>
+          <h2 className="truncate px-1">{channel.displayName}</h2>
           {channel.isVerified && <ChannelVerified size="sm" />}
         </div>
         {channel.stream.isLive && (

@@ -3,6 +3,7 @@ query FindMyFollowers {
     createdAt
     follower {
       username
+      displayName
       avatar
       isVerified
     }

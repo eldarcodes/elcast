@@ -52,7 +52,7 @@ export function ProfileMenu() {
         <DropdownMenuContent align="end" className="w-[230px]">
           <div className="flex items-center gap-x-3 p-2">
             <ChannelAvatar channel={user} />
-            <h2 className="font-medium text-foreground">{user.username}</h2>
+            <h2 className="font-medium text-foreground">{user.displayName}</h2>
           </div>
 
           <DropdownMenuSeparator />

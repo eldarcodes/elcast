@@ -6,6 +6,7 @@ query FindRandomStreams {
     isLive
     user {
       username
+      displayName
       avatar
       id
       isVerified

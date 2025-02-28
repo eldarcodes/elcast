@@ -25,7 +25,7 @@ export function SidebarItem({ route }: SidebarItemProps) {
   const pathname = usePathname();
   const { isCollapsed } = useSidebar();
 
-  const isActive = pathname === route.href;
+  const isActive = pathname.toLowerCase() === route.href;
 
   return isCollapsed ? (
     <Hint label={route.label} side="right" asChild>

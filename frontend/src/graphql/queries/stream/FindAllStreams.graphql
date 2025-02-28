@@ -6,6 +6,7 @@ query FindAllStreams($filters: FiltersInput!) {
     isLive
     user {
       username
+      displayName
       avatar
       id
       isVerified

@@ -15,7 +15,7 @@ export function Sidebar() {
 
   const pathname = usePathname();
 
-  const isDashboardPage = pathname.includes('/dashboard');
+  const isDashboardPage = pathname.toLowerCase().includes('/dashboard');
 
   return (
     <aside

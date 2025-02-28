@@ -12,6 +12,7 @@ query FindCategoryBySlug($slug: String!) {
       isLive
       user {
         username
+        displayName
         avatar
         id
         isVerified

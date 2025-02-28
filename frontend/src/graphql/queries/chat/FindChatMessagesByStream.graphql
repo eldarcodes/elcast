@@ -5,6 +5,7 @@ query FindChatMessagesByStream($streamId: String!) {
     user {
       id
       username
+      displayName
     }
   }
 }

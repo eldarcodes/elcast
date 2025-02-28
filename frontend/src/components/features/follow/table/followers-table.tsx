@@ -47,7 +47,7 @@ export function FollowersTable() {
       cell: ({ row }) => (
         <div className="flex items-center gap-x-2">
           <ChannelAvatar channel={row.original.follower} size="sm" />
-          <h2>{row.original.follower.username}</h2>
+          <h2>{row.original.follower.displayName}</h2>
           {row.original.follower.isVerified && <ChannelVerified size="sm" />}
         </div>
       ),
@@ -63,7 +63,10 @@ export function FollowersTable() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent side="bottom">
-            <Link href={`/${row.original.follower.username}`} target="_blank">
+            <Link
+              href={`/${row.original.follower.displayName}`}
+              target="_blank"
+            >
               <DropdownMenuItem>
                 <User className="mr-2 size-4" />
                 {t('columns.viewChannel')}

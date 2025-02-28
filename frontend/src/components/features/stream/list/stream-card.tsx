@@ -18,7 +18,6 @@ export function StreamCard({ stream }: StreamCardProps) {
       <Link href={`/${stream.user.username}`}>
         <StreamThumbnail
           url={stream.thumbnailUrl}
-          // url={''}
           user={stream.user}
           isLive={stream.isLive}
         />
@@ -33,7 +32,7 @@ export function StreamCard({ stream }: StreamCardProps) {
 
         <div className="flex flex-col overflow-hidden text-sm">
           <h2 className="flex items-center gap-x-2 font-semibold text-foreground">
-            {stream.user.username}
+            {stream.user.displayName}
             {stream.user.isVerified && <ChannelVerified size="sm" />}
           </h2>
 

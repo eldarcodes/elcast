@@ -16,7 +16,7 @@ interface StreamThumbnailProps {
   url: string | null | undefined;
   user: Pick<
     FindProfileQuery['findProfile'],
-    'username' | 'avatar' | 'isVerified'
+    'username' | 'avatar' | 'isVerified' | 'displayName'
   >;
   isLive?: boolean;
 }
@@ -40,7 +40,7 @@ export function StreamThumbnail({ url, user, isLive }: StreamThumbnailProps) {
       {url ? (
         <Image
           src={getMediaSource(url)}
-          alt={user.username}
+          alt={user.displayName}
           fill
           className="rounded-xl object-cover transition-transform group-hover:-translate-y-2 group-hover:translate-x-2"
         />

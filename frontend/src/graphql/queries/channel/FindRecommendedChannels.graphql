@@ -2,6 +2,7 @@ query FindRecommendedChannels {
   findRecommendedChannels {
     id
     username
+    displayName
     avatar
     isVerified
     stream {

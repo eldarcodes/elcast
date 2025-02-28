@@ -7,7 +7,7 @@ interface MessageItemProps {
 }
 
 export function MessageItem({ message }: MessageItemProps) {
-  const color = stringToColor(message.user.username ?? '');
+  const color = stringToColor(message.user.displayName ?? '');
 
   const formattedTime = new Date(message.createdAt).toLocaleTimeString([], {
     hour: '2-digit',
@@ -21,7 +21,7 @@ export function MessageItem({ message }: MessageItemProps) {
       <div className="flex grow flex-wrap items-baseline gap-1">
         <p className="flex items-center whitespace-nowrap text-sm font-semibold">
           <span className="truncate" style={{ color }}>
-            {message.user.username}
+            {message.user.displayName}
           </span>
         </p>
         <p className="break-all text-sm">{message.text}</p>
