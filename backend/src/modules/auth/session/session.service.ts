@@ -81,7 +81,10 @@ export class SessionService {
 
     const user = await this.prismaService.user.findFirst({
       where: {
-        OR: [{ username: { equals: login } }, { email: { equals: login } }],
+        OR: [
+          { username: { equals: login.toLowerCase() } },
+          { email: { equals: login } },
+        ],
       },
     });
 
