@@ -52,6 +52,9 @@ input ChangePasswordInput {
 input ChangeProfileInfoInput {
   bio: String!
   displayName: String!
+}
+
+input ChangeProfileUsernameInput {
   username: String!
 }
 
@@ -155,6 +158,7 @@ type Mutation {
   changePassword(data: ChangePasswordInput!): Boolean!
   changeProfileAvatar(avatar: Upload!): Boolean!
   changeProfileInfo(data: ChangeProfileInfoInput!): Boolean!
+  changeProfileUsername(data: ChangeProfileUsernameInput!): Boolean!
   changeStreamInfo(data: ChangeStreamInfoInput!): Boolean!
   changeStreamThumbnail(thumbnail: Upload!): Boolean!
   clearSessionCookie: Boolean!

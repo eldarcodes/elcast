@@ -1,0 +1,3 @@
+mutation ChangeProfileUsername($data: ChangeProfileUsernameInput!) {
+  changeProfileUsername(data: $data)
+}

@@ -20,30 +20,29 @@ import { Skeleton } from '@/components/ui/common/skeleton';
 import { Textarea } from '@/components/ui/common/textarea';
 import { FormWrapper } from '@/components/ui/elements/form-wrapper';
 
-import { useChangeProfileInfoMutation } from '@/graphql/generated/output';
+import { useChangeProfileUsernameMutation } from '@/graphql/generated/output';
 
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
 import {
-  changeInfoSchema,
-  ChangeInfoSchema,
-} from '@/schemas/user/change-info.schema';
+  changeUsernameSchema,
+  ChangeUsernameSchema,
+} from '@/schemas/user/change-username.schema';
 
-export function ChangeInfoForm() {
+export function ChangeUsernameForm() {
   const t = useTranslations('dashboard.settings.profile.info');
 
   const { user, isLoadingProfile, refetch } = useCurrentProfile();
 
-  const form = useForm<ChangeInfoSchema>({
-    resolver: zodResolver(changeInfoSchema),
+  const form = useForm<ChangeUsernameSchema>({
+    resolver: zodResolver(changeUsernameSchema),
     values: {
-      displayName: user?.displayName ?? '',
-      bio: user?.bio ?? '',
+      username: user?.username ?? '',
     },
   });
 
-  const [updateProfileInfo, { loading: isLoadingUpdate }] =
-    useChangeProfileInfoMutation({
+  const [updateProfileUsername, { loading: isLoadingUpdate }] =
+    useChangeProfileUsernameMutation({
       onCompleted: () => {
         refetch();
         toast.success(t('successMessage'));
@@ -51,14 +50,14 @@ export function ChangeInfoForm() {
       onError: () => toast.error(t('errorMessage')),
     });
 
-  function onSubmit(data: ChangeInfoSchema) {
-    updateProfileInfo({ variables: { data } });
+  function onSubmit(data: ChangeUsernameSchema) {
+    updateProfileUsername({ variables: { data } });
   }
 
   const { isValid, isDirty } = form.formState;
 
   if (isLoadingProfile) {
-    return <ChangeInfoFormSkeleton />;
+    return <ChangeUsernameFormSkeleton />;
   }
 
   return (
@@ -67,38 +66,18 @@ export function ChangeInfoForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-3">
           <FormField
             control={form.control}
-            name="displayName"
+            name="username"
             render={({ field }) => (
               <FormItem className="px-5 pb-3">
-                <FormLabel>{t('displayNameLabel')}</FormLabel>
+                <FormLabel>{t('usernameLabel')}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder={t('displayNamePlaceholder')}
+                    placeholder={t('usernamePlaceholder')}
                     disabled={isLoadingUpdate}
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>{t('displayNameDescription')}</FormDescription>
-              </FormItem>
-            )}
-          />
-
-          <Separator />
-
-          <FormField
-            control={form.control}
-            name="bio"
-            render={({ field }) => (
-              <FormItem className="px-5 pb-3">
-                <FormLabel>{t('bioLabel')}</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder={t('bioPlaceholder')}
-                    disabled={isLoadingUpdate}
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription>{t('bioDescription')}</FormDescription>
+                <FormDescription>{t('usernameDescription')}</FormDescription>
               </FormItem>
             )}
           />
@@ -119,6 +98,6 @@ export function ChangeInfoForm() {
   );
 }
 
-export function ChangeInfoFormSkeleton() {
+export function ChangeUsernameFormSkeleton() {
   return <Skeleton className="h-96 w-full" />;
 }
