@@ -37,7 +37,9 @@ export class AccountService {
   }
 
   public async create(input: CreateUserInput) {
-    const { email, password, username } = input;
+    const { email, password, username: rawUsername } = input;
+
+    const username = rawUsername.toLowerCase();
 
     const isUsernameTaken = await this.prismaService.user.findUnique({
       where: { username },
@@ -60,10 +62,10 @@ export class AccountService {
         email,
         username,
         password: await argon2.hash(password),
-        displayName: username,
+        displayName: rawUsername,
         stream: {
           create: {
-            title: `Stream ${username}`,
+            title: `Stream ${rawUsername}`,
           },
         },
         notificationSettings: {

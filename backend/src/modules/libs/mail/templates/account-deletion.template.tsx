@@ -28,7 +28,7 @@ export function AccountDeletionTemplate({
         <Body className="max-w-2xl mx-auto p-6 bg-slate-50">
           <Section className="text-center">
             <Heading className="text-3xl text-black font-bold">
-              Ваш аккаунт был полностью удалён
+              Your account has been deleted
             </Heading>
             <Text className="text-base text-black mt-2">
               We wanted to let you know that your account at Elcast has been

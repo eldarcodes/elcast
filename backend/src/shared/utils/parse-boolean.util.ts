@@ -10,7 +10,5 @@ export function parseBoolean(value: string): boolean {
     if (lowerValue === 'false') return false;
   }
 
-  throw new Error(
-    `Не удалось преобразовать значение "${value}" в логическое значение.`,
-  );
+  throw new Error(`Failed to convert the value “${value}” to a boolean value.`);
 }

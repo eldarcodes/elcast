@@ -37,7 +37,7 @@ export class ProfileService {
 
     const buffer = Buffer.concat(chunks);
 
-    const fileName = `/channels/${user.username}.webp`;
+    const fileName = `/channels/${user.username.toLowerCase()}.webp`;
 
     const options =
       file.fileName && file.fileName.endsWith('.gif') ? { animated: true } : {};
@@ -73,7 +73,9 @@ export class ProfileService {
   }
 
   public async changeInfo(user: User, input: ChangeProfileInfoInput) {
-    const { username, displayName, bio } = input;
+    const { username: rawUsername, displayName, bio } = input;
+
+    const username = rawUsername.toLowerCase();
 
     const usernameExists = await this.prismaService.user.findFirst({
       where: { username },
