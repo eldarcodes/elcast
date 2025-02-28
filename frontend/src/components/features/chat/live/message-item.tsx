@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import { FindChatMessagesByStreamQuery } from '@/graphql/generated/output';
 
 import { stringToColor } from '@/utils/color';
@@ -9,10 +11,7 @@ interface MessageItemProps {
 export function MessageItem({ message }: MessageItemProps) {
   const color = stringToColor(message.user.displayName ?? '');
 
-  const formattedTime = new Date(message.createdAt).toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+  const formattedTime = dayjs(message.createdAt).format('HH:mm');
 
   return (
     <div className="flex gap-2 rounded-md p-2 hover:bg-accent">
