@@ -96,7 +96,7 @@ export class ProfileService {
 
     await this.prismaService.user.update({
       where: { id: user.id },
-      data: { username, displayName: username },
+      data: { username, displayName: rawUsername },
     });
 
     return true;
