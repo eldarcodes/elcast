@@ -71,6 +71,7 @@ export function UserSettings() {
               title={t('account.header.securityHeading')}
               description={t('account.header.securityDescription')}
             />
+
             <WrapperTotp />
 
             <Heading

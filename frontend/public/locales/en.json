@@ -175,11 +175,11 @@
           "createForm": {
             "heading": "Social Media Links",
             "titleLabel": "Link Title",
-            "titlePlaceholder": "Youtube",
-            "titleDescription": "Link text",
+            "titlePlaceholder": "GitHub",
+            "titleDescription": "Text shown for the link",
             "urlLabel": "Link URL",
             "urlPlaceholder": "https://github.com/eldarcodes",
-            "urlDescription": "Where does this link lead? Please enter the full URL, e.g., https://github.com/eldarcodes",
+            "urlDescription": "Where should the link go? Type the full url, like this: https://elcast.eldarcodes.com/link",
             "submitButton": "Add",
             "successMessage": "Social media link successfully added",
             "errorMessage": "Error adding social media link"
@@ -210,6 +210,10 @@
           "emailLabel": "Email",
           "emailDescription": "Enter your new email address.",
           "submitButton": "Save",
+          "verified": "Verified",
+          "notVerified": "Not verified",
+          "verifiedText": "Thank you for verifying your email.",
+          "notVerifiedText": "Please verify your email to avoid any issues.",
           "successMessage": "Email successfully updated",
           "errorMessage": "Error during mail update"
         },

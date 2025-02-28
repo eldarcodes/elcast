@@ -65,36 +65,32 @@ export function SocialLinksList() {
   if (!socialLinks.length) return null;
 
   return (
-    <>
-      <Separator />
-
-      <div className="mt-5 px-5">
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="social-links">
-            {(provided) => (
-              <div {...provided.droppableProps} ref={provided.innerRef}>
-                {socialLinks.map((socialLink, index) => (
-                  <Draggable
-                    key={socialLink.id}
-                    draggableId={socialLink.id}
-                    index={index}
-                    isDragDisabled={isLoadingReorder}
-                  >
-                    {(provided) => (
-                      <SocialLinkItem
-                        key={socialLink.id}
-                        socialLink={socialLink}
-                        provided={provided}
-                      />
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </div>
-    </>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="social-links">
+        {(provided) => (
+          <div {...provided.droppableProps} ref={provided.innerRef}>
+            <div className="space-y-3">
+              {socialLinks.map((socialLink, index) => (
+                <Draggable
+                  key={socialLink.id}
+                  draggableId={socialLink.id}
+                  index={index}
+                  isDragDisabled={isLoadingReorder}
+                >
+                  {(provided) => (
+                    <SocialLinkItem
+                      key={socialLink.id}
+                      socialLink={socialLink}
+                      provided={provided}
+                    />
+                  )}
+                </Draggable>
+              ))}
+            </div>
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 }

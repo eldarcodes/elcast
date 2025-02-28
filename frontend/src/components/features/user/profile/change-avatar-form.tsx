@@ -78,7 +78,7 @@ export function ChangeAvatarForm() {
           control={form.control}
           name="file"
           render={({ field }) => (
-            <div className="px-5 pb-5">
+            <div className="">
               <div className="flex w-full flex-col justify-center sm:flex-row sm:items-center sm:justify-start sm:space-x-6">
                 <ChannelAvatar
                   size="xl"
@@ -125,6 +125,7 @@ export function ChangeAvatarForm() {
                       </ConfirmModal>
                     )}
                   </div>
+
                   <p className="mt-3 text-sm text-muted-foreground">
                     {t('info')}
                   </p>
