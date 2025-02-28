@@ -71,6 +71,9 @@ export type ChangePasswordInput = {
 export type ChangeProfileInfoInput = {
   bio: Scalars['String']['input'];
   displayName: Scalars['String']['input'];
+};
+
+export type ChangeProfileUsernameInput = {
   username: Scalars['String']['input'];
 };
 
@@ -172,6 +175,7 @@ export type Mutation = {
   changePassword: Scalars['Boolean']['output'];
   changeProfileAvatar: Scalars['Boolean']['output'];
   changeProfileInfo: Scalars['Boolean']['output'];
+  changeProfileUsername: Scalars['Boolean']['output'];
   changeStreamInfo: Scalars['Boolean']['output'];
   changeStreamThumbnail: Scalars['Boolean']['output'];
   clearSessionCookie: Scalars['Boolean']['output'];
@@ -227,6 +231,11 @@ export type MutationChangeProfileAvatarArgs = {
 
 export type MutationChangeProfileInfoArgs = {
   data: ChangeProfileInfoInput;
+};
+
+
+export type MutationChangeProfileUsernameArgs = {
+  data: ChangeProfileUsernameInput;
 };
 
 
@@ -668,6 +677,13 @@ export type ChangeProfileInfoMutationVariables = Exact<{
 
 export type ChangeProfileInfoMutation = { __typename?: 'Mutation', changeProfileInfo: boolean };
 
+export type ChangeProfileUsernameMutationVariables = Exact<{
+  data: ChangeProfileUsernameInput;
+}>;
+
+
+export type ChangeProfileUsernameMutation = { __typename?: 'Mutation', changeProfileUsername: boolean };
+
 export type ClearSessionCookieMutationVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -802,7 +818,7 @@ export type FindNotificationsUnreadCountQuery = { __typename?: 'Query', findNoti
 export type FindProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserModel', id: string, email: string, username: string, displayName: string, avatar?: string | null, bio?: string | null, isTotpEnabled: boolean, isVerified: boolean, notificationSettings: { __typename?: 'NotificationSettingsModel', siteNotifications: boolean, telegramNotifications: boolean }, stream: { __typename?: 'StreamModel', serverUrl?: string | null, streamKey?: string | null, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatSubscribersOnly: boolean } } };
+export type FindProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserModel', id: string, email: string, username: string, displayName: string, avatar?: string | null, bio?: string | null, isTotpEnabled: boolean, isVerified: boolean, isEmailVerified: boolean, notificationSettings: { __typename?: 'NotificationSettingsModel', siteNotifications: boolean, telegramNotifications: boolean }, stream: { __typename?: 'StreamModel', serverUrl?: string | null, streamKey?: string | null, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatSubscribersOnly: boolean } } };
 
 export type FindSessionsByUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1504,6 +1520,37 @@ export function useChangeProfileInfoMutation(baseOptions?: Apollo.MutationHookOp
 export type ChangeProfileInfoMutationHookResult = ReturnType<typeof useChangeProfileInfoMutation>;
 export type ChangeProfileInfoMutationResult = Apollo.MutationResult<ChangeProfileInfoMutation>;
 export type ChangeProfileInfoMutationOptions = Apollo.BaseMutationOptions<ChangeProfileInfoMutation, ChangeProfileInfoMutationVariables>;
+export const ChangeProfileUsernameDocument = gql`
+    mutation ChangeProfileUsername($data: ChangeProfileUsernameInput!) {
+  changeProfileUsername(data: $data)
+}
+    `;
+export type ChangeProfileUsernameMutationFn = Apollo.MutationFunction<ChangeProfileUsernameMutation, ChangeProfileUsernameMutationVariables>;
+
+/**
+ * __useChangeProfileUsernameMutation__
+ *
+ * To run a mutation, you first call `useChangeProfileUsernameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangeProfileUsernameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changeProfileUsernameMutation, { data, loading, error }] = useChangeProfileUsernameMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useChangeProfileUsernameMutation(baseOptions?: Apollo.MutationHookOptions<ChangeProfileUsernameMutation, ChangeProfileUsernameMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ChangeProfileUsernameMutation, ChangeProfileUsernameMutationVariables>(ChangeProfileUsernameDocument, options);
+      }
+export type ChangeProfileUsernameMutationHookResult = ReturnType<typeof useChangeProfileUsernameMutation>;
+export type ChangeProfileUsernameMutationResult = Apollo.MutationResult<ChangeProfileUsernameMutation>;
+export type ChangeProfileUsernameMutationOptions = Apollo.BaseMutationOptions<ChangeProfileUsernameMutation, ChangeProfileUsernameMutationVariables>;
 export const ClearSessionCookieDocument = gql`
     mutation ClearSessionCookie {
   clearSessionCookie
@@ -2424,6 +2471,7 @@ export const FindProfileDocument = gql`
     bio
     isTotpEnabled
     isVerified
+    isEmailVerified
     notificationSettings {
       siteNotifications
       telegramNotifications

@@ -27,6 +27,8 @@ import {
   SocialLinksSchema,
 } from '@/schemas/user/social-links.schema';
 
+import { getSocialIcon } from '@/utils/get-social-icon';
+
 interface SocialLinkItemProps {
   socialLink: FindSocialLinksQuery['findSocialLinks'][0];
   provided: DraggableProvided;
@@ -77,27 +79,29 @@ export function SocialLinkItem({ provided, socialLink }: SocialLinkItemProps) {
 
   const { isValid, isDirty } = form.formState;
 
+  const Icon = getSocialIcon(socialLink.url);
+
   return (
     <div
-      className="mb-4 flex items-center gap-x-2 rounded-md border bg-background text-sm"
+      className="flex items-center gap-x-2 rounded-md border bg-background text-sm"
       ref={provided.innerRef}
       {...provided.draggableProps}
     >
       <div
-        className="rounded-l-md border-r px-2 py-9 text-foreground transition"
+        className="rounded-l-md border-r px-2 py-8 text-foreground transition"
         {...provided.dragHandleProps}
       >
         <GripVertical className="size-5" />
       </div>
 
-      <div className="space-y-1 px-2">
+      <div className="w-full px-2">
         {editingId === socialLink.id ? (
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex gap-x-6"
             >
-              <div className="w-96 space-y-2">
+              <div className="w-full space-y-2">
                 <FormField
                   control={form.control}
                   name="title"
@@ -149,12 +153,16 @@ export function SocialLinkItem({ provided, socialLink }: SocialLinkItemProps) {
             </form>
           </Form>
         ) : (
-          <>
-            <h2 className="text-base font-semibold text-foreground">
-              {socialLink.title}
-            </h2>
-            <p className="text-muted-foreground">{socialLink.url}</p>
-          </>
+          <div className="flex items-center gap-x-2">
+            <Icon className="mr-2 size-4" />
+
+            <div>
+              <h2 className="text-base font-semibold text-foreground">
+                {socialLink.title}
+              </h2>
+              <p className="text-muted-foreground">{socialLink.url}</p>
+            </div>
+          </div>
         )}
       </div>
 

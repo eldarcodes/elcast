@@ -19,6 +19,7 @@ import { ChangeThemeForm } from './appearance/change-theme-form';
 import { ChangeNotificationsSettingsForm } from './notifications/change-notifications-settings-form';
 import { ChangeAvatarForm } from './profile/change-avatar-form';
 import { ChangeInfoForm } from './profile/change-info-form';
+import { ChangeUsernameForm } from './profile/change-username-form';
 import { SocialLinksForm } from './profile/social-links/social-links-form';
 import { SessionsList } from './sessions/sessions-list';
 
@@ -70,6 +71,7 @@ export function UserSettings() {
               title={t('account.header.securityHeading')}
               description={t('account.header.securityDescription')}
             />
+
             <WrapperTotp />
 
             <Heading

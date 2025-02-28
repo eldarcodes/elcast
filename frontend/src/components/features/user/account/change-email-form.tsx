@@ -61,12 +61,12 @@ export function ChangeEmailForm() {
   return (
     <FormWrapper heading={t('heading')}>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-3">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-4">
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem className="px-5 pb-3">
+              <FormItem>
                 <FormLabel>{t('emailLabel')}</FormLabel>
                 <FormControl>
                   <Input
@@ -80,9 +80,19 @@ export function ChangeEmailForm() {
             )}
           />
 
-          <Separator />
+          {user?.isEmailVerified ? (
+            <p className="text-sm text-muted-foreground">
+              <strong className="text-green-400">{t('verified')}.</strong>{' '}
+              {t('verifiedText')}
+            </p>
+          ) : (
+            <p className="text-sm text-muted-foreground">
+              <strong className="text-red-400">{t('notVerified')}.</strong>{' '}
+              {t('notVerifiedText')}
+            </p>
+          )}
 
-          <div className="flex justify-end px-3 pb-3">
+          <div className="flex justify-end">
             <Button
               disabled={!isValid || !isDirty || isLoadingChange}
               type="submit"

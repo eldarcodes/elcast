@@ -147,28 +147,39 @@
         },
         "info": {
           "heading": "Profile Settings",
-          "usernameLabel": "Username",
-          "usernamePlaceholder": "johndoe",
-          "usernameDescription": "This is how other users will know you.",
           "displayNameLabel": "Display Name",
-          "displayNamePlaceholder": "John Doe",
-          "displayNameDescription": "You can use uppercase letters in your display name as you wish.",
-          "bioLabel": "About Me",
+          "displayNamePlaceholder": "JohnDoe",
+          "displayNameDescription": "Customize capitalization for your username.",
+          "bioLabel": "Bio",
           "bioPlaceholder": "I love programming",
-          "bioDescription": "The information about yourself should contain no more than 300 characters.",
+          "bioDescription": "Description for the About panel on your channel page in under 300 characters.",
           "successMessage": "Profile successfully updated",
           "errorMessage": "Error updating profile",
           "submitButton": "Save Changes"
+        },
+        "username": {
+          "usernameLabel": "Username",
+          "usernamePlaceholder": "Your username",
+          "usernameDescription": "You may update your username.",
+          "modal": {
+            "heading": "Change Username",
+            "description": "Username updates can be performed once every 7 days. The update takes effect immediately and will affect how your followers recognize you.",
+            "cancelButton": "Cancel",
+            "usernameUrlPreview": "New channel URL",
+            "submitButton": "Update",
+            "successMessage": "Username successfully updated",
+            "errorMessage": "Error updating username"
+          }
         },
         "socialLinks": {
           "createForm": {
             "heading": "Social Media Links",
             "titleLabel": "Link Title",
-            "titlePlaceholder": "Youtube",
-            "titleDescription": "Link text",
+            "titlePlaceholder": "GitHub",
+            "titleDescription": "Text shown for the link",
             "urlLabel": "Link URL",
             "urlPlaceholder": "https://github.com/eldarcodes",
-            "urlDescription": "Where does this link lead? Please enter the full URL, e.g., https://github.com/eldarcodes",
+            "urlDescription": "Where should the link go? Type the full url, like this: https://elcast.eldarcodes.com/link",
             "submitButton": "Add",
             "successMessage": "Social media link successfully added",
             "errorMessage": "Error adding social media link"
@@ -199,6 +210,10 @@
           "emailLabel": "Email",
           "emailDescription": "Enter your new email address.",
           "submitButton": "Save",
+          "verified": "Verified",
+          "notVerified": "Not verified",
+          "verifiedText": "Thank you for verifying your email.",
+          "notVerifiedText": "Please verify your email to avoid any issues.",
           "successMessage": "Email successfully updated",
           "errorMessage": "Error during mail update"
         },

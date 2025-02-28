@@ -8,6 +8,7 @@ import { Authorized } from '@/src/shared/decorators/authorized.decorator';
 import { FileValidationPipe } from '@/src/shared/pipes/file-validation.pipe';
 
 import { ChangeProfileInfoInput } from './inputs/change-info.input';
+import { ChangeProfileUsernameInput } from './inputs/change-username.input';
 import {
   SocialLinkInput,
   SocialLinkOrderInput,
@@ -37,6 +38,17 @@ export class ProfileResolver {
   })
   public async removeAvatar(@Authorized() user: User) {
     return this.profileService.removeAvatar(user);
+  }
+
+  @Authorization()
+  @Mutation(() => Boolean, {
+    name: 'changeProfileUsername',
+  })
+  public async changeUsername(
+    @Authorized() user: User,
+    @Args('data') input: ChangeProfileUsernameInput,
+  ) {
+    return this.profileService.changeUsername(user, input);
   }
 
   @Authorization()

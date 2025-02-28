@@ -15,7 +15,8 @@ export function FormWrapper({
       <CardHeader className="p-4">
         <CardTitle className="text-lg">{heading}</CardTitle>
       </CardHeader>
-      <CardContent className="p-0">{children}</CardContent>
+
+      <CardContent className="px-4 pb-4">{children}</CardContent>
     </Card>
   );
 }

@@ -16,6 +16,7 @@ import {
 import { StorageService } from '../../libs/storage/storage.service';
 
 import { ChangeProfileInfoInput } from './inputs/change-info.input';
+import { ChangeProfileUsernameInput } from './inputs/change-username.input';
 import {
   SocialLinkInput,
   SocialLinkOrderInput,
@@ -76,28 +77,44 @@ export class ProfileService {
     return true;
   }
 
-  public async changeInfo(user: User, input: ChangeProfileInfoInput) {
-    const { username: rawUsername, displayName, bio } = input;
+  public async changeUsername(user: User, input: ChangeProfileUsernameInput) {
+    const { username: rawUsername } = input;
 
     const username = rawUsername.toLowerCase();
 
-    if (displayName.toLowerCase() !== username) {
-      throw new BadRequestException(
-        'displayName must match username (case insensitive)',
-      );
+    if (user.username === username) {
+      return true;
     }
 
     const usernameExists = await this.prismaService.user.findFirst({
       where: { username },
     });
 
-    if (usernameExists && username !== user.username) {
+    if (usernameExists) {
       throw new ConflictException('Username already exists');
     }
 
     await this.prismaService.user.update({
       where: { id: user.id },
-      data: { username, displayName, bio },
+      data: { username, displayName: rawUsername },
+    });
+
+    return true;
+  }
+
+  public async changeInfo(user: User, input: ChangeProfileInfoInput) {
+    const { displayName, bio } = input;
+    const { username } = user;
+
+    if (displayName.toLowerCase() !== username) {
+      throw new BadRequestException(
+        'Display name must match username (case insensitive)',
+      );
+    }
+
+    await this.prismaService.user.update({
+      where: { id: user.id },
+      data: { displayName, bio },
     });
 
     return true;

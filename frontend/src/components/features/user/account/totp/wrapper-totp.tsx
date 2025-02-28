@@ -22,7 +22,7 @@ export function WrapperTotp() {
       heading={t('heading')}
       description={t('description')}
       rightContent={
-        <div className="flex items-center gap-x-4">
+        <div className="ml-2 flex items-center gap-x-4">
           {!user?.isTotpEnabled ? <EnableTotp /> : <DisableTotp />}
         </div>
       }

@@ -54,12 +54,12 @@ export function ChangePasswordForm() {
   return (
     <FormWrapper heading={t('heading')}>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-3">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-4">
           <FormField
             control={form.control}
             name="oldPassword"
             render={({ field }) => (
-              <FormItem className="px-5 pb-3">
+              <FormItem>
                 <FormLabel>{t('oldPasswordLabel')}</FormLabel>
                 <FormControl>
                   <PasswordInput
@@ -79,7 +79,7 @@ export function ChangePasswordForm() {
             control={form.control}
             name="newPassword"
             render={({ field }) => (
-              <FormItem className="px-5 pb-3">
+              <FormItem>
                 <FormLabel>{t('newPasswordLabel')}</FormLabel>
                 <FormControl>
                   <PasswordInput
@@ -95,7 +95,7 @@ export function ChangePasswordForm() {
 
           <Separator />
 
-          <div className="flex justify-end px-3 pb-3">
+          <div className="flex justify-end">
             <Button disabled={!isValid || isLoadingChange} type="submit">
               {t('submitButton')}
             </Button>

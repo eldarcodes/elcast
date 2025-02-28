@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { LinkIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -69,12 +70,12 @@ export function SocialLinksForm() {
   return (
     <FormWrapper heading={t('heading')}>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-3">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-4">
           <FormField
             control={form.control}
             name="title"
             render={({ field }) => (
-              <FormItem className="px-5 pb-3">
+              <FormItem>
                 <FormLabel>{t('titleLabel')}</FormLabel>
                 <FormControl>
                   <Input
@@ -88,16 +89,15 @@ export function SocialLinksForm() {
             )}
           />
 
-          <Separator />
-
           <FormField
             control={form.control}
             name="url"
             render={({ field }) => (
-              <FormItem className="px-5 pb-3">
+              <FormItem>
                 <FormLabel>{t('urlLabel')}</FormLabel>
                 <FormControl>
                   <Input
+                    startIcon={LinkIcon}
                     placeholder={t('urlPlaceholder')}
                     disabled={isLoadingCreate}
                     {...field}
@@ -108,15 +108,15 @@ export function SocialLinksForm() {
             )}
           />
 
-          <Separator />
-
-          <div className="flex justify-end px-3 pb-3">
+          <div className="flex justify-end">
             <Button disabled={!isValid || isLoadingCreate} type="submit">
               {t('submitButton')}
             </Button>
           </div>
         </form>
       </Form>
+
+      <Separator className="my-4" />
 
       <SocialLinksList />
     </FormWrapper>
