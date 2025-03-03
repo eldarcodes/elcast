@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from '@next/third-parties/google';
 import 'leaflet/dist/leaflet.css';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
@@ -129,6 +130,8 @@ export default async function RootLayout({
           </NextIntlClientProvider>
         </ApolloClientProvider>
       </body>
+
+      <GoogleAnalytics gaId="G-L48J56DCW8" />
     </html>
   );
 }
