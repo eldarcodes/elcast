@@ -83,7 +83,9 @@
           "successMessage": "Successfully logged out",
           "errorMessage": "Logout error",
           "channel": "My channel",
-          "dashboard": "Dashboard",
+          "settings": "Settings",
+          "language": "Language",
+          "darkTheme": "Dark theme",
           "logout": "Sign out"
         }
       },
@@ -265,7 +267,7 @@
           "description": "Customize the look of the website interface to your liking. Choose a theme and language that make your experience more comfortable."
         },
         "theme": {
-          "heading": "Change Theme",
+          "heading": "Dark theme",
           "description": "You can choose a dark or light theme for the website interface.",
           "successMessage": "The website theme has been successfully changed"
         },
