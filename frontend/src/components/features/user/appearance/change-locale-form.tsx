@@ -16,17 +16,13 @@ import {
 } from '@/components/ui/common/select';
 import { CardContainer } from '@/components/ui/elements/card-container';
 
+import { languageOptions } from '@/libs/i18n/config';
 import { setLocale } from '@/libs/i18n/locale';
 
 import {
   changeLocaleSchema,
   ChangeLocaleSchema,
 } from '@/schemas/user/change-locale.schema';
-
-const languageOptions = {
-  en: 'English',
-  ru: 'Русский',
-};
 
 export function ChangeLocaleForm() {
   const t = useTranslations('dashboard.settings.appearance.language');
@@ -47,7 +43,6 @@ export function ChangeLocaleForm() {
       try {
         await setLocale(data.locale);
       } catch (error) {
-        console.error(error);
         toast.success(t('successMessage'));
       }
     });
