@@ -5,10 +5,10 @@ import { cn } from '@/utils/tw-merge';
 const headingSizes = cva('', {
   variants: {
     size: {
-      sm: 'text-lg',
-      default: 'text-2xl',
-      lg: 'text-4xl',
-      xl: 'text-5xl',
+      sm: 'text-md md:text-lg',
+      default: 'text-xl md:text-2xl',
+      lg: 'text-3xl md:text-4xl',
+      xl: 'text-4xl md:text-5xl',
     },
   },
   defaultVariants: {
@@ -30,7 +30,11 @@ export function Heading({ size, title, description }: HeadingProps) {
         {title}
       </h1>
 
-      {description && <p className="text-muted-foreground">{description}</p>}
+      {description && (
+        <p className="text-sm text-muted-foreground md:text-base">
+          {description}
+        </p>
+      )}
     </div>
   );
 }

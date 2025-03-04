@@ -1,14 +1,18 @@
 import type { PropsWithChildren } from 'react';
 
+import { cn } from '@/utils/tw-merge';
+
 import { Card, CardContent, CardHeader, CardTitle } from '../common/card';
 
 interface FormWrapperProps {
   heading: string;
+  contentClassName?: string;
 }
 
 export function FormWrapper({
   children,
   heading,
+  contentClassName,
 }: PropsWithChildren<FormWrapperProps>) {
   return (
     <Card>
@@ -16,7 +20,9 @@ export function FormWrapper({
         <CardTitle className="text-lg">{heading}</CardTitle>
       </CardHeader>
 
-      <CardContent className="px-4 pb-4">{children}</CardContent>
+      <CardContent className={cn('px-4 pb-4', contentClassName)}>
+        {children}
+      </CardContent>
     </Card>
   );
 }

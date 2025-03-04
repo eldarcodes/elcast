@@ -23,8 +23,8 @@ export function LayoutContainer({ children }: PropsWithChildren<unknown>) {
   return (
     <main
       className={cn(
-        'mt-[75px] flex-1 p-8',
-        isCollapsed ? 'ml-16' : 'ml-16 lg:ml-64',
+        'mt-[75px] flex-1 p-5 md:p-8',
+        isCollapsed ? 'ml-0 md:ml-16' : 'ml-16 lg:ml-64',
       )}
     >
       {children}
