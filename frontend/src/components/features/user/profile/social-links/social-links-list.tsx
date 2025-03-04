@@ -10,8 +10,6 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 
-import { Separator } from '@/components/ui/common/separator';
-
 import {
   useFindSocialLinksQuery,
   useReorderSocialLinksMutation,
@@ -69,24 +67,23 @@ export function SocialLinksList() {
       <Droppable droppableId="social-links">
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
-            <div className="space-y-3">
-              {socialLinks.map((socialLink, index) => (
-                <Draggable
-                  key={socialLink.id}
-                  draggableId={socialLink.id}
-                  index={index}
-                  isDragDisabled={isLoadingReorder}
-                >
-                  {(provided) => (
-                    <SocialLinkItem
-                      key={socialLink.id}
-                      socialLink={socialLink}
-                      provided={provided}
-                    />
-                  )}
-                </Draggable>
-              ))}
-            </div>
+            {socialLinks.map((socialLink, index) => (
+              <Draggable
+                key={socialLink.id}
+                draggableId={socialLink.id}
+                index={index}
+                isDragDisabled={isLoadingReorder}
+              >
+                {(provided) => (
+                  <SocialLinkItem
+                    key={socialLink.id}
+                    socialLink={socialLink}
+                    provided={provided}
+                  />
+                )}
+              </Draggable>
+            ))}
+
             {provided.placeholder}
           </div>
         )}

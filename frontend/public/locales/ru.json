@@ -176,15 +176,18 @@
             "errorMessage": "Ошибка при обновлении имени пользователя"
           }
         },
+
         "socialLinks": {
-          "createForm": {
-            "heading": "Ссылки на социальные сети",
+          "form": {
             "titleLabel": "Название ссылки",
             "titlePlaceholder": "YouTube",
             "titleDescription": "Текст ссылки",
             "urlLabel": "URL ссылки",
             "urlPlaceholder": "https://github.com/eldarcodes",
-            "urlDescription": "Куда ведет эта ссылка? Пожалуйста, укажите полный URL, например, https://github.com/eldarcodes",
+            "urlDescription": "Куда ведет эта ссылка? Пожалуйста, укажите полный URL, например, https://github.com/eldarcodes"
+          },
+          "createForm": {
+            "heading": "Ссылки на социальные сети",
             "submitButton": "Добавить",
             "successMessage": "Ссылка на социальные сети успешно добавлена",
             "errorMessage": "Ошибка добавления ссылки на социальные сети"

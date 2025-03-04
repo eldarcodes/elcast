@@ -8,10 +8,18 @@ import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/common/button';
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/common/dialog';
+import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
+  FormLabel,
 } from '@/components/ui/common/form';
 import { Input } from '@/components/ui/common/input';
 
@@ -21,6 +29,8 @@ import {
   useRemoveSocialLinkMutation,
   useUpdateSocialLinkMutation,
 } from '@/graphql/generated/output';
+
+import { useMediaQuery } from '@/hooks/use-media-query';
 
 import {
   socialLinksSchema,
@@ -35,22 +45,23 @@ interface SocialLinkItemProps {
 }
 
 export function SocialLinkItem({ provided, socialLink }: SocialLinkItemProps) {
-  const t = useTranslations('dashboard.settings.profile.socialLinks.editForm');
+  const t = useTranslations('dashboard.settings.profile.socialLinks');
 
-  const [editingId, setEditingId] = useState<string | null>(null);
+  const [openEdit, setOpenEdit] = useState(false);
+
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const { refetch } = useFindSocialLinksQuery();
 
   const [updateSocialLink, { loading: isLoadingUpdate }] =
     useUpdateSocialLinkMutation({
       onCompleted: () => {
-        setEditingId(null);
         refetch();
-
-        toast.success(t('successUpdateMessage'));
+        setOpenEdit(false);
+        toast.success(t('editForm.successUpdateMessage'));
       },
       onError: () => {
-        toast.error(t('errorUpdateMessage'));
+        toast.error(t('editForm.errorUpdateMessage'));
       },
     });
 
@@ -58,10 +69,10 @@ export function SocialLinkItem({ provided, socialLink }: SocialLinkItemProps) {
     useRemoveSocialLinkMutation({
       onCompleted: () => {
         refetch();
-        toast.success(t('successRemoveMessage'));
+        toast.success(t('editForm.successRemoveMessage'));
       },
       onError: () => {
-        toast.error(t('errorRemoveMessage'));
+        toast.error(t('editForm.errorRemoveMessage'));
       },
     });
 
@@ -83,62 +94,118 @@ export function SocialLinkItem({ provided, socialLink }: SocialLinkItemProps) {
 
   return (
     <div
-      className="flex items-center gap-x-2 rounded-md border bg-background text-sm"
+      className="mb-4 flex items-center rounded-md border bg-background text-sm"
       ref={provided.innerRef}
       {...provided.draggableProps}
     >
       <div
-        className="rounded-l-md border-r px-2 py-8 text-foreground transition"
+        className="rounded-l-md px-2 py-8 text-foreground transition md:border-r"
         {...provided.dragHandleProps}
       >
         <GripVertical className="size-5" />
       </div>
 
-      <div className="w-full px-2">
-        {editingId === socialLink.id ? (
+      <div className="flex h-full w-full max-w-[calc(100%-36px)] flex-col border-l p-2 px-4 md:flex-row md:items-center md:justify-between md:border-none">
+        <div className="flex items-center gap-x-2">
+          <Icon className="mr-2 hidden size-4 md:block" />
+
+          <div className="w-full">
+            <h2 className="truncate text-base font-semibold text-foreground">
+              {socialLink.title}
+            </h2>
+            <p className="truncate text-muted-foreground">{socialLink.url}</p>
+          </div>
+        </div>
+
+        <div className="mt-2 flex items-center gap-x-2 md:mt-0 md:pl-2">
+          {!openEdit && (
+            <Button
+              onClick={() => setOpenEdit(true)}
+              variant={isMobile ? 'secondary' : 'ghost'}
+              size={isMobile ? 'sm' : 'icon'}
+              className="flex-grow"
+            >
+              <Pencil className="size-4 text-muted-foreground" />
+              {isMobile && <span>Edit</span>}
+            </Button>
+          )}
+
+          <Button
+            onClick={() =>
+              removeSocialLink({ variables: { id: socialLink.id } })
+            }
+            variant={isMobile ? 'secondary' : 'ghost'}
+            size={isMobile ? 'sm' : 'icon'}
+            className="flex-grow"
+          >
+            <Trash className="size-4 text-muted-foreground" />
+            {isMobile && <span>Delete</span>}
+          </Button>
+        </div>
+      </div>
+
+      <Dialog open={openEdit} onOpenChange={setOpenEdit}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t('editForm.heading')}</DialogTitle>
+          </DialogHeader>
+
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="flex gap-x-6"
+              className="grid gap-y-4"
             >
-              <div className="w-full space-y-2">
-                <FormField
-                  control={form.control}
-                  name="title"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder={'YouTube'}
-                          className="h-8"
-                          disabled={isLoadingUpdate || isLoadingRemove}
-                          {...field}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('form.titleLabel')}</FormLabel>
 
-                <FormField
-                  control={form.control}
-                  name="url"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="https://github.com/eldarcodes"
-                          className="h-8"
-                          disabled={isLoadingUpdate || isLoadingRemove}
-                          {...field}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="flex items-center gap-x-4">
-                <Button onClick={() => setEditingId(null)} variant="secondary">
-                  {t('cancelButton')}
+                    <FormControl>
+                      <Input
+                        placeholder={t('form.titlePlaceholder')}
+                        disabled={isLoadingUpdate || isLoadingRemove}
+                        {...field}
+                      />
+                    </FormControl>
+
+                    <FormDescription>
+                      {t('form.titleDescription')}
+                    </FormDescription>
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="url"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('form.urlLabel')}</FormLabel>
+
+                    <FormControl>
+                      <Input
+                        placeholder={t('form.urlPlaceholder')}
+                        disabled={isLoadingUpdate || isLoadingRemove}
+                        {...field}
+                      />
+                    </FormControl>
+
+                    <FormDescription>
+                      {t('form.urlDescription')}
+                    </FormDescription>
+                  </FormItem>
+                )}
+              />
+
+              <div className="flex items-center justify-end gap-x-2">
+                <Button
+                  onClick={() => setOpenEdit(false)}
+                  variant="secondary"
+                  type="button"
+                >
+                  {t('editForm.cancelButton')}
                 </Button>
 
                 <Button
@@ -147,43 +214,13 @@ export function SocialLinkItem({ provided, socialLink }: SocialLinkItemProps) {
                     isLoadingUpdate || isLoadingRemove || !isValid || !isDirty
                   }
                 >
-                  {t('submitButton')}
+                  {t('editForm.submitButton')}
                 </Button>
               </div>
             </form>
           </Form>
-        ) : (
-          <div className="flex items-center gap-x-2">
-            <Icon className="mr-2 size-4" />
-
-            <div>
-              <h2 className="text-base font-semibold text-foreground">
-                {socialLink.title}
-              </h2>
-              <p className="text-muted-foreground">{socialLink.url}</p>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="ml-auto flex items-center gap-x-1 pr-4">
-        {editingId !== socialLink.id && (
-          <Button
-            onClick={() => setEditingId(socialLink.id)}
-            variant="ghost"
-            size="icon"
-          >
-            <Pencil className="size-4 text-muted-foreground" />
-          </Button>
-        )}
-        <Button
-          onClick={() => removeSocialLink({ variables: { id: socialLink.id } })}
-          variant="ghost"
-          size="icon"
-        >
-          <Trash className="size-4 text-muted-foreground" />
-        </Button>
-      </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -33,9 +33,7 @@ import {
 import { SocialLinksList } from './social-links-list';
 
 export function SocialLinksForm() {
-  const t = useTranslations(
-    'dashboard.settings.profile.socialLinks.createForm',
-  );
+  const t = useTranslations('dashboard.settings.profile.socialLinks');
 
   const { loading: isLoadingLinks, refetch } = useFindSocialLinksQuery();
 
@@ -52,9 +50,9 @@ export function SocialLinksForm() {
       onCompleted: () => {
         form.reset();
         refetch();
-        toast.success(t('successMessage'));
+        toast.success(t('createForm.successMessage'));
       },
-      onError: () => toast.error(t('errorMessage')),
+      onError: () => toast.error(t('createForm.errorMessage')),
     });
 
   function onSubmit(data: SocialLinksSchema) {
@@ -68,7 +66,7 @@ export function SocialLinksForm() {
   }
 
   return (
-    <FormWrapper heading={t('heading')}>
+    <FormWrapper heading={t('createForm.heading')} contentClassName="pb-0">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-4">
           <FormField
@@ -76,15 +74,15 @@ export function SocialLinksForm() {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('titleLabel')}</FormLabel>
+                <FormLabel>{t('form.titleLabel')}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder={t('titlePlaceholder')}
+                    placeholder={t('form.titlePlaceholder')}
                     disabled={isLoadingCreate}
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>{t('titleDescription')}</FormDescription>
+                <FormDescription>{t('form.titleDescription')}</FormDescription>
               </FormItem>
             )}
           />
@@ -94,23 +92,23 @@ export function SocialLinksForm() {
             name="url"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('urlLabel')}</FormLabel>
+                <FormLabel>{t('form.urlLabel')}</FormLabel>
                 <FormControl>
                   <Input
                     startIcon={LinkIcon}
-                    placeholder={t('urlPlaceholder')}
+                    placeholder={t('form.urlPlaceholder')}
                     disabled={isLoadingCreate}
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>{t('urlDescription')}</FormDescription>
+                <FormDescription>{t('form.urlDescription')}</FormDescription>
               </FormItem>
             )}
           />
 
           <div className="flex justify-end">
             <Button disabled={!isValid || isLoadingCreate} type="submit">
-              {t('submitButton')}
+              {t('createForm.submitButton')}
             </Button>
           </div>
         </form>

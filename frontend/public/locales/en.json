@@ -177,19 +177,22 @@
           }
         },
         "socialLinks": {
-          "createForm": {
-            "heading": "Social Media Links",
+          "form": {
             "titleLabel": "Link Title",
             "titlePlaceholder": "GitHub",
             "titleDescription": "Text shown for the link",
             "urlLabel": "Link URL",
             "urlPlaceholder": "https://github.com/eldarcodes",
-            "urlDescription": "Where should the link go? Type the full url, like this: https://elcast.eldarcodes.com/link",
+            "urlDescription": "Where should the link go? Type the full url, like this: https://elcast.eldarcodes.com/link"
+          },
+          "createForm": {
+            "heading": "Social Media Links",
             "submitButton": "Add",
             "successMessage": "Social media link successfully added",
             "errorMessage": "Error adding social media link"
           },
           "editForm": {
+            "heading": "Edit Social Media Link",
             "cancelButton": "Cancel",
             "submitButton": "Save",
             "successUpdateMessage": "Social media link successfully updated",

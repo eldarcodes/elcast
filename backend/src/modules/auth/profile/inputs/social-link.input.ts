@@ -1,20 +1,17 @@
 import { Field, InputType } from '@nestjs/graphql';
-import {
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-  IsUrl,
-  MinLength,
-} from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, IsUrl, Length } from 'class-validator';
 
-import { MIN_SOCIAL_LINK_TITLE_LENGTH } from '@/src/shared/constants/account.constants';
+import {
+  MAX_SOCIAL_LINK_TITLE_LENGTH,
+  MIN_SOCIAL_LINK_TITLE_LENGTH,
+} from '@/src/shared/constants/account.constants';
 
 @InputType()
 export class SocialLinkInput {
   @Field(() => String)
   @IsString()
   @IsNotEmpty()
-  @MinLength(MIN_SOCIAL_LINK_TITLE_LENGTH)
+  @Length(MIN_SOCIAL_LINK_TITLE_LENGTH, MAX_SOCIAL_LINK_TITLE_LENGTH)
   public title: string;
 
   @Field(() => String)

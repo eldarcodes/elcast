@@ -8,6 +8,7 @@ export const MAX_BIO_LENGTH = 300;
 export const PIN_LENGTH = 6;
 
 export const MIN_SOCIAL_LINK_TITLE_LENGTH = 1;
+export const MAX_SOCIAL_LINK_TITLE_LENGTH = 50;
 
 export const AVATAR_WIDTH = 512;
 export const AVATAR_HEIGHT = 512;
