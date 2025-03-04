@@ -86,6 +86,9 @@
           "settings": "Settings",
           "language": "Language",
           "darkTheme": "Dark theme",
+          "keys": "Stream Keys",
+          "chatSettings": "Chat Settings",
+          "followers": "Followers",
           "logout": "Sign out"
         }
       },

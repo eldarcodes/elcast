@@ -84,6 +84,9 @@
           "errorMessage": "Ошибка выхода из системы",
           "channel": "Мой канал",
           "settings": "Настройки",
+          "keys": "Ключи стрима",
+          "chatSettings": "Настройки чата",
+          "followers": "Подписчики",
           "language": "Язык",
           "darkTheme": "Темная тема",
           "logout": "Выйти"

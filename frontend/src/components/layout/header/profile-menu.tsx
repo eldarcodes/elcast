@@ -1,11 +1,14 @@
 import {
   Check,
   Globe,
+  KeyRound,
   Loader,
   LogOut,
+  MessageSquare,
   Moon,
   Settings,
   User,
+  Users,
 } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
@@ -97,6 +100,27 @@ export function ProfileMenu() {
             <DropdownMenuItem className="cursor-pointer">
               <User className="mr-2 size-4" />
               {t('channel')}
+            </DropdownMenuItem>
+          </Link>
+
+          <Link href="/dashboard/keys">
+            <DropdownMenuItem className="cursor-pointer">
+              <KeyRound className="mr-2 size-4" />
+              {t('keys')}
+            </DropdownMenuItem>
+          </Link>
+
+          <Link href="/dashboard/chat">
+            <DropdownMenuItem className="cursor-pointer">
+              <MessageSquare className="mr-2 size-4" />
+              {t('chatSettings')}
+            </DropdownMenuItem>
+          </Link>
+
+          <Link href="/dashboard/followers">
+            <DropdownMenuItem className="cursor-pointer">
+              <Users className="mr-2 size-4" />
+              {t('followers')}
             </DropdownMenuItem>
           </Link>
 

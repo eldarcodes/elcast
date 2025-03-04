@@ -24,7 +24,7 @@ export function AuthWrapper({
   backButtonLabel,
 }: React.PropsWithChildren<AuthWrapperProps>) {
   return (
-    <div className="flex h-full items-center justify-center">
+    <div className="mx-2 flex h-full items-center justify-center md:mx-0">
       <Card className="w-[450px]">
         <CardHeader className="flex-row items-center justify-center gap-x-4">
           <Image src="/images/logo.svg" alt="Elcast" width={40} height={40} />
