@@ -33,16 +33,20 @@ export function UserSettings() {
         size="lg"
       />
 
-      <Tabs defaultValue="profile" className="mt-3 w-full">
-        <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="profile">{t('header.profile')}</TabsTrigger>
-          <TabsTrigger value="account">{t('header.account')}</TabsTrigger>
-          <TabsTrigger value="appearance">{t('header.appearance')}</TabsTrigger>
-          <TabsTrigger value="notifications">
-            {t('header.notifications')}
-          </TabsTrigger>
-          <TabsTrigger value="sessions">{t('header.sessions')}</TabsTrigger>
-        </TabsList>
+      <Tabs defaultValue="profile" className="mt-3 max-w-full">
+        <div className="overflow-x-auto">
+          <TabsList className="grid-cols-5 md:grid">
+            <TabsTrigger value="profile">{t('header.profile')}</TabsTrigger>
+            <TabsTrigger value="account">{t('header.account')}</TabsTrigger>
+            <TabsTrigger value="appearance">
+              {t('header.appearance')}
+            </TabsTrigger>
+            <TabsTrigger value="notifications">
+              {t('header.notifications')}
+            </TabsTrigger>
+            <TabsTrigger value="sessions">{t('header.sessions')}</TabsTrigger>
+          </TabsList>
+        </div>
 
         <TabsContent value="profile">
           <div className="mt-5 space-y-6">
