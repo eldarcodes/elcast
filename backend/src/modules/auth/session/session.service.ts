@@ -102,14 +102,6 @@ export class SessionService {
       throw new UnauthorizedException('Invalid password');
     }
 
-    if (!user.isEmailVerified) {
-      await this.verificationService.sendVerificationToken(user);
-
-      throw new BadRequestException(
-        'Email not verified. Please check your email for verification instructions',
-      );
-    }
-
     if (user.isTotpEnabled) {
       if (!pin) {
         return {

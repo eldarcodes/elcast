@@ -223,6 +223,11 @@
           "notVerified": "Not verified",
           "verifiedText": "Thank you for verifying your email.",
           "notVerifiedText": "Please verify your email to avoid any issues.",
+          "sendVerificationToken": {
+            "resend": "Resend",
+            "successMessage": "Verification email sent",
+            "errorMessage": "Error sending verification email"
+          },
           "successMessage": "Email successfully updated",
           "errorMessage": "Error during mail update"
         },

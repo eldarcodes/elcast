@@ -182,6 +182,7 @@ type Mutation {
   reorderSocialLinks(list: [SocialLinkOrderInput!]!): Boolean!
   resetPassword(data: ResetPasswordInput!): Boolean!
   sendChatMessage(data: SendMessageInput!): ChatMessageModel!
+  sendVerificationToken: AuthModel!
   unfollowChannel(channelId: String!): Boolean!
   updateSocialLink(data: SocialLinkInput!, id: String!): Boolean!
   verifyAccount(data: VerificationInput!): AuthModel!

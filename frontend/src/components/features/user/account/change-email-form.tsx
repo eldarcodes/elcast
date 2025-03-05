@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -18,7 +19,10 @@ import { Input } from '@/components/ui/common/input';
 import { Skeleton } from '@/components/ui/common/skeleton';
 import { FormWrapper } from '@/components/ui/elements/form-wrapper';
 
-import { useChangeEmailMutation } from '@/graphql/generated/output';
+import {
+  useChangeEmailMutation,
+  useSendVerificationTokenMutation,
+} from '@/graphql/generated/output';
 
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
@@ -46,6 +50,14 @@ export function ChangeEmailForm() {
     },
     onError: () => toast.error(t('errorMessage')),
   });
+
+  const [sendVerificationToken, { loading: isLoadingSendToken }] =
+    useSendVerificationTokenMutation({
+      onCompleted: () => {
+        toast.success(t('sendVerificationToken.successMessage'));
+      },
+      onError: () => toast.error(t('sendVerificationToken.errorMessage')),
+    });
 
   function onSubmit(data: ChangeEmailSchema) {
     changeEmail({ variables: { data } });
@@ -85,10 +97,24 @@ export function ChangeEmailForm() {
               {t('verifiedText')}
             </p>
           ) : (
-            <p className="text-sm text-muted-foreground">
-              <strong className="text-red-400">{t('notVerified')}.</strong>{' '}
-              {t('notVerifiedText')}
-            </p>
+            <div className="flex items-center gap-x-4">
+              <p className="text-sm text-muted-foreground">
+                <strong className="text-red-400">{t('notVerified')}.</strong>{' '}
+                {t('notVerifiedText')}
+              </p>
+
+              <Button
+                disabled={isLoadingSendToken}
+                onClick={() => sendVerificationToken()}
+                type="button"
+                size="sm"
+              >
+                {isLoadingSendToken && (
+                  <Loader2 className="size-4 animate-spin" />
+                )}
+                {t('sendVerificationToken.resend')}
+              </Button>
+            </div>
           )}
 
           <div className="flex justify-end">

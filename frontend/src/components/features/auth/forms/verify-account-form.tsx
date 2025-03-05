@@ -1,10 +1,12 @@
 'use client';
 
-import { Loader } from 'lucide-react';
+import { AlertCircle, Loader } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
+
+import { Alert } from '@/components/ui/common/alert';
 
 import { useVerifyAccountMutation } from '@/graphql/generated/output';
 
@@ -22,7 +24,7 @@ export function VerifyAccountForm() {
 
   const token = searchParams.get('token') ?? '';
 
-  const [verify] = useVerifyAccountMutation({
+  const [verify, { loading, error }] = useVerifyAccountMutation({
     onCompleted: () => {
       auth();
 
@@ -40,9 +42,18 @@ export function VerifyAccountForm() {
 
   return (
     <AuthWrapper heading={t('heading')}>
-      <div className="flex justify-center">
-        <Loader className="size-8 animate-spin" />
-      </div>
+      {error ? (
+        <Alert variant="destructive">
+          <div className="flex items-center gap-x-2">
+            <AlertCircle />
+            <div>{t('errorMessage')}</div>
+          </div>
+        </Alert>
+      ) : (
+        <div className="flex justify-center">
+          <Loader className="size-8 animate-spin" />
+        </div>
+      )}
     </AuthWrapper>
   );
 }
