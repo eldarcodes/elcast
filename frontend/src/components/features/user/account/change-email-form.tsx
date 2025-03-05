@@ -80,11 +80,29 @@ export function ChangeEmailForm() {
               <FormItem>
                 <FormLabel>{t('emailLabel')}</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="john.doe@acme.com"
-                    disabled={isLoadingChange}
-                    {...field}
-                  />
+                  <div className="flex">
+                    <Input
+                      placeholder="john.doe@acme.com"
+                      disabled={isLoadingChange || isLoadingSendToken}
+                      className={!user?.isEmailVerified ? 'rounded-r-none' : ''}
+                      {...field}
+                    />
+
+                    {!user?.isEmailVerified && (
+                      <Button
+                        disabled={isLoadingSendToken}
+                        onClick={() => sendVerificationToken()}
+                        type="button"
+                        variant="secondary"
+                        className="rounded-l-none"
+                      >
+                        {isLoadingSendToken && (
+                          <Loader2 className="size-4 animate-spin" />
+                        )}
+                        {t('sendVerificationToken.resend')}
+                      </Button>
+                    )}
+                  </div>
                 </FormControl>
                 <FormDescription>{t('emailDescription')}</FormDescription>
               </FormItem>
@@ -102,18 +120,6 @@ export function ChangeEmailForm() {
                 <strong className="text-red-400">{t('notVerified')}.</strong>{' '}
                 {t('notVerifiedText')}
               </p>
-
-              <Button
-                disabled={isLoadingSendToken}
-                onClick={() => sendVerificationToken()}
-                type="button"
-                size="sm"
-              >
-                {isLoadingSendToken && (
-                  <Loader2 className="size-4 animate-spin" />
-                )}
-                {t('sendVerificationToken.resend')}
-              </Button>
             </div>
           )}
 

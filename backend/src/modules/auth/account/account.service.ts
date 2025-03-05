@@ -85,12 +85,15 @@ export class AccountService {
   public async changeEmail(user: User, input: ChangeEmailInput) {
     const { email } = input;
 
-    await this.prismaService.user.update({
+    const newUser = await this.prismaService.user.update({
       where: { id: user.id },
       data: {
         email,
+        isEmailVerified: false,
       },
     });
+
+    await this.verificationService.sendVerificationToken(newUser);
 
     return true;
   }

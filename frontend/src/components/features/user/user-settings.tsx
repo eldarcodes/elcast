@@ -34,19 +34,23 @@ export function UserSettings() {
       />
 
       <Tabs defaultValue="profile" className="mt-3 max-w-full">
-        <div className="overflow-x-auto">
-          <TabsList className="grid-cols-5 md:grid">
-            <TabsTrigger value="profile">{t('header.profile')}</TabsTrigger>
-            <TabsTrigger value="account">{t('header.account')}</TabsTrigger>
-            <TabsTrigger value="appearance">
-              {t('header.appearance')}
-            </TabsTrigger>
-            <TabsTrigger value="notifications">
-              {t('header.notifications')}
-            </TabsTrigger>
-            <TabsTrigger value="sessions">{t('header.sessions')}</TabsTrigger>
-          </TabsList>
-        </div>
+        <TabsList className="flex justify-between overflow-x-auto">
+          <TabsTrigger className="min-w-32 flex-grow" value="profile">
+            {t('header.profile')}
+          </TabsTrigger>
+          <TabsTrigger className="min-w-32 flex-grow" value="account">
+            {t('header.account')}
+          </TabsTrigger>
+          <TabsTrigger className="min-w-32 flex-grow" value="appearance">
+            {t('header.appearance')}
+          </TabsTrigger>
+          <TabsTrigger className="min-w-32 flex-grow" value="notifications">
+            {t('header.notifications')}
+          </TabsTrigger>
+          <TabsTrigger className="min-w-32 flex-grow" value="sessions">
+            {t('header.sessions')}
+          </TabsTrigger>
+        </TabsList>
 
         <TabsContent value="profile">
           <div className="mt-5 space-y-6">

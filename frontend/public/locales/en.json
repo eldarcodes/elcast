@@ -228,8 +228,8 @@
             "successMessage": "Verification email sent",
             "errorMessage": "Error sending verification email"
           },
-          "successMessage": "Email successfully updated",
-          "errorMessage": "Error during mail update"
+          "successMessage": "Email successfully updated. We've sent you an email to verify your new email address.",
+          "errorMessage": "Error updating email"
         },
         "password": {
           "heading": "Account Password",

@@ -46,9 +46,25 @@ export class VerificationService {
       throw new BadRequestException('Token has expired');
     }
 
-    const user = await this.prismaService.user.update({
+    const sessionMetadata = getSessionMetadata(req, userAgent);
+
+    const user = await this.prismaService.user.findFirst({
       where: {
         id: existingToken.userId,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    if (user.isEmailVerified) {
+      return saveSession(req, user, sessionMetadata);
+    }
+
+    await this.prismaService.user.update({
+      where: {
+        id: user.id,
       },
       data: {
         isEmailVerified: true,
@@ -61,8 +77,6 @@ export class VerificationService {
         type: TokenType.EMAIL_VERIFY,
       },
     });
-
-    const sessionMetadata = getSessionMetadata(req, userAgent);
 
     return saveSession(req, user, sessionMetadata);
   }
