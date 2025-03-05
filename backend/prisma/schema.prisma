@@ -40,9 +40,10 @@ model User {
 
   stream Stream?
 
-  deactivatedAt DateTime? @map("deactivated_at")
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
+  deactivatedAt      DateTime? @map("deactivated_at")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+  lastUsernameChange DateTime? @map("last_username_change")
 
   @@map("users")
 }

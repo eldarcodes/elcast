@@ -31,6 +31,7 @@ import { useChangeProfileUsernameMutation } from '@/graphql/generated/output';
 
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
+import { USERNAME_CHANGE_COOLDOWN_DAYS } from '@/libs/constants/account.constants';
 import { APP_URL } from '@/libs/constants/url.constants';
 
 import {
@@ -38,12 +39,16 @@ import {
   ChangeUsernameSchema,
 } from '@/schemas/user/change-username.schema';
 
+import { canChangeUsername } from '@/utils/can-change-username';
+
 export function ChangeUsernameForm() {
   const t = useTranslations('dashboard.settings.profile.username');
 
   const [open, setOpen] = useState(false);
 
   const { user, refetch } = useCurrentProfile();
+
+  const isUsernameChangeAvailable = canChangeUsername(user?.lastUsernameChange);
 
   const form = useForm<ChangeUsernameSchema>({
     resolver: zodResolver(changeUsernameSchema),
@@ -79,6 +84,7 @@ export function ChangeUsernameForm() {
             disabled
             className="rounded-r-none"
             value={user?.username}
+            autoComplete="off"
           />
 
           <Dialog open={open} onOpenChange={setOpen}>
@@ -93,7 +99,11 @@ export function ChangeUsernameForm() {
                 <DialogTitle className="text-xl">
                   {t('modal.heading')}
                 </DialogTitle>
-                <DialogDescription>{t('modal.description')}</DialogDescription>
+                <DialogDescription>
+                  {t('modal.description', {
+                    cooldownDays: USERNAME_CHANGE_COOLDOWN_DAYS,
+                  })}
+                </DialogDescription>
               </DialogHeader>
 
               <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -106,8 +116,11 @@ export function ChangeUsernameForm() {
                       <FormControl>
                         <Input
                           placeholder={t('usernamePlaceholder')}
-                          disabled={isLoadingUpdate}
+                          disabled={
+                            isLoadingUpdate || !isUsernameChangeAvailable
+                          }
                           {...field}
+                          autoComplete="off"
                         />
                       </FormControl>
                     </FormItem>
@@ -115,14 +128,24 @@ export function ChangeUsernameForm() {
                 />
 
                 <div className="my-3">
-                  <strong className="text-sm font-medium leading-none">
-                    {t('modal.usernameUrlPreview')}
-                  </strong>
-                  <div>
-                    {APP_URL}
-                    {'/'}
-                    {form.watch('username')}
-                  </div>
+                  {isUsernameChangeAvailable ? (
+                    <>
+                      <strong className="text-sm font-medium leading-none">
+                        {t('modal.usernameUrlPreview')}
+                      </strong>
+                      <div>
+                        {APP_URL}
+                        {'/'}
+                        {form.watch('username')}
+                      </div>
+                    </>
+                  ) : (
+                    <p className="text-sm text-red-400">
+                      {t('modal.cooldownError', {
+                        cooldownDays: USERNAME_CHANGE_COOLDOWN_DAYS,
+                      })}
+                    </p>
+                  )}
                 </div>
 
                 <div className="mt-3 flex justify-end gap-2">
@@ -132,12 +155,14 @@ export function ChangeUsernameForm() {
                     </Button>
                   </DialogClose>
 
-                  <Button
-                    disabled={!isValid || !isDirty || isLoadingUpdate}
-                    type="submit"
-                  >
-                    {t('modal.submitButton')}
-                  </Button>
+                  {isUsernameChangeAvailable && (
+                    <Button
+                      disabled={!isValid || !isDirty || isLoadingUpdate}
+                      type="submit"
+                    >
+                      {t('modal.submitButton')}
+                    </Button>
+                  )}
                 </div>
               </form>
             </DialogContent>
