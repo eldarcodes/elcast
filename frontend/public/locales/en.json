@@ -168,7 +168,8 @@
           "usernameDescription": "You may update your username.",
           "modal": {
             "heading": "Change Username",
-            "description": "Username updates can be performed once every 7 days. The update takes effect immediately and will affect how your followers recognize you.",
+            "description": "Username updates can be performed once every {cooldownDays} days. The update takes effect immediately and will affect how your followers recognize you.",
+            "cooldownError": "You cannot change your username as you have already made changes in the last {cooldownDays} days. Please wait until the cooldown period is over.",
             "cancelButton": "Cancel",
             "usernameUrlPreview": "New channel URL",
             "submitButton": "Update",

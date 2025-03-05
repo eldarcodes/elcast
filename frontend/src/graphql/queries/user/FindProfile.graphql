@@ -4,6 +4,7 @@ query FindProfile {
     email
     username
     displayName
+    lastUsernameChange
     avatar
     bio
     isTotpEnabled

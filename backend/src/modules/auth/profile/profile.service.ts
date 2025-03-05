@@ -11,6 +11,7 @@ import { PrismaService } from '@/src/core/prisma/prisma.service';
 import {
   AVATAR_HEIGHT,
   AVATAR_WIDTH,
+  USERNAME_CHANGE_COOLDOWN_DAYS,
 } from '@/src/shared/constants/account.constants';
 
 import { StorageService } from '../../libs/storage/storage.service';
@@ -86,6 +87,23 @@ export class ProfileService {
       return true;
     }
 
+    if (user.lastUsernameChange) {
+      const now = new Date();
+      const lastChange = new Date(user.lastUsernameChange);
+
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+      const ONE_DAY = 1000 * 3600 * 24;
+
+      const daysSinceLastChange =
+        (now.getTime() - lastChange.getTime()) / ONE_DAY;
+
+      if (daysSinceLastChange < USERNAME_CHANGE_COOLDOWN_DAYS) {
+        throw new ConflictException(
+          `You can only change your username once per week.`,
+        );
+      }
+    }
+
     const usernameExists = await this.prismaService.user.findFirst({
       where: { username },
     });
@@ -96,7 +114,11 @@ export class ProfileService {
 
     await this.prismaService.user.update({
       where: { id: user.id },
-      data: { username, displayName: rawUsername },
+      data: {
+        username,
+        displayName: rawUsername,
+        lastUsernameChange: new Date(),
+      },
     });
 
     return true;

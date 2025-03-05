@@ -337,6 +337,7 @@ type UserModel {
   isEmailVerified: Boolean!
   isTotpEnabled: Boolean!
   isVerified: Boolean!
+  lastUsernameChange: DateTime
   notificationSettings: NotificationSettingsModel!
   notifications: [NotificationModel!]!
   password: String!
