@@ -35,6 +35,8 @@ async function findChannelByUsername(params: { username: string }) {
         .findChannelByUsername as FindChannelByUsernameQuery['findChannelByUsername'],
     };
   } catch (error) {
+    console.error(error);
+
     return notFound();
   }
 }

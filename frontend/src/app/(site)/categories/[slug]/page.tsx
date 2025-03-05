@@ -34,6 +34,8 @@ async function findCategoryBySlug(slug: string) {
 
     return { category };
   } catch (error) {
+    console.error(error);
+
     return notFound();
   }
 }

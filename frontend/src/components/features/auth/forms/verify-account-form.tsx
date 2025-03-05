@@ -36,7 +36,7 @@ export function VerifyAccountForm() {
 
   useEffect(() => {
     verify({ variables: { data: { token } } });
-  }, [token]);
+  }, [token, verify]);
 
   return (
     <AuthWrapper heading={t('heading')}>

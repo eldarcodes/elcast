@@ -6,3 +6,5 @@ export const MIN_PASSWORD_LENGTH = 8;
 export const MAX_BIO_LENGTH = 300;
 
 export const USERNAME_CHANGE_COOLDOWN_DAYS = 7;
+
+export const ACCOUNT_DAYS_UNTIL_DELETION = 7;

@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+
 import { Skeleton } from '../common/skeleton';
 import { Switch } from '../common/switch';
 
@@ -18,17 +20,21 @@ export function ToggleCard({
   value,
   onChange,
 }: ToggleCardProps) {
+  const t = useTranslations('components.toggleCard');
+
   return (
     <CardContainer
       heading={heading}
       description={description}
       rightContent={
-        <Switch
-          checked={value}
-          className="ml-4"
-          onCheckedChange={onChange}
-          disabled={isDisabled}
-        />
+        <div className="flex items-center">
+          <div className="mr-2 block text-sm sm:hidden">{t('edit')}: </div>
+          <Switch
+            checked={value}
+            onCheckedChange={onChange}
+            disabled={isDisabled}
+          />
+        </div>
       }
     />
   );

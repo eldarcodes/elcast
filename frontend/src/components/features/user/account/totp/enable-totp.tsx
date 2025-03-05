@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -99,11 +100,15 @@ export function EnableTotp() {
               <span className="text-sm text-muted-foreground">
                 {twoFactorData?.qrcodeUrl && t('qrInstructions')}
               </span>
-              <img
-                src={twoFactorData?.qrcodeUrl}
-                alt="QR"
-                className="rounded-lg"
-              />
+              {twoFactorData?.qrcodeUrl && (
+                <Image
+                  src={twoFactorData.qrcodeUrl}
+                  width={200}
+                  height={200}
+                  alt="QR"
+                  className="rounded-lg"
+                />
+              )}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -121,11 +126,17 @@ export function EnableTotp() {
                   <FormLabel>{t('pinLabel')}</FormLabel>
 
                   <FormControl>
-                    <InputOTP maxLength={6} {...field}>
+                    <InputOTP
+                      maxLength={6}
+                      {...field}
+                      containerClassName="flex-wrap items-center justify-center"
+                    >
                       <InputOTPGroup>
                         <InputOTPSlot index={0} />
                         <InputOTPSlot index={1} />
                         <InputOTPSlot index={2} />
+                      </InputOTPGroup>
+                      <InputOTPGroup>
                         <InputOTPSlot index={3} />
                         <InputOTPSlot index={4} />
                         <InputOTPSlot index={5} />

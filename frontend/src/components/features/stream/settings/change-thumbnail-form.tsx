@@ -43,7 +43,7 @@ export function ChangeThumbnailForm({ stream }: ChangeThumbnailFormProps) {
   const form = useForm<UploadFileSchema>({
     resolver: zodResolver(uploadFileSchema),
     values: {
-      file: getMediaSource(stream?.thumbnailUrl!),
+      file: getMediaSource(stream?.thumbnailUrl),
     },
   });
 

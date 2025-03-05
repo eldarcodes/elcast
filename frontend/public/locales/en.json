@@ -260,10 +260,10 @@
         },
         "deactivation": {
           "heading": "Account Deactivation",
-          "description": "After deactivating your account, you will not be able to log in. Your account will be completely deleted after 7 days. Until then, you can contact support to restore access and unlock your account.",
+          "description": "After deactivating your account, you will not be able to log in. Your account will be completely deleted after {deletionDays} days. Until then, you can contact support to restore access and unlock your account.",
           "confirmModal": {
             "heading": "Deactivation Confirmation",
-            "message": "Are you sure you want to deactivate your account? Access can only be restored within 7 days."
+            "message": "Are you sure you want to deactivate your account? Access can only be restored within {deletionDays} days."
           },
           "button": "Deactivate"
         }
@@ -519,6 +519,9 @@
   "components": {
     "liveBadge": {
       "text": "LIVE"
+    },
+    "toggleCard": {
+      "edit": "Edit"
     },
     "confirmModal": {
       "cancel": "Cancel",

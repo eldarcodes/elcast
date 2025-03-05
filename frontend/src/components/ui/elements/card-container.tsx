@@ -10,7 +10,6 @@ interface CardContainerProps {
   heading: string;
   description?: string;
   Icon?: IconType | LucideIcon;
-  isRightContentFull?: boolean;
   rightContent?: ReactNode;
 }
 
@@ -18,13 +17,12 @@ export function CardContainer({
   heading,
   description,
   Icon,
-  isRightContentFull,
   rightContent,
   children,
 }: PropsWithChildren<CardContainerProps>) {
   return (
     <Card className="p-4">
-      <div className="flex items-center justify-between">
+      <div className="block items-center justify-between sm:flex">
         <div className="flex flex-row items-center gap-x-4">
           {Icon && (
             <div className="rounded-full bg-foreground p-2.5">
@@ -35,7 +33,7 @@ export function CardContainer({
           <div className="space-y-1">
             <h2 className="font-semibold tracking-wide">{heading}</h2>
             {description && (
-              <p className="max-w-4xl text-sm text-muted-foreground">
+              <p className="max-w-4xl text-xs text-muted-foreground sm:text-sm">
                 {description}
               </p>
             )}
@@ -43,9 +41,7 @@ export function CardContainer({
         </div>
 
         {rightContent && (
-          <div className={cn(isRightContentFull && 'ml-6 w-full')}>
-            {rightContent}
-          </div>
+          <div className="mt-4 sm:ml-4 sm:mt-0">{rightContent}</div>
         )}
       </div>
 

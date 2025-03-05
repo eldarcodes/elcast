@@ -21,11 +21,7 @@ export function WrapperTotp() {
     <CardContainer
       heading={t('heading')}
       description={t('description')}
-      rightContent={
-        <div className="ml-2 flex items-center gap-x-4">
-          {!user?.isTotpEnabled ? <EnableTotp /> : <DisableTotp />}
-        </div>
-      }
+      rightContent={!user?.isTotpEnabled ? <EnableTotp /> : <DisableTotp />}
     />
   );
 }

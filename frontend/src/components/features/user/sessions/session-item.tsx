@@ -48,7 +48,7 @@ export function SessionItem({ session, isCurrentSession }: SessionItemProps) {
       Icon={Icon}
       description={`${session.metadata.location.country}, ${session.metadata.location.city}`}
       rightContent={
-        <div className="flex items-center gap-x-4">
+        <div className="flex items-center gap-x-2">
           {!isCurrentSession && (
             <ConfirmModal
               heading={t('confirmModal.heading')}
@@ -60,6 +60,7 @@ export function SessionItem({ session, isCurrentSession }: SessionItemProps) {
               </Button>
             </ConfirmModal>
           )}
+
           <SessionModal session={session}>
             <Button>{t('detailsButton')}</Button>
           </SessionModal>
