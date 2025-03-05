@@ -58,12 +58,13 @@ export function ChangeAvatarForm() {
       onError: () => toast.error(t('errorRemoveMessage')),
     });
 
-  function onImageChange(event: ChangeEvent<HTMLInputElement>) {
+  async function onImageChange(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
 
     if (file) {
-      form.setValue('file', file);
-      updateProfileAvatar({ variables: { avatar: file } });
+      const data = await updateProfileAvatar({ variables: { avatar: file } });
+
+      if (!data.errors) form.setValue('file', file);
     }
   }
 

@@ -24,6 +24,8 @@ import { useChangeProfileInfoMutation } from '@/graphql/generated/output';
 
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
+import { MAX_BIO_LENGTH } from '@/libs/constants/account.constants';
+
 import {
   changeInfoSchema,
   ChangeInfoSchema,
@@ -102,7 +104,9 @@ export function ChangeInfoForm() {
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>{t('bioDescription')}</FormDescription>
+                <FormDescription>
+                  {t('bioDescription', { maxLength: MAX_BIO_LENGTH })}
+                </FormDescription>
               </FormItem>
             )}
           />

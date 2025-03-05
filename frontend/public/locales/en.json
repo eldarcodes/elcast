@@ -157,7 +157,7 @@
           "displayNameDescription": "Customize capitalization for your username.",
           "bioLabel": "Bio",
           "bioPlaceholder": "I love programming",
-          "bioDescription": "Description for the About panel on your channel page in under 300 characters.",
+          "bioDescription": "Description for the About panel on your channel page in under {maxLength} characters.",
           "successMessage": "Profile successfully updated",
           "errorMessage": "Error updating profile",
           "submitButton": "Save Changes"
