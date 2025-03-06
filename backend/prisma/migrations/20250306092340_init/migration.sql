@@ -22,7 +22,6 @@ CREATE TABLE "users" (
     "deactivated_at" TIMESTAMP(3),
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
-    "last_username_change" TIMESTAMP(3),
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
