@@ -119,7 +119,7 @@ export class AccountService {
     const sessionMetadata = getSessionMetadata(req, userAgent);
 
     const emailExists = await this.prismaService.user.findFirst({
-      where: { email },
+      where: { email, AND: { id: { not: user.id } } },
     });
 
     if (emailExists) {
