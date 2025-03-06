@@ -6,6 +6,7 @@ export default async function middleware(request: NextRequest) {
 
   const isAccountPage = nextUrl.pathname.startsWith('/account');
   const isDeactivatePage = nextUrl.pathname === '/account/deactivate';
+  const isVerifyPage = nextUrl.pathname === '/account/verify';
   const isDashboardPage = nextUrl.pathname.startsWith('/dashboard');
 
   let isAuthorized = false;
@@ -39,7 +40,7 @@ export default async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/account/login', url));
   }
 
-  if (isAuthorized && isAccountPage && !isDeactivatePage) {
+  if (isAuthorized && isAccountPage && !isDeactivatePage && !isVerifyPage) {
     return NextResponse.redirect(new URL('/dashboard/settings', url));
   }
 

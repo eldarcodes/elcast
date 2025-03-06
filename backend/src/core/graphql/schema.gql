@@ -28,6 +28,7 @@ input ChangeChatSettingsInput {
 input ChangeEmailInput {
   """Email of the user"""
   email: String!
+  pin: String
 }
 
 input ChangeNotificationSettingsInput {
@@ -153,7 +154,7 @@ input LoginInput {
 
 type Mutation {
   changeChatSettings(data: ChangeChatSettingsInput!): Boolean!
-  changeEmail(data: ChangeEmailInput!): Boolean!
+  changeEmail(data: ChangeEmailInput!): AuthModel!
   changeNotificationSettings(data: ChangeNotificationSettingsInput!): ChangeNotificationsSettingsResponse!
   changePassword(data: ChangePasswordInput!): Boolean!
   changeProfileAvatar(avatar: Upload!): Boolean!
@@ -182,6 +183,7 @@ type Mutation {
   reorderSocialLinks(list: [SocialLinkOrderInput!]!): Boolean!
   resetPassword(data: ResetPasswordInput!): Boolean!
   sendChatMessage(data: SendMessageInput!): ChatMessageModel!
+  sendVerificationToken: AuthModel!
   unfollowChannel(channelId: String!): Boolean!
   updateSocialLink(data: SocialLinkInput!, id: String!): Boolean!
   verifyAccount(data: VerificationInput!): AuthModel!
@@ -337,6 +339,7 @@ type UserModel {
   isEmailVerified: Boolean!
   isTotpEnabled: Boolean!
   isVerified: Boolean!
+  lastEmailChange: DateTime
   lastUsernameChange: DateTime
   notificationSettings: NotificationSettingsModel!
   notifications: [NotificationModel!]!

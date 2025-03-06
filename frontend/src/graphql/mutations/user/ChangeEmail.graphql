@@ -1,3 +1,11 @@
 mutation ChangeEmail($data: ChangeEmailInput!) {
-  changeEmail(data: $data)
+  changeEmail(data: $data) {
+    message
+    user {
+      id
+      email
+      isEmailVerified
+      lastEmailChange
+    }
+  }
 }

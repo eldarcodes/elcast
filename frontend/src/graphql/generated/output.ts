@@ -47,6 +47,7 @@ export type ChangeChatSettingsInput = {
 export type ChangeEmailInput = {
   /** Email of the user */
   email: Scalars['String']['input'];
+  pin?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ChangeNotificationSettingsInput = {
@@ -170,7 +171,7 @@ export type LoginInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   changeChatSettings: Scalars['Boolean']['output'];
-  changeEmail: Scalars['Boolean']['output'];
+  changeEmail: AuthModel;
   changeNotificationSettings: ChangeNotificationsSettingsResponse;
   changePassword: Scalars['Boolean']['output'];
   changeProfileAvatar: Scalars['Boolean']['output'];
@@ -198,6 +199,7 @@ export type Mutation = {
   reorderSocialLinks: Scalars['Boolean']['output'];
   resetPassword: Scalars['Boolean']['output'];
   sendChatMessage: ChatMessageModel;
+  sendVerificationToken: AuthModel;
   unfollowChannel: Scalars['Boolean']['output'];
   updateSocialLink: Scalars['Boolean']['output'];
   verifyAccount: AuthModel;
@@ -519,6 +521,7 @@ export type UserModel = {
   isEmailVerified: Scalars['Boolean']['output'];
   isTotpEnabled: Scalars['Boolean']['output'];
   isVerified: Scalars['Boolean']['output'];
+  lastEmailChange?: Maybe<Scalars['DateTime']['output']>;
   lastUsernameChange?: Maybe<Scalars['DateTime']['output']>;
   notificationSettings: NotificationSettingsModel;
   notifications: Array<NotificationModel>;
@@ -574,6 +577,11 @@ export type ResetPasswordMutationVariables = Exact<{
 
 
 export type ResetPasswordMutation = { __typename?: 'Mutation', resetPassword: boolean };
+
+export type SendVerificationTokenMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SendVerificationTokenMutation = { __typename?: 'Mutation', sendVerificationToken: { __typename?: 'AuthModel', message?: string | null, user?: { __typename?: 'UserModel', id: string, isEmailVerified: boolean } | null } };
 
 export type VerifyAccountMutationVariables = Exact<{
   data: VerificationInput;
@@ -648,7 +656,7 @@ export type ChangeEmailMutationVariables = Exact<{
 }>;
 
 
-export type ChangeEmailMutation = { __typename?: 'Mutation', changeEmail: boolean };
+export type ChangeEmailMutation = { __typename?: 'Mutation', changeEmail: { __typename?: 'AuthModel', message?: string | null, user?: { __typename?: 'UserModel', id: string, email: string, isEmailVerified: boolean, lastEmailChange?: any | null } | null } };
 
 export type ChangeNotificationsSettingsMutationVariables = Exact<{
   data: ChangeNotificationSettingsInput;
@@ -819,7 +827,7 @@ export type FindNotificationsUnreadCountQuery = { __typename?: 'Query', findNoti
 export type FindProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserModel', id: string, email: string, username: string, displayName: string, lastUsernameChange?: any | null, avatar?: string | null, bio?: string | null, isTotpEnabled: boolean, isVerified: boolean, isEmailVerified: boolean, notificationSettings: { __typename?: 'NotificationSettingsModel', siteNotifications: boolean, telegramNotifications: boolean }, stream: { __typename?: 'StreamModel', serverUrl?: string | null, streamKey?: string | null, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatSubscribersOnly: boolean } } };
+export type FindProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserModel', id: string, email: string, username: string, displayName: string, lastUsernameChange?: any | null, lastEmailChange?: any | null, avatar?: string | null, bio?: string | null, isTotpEnabled: boolean, isVerified: boolean, isEmailVerified: boolean, notificationSettings: { __typename?: 'NotificationSettingsModel', siteNotifications: boolean, telegramNotifications: boolean }, stream: { __typename?: 'StreamModel', serverUrl?: string | null, streamKey?: string | null, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatSubscribersOnly: boolean } } };
 
 export type FindSessionsByUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1041,6 +1049,42 @@ export function useResetPasswordMutation(baseOptions?: Apollo.MutationHookOption
 export type ResetPasswordMutationHookResult = ReturnType<typeof useResetPasswordMutation>;
 export type ResetPasswordMutationResult = Apollo.MutationResult<ResetPasswordMutation>;
 export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<ResetPasswordMutation, ResetPasswordMutationVariables>;
+export const SendVerificationTokenDocument = gql`
+    mutation SendVerificationToken {
+  sendVerificationToken {
+    message
+    user {
+      id
+      isEmailVerified
+    }
+  }
+}
+    `;
+export type SendVerificationTokenMutationFn = Apollo.MutationFunction<SendVerificationTokenMutation, SendVerificationTokenMutationVariables>;
+
+/**
+ * __useSendVerificationTokenMutation__
+ *
+ * To run a mutation, you first call `useSendVerificationTokenMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSendVerificationTokenMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendVerificationTokenMutation, { data, loading, error }] = useSendVerificationTokenMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSendVerificationTokenMutation(baseOptions?: Apollo.MutationHookOptions<SendVerificationTokenMutation, SendVerificationTokenMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SendVerificationTokenMutation, SendVerificationTokenMutationVariables>(SendVerificationTokenDocument, options);
+      }
+export type SendVerificationTokenMutationHookResult = ReturnType<typeof useSendVerificationTokenMutation>;
+export type SendVerificationTokenMutationResult = Apollo.MutationResult<SendVerificationTokenMutation>;
+export type SendVerificationTokenMutationOptions = Apollo.BaseMutationOptions<SendVerificationTokenMutation, SendVerificationTokenMutationVariables>;
 export const VerifyAccountDocument = gql`
     mutation VerifyAccount($data: VerificationInput!) {
   verifyAccount(data: $data) {
@@ -1361,7 +1405,15 @@ export type RemoveStreamThumbnailMutationResult = Apollo.MutationResult<RemoveSt
 export type RemoveStreamThumbnailMutationOptions = Apollo.BaseMutationOptions<RemoveStreamThumbnailMutation, RemoveStreamThumbnailMutationVariables>;
 export const ChangeEmailDocument = gql`
     mutation ChangeEmail($data: ChangeEmailInput!) {
-  changeEmail(data: $data)
+  changeEmail(data: $data) {
+    message
+    user {
+      id
+      email
+      isEmailVerified
+      lastEmailChange
+    }
+  }
 }
     `;
 export type ChangeEmailMutationFn = Apollo.MutationFunction<ChangeEmailMutation, ChangeEmailMutationVariables>;
@@ -2475,6 +2527,7 @@ export const FindProfileDocument = gql`
     username
     displayName
     lastUsernameChange
+    lastEmailChange
     avatar
     bio
     isTotpEnabled

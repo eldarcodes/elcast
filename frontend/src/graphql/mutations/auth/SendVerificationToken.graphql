@@ -1,0 +1,9 @@
+mutation SendVerificationToken {
+  sendVerificationToken {
+    message
+    user {
+      id
+      isEmailVerified
+    }
+  }
+}

@@ -73,8 +73,6 @@ export function ChangePasswordForm() {
             )}
           />
 
-          <Separator />
-
           <FormField
             control={form.control}
             name="newPassword"
