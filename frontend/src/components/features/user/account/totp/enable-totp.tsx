@@ -122,21 +122,15 @@ export function EnableTotp() {
               control={form.control}
               name="pin"
               render={({ field }) => (
-                <FormItem className="flex flex-col justify-center max-sm:items-center">
+                <FormItem>
                   <FormLabel>{t('pinLabel')}</FormLabel>
 
                   <FormControl>
-                    <InputOTP
-                      maxLength={6}
-                      {...field}
-                      containerClassName="flex-wrap items-center justify-center"
-                    >
+                    <InputOTP maxLength={6} {...field}>
                       <InputOTPGroup>
                         <InputOTPSlot index={0} />
                         <InputOTPSlot index={1} />
                         <InputOTPSlot index={2} />
-                      </InputOTPGroup>
-                      <InputOTPGroup>
                         <InputOTPSlot index={3} />
                         <InputOTPSlot index={4} />
                         <InputOTPSlot index={5} />
