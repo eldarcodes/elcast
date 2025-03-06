@@ -25,7 +25,7 @@ export function VerificationTemplate({
   return (
     <Html>
       <Head />
-      <Preview>Account Verification</Preview>
+      <Preview>Email Verification</Preview>
 
       <Tailwind>
         <Body className="max-w-2xl mx-auto p-6 bg-slate-50">

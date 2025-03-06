@@ -9,6 +9,7 @@ import { AccountDeletionTemplate } from './templates/account-deletion.template';
 import { DeactivateTemplate } from './templates/deactivate.template';
 import { EnableTwoFactorTemplate } from './templates/enable-two-factor.template';
 import { PasswordRecoveryTemplate } from './templates/password-recovery.template';
+import { VerificationCodeTemplate } from './templates/verification-code.template';
 import { VerificationTemplate } from './templates/verification.template';
 import { VerifyChannelTemplate } from './templates/verify-channel.template';
 
@@ -22,6 +23,16 @@ export class MailService {
   public async sendVerificationToken(email: string, token: string) {
     const domain = this.configService.get<string>('ALLOWED_ORIGIN');
     const html = await render(VerificationTemplate({ domain, token }));
+
+    return this.sendMail(email, 'Verify Your Email Address', html);
+  }
+
+  public async sendVerificationCode(
+    email: string,
+    token: string,
+    metadata: SessionMetadata,
+  ) {
+    const html = await render(VerificationCodeTemplate({ token, metadata }));
 
     return this.sendMail(email, 'Verify Your Email Address', html);
   }

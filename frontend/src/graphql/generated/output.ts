@@ -47,6 +47,7 @@ export type ChangeChatSettingsInput = {
 export type ChangeEmailInput = {
   /** Email of the user */
   email: Scalars['String']['input'];
+  pin?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ChangeNotificationSettingsInput = {
@@ -170,7 +171,7 @@ export type LoginInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   changeChatSettings: Scalars['Boolean']['output'];
-  changeEmail: Scalars['Boolean']['output'];
+  changeEmail: AuthModel;
   changeNotificationSettings: ChangeNotificationsSettingsResponse;
   changePassword: Scalars['Boolean']['output'];
   changeProfileAvatar: Scalars['Boolean']['output'];
@@ -520,6 +521,7 @@ export type UserModel = {
   isEmailVerified: Scalars['Boolean']['output'];
   isTotpEnabled: Scalars['Boolean']['output'];
   isVerified: Scalars['Boolean']['output'];
+  lastEmailChange?: Maybe<Scalars['DateTime']['output']>;
   lastUsernameChange?: Maybe<Scalars['DateTime']['output']>;
   notificationSettings: NotificationSettingsModel;
   notifications: Array<NotificationModel>;
@@ -654,7 +656,7 @@ export type ChangeEmailMutationVariables = Exact<{
 }>;
 
 
-export type ChangeEmailMutation = { __typename?: 'Mutation', changeEmail: boolean };
+export type ChangeEmailMutation = { __typename?: 'Mutation', changeEmail: { __typename?: 'AuthModel', message?: string | null, user?: { __typename?: 'UserModel', id: string, email: string, isEmailVerified: boolean, lastEmailChange?: any | null } | null } };
 
 export type ChangeNotificationsSettingsMutationVariables = Exact<{
   data: ChangeNotificationSettingsInput;
@@ -825,7 +827,7 @@ export type FindNotificationsUnreadCountQuery = { __typename?: 'Query', findNoti
 export type FindProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserModel', id: string, email: string, username: string, displayName: string, lastUsernameChange?: any | null, avatar?: string | null, bio?: string | null, isTotpEnabled: boolean, isVerified: boolean, isEmailVerified: boolean, notificationSettings: { __typename?: 'NotificationSettingsModel', siteNotifications: boolean, telegramNotifications: boolean }, stream: { __typename?: 'StreamModel', serverUrl?: string | null, streamKey?: string | null, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatSubscribersOnly: boolean } } };
+export type FindProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserModel', id: string, email: string, username: string, displayName: string, lastUsernameChange?: any | null, lastEmailChange?: any | null, avatar?: string | null, bio?: string | null, isTotpEnabled: boolean, isVerified: boolean, isEmailVerified: boolean, notificationSettings: { __typename?: 'NotificationSettingsModel', siteNotifications: boolean, telegramNotifications: boolean }, stream: { __typename?: 'StreamModel', serverUrl?: string | null, streamKey?: string | null, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatSubscribersOnly: boolean } } };
 
 export type FindSessionsByUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1403,7 +1405,15 @@ export type RemoveStreamThumbnailMutationResult = Apollo.MutationResult<RemoveSt
 export type RemoveStreamThumbnailMutationOptions = Apollo.BaseMutationOptions<RemoveStreamThumbnailMutation, RemoveStreamThumbnailMutationVariables>;
 export const ChangeEmailDocument = gql`
     mutation ChangeEmail($data: ChangeEmailInput!) {
-  changeEmail(data: $data)
+  changeEmail(data: $data) {
+    message
+    user {
+      id
+      email
+      isEmailVerified
+      lastEmailChange
+    }
+  }
 }
     `;
 export type ChangeEmailMutationFn = Apollo.MutationFunction<ChangeEmailMutation, ChangeEmailMutationVariables>;
@@ -2517,6 +2527,7 @@ export const FindProfileDocument = gql`
     username
     displayName
     lastUsernameChange
+    lastEmailChange
     avatar
     bio
     isTotpEnabled

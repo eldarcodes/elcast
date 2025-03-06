@@ -25,23 +25,6 @@ export async function generateToken(
     new Date().getTime() + 5 * 60 * 1000,
   );
 
-  const existingToken = await prismaService.token.findFirst({
-    where: {
-      type: tokenType,
-      user: {
-        id: user.id,
-      },
-    },
-  });
-
-  if (existingToken) {
-    await prismaService.token.delete({
-      where: {
-        id: existingToken.id,
-      },
-    });
-  }
-
   const newToken = await prismaService.token.create({
     data: {
       token,

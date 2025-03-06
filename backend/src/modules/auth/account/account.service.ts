@@ -1,12 +1,17 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import * as argon2 from 'argon2';
+import { Request } from 'express';
 
-import { User } from '@/prisma/generated';
+import { TokenType, User } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
+import { EMAIL_CHANGE_COOLDOWN_DAYS } from '@/src/shared/constants/account.constants';
+import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
 
 import { VerificationService } from '../verification/verification.service';
 
@@ -82,20 +87,70 @@ export class AccountService {
     return true;
   }
 
-  public async changeEmail(user: User, input: ChangeEmailInput) {
-    const { email } = input;
+  public async changeEmail(
+    req: Request,
+    user: User,
+    input: ChangeEmailInput,
+    userAgent: string,
+  ) {
+    const { email, pin } = input;
+
+    if (user.email === email && !pin) {
+      return { user };
+    }
+
+    if (user.lastEmailChange && !pin) {
+      const now = new Date();
+      const lastChange = new Date(user.lastEmailChange);
+
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+      const ONE_DAY = 1000 * 3600 * 24;
+
+      const daysSinceLastChange =
+        (now.getTime() - lastChange.getTime()) / ONE_DAY;
+
+      if (daysSinceLastChange < EMAIL_CHANGE_COOLDOWN_DAYS) {
+        throw new ConflictException(
+          `You can only change your email once every ${EMAIL_CHANGE_COOLDOWN_DAYS} days.`,
+        );
+      }
+    }
+
+    const sessionMetadata = getSessionMetadata(req, userAgent);
+
+    const emailExists = await this.prismaService.user.findFirst({
+      where: { email },
+    });
+
+    if (emailExists) {
+      throw new ConflictException('Email already in use');
+    }
 
     const newUser = await this.prismaService.user.update({
       where: { id: user.id },
       data: {
         email,
+        lastEmailChange: new Date(),
         isEmailVerified: false,
       },
     });
 
-    await this.verificationService.sendVerificationToken(newUser);
+    if (!pin) {
+      await this.verificationService.sendVerificationCode(
+        newUser,
+        sessionMetadata,
+      );
 
-    return true;
+      return {
+        message: 'PIN_REQUIRED',
+      };
+    }
+
+    await this.validateEmailVerificationToken(pin);
+
+    return {
+      message: 'Email has been changed',
+    };
   }
 
   public async changePassword(user: User, input: ChangePasswordInput) {
@@ -111,6 +166,43 @@ export class AccountService {
       where: { id: user.id },
       data: {
         password: await argon2.hash(newPassword),
+      },
+    });
+
+    return true;
+  }
+
+  private async validateEmailVerificationToken(token: string) {
+    const existingToken = await this.prismaService.token.findUnique({
+      where: {
+        token,
+        type: TokenType.EMAIL_VERIFY,
+      },
+    });
+
+    if (!existingToken) {
+      throw new NotFoundException('Token not found');
+    }
+
+    const hasExpired = new Date(existingToken.expiresIn) < new Date();
+
+    if (hasExpired) {
+      throw new BadRequestException('Token has expired');
+    }
+
+    await this.prismaService.user.update({
+      where: {
+        id: existingToken.userId,
+      },
+      data: {
+        isEmailVerified: true,
+      },
+    });
+
+    await this.prismaService.token.delete({
+      where: {
+        id: existingToken.id,
+        type: TokenType.EMAIL_VERIFY,
       },
     });
 

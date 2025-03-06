@@ -7,6 +7,7 @@ import type { Request } from 'express';
 
 import { TokenType, User } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
+import { SessionMetadata } from '@/src/shared/types/session-metadata.type';
 import { generateToken } from '@/src/shared/utils/generate-token.util';
 import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
 import { saveSession } from '@/src/shared/utils/session.util';
@@ -91,6 +92,23 @@ export class VerificationService {
     await this.mailService.sendVerificationToken(
       user.email,
       verificationToken.token,
+    );
+
+    return true;
+  }
+
+  public async sendVerificationCode(user: User, metadata: SessionMetadata) {
+    const verificationToken = await generateToken(
+      this.prismaService,
+      user,
+      TokenType.EMAIL_VERIFY,
+      false,
+    );
+
+    await this.mailService.sendVerificationCode(
+      user.email,
+      verificationToken.token,
+      metadata,
     );
 
     return true;

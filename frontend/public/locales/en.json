@@ -16,7 +16,7 @@
     },
     "verify": {
       "heading": "Account verification",
-      "successMessage": "Your account has been verified. You can now log in.",
+      "successMessage": "Your account has been verified.",
       "errorMessage": "Couldn't verify account"
     },
     "login": {
@@ -217,19 +217,28 @@
         "email": {
           "heading": "Email Address",
           "emailLabel": "Email",
-          "emailDescription": "Enter your new email address.",
-          "submitButton": "Save",
+          "emailPlaceholder": "Your email",
+          "emailDescription": "You may update your email.",
+          "pinLabel": "6-digit code",
+          "pinDescription": "A code has been sent to your email.",
           "verified": "Verified",
           "notVerified": "Not verified",
           "verifiedText": "Thank you for verifying your email.",
           "notVerifiedText": "Please verify your email to avoid any issues.",
+          "modal": {
+            "heading": "Change Email",
+            "description": "Email updates can be performed once every {cooldownDays} days.",
+            "cooldownError": "You cannot change your Email as you have already made changes in the last {cooldownDays} days. Please wait until the cooldown period is over.",
+            "cancelButton": "Cancel",
+            "submitButton": "Update",
+            "successMessage": "Email successfully updated.",
+            "errorMessage": "Error updating email."
+          },
           "sendVerificationToken": {
             "resend": "Resend",
             "successMessage": "Verification email sent",
             "errorMessage": "Error sending verification email"
-          },
-          "successMessage": "Email successfully updated. We've sent you an email to verify your new email address.",
-          "errorMessage": "Error updating email"
+          }
         },
         "password": {
           "heading": "Account Password",

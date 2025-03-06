@@ -99,7 +99,7 @@ export class ProfileService {
 
       if (daysSinceLastChange < USERNAME_CHANGE_COOLDOWN_DAYS) {
         throw new ConflictException(
-          `You can only change your username once per week.`,
+          `You can only change your username once every ${USERNAME_CHANGE_COOLDOWN_DAYS} days.`,
         );
       }
     }

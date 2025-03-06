@@ -39,7 +39,7 @@ import {
   ChangeUsernameSchema,
 } from '@/schemas/user/change-username.schema';
 
-import { canChangeUsername } from '@/utils/can-change-username';
+import { canChangeUsername } from '@/utils/cooldown-validation';
 
 export function ChangeUsernameForm() {
   const t = useTranslations('dashboard.settings.profile.username');
@@ -169,7 +169,9 @@ export function ChangeUsernameForm() {
           </Dialog>
         </div>
 
-        <FormDescription>{t('usernameDescription')}</FormDescription>
+        {isUsernameChangeAvailable && (
+          <FormDescription>{t('usernameDescription')}</FormDescription>
+        )}
       </FormItem>
     </Form>
   );

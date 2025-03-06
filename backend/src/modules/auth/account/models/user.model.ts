@@ -48,6 +48,9 @@ export class UserModel implements User {
   @Field(() => Date, { nullable: true })
   lastUsernameChange: Date;
 
+  @Field(() => Date, { nullable: true })
+  lastEmailChange: Date;
+
   @Field(() => String, { nullable: true })
   totpSecret: string;
 
