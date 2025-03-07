@@ -83,12 +83,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: SITE_NAME,
-    card: 'summary_large_image',
+    description: SITE_DESCRIPTION,
+    card: 'summary',
     images: [
       {
-        url: '/touch-icons/512x512.png',
-        width: 512,
-        height: 512,
+        url: '/images/logo.png',
+        width: 200,
+        height: 200,
         alt: SITE_NAME,
       },
     ],
