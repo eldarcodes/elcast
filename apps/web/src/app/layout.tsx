@@ -42,8 +42,6 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   keywords: SITE_KEYWORDS,
   generator: 'Next.js',
-  creator: 'Eldar Mirzabekov',
-  publisher: 'Eldar Mirzabekov',
   openGraph: {
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
@@ -54,9 +52,9 @@ export const metadata: Metadata = {
     emails: ['info@eldarcodes.com'],
     images: [
       {
-        url: '/touch-icons/512x512.png',
-        width: 512,
-        height: 512,
+        url: '/images/logo.png',
+        width: 200,
+        height: 200,
         alt: SITE_NAME,
       },
     ],
