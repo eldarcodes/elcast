@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     emails: ['info@eldarcodes.com'],
     images: [
       {
-        url: '/images/logo-banner.png',
+        url: '/images/logo-banner-text.jpg',
         width: 200,
         height: 200,
         alt: SITE_NAME,
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
     card: 'summary',
     images: [
       {
-        url: '/images/logo-banner.png',
+        url: '/images/logo-banner-text.jpg',
         width: 200,
         height: 200,
         alt: SITE_NAME,
