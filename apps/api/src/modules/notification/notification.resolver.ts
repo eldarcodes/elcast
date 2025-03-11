@@ -1,6 +1,7 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 
 import { User } from '@/prisma/generated';
+import { PubSubService } from '@/src/core/pubsub/pubsub.service';
 import { Authorization } from '@/src/shared/decorators/auth.decorator';
 import { Authorized } from '@/src/shared/decorators/authorized.decorator';
 
@@ -13,6 +14,7 @@ import { NotificationService } from './notification.service';
 export class NotificationResolver {
   public constructor(
     private readonly notificationService: NotificationService,
+    private readonly pubSubService: PubSubService,
   ) {}
 
   @Authorization()
@@ -29,6 +31,24 @@ export class NotificationResolver {
   })
   public async findNotificationsUnreadCount(@Authorized() user: User) {
     return this.notificationService.findUnreadCount(user);
+  }
+
+  @Subscription(() => NotificationModel, {
+    name: 'notificationAdded',
+    filter: (payload, variables) => {
+      return payload.notificationAdded.userId === variables.userId;
+    },
+  })
+  public notificationAdded(@Args('userId') userId: string) {
+    return this.pubSubService.subscribe('NOTIFICATION_ADDED');
+  }
+
+  @Authorization()
+  @Mutation(() => Boolean, {
+    name: 'markNotificationsAsRead',
+  })
+  public async markAsRead(@Authorized() user: User) {
+    return this.notificationService.markAsRead(user);
   }
 
   @Authorization()

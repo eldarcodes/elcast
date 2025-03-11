@@ -1,0 +1,9 @@
+subscription NotificationAdded($userId: String!) {
+  notificationAdded(userId: $userId) {
+    id
+    message
+    isRead
+    type
+    createdAt
+  }
+}

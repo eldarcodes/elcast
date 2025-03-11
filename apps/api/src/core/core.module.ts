@@ -28,6 +28,7 @@ import { IS_DEV_ENV } from '../shared/utils/is-dev.util';
 import { getGraphQLConfig } from './config/graphql.config';
 import { getLivekitConfig } from './config/livekit.config';
 import { PrismaModule } from './prisma/prisma.module';
+import { PubSubModule } from './pubsub/pubsub.module';
 import { RedisModule } from './redis/redis.module';
 
 @Module({
@@ -43,6 +44,7 @@ import { RedisModule } from './redis/redis.module';
       inject: [ConfigService],
     }),
 
+    PubSubModule,
     PrismaModule,
     RedisModule,
     MailModule,
