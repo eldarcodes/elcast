@@ -1,36 +1,46 @@
 import parse from 'html-react-parser';
 import { Loader } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 
 import { Separator } from '@/components/ui/common/separator';
 
 import {
-  useFindNotificationsByUserQuery,
+  FindNotificationsByUserQuery,
   useFindNotificationsUnreadCountQuery,
+  useMarkNotificationsAsReadMutation,
 } from '@/graphql/generated/output';
 
 import { getNotificationIcon } from '@/utils/get-notification-icon';
 
-export function NotificationsList() {
+interface NotificationsListProps {
+  notifications: FindNotificationsByUserQuery['findNotificationsByUser'];
+  loading: boolean;
+}
+
+export function NotificationsList({
+  notifications,
+  loading,
+}: NotificationsListProps) {
   const t = useTranslations(
     'layout.header.headerMenu.profileMenu.notifications',
   );
 
-  const { refetch } = useFindNotificationsUnreadCountQuery();
+  const { refetch: refetchCount } = useFindNotificationsUnreadCountQuery();
 
-  const { data, loading: isLoadingNotifications } =
-    useFindNotificationsByUserQuery({
-      onCompleted: () => {
-        refetch();
-      },
-    });
+  const [markAsRead] = useMarkNotificationsAsReadMutation({
+    onCompleted: () => {
+      refetchCount();
+    },
+  });
 
-  const notifications = data?.findNotificationsByUser ?? [];
+  useEffect(() => {
+    markAsRead();
+  }, []);
 
   let body = null;
 
-  if (isLoadingNotifications) {
+  if (loading) {
     body = (
       <div className="my-14 flex items-center justify-center gap-x-2 text-sm text-foreground">
         <Loader className="size-5 animate-spin" />

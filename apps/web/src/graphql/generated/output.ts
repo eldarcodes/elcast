@@ -191,6 +191,7 @@ export type Mutation = {
   generateStreamToken: GenerateTokenModel;
   loginUser: AuthModel;
   logoutUser: Scalars['Boolean']['output'];
+  markNotificationsAsRead: Scalars['Boolean']['output'];
   newPassword: Scalars['Boolean']['output'];
   removeProfileAvatar: Scalars['Boolean']['output'];
   removeSession: Scalars['Boolean']['output'];
@@ -492,11 +493,17 @@ export type StreamModel = {
 export type Subscription = {
   __typename?: 'Subscription';
   chatMessageAdded: ChatMessageModel;
+  notificationAdded: NotificationModel;
 };
 
 
 export type SubscriptionChatMessageAddedArgs = {
   streamId: Scalars['String']['input'];
+};
+
+
+export type SubscriptionNotificationAddedArgs = {
+  userId: Scalars['String']['input'];
 };
 
 export type TotpModel = {
@@ -717,6 +724,11 @@ export type EnableTotpMutationVariables = Exact<{
 
 export type EnableTotpMutation = { __typename?: 'Mutation', enableTotp: boolean };
 
+export type MarkNotificationsAsReadMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MarkNotificationsAsReadMutation = { __typename?: 'Mutation', markNotificationsAsRead: boolean };
+
 export type RemoveProfileAvatarMutationVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -850,6 +862,13 @@ export type ChatMessageAddedSubscriptionVariables = Exact<{
 
 
 export type ChatMessageAddedSubscription = { __typename?: 'Subscription', chatMessageAdded: { __typename?: 'ChatMessageModel', createdAt: any, text: string, user: { __typename?: 'UserModel', id: string, username: string, displayName: string } } };
+
+export type NotificationAddedSubscriptionVariables = Exact<{
+  userId: Scalars['String']['input'];
+}>;
+
+
+export type NotificationAddedSubscription = { __typename?: 'Subscription', notificationAdded: { __typename?: 'NotificationModel', id: string, message: string, isRead: boolean, type: NotificationType, createdAt: any } };
 
 
 export const CreateUserDocument = gql`
@@ -1726,6 +1745,36 @@ export function useEnableTotpMutation(baseOptions?: Apollo.MutationHookOptions<E
 export type EnableTotpMutationHookResult = ReturnType<typeof useEnableTotpMutation>;
 export type EnableTotpMutationResult = Apollo.MutationResult<EnableTotpMutation>;
 export type EnableTotpMutationOptions = Apollo.BaseMutationOptions<EnableTotpMutation, EnableTotpMutationVariables>;
+export const MarkNotificationsAsReadDocument = gql`
+    mutation MarkNotificationsAsRead {
+  markNotificationsAsRead
+}
+    `;
+export type MarkNotificationsAsReadMutationFn = Apollo.MutationFunction<MarkNotificationsAsReadMutation, MarkNotificationsAsReadMutationVariables>;
+
+/**
+ * __useMarkNotificationsAsReadMutation__
+ *
+ * To run a mutation, you first call `useMarkNotificationsAsReadMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMarkNotificationsAsReadMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [markNotificationsAsReadMutation, { data, loading, error }] = useMarkNotificationsAsReadMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMarkNotificationsAsReadMutation(baseOptions?: Apollo.MutationHookOptions<MarkNotificationsAsReadMutation, MarkNotificationsAsReadMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MarkNotificationsAsReadMutation, MarkNotificationsAsReadMutationVariables>(MarkNotificationsAsReadDocument, options);
+      }
+export type MarkNotificationsAsReadMutationHookResult = ReturnType<typeof useMarkNotificationsAsReadMutation>;
+export type MarkNotificationsAsReadMutationResult = Apollo.MutationResult<MarkNotificationsAsReadMutation>;
+export type MarkNotificationsAsReadMutationOptions = Apollo.BaseMutationOptions<MarkNotificationsAsReadMutation, MarkNotificationsAsReadMutationVariables>;
 export const RemoveProfileAvatarDocument = gql`
     mutation RemoveProfileAvatar {
   removeProfileAvatar
@@ -2752,3 +2801,37 @@ export function useChatMessageAddedSubscription(baseOptions: Apollo.Subscription
       }
 export type ChatMessageAddedSubscriptionHookResult = ReturnType<typeof useChatMessageAddedSubscription>;
 export type ChatMessageAddedSubscriptionResult = Apollo.SubscriptionResult<ChatMessageAddedSubscription>;
+export const NotificationAddedDocument = gql`
+    subscription NotificationAdded($userId: String!) {
+  notificationAdded(userId: $userId) {
+    id
+    message
+    isRead
+    type
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useNotificationAddedSubscription__
+ *
+ * To run a query within a React component, call `useNotificationAddedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useNotificationAddedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNotificationAddedSubscription({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useNotificationAddedSubscription(baseOptions: Apollo.SubscriptionHookOptions<NotificationAddedSubscription, NotificationAddedSubscriptionVariables> & ({ variables: NotificationAddedSubscriptionVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<NotificationAddedSubscription, NotificationAddedSubscriptionVariables>(NotificationAddedDocument, options);
+      }
+export type NotificationAddedSubscriptionHookResult = ReturnType<typeof useNotificationAddedSubscription>;
+export type NotificationAddedSubscriptionResult = Apollo.SubscriptionResult<NotificationAddedSubscription>;
