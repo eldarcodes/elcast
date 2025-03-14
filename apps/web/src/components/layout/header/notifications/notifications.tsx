@@ -1,5 +1,6 @@
 import { Bell } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 import {
   Popover,
@@ -16,6 +17,7 @@ import {
 
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
+import { NotificationsItem } from './notifications-item';
 import { NotificationsList } from './notifications-list';
 
 export function Notifications() {
@@ -51,8 +53,9 @@ export function Notifications() {
       const newNotification = newNotificationData.notificationAdded;
 
       refetchCount();
-
       setNotifications((prev) => [newNotification, ...prev]);
+
+      toast(<NotificationsItem notification={newNotification} />);
     }
   }, [newNotificationData]);
 

@@ -1,4 +1,3 @@
-import parse from 'html-react-parser';
 import { Loader } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Fragment, useEffect } from 'react';
@@ -11,7 +10,7 @@ import {
   useMarkNotificationsAsReadMutation,
 } from '@/graphql/generated/output';
 
-import { getNotificationIcon } from '@/utils/get-notification-icon';
+import { NotificationsItem } from './notifications-item';
 
 interface NotificationsListProps {
   notifications: FindNotificationsByUserQuery['findNotificationsByUser'];
@@ -49,17 +48,9 @@ export function NotificationsList({
     );
   } else if (notifications.length) {
     body = notifications.map((notification, index) => {
-      const Icon = getNotificationIcon(notification.type);
-
       return (
         <Fragment key={notification.id}>
-          <div className="flex items-center gap-x-3 text-sm">
-            <div className="rounded-full">
-              <Icon className="size-6" />
-            </div>
-
-            <div>{parse(notification.message)}</div>
-          </div>
+          <NotificationsItem notification={notification} />
           {index < notifications.length - 1 && <Separator className="my-3" />}
         </Fragment>
       );
