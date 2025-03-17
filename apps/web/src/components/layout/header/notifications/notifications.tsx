@@ -1,4 +1,6 @@
 import { Bell } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 import {
   Popover,
@@ -6,20 +8,62 @@ import {
   PopoverTrigger,
 } from '@/components/ui/common/popover';
 
-import { useFindNotificationsUnreadCountQuery } from '@/graphql/generated/output';
+import {
+  FindNotificationsByUserQuery,
+  useFindNotificationsByUserQuery,
+  useFindNotificationsUnreadCountQuery,
+  useNotificationAddedSubscription,
+} from '@/graphql/generated/output';
 
+import { useCurrentProfile } from '@/hooks/use-current-profile';
+
+import { NotificationsItem } from './notifications-item';
 import { NotificationsList } from './notifications-list';
 
 export function Notifications() {
-  const { data, loading: isLoadingCount } =
-    useFindNotificationsUnreadCountQuery();
-  const count = data?.findNotificationsUnreadCount ?? 0;
+  const { user } = useCurrentProfile();
+
+  const {
+    data: notificationsCount,
+    loading: isLoadingCount,
+    refetch: refetchCount,
+  } = useFindNotificationsUnreadCountQuery();
+
+  const { data: notificationsData, loading: isLoadingNotifications } =
+    useFindNotificationsByUserQuery();
+
+  const { data: newNotificationData } = useNotificationAddedSubscription({
+    variables: {
+      userId: user?.id ?? '',
+    },
+  });
+
+  const [notifications, setNotifications] = useState<
+    FindNotificationsByUserQuery['findNotificationsByUser']
+  >([]);
+
+  useEffect(() => {
+    if (notificationsData && notificationsData.findNotificationsByUser) {
+      setNotifications(notificationsData.findNotificationsByUser ?? []);
+    }
+  }, [notificationsData]);
+
+  useEffect(() => {
+    if (newNotificationData) {
+      const newNotification = newNotificationData.notificationAdded;
+
+      refetchCount();
+      setNotifications((prev) => [newNotification, ...prev]);
+
+      toast(<NotificationsItem notification={newNotification} />);
+    }
+  }, [newNotificationData]);
+
+  const count = notificationsCount?.findNotificationsUnreadCount ?? 0;
 
   const displayCount = count > 10 ? '+9' : count;
 
-  if (isLoadingCount) {
-    return null;
-  }
+  if (isLoadingCount) return null;
 
   return (
     <Popover>
@@ -36,7 +80,10 @@ export function Notifications() {
         align="end"
         className="max-h-[500px] w-[320px] overflow-y-auto"
       >
-        <NotificationsList />
+        <NotificationsList
+          notifications={notifications}
+          loading={isLoadingNotifications}
+        />
       </PopoverContent>
     </Popover>
   );

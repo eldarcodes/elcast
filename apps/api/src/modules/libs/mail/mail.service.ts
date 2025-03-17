@@ -84,10 +84,14 @@ export class MailService {
   }
 
   private sendMail(email: string, subject: string, html: string) {
-    return this.mailerService.sendMail({
-      to: email,
-      subject,
-      html,
-    });
+    try {
+      return this.mailerService.sendMail({
+        to: email,
+        subject,
+        html,
+      });
+    } catch (error) {
+      console.error(`Failed to send email to ${email}:`, error);
+    }
   }
 }

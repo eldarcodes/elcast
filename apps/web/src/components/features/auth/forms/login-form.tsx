@@ -131,7 +131,11 @@ export function LoginForm() {
                   <FormItem>
                     <div className="flex items-center justify-between">
                       <FormLabel>{t('passwordLabel')}</FormLabel>
-                      <Link href="/account/recovery" className="text-xs">
+                      <Link
+                        href="/account/recovery"
+                        className="text-xs"
+                        tabIndex={-1}
+                      >
                         {t('forgotPassword')}
                       </Link>
                     </div>

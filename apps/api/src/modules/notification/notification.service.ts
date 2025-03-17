@@ -2,13 +2,17 @@ import { Injectable } from '@nestjs/common';
 
 import { NotificationType, TokenType, User } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
+import { PubSubService } from '@/src/core/pubsub/pubsub.service';
 import { generateToken } from '@/src/shared/utils/generate-token.util';
 
 import { ChangeNotificationSettingsInput } from './inputs/change-notification-settings.input';
 
 @Injectable()
 export class NotificationService {
-  public constructor(private readonly prismaService: PrismaService) {}
+  public constructor(
+    private readonly prismaService: PrismaService,
+    private readonly pubSubService: PubSubService,
+  ) {}
 
   public async findUnreadCount(user: User) {
     const count = await this.prismaService.notification.count({
@@ -21,7 +25,7 @@ export class NotificationService {
     return count;
   }
 
-  public async findByUser(user: User) {
+  public async markAsRead(user: User) {
     await this.prismaService.notification.updateMany({
       where: {
         isRead: false,
@@ -32,6 +36,10 @@ export class NotificationService {
       },
     });
 
+    return true;
+  }
+
+  public async findByUser(user: User) {
     const notifications = await this.prismaService.notification.findMany({
       where: {
         userId: user.id,
@@ -122,6 +130,10 @@ export class NotificationService {
       },
     });
 
+    this.pubSubService.publish('NOTIFICATION_ADDED', {
+      notificationAdded: notification,
+    });
+
     return notification;
   }
 
@@ -137,6 +149,13 @@ export class NotificationService {
           },
         },
       },
+      include: {
+        user: true,
+      },
+    });
+
+    this.pubSubService.publish('NOTIFICATION_ADDED', {
+      notificationAdded: notification,
     });
 
     return notification;
@@ -152,6 +171,10 @@ export class NotificationService {
       },
     });
 
+    this.pubSubService.publish('NOTIFICATION_ADDED', {
+      notificationAdded: notification,
+    });
+
     return notification;
   }
 
@@ -163,6 +186,10 @@ export class NotificationService {
         type: NotificationType.VERIFIED_CHANNEL,
         userId,
       },
+    });
+
+    this.pubSubService.publish('NOTIFICATION_ADDED', {
+      notificationAdded: notification,
     });
 
     return notification;

@@ -175,6 +175,7 @@ type Mutation {
   generateStreamToken(data: GenerateStreamTokenInput!): GenerateTokenModel!
   loginUser(data: LoginInput!): AuthModel!
   logoutUser: Boolean!
+  markNotificationsAsRead: Boolean!
   newPassword(data: NewPasswordInput!): Boolean!
   removeProfileAvatar: Boolean!
   removeSession(id: String!): Boolean!
@@ -314,6 +315,7 @@ type StreamModel {
 
 type Subscription {
   chatMessageAdded(streamId: String!): ChatMessageModel!
+  notificationAdded(userId: String!): NotificationModel!
 }
 
 type TotpModel {
