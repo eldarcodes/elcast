@@ -146,43 +146,15 @@ async function main() {
             },
           });
 
-          // Add user avatar
-          await s3.send(
-            new CopyObjectCommand({
-              Bucket: process.env.S3_BUCKET_NAME,
-              CopySource: `${process.env.S3_BUCKET_NAME}/seeder/avatars/${currentIndex}.webp`,
-              Key: `avatars/${createdUser.id}.webp`,
-            }),
-          );
-
-          await tx.user.update({
-            where: { id: createdUser.id },
-            data: {
-              avatar: `/avatars/${createdUser.id}.webp`,
-            },
-          });
-
           // Add user stream with thumbnail
           const stream = streamList[index];
           const category = categoriesBySlug[stream.category];
 
           usedCategoryImages[stream.category]++;
 
-          const sourceKey = `/seeder/streams/${stream.category}/${usedCategoryImages[stream.category]}.webp`;
-          const destinationKey = `streams/${createdUser.id}.webp`;
-
-          await s3.send(
-            new CopyObjectCommand({
-              Bucket: process.env.S3_BUCKET_NAME,
-              CopySource: `${process.env.S3_BUCKET_NAME}${sourceKey}`,
-              Key: destinationKey,
-            }),
-          );
-
           await tx.stream.create({
             data: {
               title: stream.title,
-              thumbnailUrl: `/${destinationKey}`,
               user: {
                 connect: {
                   id: createdUser.id,
@@ -195,6 +167,49 @@ async function main() {
               },
             },
           });
+
+          try {
+            const userAvatarSource = `/seeder/avatars/${currentIndex}.webp`;
+            const userAvatarDestination = `avatars/${createdUser.id}.webp`;
+
+            const streamThumbnailSource = `/seeder/streams/${stream.category}/${usedCategoryImages[stream.category]}.webp`;
+            const streamThumbnailDestination = `streams/${createdUser.id}.webp`;
+
+            // 300x300
+            await s3.send(
+              new CopyObjectCommand({
+                Bucket: process.env.S3_BUCKET_NAME,
+                CopySource: `${process.env.S3_BUCKET_NAME}${userAvatarSource}`,
+                Key: userAvatarDestination,
+              }),
+            );
+
+            // 1656x932
+            await s3.send(
+              new CopyObjectCommand({
+                Bucket: process.env.S3_BUCKET_NAME,
+                CopySource: `${process.env.S3_BUCKET_NAME}${streamThumbnailSource}`,
+                Key: streamThumbnailDestination,
+              }),
+            );
+
+            await tx.user.update({
+              where: { id: createdUser.id },
+              data: {
+                avatar: `/${userAvatarDestination}`,
+              },
+            });
+
+            await tx.stream.update({
+              where: { userId: createdUser.id },
+              data: {
+                thumbnailUrl: `/${streamThumbnailDestination}`,
+              },
+            });
+          } catch (error) {
+            Logger.error('Error copying seeder files:', error);
+            continue;
+          }
 
           Logger.log(
             `User "${createdUser.username}" and his stream have been successfully created`,

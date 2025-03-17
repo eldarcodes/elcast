@@ -8,6 +8,9 @@ export const STREAMS = {
     'Trying Weird Snacks from Around the World 🍜',
     'Cozy Chat & Chill',
     'Spilling the Tea | Drama & Gossip',
+    '2025 ❤️🙏🔥',
+    'Pogging',
+    'Смотрим Фильмы 24/7 Круглосуточно Киногонка',
   ],
   'counter-strike': [
     'CS2 Ranked Grind | Road to Global Elite',
@@ -46,7 +49,6 @@ export const STREAMS = {
     'League of Legends, but I Can’t Tilt',
     'Only Playing with Voice Comms!',
     'Late Night LoL with Chat',
-    'Can We Hit Diamond Today?',
     'Ultimate Support Carry! 💪',
   ],
   'grand-theft-auto-v': [
@@ -122,8 +124,6 @@ export const STREAMS = {
   'tom-clancys-rainbow-six-siege': [
     'Tactical Mastermind or Bot?',
     'Only Using Shotguns Challenge!',
-    'Can I Carry My Team to Victory?',
-    'Insane Clutch Moments!',
     'The Most Toxic Game of R6 Ever',
     '1v1 Me in Siege! Who Wins? 💪',
     'Stealth Only – No Guns Challenge!️‍️',
