@@ -218,8 +218,6 @@ export const STREAMS = {
     'Best Car Designs in the Game!',
     'Trolling in Casual Matches! 😂',
     'New Rocket League Season – Let’s GO! 🚀',
-    'New Rocket League Season – Let’s GO! 228',
-    'New Rocket League Season – Let’s GO! 229',
   ],
   'marvel-rivals': [
     'The Ultimate Superhero Battle!️',

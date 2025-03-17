@@ -199,6 +199,4 @@ export const DISPLAY_NAMES = [
   'LilithTV',
   'Ezra4',
   'Nikolaiw',
-  'myuser1',
-  'myuser2',
 ];
