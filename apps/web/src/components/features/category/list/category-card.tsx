@@ -29,12 +29,7 @@ export function CategoryCard({ category }: CategoryCardProps) {
       href={`/categories/${category.slug}`}
       className="h-full w-full space-y-3"
     >
-      <div
-        className={cn(
-          'group relative cursor-pointer rounded-xl',
-          isCollapsed ? 'h-60' : 'h-52',
-        )}
-      >
+      <div className={cn('group relative h-[300px] cursor-pointer rounded-xl')}>
         <div
           className="absolute inset-0 flex items-center justify-center rounded-xl opacity-0 transition-opacity group-hover:opacity-100"
           style={{

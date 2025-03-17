@@ -43,7 +43,7 @@ export class ProfileService {
 
     const buffer = Buffer.concat(chunks);
 
-    const fileName = `/channels/${user.username.toLowerCase()}.webp`;
+    const fileName = `/avatars/${user.id}.webp`;
 
     const options =
       file.fileName && file.fileName.endsWith('.gif') ? { animated: true } : {};
