@@ -24,6 +24,8 @@ async function main() {
       prisma.socialLink.deleteMany(),
       prisma.stream.deleteMany(),
       prisma.category.deleteMany(),
+      prisma.chatMessage.deleteMany(),
+      prisma.follow.deleteMany(),
     ]);
 
     await prisma.category.createMany({ data: CATEGORIES });
@@ -49,9 +51,7 @@ async function main() {
             ];
 
           const userExists = await tx.user.findUnique({
-            where: {
-              username,
-            },
+            where: { username },
           });
 
           if (!userExists) {
@@ -65,7 +65,7 @@ async function main() {
                 isEmailVerified: true,
                 notificationSettings: {
                   create: {
-                    siteNotifications: false,
+                    siteNotifications: true,
                     telegramNotifications: false,
                   },
                 },
@@ -73,13 +73,13 @@ async function main() {
                   createMany: {
                     data: [
                       {
-                        title: 'X',
-                        url: `https://x.com/${username}`,
+                        title: 'Telegram',
+                        url: `https://t.me/${username}`,
                         position: 1,
                       },
                       {
-                        title: 'GitHub',
-                        url: `https://github.com/${username}`,
+                        title: 'Instagram',
+                        url: `https://instagram.com/${username}`,
                         position: 2,
                       },
                     ],
