@@ -27,7 +27,12 @@ export function AuthWrapper({
     <div className="mx-2 flex h-full items-center justify-center md:mx-0">
       <Card className="w-[450px]">
         <CardHeader className="flex-row items-center justify-center gap-x-4">
-          <Image src="/images/logo.svg" alt="Elcast" width={40} height={40} />
+          <Image
+            src="/images/logo-icon.svg"
+            alt="Elcast"
+            width={40}
+            height={40}
+          />
           <CardTitle className="text-xl" style={{ marginTop: 0 }}>
             {heading}
           </CardTitle>

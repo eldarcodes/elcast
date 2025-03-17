@@ -12,7 +12,7 @@ export function Logo() {
       href="/"
       className="flex items-center gap-x-2 transition-opacity hover:opacity-75"
     >
-      <Image src="/images/logo.svg" alt="Elcast" width={35} height={35} />
+      <Image src="/images/logo-icon.svg" alt="Elcast" width={35} height={35} />
 
       <div className="leading-tight">
         <h2 className="text-md font-semibold tracking-wider text-accent-foreground">
