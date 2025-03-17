@@ -201,7 +201,7 @@ async function main() {
           );
         }
       },
-      { timeout: 60000 },
+      { timeout: 300000 }, // 5 minutes
     );
   } catch (error) {
     Logger.error(error);
