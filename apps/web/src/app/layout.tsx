@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
   title: {
     absolute: SITE_NAME,
-    template: `%s | ${SITE_NAME}`,
+    template: `%s - ${SITE_NAME}`,
   },
   authors: {
     name: 'Eldar Mirzabekov',
@@ -48,13 +48,14 @@ export const metadata: Metadata = {
     url: new URL(APP_URL),
     siteName: SITE_NAME,
     locale: 'en_US',
+    alternateLocale: 'ru_RU',
     type: 'website',
     emails: ['info@eldarcodes.com'],
     images: [
       {
-        url: '/images/logo-banner-text.jpg',
-        width: 200,
-        height: 200,
+        url: '/images/logo-seo.jpg',
+        width: 500,
+        height: 500,
         alt: SITE_NAME,
       },
     ],
@@ -65,8 +66,8 @@ export const metadata: Metadata = {
     apple: '/touch-icons/256x256.png',
     other: {
       rel: 'touch-icons',
-      url: '/touch-icons/256x256.png',
-      sizes: '256x256',
+      url: '/touch-icons/512x512.png',
+      sizes: '512x512',
       type: 'image/png',
     },
   },
@@ -87,19 +88,13 @@ export const metadata: Metadata = {
     card: 'summary',
     images: [
       {
-        url: '/images/logo-banner-text.jpg',
-        width: 200,
-        height: 200,
+        url: '/images/logo-seo.jpg',
+        width: 500,
+        height: 500,
         alt: SITE_NAME,
       },
     ],
   },
-
-  // @TODO: Add verification keys
-  // verification: {
-  //   google: "",
-  //   yandex: "",
-  // },
 };
 
 export default async function RootLayout({

@@ -180,7 +180,7 @@ export class StreamService {
 
     const buffer = Buffer.concat(chunks);
 
-    const fileName = `/streams/${user.username}.webp`;
+    const fileName = `/streams/${user.id}.webp`;
 
     const options =
       file.fileName && file.fileName.endsWith('.gif') ? { animated: true } : {};

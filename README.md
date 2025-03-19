@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://elcast.eldarcodes.com"><img width="300" src="https://i.imgur.com/5apqHbh.png"></a>
+  <a href="https://elcast.eldarcodes.com"><img width="300" src="https://i.imgur.com/W5ojt25.jpeg"></a>
 </p>
 
 <p align="center">
