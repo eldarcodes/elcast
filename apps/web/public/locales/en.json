@@ -480,7 +480,7 @@
     "aboutChannel": {
       "heading": "About",
       "followersCount": "followers",
-      "noDescription": "Description not provided."
+      "noDescription": "We don't know much about them, but we're sure {displayName} is great."
     },
     "chat": {
       "heading": "Chat",

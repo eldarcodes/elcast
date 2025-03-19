@@ -482,7 +482,7 @@
     "aboutChannel": {
       "heading": "О канале",
       "followersCount": "подписчиков",
-      "noDescription": "Описание не предоставлено."
+      "noDescription": "Мы почти ничего не знаем о {displayName}, но мы уверены, что {displayName} — отличный человек."
     },
     "chat": {
       "heading": "Чат",

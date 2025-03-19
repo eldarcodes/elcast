@@ -34,7 +34,8 @@ export function AboutChannel({ channel }: AboutChannelProps) {
           {t('followersCount')}
         </div>
         <div className="text-[15px] text-muted-foreground">
-          {channel.bio ?? t('noDescription')}
+          {channel.bio ??
+            t('noDescription', { displayName: channel.displayName })}
         </div>
 
         {channel.socialLinks.length ? (
