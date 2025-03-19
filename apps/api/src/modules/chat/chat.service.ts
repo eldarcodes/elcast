@@ -2,13 +2,17 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { User } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
+import { PubSubService } from '@/src/core/pubsub/pubsub.service';
 
 import { ChangeChatSettingsInput } from './inputs/change-chat-settings.input';
 import { SendMessageInput } from './inputs/send-message.input';
 
 @Injectable()
 export class ChatService {
-  public constructor(private readonly prismaService: PrismaService) {}
+  public constructor(
+    private readonly prismaService: PrismaService,
+    private readonly pubSubService: PubSubService,
+  ) {}
 
   public async findByStream(streamId: string) {
     const messages = await this.prismaService.chatMessage.findMany({
@@ -45,6 +49,10 @@ export class ChatService {
         stream: true,
         user: true,
       },
+    });
+
+    this.pubSubService.publish('CHAT_MESSAGE_ADDED', {
+      chatMessageAdded: message,
     });
 
     return message;
