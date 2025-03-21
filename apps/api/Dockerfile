@@ -2,8 +2,6 @@ FROM node:20.17.0-alpine AS base
 
 RUN npm i -g pnpm
 
-# RUN apk add --no-cache libc6-compat
-
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
