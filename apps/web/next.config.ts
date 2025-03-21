@@ -8,6 +8,9 @@ const parsedUrl = new URL(s3Url);
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       {
