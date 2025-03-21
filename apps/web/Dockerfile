@@ -1,21 +1,17 @@
 FROM node:20.17.0-alpine AS base
 
-RUN apk add --no-cache curl bash
-
-RUN curl -fsSL https://bun.sh/install | bash
-
-ENV PATH="/root/.bun/bin:$PATH"
+RUN npm i -g pnpm
 
 WORKDIR /app
 
-COPY package.json bun.lockb ./
+COPY package.json pnpm-lock.yaml ./
 
-RUN bun install
+RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-RUN bun run build
+RUN pnpm run build
 
 EXPOSE 3000
 
-CMD ["bun", "run", "start"]
+CMD ["pnpm", "run", "start"]
