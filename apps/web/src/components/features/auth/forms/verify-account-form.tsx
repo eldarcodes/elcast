@@ -24,7 +24,7 @@ export function VerifyAccountForm() {
 
   const token = searchParams.get('token') ?? '';
 
-  const [verify, { loading, error }] = useVerifyAccountMutation({
+  const [verify, { error }] = useVerifyAccountMutation({
     onCompleted: () => {
       auth();
 

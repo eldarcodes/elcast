@@ -30,7 +30,6 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from '@/components/ui/common/input-otp';
-import { Skeleton } from '@/components/ui/common/skeleton';
 import { FormWrapper } from '@/components/ui/elements/form-wrapper';
 
 import {
