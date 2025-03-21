@@ -11,9 +11,6 @@ importers:
       '@apollo/client':
         specifier: ^3.12.5
         version: 3.13.5(@types/react@19.0.12)(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.1))(graphql@16.10.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(subscriptions-transport-ws@0.11.0(graphql@16.10.0))
-      '@graphql-codegen/cli':
-        specifier: ^5.0.3
-        version: 5.0.5(@parcel/watcher@2.5.1)(@types/node@20.17.25)(graphql@16.10.0)(typescript@5.8.2)
       '@graphql-codegen/typescript':
         specifier: ^4.1.2
         version: 4.1.5(graphql@16.10.0)
@@ -171,6 +168,9 @@ importers:
         specifier: ^5.0.3
         version: 5.0.3(@types/react@19.0.12)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
     devDependencies:
+      '@graphql-codegen/cli':
+        specifier: ^5.0.5
+        version: 5.0.5(@parcel/watcher@2.5.1)(@types/node@20.17.25)(graphql@16.10.0)(typescript@5.8.2)
       '@parcel/watcher':
         specifier: ^2.5.0
         version: 2.5.1
