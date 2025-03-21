@@ -10,9 +10,7 @@ import * as argon2 from 'argon2';
 import type { Request } from 'express';
 import { TOTP } from 'otpauth';
 
-import { User } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
-import { PubSubService } from '@/src/core/pubsub/pubsub.service';
 import { RedisService } from '@/src/core/redis/redis.service';
 import { parseBoolean } from '@/src/shared/utils/parse-boolean.util';
 import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
@@ -26,7 +24,6 @@ export class SessionService {
     private readonly prismaService: PrismaService,
     private readonly configService: ConfigService,
     private readonly redisService: RedisService,
-    private readonly pubSubService: PubSubService,
   ) {}
 
   public async findByUser(req: Request) {
@@ -156,27 +153,6 @@ export class SessionService {
     await this.redisService.del(
       `${this.configService.getOrThrow<string>('SESSION_FOLDER')}${id}`,
     );
-
-    return true;
-  }
-
-  public async getOnlineUsers() {
-    return this.prismaService.user.findMany({
-      where: { isOnline: true, isDeactivated: false },
-    });
-  }
-
-  public async setUserPresenceStatus(user: User, isOnline: boolean) {
-    if (user.isOnline === isOnline) return true;
-
-    const newUser = await this.prismaService.user.update({
-      where: { id: user.id },
-      data: { isOnline },
-    });
-
-    this.pubSubService.publish('USER_STATUS_CHANGED', {
-      userStatusChanged: newUser,
-    });
 
     return true;
   }

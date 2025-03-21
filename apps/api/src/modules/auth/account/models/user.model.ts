@@ -42,9 +42,6 @@ export class UserModel implements User {
   @Field(() => Boolean)
   isDeactivated: boolean;
 
-  @Field(() => Boolean)
-  isOnline: boolean;
-
   @Field(() => Date, { nullable: true })
   deactivatedAt: Date;
 

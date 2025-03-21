@@ -26,7 +26,6 @@ model User {
   isEmailVerified Boolean @default(false) @map("is_email_verified")
   isTotpEnabled   Boolean @default(false) @map("is_totp_enabled")
   isDeactivated   Boolean @default(false) @map("is_deactivated")
-  isOnline        Boolean @default(false) @map("is_online")
 
   totpSecret String? @map("totp_secret")
 
