@@ -1,6 +1,9 @@
 import { Markup } from 'telegraf';
 
-export const TELEGRAM_BUTTONS = {
+export const TELEGRAM_BUTTONS: Record<
+  PropertyKey,
+  ReturnType<typeof Markup.inlineKeyboard>
+> = {
   authSuccess: Markup.inlineKeyboard([
     [
       Markup.button.callback('📋 My followings', 'follows'),
