@@ -3,8 +3,8 @@
 import {
   DragDropContext,
   Draggable,
-  type DropResult,
   Droppable,
+  type DropResult,
 } from '@hello-pangea/dnd';
 import { useTranslations } from 'next-intl';
 import { useEffect, useMemo, useState } from 'react';

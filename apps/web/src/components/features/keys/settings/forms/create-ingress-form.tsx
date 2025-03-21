@@ -36,8 +36,8 @@ import { useCurrentProfile } from '@/hooks/use-current-profile';
 
 import {
   type CreateIngressSchema,
-  IngressType,
   createIngressSchema,
+  IngressType,
 } from '@/schemas/stream/create-ingress.schema';
 
 export function CreateIngressForm() {

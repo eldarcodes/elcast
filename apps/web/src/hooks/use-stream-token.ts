@@ -1,4 +1,4 @@
-import { type JwtPayload, jwtDecode } from 'jwt-decode';
+import { jwtDecode, type JwtPayload } from 'jwt-decode';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { v4 as uuid4 } from 'uuid';

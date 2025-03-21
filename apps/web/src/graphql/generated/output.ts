@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -1268,10 +1269,10 @@ export type NotificationAddedSubscription = {
 };
 
 export const CreateUserDocument = gql`
-    mutation CreateUser($data: CreateUserInput!) {
-  createUser(data: $data)
-}
-    `;
+  mutation CreateUser($data: CreateUserInput!) {
+    createUser(data: $data)
+  }
+`;
 export type CreateUserMutationFn = Apollo.MutationFunction<
   CreateUserMutation,
   CreateUserMutationVariables
@@ -1316,17 +1317,17 @@ export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
   CreateUserMutationVariables
 >;
 export const DeactivateAccountDocument = gql`
-    mutation DeactivateAccount($data: DeactivateAccountInput!) {
-  deactivateAccount(data: $data) {
-    message
-    user {
-      id
-      isDeactivated
-      deactivatedAt
+  mutation DeactivateAccount($data: DeactivateAccountInput!) {
+    deactivateAccount(data: $data) {
+      message
+      user {
+        id
+        isDeactivated
+        deactivatedAt
+      }
     }
   }
-}
-    `;
+`;
 export type DeactivateAccountMutationFn = Apollo.MutationFunction<
   DeactivateAccountMutation,
   DeactivateAccountMutationVariables
@@ -1371,15 +1372,15 @@ export type DeactivateAccountMutationOptions = Apollo.BaseMutationOptions<
   DeactivateAccountMutationVariables
 >;
 export const LoginUserDocument = gql`
-    mutation LoginUser($data: LoginInput!) {
-  loginUser(data: $data) {
-    message
-    user {
-      username
+  mutation LoginUser($data: LoginInput!) {
+    loginUser(data: $data) {
+      message
+      user {
+        username
+      }
     }
   }
-}
-    `;
+`;
 export type LoginUserMutationFn = Apollo.MutationFunction<
   LoginUserMutation,
   LoginUserMutationVariables
@@ -1423,10 +1424,10 @@ export type LoginUserMutationOptions = Apollo.BaseMutationOptions<
   LoginUserMutationVariables
 >;
 export const LogoutUserDocument = gql`
-    mutation LogoutUser {
-  logoutUser
-}
-    `;
+  mutation LogoutUser {
+    logoutUser
+  }
+`;
 export type LogoutUserMutationFn = Apollo.MutationFunction<
   LogoutUserMutation,
   LogoutUserMutationVariables
@@ -1470,10 +1471,10 @@ export type LogoutUserMutationOptions = Apollo.BaseMutationOptions<
   LogoutUserMutationVariables
 >;
 export const NewPasswordDocument = gql`
-    mutation NewPassword($data: NewPasswordInput!) {
-  newPassword(data: $data)
-}
-    `;
+  mutation NewPassword($data: NewPasswordInput!) {
+    newPassword(data: $data)
+  }
+`;
 export type NewPasswordMutationFn = Apollo.MutationFunction<
   NewPasswordMutation,
   NewPasswordMutationVariables
@@ -1518,10 +1519,10 @@ export type NewPasswordMutationOptions = Apollo.BaseMutationOptions<
   NewPasswordMutationVariables
 >;
 export const ResetPasswordDocument = gql`
-    mutation ResetPassword($data: ResetPasswordInput!) {
-  resetPassword(data: $data)
-}
-    `;
+  mutation ResetPassword($data: ResetPasswordInput!) {
+    resetPassword(data: $data)
+  }
+`;
 export type ResetPasswordMutationFn = Apollo.MutationFunction<
   ResetPasswordMutation,
   ResetPasswordMutationVariables
@@ -1566,16 +1567,16 @@ export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<
   ResetPasswordMutationVariables
 >;
 export const SendVerificationTokenDocument = gql`
-    mutation SendVerificationToken {
-  sendVerificationToken {
-    message
-    user {
-      id
-      isEmailVerified
+  mutation SendVerificationToken {
+    sendVerificationToken {
+      message
+      user {
+        id
+        isEmailVerified
+      }
     }
   }
-}
-    `;
+`;
 export type SendVerificationTokenMutationFn = Apollo.MutationFunction<
   SendVerificationTokenMutation,
   SendVerificationTokenMutationVariables
@@ -1619,15 +1620,15 @@ export type SendVerificationTokenMutationOptions = Apollo.BaseMutationOptions<
   SendVerificationTokenMutationVariables
 >;
 export const VerifyAccountDocument = gql`
-    mutation VerifyAccount($data: VerificationInput!) {
-  verifyAccount(data: $data) {
-    message
-    user {
-      isEmailVerified
+  mutation VerifyAccount($data: VerificationInput!) {
+    verifyAccount(data: $data) {
+      message
+      user {
+        isEmailVerified
+      }
     }
   }
-}
-    `;
+`;
 export type VerifyAccountMutationFn = Apollo.MutationFunction<
   VerifyAccountMutation,
   VerifyAccountMutationVariables
@@ -1672,10 +1673,10 @@ export type VerifyAccountMutationOptions = Apollo.BaseMutationOptions<
   VerifyAccountMutationVariables
 >;
 export const ChangeChatSettingsDocument = gql`
-    mutation ChangeChatSettings($data: ChangeChatSettingsInput!) {
-  changeChatSettings(data: $data)
-}
-    `;
+  mutation ChangeChatSettings($data: ChangeChatSettingsInput!) {
+    changeChatSettings(data: $data)
+  }
+`;
 export type ChangeChatSettingsMutationFn = Apollo.MutationFunction<
   ChangeChatSettingsMutation,
   ChangeChatSettingsMutationVariables
@@ -1720,12 +1721,12 @@ export type ChangeChatSettingsMutationOptions = Apollo.BaseMutationOptions<
   ChangeChatSettingsMutationVariables
 >;
 export const SendChatMessageDocument = gql`
-    mutation SendChatMessage($data: SendMessageInput!) {
-  sendChatMessage(data: $data) {
-    streamId
+  mutation SendChatMessage($data: SendMessageInput!) {
+    sendChatMessage(data: $data) {
+      streamId
+    }
   }
-}
-    `;
+`;
 export type SendChatMessageMutationFn = Apollo.MutationFunction<
   SendChatMessageMutation,
   SendChatMessageMutationVariables
@@ -1770,10 +1771,10 @@ export type SendChatMessageMutationOptions = Apollo.BaseMutationOptions<
   SendChatMessageMutationVariables
 >;
 export const FollowChannelDocument = gql`
-    mutation FollowChannel($channelId: String!) {
-  followChannel(channelId: $channelId)
-}
-    `;
+  mutation FollowChannel($channelId: String!) {
+    followChannel(channelId: $channelId)
+  }
+`;
 export type FollowChannelMutationFn = Apollo.MutationFunction<
   FollowChannelMutation,
   FollowChannelMutationVariables
@@ -1818,10 +1819,10 @@ export type FollowChannelMutationOptions = Apollo.BaseMutationOptions<
   FollowChannelMutationVariables
 >;
 export const UnfollowChannelDocument = gql`
-    mutation UnfollowChannel($channelId: String!) {
-  unfollowChannel(channelId: $channelId)
-}
-    `;
+  mutation UnfollowChannel($channelId: String!) {
+    unfollowChannel(channelId: $channelId)
+  }
+`;
 export type UnfollowChannelMutationFn = Apollo.MutationFunction<
   UnfollowChannelMutation,
   UnfollowChannelMutationVariables
@@ -1866,10 +1867,10 @@ export type UnfollowChannelMutationOptions = Apollo.BaseMutationOptions<
   UnfollowChannelMutationVariables
 >;
 export const ChangeStreamInfoDocument = gql`
-    mutation ChangeStreamInfo($data: ChangeStreamInfoInput!) {
-  changeStreamInfo(data: $data)
-}
-    `;
+  mutation ChangeStreamInfo($data: ChangeStreamInfoInput!) {
+    changeStreamInfo(data: $data)
+  }
+`;
 export type ChangeStreamInfoMutationFn = Apollo.MutationFunction<
   ChangeStreamInfoMutation,
   ChangeStreamInfoMutationVariables
@@ -1914,10 +1915,10 @@ export type ChangeStreamInfoMutationOptions = Apollo.BaseMutationOptions<
   ChangeStreamInfoMutationVariables
 >;
 export const ChangeStreamThumbnailDocument = gql`
-    mutation ChangeStreamThumbnail($thumbnail: Upload!) {
-  changeStreamThumbnail(thumbnail: $thumbnail)
-}
-    `;
+  mutation ChangeStreamThumbnail($thumbnail: Upload!) {
+    changeStreamThumbnail(thumbnail: $thumbnail)
+  }
+`;
 export type ChangeStreamThumbnailMutationFn = Apollo.MutationFunction<
   ChangeStreamThumbnailMutation,
   ChangeStreamThumbnailMutationVariables
@@ -1962,10 +1963,10 @@ export type ChangeStreamThumbnailMutationOptions = Apollo.BaseMutationOptions<
   ChangeStreamThumbnailMutationVariables
 >;
 export const CreateIngressDocument = gql`
-    mutation CreateIngress($type: Float!) {
-  createIngress(ingressType: $type)
-}
-    `;
+  mutation CreateIngress($type: Float!) {
+    createIngress(ingressType: $type)
+  }
+`;
 export type CreateIngressMutationFn = Apollo.MutationFunction<
   CreateIngressMutation,
   CreateIngressMutationVariables
@@ -2010,12 +2011,12 @@ export type CreateIngressMutationOptions = Apollo.BaseMutationOptions<
   CreateIngressMutationVariables
 >;
 export const GenerateStreamTokenDocument = gql`
-    mutation GenerateStreamToken($data: GenerateStreamTokenInput!) {
-  generateStreamToken(data: $data) {
-    token
+  mutation GenerateStreamToken($data: GenerateStreamTokenInput!) {
+    generateStreamToken(data: $data) {
+      token
+    }
   }
-}
-    `;
+`;
 export type GenerateStreamTokenMutationFn = Apollo.MutationFunction<
   GenerateStreamTokenMutation,
   GenerateStreamTokenMutationVariables
@@ -2060,10 +2061,10 @@ export type GenerateStreamTokenMutationOptions = Apollo.BaseMutationOptions<
   GenerateStreamTokenMutationVariables
 >;
 export const RemoveStreamThumbnailDocument = gql`
-    mutation RemoveStreamThumbnail {
-  removeStreamThumbnail
-}
-    `;
+  mutation RemoveStreamThumbnail {
+    removeStreamThumbnail
+  }
+`;
 export type RemoveStreamThumbnailMutationFn = Apollo.MutationFunction<
   RemoveStreamThumbnailMutation,
   RemoveStreamThumbnailMutationVariables
@@ -2107,18 +2108,18 @@ export type RemoveStreamThumbnailMutationOptions = Apollo.BaseMutationOptions<
   RemoveStreamThumbnailMutationVariables
 >;
 export const ChangeEmailDocument = gql`
-    mutation ChangeEmail($data: ChangeEmailInput!) {
-  changeEmail(data: $data) {
-    message
-    user {
-      id
-      email
-      isEmailVerified
-      lastEmailChange
+  mutation ChangeEmail($data: ChangeEmailInput!) {
+    changeEmail(data: $data) {
+      message
+      user {
+        id
+        email
+        isEmailVerified
+        lastEmailChange
+      }
     }
   }
-}
-    `;
+`;
 export type ChangeEmailMutationFn = Apollo.MutationFunction<
   ChangeEmailMutation,
   ChangeEmailMutationVariables
@@ -2163,17 +2164,19 @@ export type ChangeEmailMutationOptions = Apollo.BaseMutationOptions<
   ChangeEmailMutationVariables
 >;
 export const ChangeNotificationsSettingsDocument = gql`
-    mutation ChangeNotificationsSettings($data: ChangeNotificationSettingsInput!) {
-  changeNotificationSettings(data: $data) {
-    notificationSettings {
-      siteNotifications
-      telegramNotifications
-      id
+  mutation ChangeNotificationsSettings(
+    $data: ChangeNotificationSettingsInput!
+  ) {
+    changeNotificationSettings(data: $data) {
+      notificationSettings {
+        siteNotifications
+        telegramNotifications
+        id
+      }
+      telegramAuthToken
     }
-    telegramAuthToken
   }
-}
-    `;
+`;
 export type ChangeNotificationsSettingsMutationFn = Apollo.MutationFunction<
   ChangeNotificationsSettingsMutation,
   ChangeNotificationsSettingsMutationVariables
@@ -2219,10 +2222,10 @@ export type ChangeNotificationsSettingsMutationOptions =
     ChangeNotificationsSettingsMutationVariables
   >;
 export const ChangePasswordDocument = gql`
-    mutation ChangePassword($data: ChangePasswordInput!) {
-  changePassword(data: $data)
-}
-    `;
+  mutation ChangePassword($data: ChangePasswordInput!) {
+    changePassword(data: $data)
+  }
+`;
 export type ChangePasswordMutationFn = Apollo.MutationFunction<
   ChangePasswordMutation,
   ChangePasswordMutationVariables
@@ -2267,10 +2270,10 @@ export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<
   ChangePasswordMutationVariables
 >;
 export const ChangeProfileAvatarDocument = gql`
-    mutation ChangeProfileAvatar($avatar: Upload!) {
-  changeProfileAvatar(avatar: $avatar)
-}
-    `;
+  mutation ChangeProfileAvatar($avatar: Upload!) {
+    changeProfileAvatar(avatar: $avatar)
+  }
+`;
 export type ChangeProfileAvatarMutationFn = Apollo.MutationFunction<
   ChangeProfileAvatarMutation,
   ChangeProfileAvatarMutationVariables
@@ -2315,10 +2318,10 @@ export type ChangeProfileAvatarMutationOptions = Apollo.BaseMutationOptions<
   ChangeProfileAvatarMutationVariables
 >;
 export const ChangeProfileInfoDocument = gql`
-    mutation ChangeProfileInfo($data: ChangeProfileInfoInput!) {
-  changeProfileInfo(data: $data)
-}
-    `;
+  mutation ChangeProfileInfo($data: ChangeProfileInfoInput!) {
+    changeProfileInfo(data: $data)
+  }
+`;
 export type ChangeProfileInfoMutationFn = Apollo.MutationFunction<
   ChangeProfileInfoMutation,
   ChangeProfileInfoMutationVariables
@@ -2363,10 +2366,10 @@ export type ChangeProfileInfoMutationOptions = Apollo.BaseMutationOptions<
   ChangeProfileInfoMutationVariables
 >;
 export const ChangeProfileUsernameDocument = gql`
-    mutation ChangeProfileUsername($data: ChangeProfileUsernameInput!) {
-  changeProfileUsername(data: $data)
-}
-    `;
+  mutation ChangeProfileUsername($data: ChangeProfileUsernameInput!) {
+    changeProfileUsername(data: $data)
+  }
+`;
 export type ChangeProfileUsernameMutationFn = Apollo.MutationFunction<
   ChangeProfileUsernameMutation,
   ChangeProfileUsernameMutationVariables
@@ -2411,10 +2414,10 @@ export type ChangeProfileUsernameMutationOptions = Apollo.BaseMutationOptions<
   ChangeProfileUsernameMutationVariables
 >;
 export const ClearSessionCookieDocument = gql`
-    mutation ClearSessionCookie {
-  clearSessionCookie
-}
-    `;
+  mutation ClearSessionCookie {
+    clearSessionCookie
+  }
+`;
 export type ClearSessionCookieMutationFn = Apollo.MutationFunction<
   ClearSessionCookieMutation,
   ClearSessionCookieMutationVariables
@@ -2458,10 +2461,10 @@ export type ClearSessionCookieMutationOptions = Apollo.BaseMutationOptions<
   ClearSessionCookieMutationVariables
 >;
 export const CreateSocialLinkDocument = gql`
-    mutation CreateSocialLink($data: SocialLinkInput!) {
-  createSocialLink(data: $data)
-}
-    `;
+  mutation CreateSocialLink($data: SocialLinkInput!) {
+    createSocialLink(data: $data)
+  }
+`;
 export type CreateSocialLinkMutationFn = Apollo.MutationFunction<
   CreateSocialLinkMutation,
   CreateSocialLinkMutationVariables
@@ -2506,10 +2509,10 @@ export type CreateSocialLinkMutationOptions = Apollo.BaseMutationOptions<
   CreateSocialLinkMutationVariables
 >;
 export const DisableTotpDocument = gql`
-    mutation DisableTotp {
-  disableTotp
-}
-    `;
+  mutation DisableTotp {
+    disableTotp
+  }
+`;
 export type DisableTotpMutationFn = Apollo.MutationFunction<
   DisableTotpMutation,
   DisableTotpMutationVariables
@@ -2553,10 +2556,10 @@ export type DisableTotpMutationOptions = Apollo.BaseMutationOptions<
   DisableTotpMutationVariables
 >;
 export const EnableTotpDocument = gql`
-    mutation EnableTotp($data: EnableTotpInput!) {
-  enableTotp(data: $data)
-}
-    `;
+  mutation EnableTotp($data: EnableTotpInput!) {
+    enableTotp(data: $data)
+  }
+`;
 export type EnableTotpMutationFn = Apollo.MutationFunction<
   EnableTotpMutation,
   EnableTotpMutationVariables
@@ -2601,10 +2604,10 @@ export type EnableTotpMutationOptions = Apollo.BaseMutationOptions<
   EnableTotpMutationVariables
 >;
 export const MarkNotificationsAsReadDocument = gql`
-    mutation MarkNotificationsAsRead {
-  markNotificationsAsRead
-}
-    `;
+  mutation MarkNotificationsAsRead {
+    markNotificationsAsRead
+  }
+`;
 export type MarkNotificationsAsReadMutationFn = Apollo.MutationFunction<
   MarkNotificationsAsReadMutation,
   MarkNotificationsAsReadMutationVariables
@@ -2648,10 +2651,10 @@ export type MarkNotificationsAsReadMutationOptions = Apollo.BaseMutationOptions<
   MarkNotificationsAsReadMutationVariables
 >;
 export const RemoveProfileAvatarDocument = gql`
-    mutation RemoveProfileAvatar {
-  removeProfileAvatar
-}
-    `;
+  mutation RemoveProfileAvatar {
+    removeProfileAvatar
+  }
+`;
 export type RemoveProfileAvatarMutationFn = Apollo.MutationFunction<
   RemoveProfileAvatarMutation,
   RemoveProfileAvatarMutationVariables
@@ -2695,10 +2698,10 @@ export type RemoveProfileAvatarMutationOptions = Apollo.BaseMutationOptions<
   RemoveProfileAvatarMutationVariables
 >;
 export const RemoveSessionDocument = gql`
-    mutation RemoveSession($id: String!) {
-  removeSession(id: $id)
-}
-    `;
+  mutation RemoveSession($id: String!) {
+    removeSession(id: $id)
+  }
+`;
 export type RemoveSessionMutationFn = Apollo.MutationFunction<
   RemoveSessionMutation,
   RemoveSessionMutationVariables
@@ -2743,10 +2746,10 @@ export type RemoveSessionMutationOptions = Apollo.BaseMutationOptions<
   RemoveSessionMutationVariables
 >;
 export const RemoveSocialLinkDocument = gql`
-    mutation RemoveSocialLink($id: String!) {
-  removeSocialLink(id: $id)
-}
-    `;
+  mutation RemoveSocialLink($id: String!) {
+    removeSocialLink(id: $id)
+  }
+`;
 export type RemoveSocialLinkMutationFn = Apollo.MutationFunction<
   RemoveSocialLinkMutation,
   RemoveSocialLinkMutationVariables
@@ -2791,10 +2794,10 @@ export type RemoveSocialLinkMutationOptions = Apollo.BaseMutationOptions<
   RemoveSocialLinkMutationVariables
 >;
 export const ReorderSocialLinksDocument = gql`
-    mutation ReorderSocialLinks($list: [SocialLinkOrderInput!]!) {
-  reorderSocialLinks(list: $list)
-}
-    `;
+  mutation ReorderSocialLinks($list: [SocialLinkOrderInput!]!) {
+    reorderSocialLinks(list: $list)
+  }
+`;
 export type ReorderSocialLinksMutationFn = Apollo.MutationFunction<
   ReorderSocialLinksMutation,
   ReorderSocialLinksMutationVariables
@@ -2839,10 +2842,10 @@ export type ReorderSocialLinksMutationOptions = Apollo.BaseMutationOptions<
   ReorderSocialLinksMutationVariables
 >;
 export const UpdateSocialLinkDocument = gql`
-    mutation UpdateSocialLink($id: String!, $data: SocialLinkInput!) {
-  updateSocialLink(id: $id, data: $data)
-}
-    `;
+  mutation UpdateSocialLink($id: String!, $data: SocialLinkInput!) {
+    updateSocialLink(id: $id, data: $data)
+  }
+`;
 export type UpdateSocialLinkMutationFn = Apollo.MutationFunction<
   UpdateSocialLinkMutation,
   UpdateSocialLinkMutationVariables
@@ -2888,18 +2891,18 @@ export type UpdateSocialLinkMutationOptions = Apollo.BaseMutationOptions<
   UpdateSocialLinkMutationVariables
 >;
 export const FindAllCategoriesDocument = gql`
-    query FindAllCategories {
-  findAllCategories {
-    id
-    title
-    description
-    slug
-    createdAt
-    thumbnailUrl
-    updatedAt
+  query FindAllCategories {
+    findAllCategories {
+      id
+      title
+      description
+      slug
+      createdAt
+      thumbnailUrl
+      updatedAt
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useFindAllCategoriesQuery__
@@ -2971,34 +2974,34 @@ export type FindAllCategoriesQueryResult = Apollo.QueryResult<
   FindAllCategoriesQueryVariables
 >;
 export const FindCategoryBySlugDocument = gql`
-    query FindCategoryBySlug($slug: String!) {
-  findCategoryBySlug(slug: $slug) {
-    id
-    title
-    thumbnailUrl
-    description
-    createdAt
-    streams {
+  query FindCategoryBySlug($slug: String!) {
+    findCategoryBySlug(slug: $slug) {
       id
       title
       thumbnailUrl
-      isLive
-      user {
-        username
-        displayName
-        avatar
+      description
+      createdAt
+      streams {
         id
-        isVerified
-      }
-      category {
         title
-        slug
-        description
+        thumbnailUrl
+        isLive
+        user {
+          username
+          displayName
+          avatar
+          id
+          isVerified
+        }
+        category {
+          title
+          slug
+          description
+        }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useFindCategoryBySlugQuery__
@@ -3075,17 +3078,17 @@ export type FindCategoryBySlugQueryResult = Apollo.QueryResult<
   FindCategoryBySlugQueryVariables
 >;
 export const FindRandomCategoriesDocument = gql`
-    query FindRandomCategories {
-  findRandomCategories {
-    id
-    title
-    description
-    slug
-    createdAt
-    thumbnailUrl
+  query FindRandomCategories {
+    findRandomCategories {
+      id
+      title
+      description
+      slug
+      createdAt
+      thumbnailUrl
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useFindRandomCategoriesQuery__
@@ -3157,19 +3160,19 @@ export type FindRandomCategoriesQueryResult = Apollo.QueryResult<
   FindRandomCategoriesQueryVariables
 >;
 export const FindRecommendedChannelsDocument = gql`
-    query FindRecommendedChannels {
-  findRecommendedChannels {
-    id
-    username
-    displayName
-    avatar
-    isVerified
-    stream {
-      isLive
+  query FindRecommendedChannels {
+    findRecommendedChannels {
+      id
+      username
+      displayName
+      avatar
+      isVerified
+      stream {
+        isLive
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useFindRecommendedChannelsQuery__
@@ -3241,18 +3244,18 @@ export type FindRecommendedChannelsQueryResult = Apollo.QueryResult<
   FindRecommendedChannelsQueryVariables
 >;
 export const FindChatMessagesByStreamDocument = gql`
-    query FindChatMessagesByStream($streamId: String!) {
-  findChatMessagesByStream(streamId: $streamId) {
-    createdAt
-    text
-    user {
-      id
-      username
-      displayName
+  query FindChatMessagesByStream($streamId: String!) {
+    findChatMessagesByStream(streamId: $streamId) {
+      createdAt
+      text
+      user {
+        id
+        username
+        displayName
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useFindChatMessagesByStreamQuery__
@@ -3329,18 +3332,18 @@ export type FindChatMessagesByStreamQueryResult = Apollo.QueryResult<
   FindChatMessagesByStreamQueryVariables
 >;
 export const FindMyFollowersDocument = gql`
-    query FindMyFollowers {
-  findMyFollowers {
-    createdAt
-    follower {
-      username
-      displayName
-      avatar
-      isVerified
+  query FindMyFollowers {
+    findMyFollowers {
+      createdAt
+      follower {
+        username
+        displayName
+        avatar
+        isVerified
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useFindMyFollowersQuery__
@@ -3412,13 +3415,13 @@ export type FindMyFollowersQueryResult = Apollo.QueryResult<
   FindMyFollowersQueryVariables
 >;
 export const FindMyFollowingsDocument = gql`
-    query FindMyFollowings {
-  findMyFollowings {
-    createdAt
-    followingId
+  query FindMyFollowings {
+    findMyFollowings {
+      createdAt
+      followingId
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useFindMyFollowingsQuery__
@@ -3490,27 +3493,27 @@ export type FindMyFollowingsQueryResult = Apollo.QueryResult<
   FindMyFollowingsQueryVariables
 >;
 export const FindAllStreamsDocument = gql`
-    query FindAllStreams($filters: FiltersInput!) {
-  findAllStreams(filters: $filters) {
-    id
-    title
-    thumbnailUrl
-    isLive
-    user {
-      username
-      displayName
-      avatar
+  query FindAllStreams($filters: FiltersInput!) {
+    findAllStreams(filters: $filters) {
       id
-      isVerified
-    }
-    category {
       title
-      slug
-      description
+      thumbnailUrl
+      isLive
+      user {
+        username
+        displayName
+        avatar
+        id
+        isVerified
+      }
+      category {
+        title
+        slug
+        description
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useFindAllStreamsQuery__
@@ -3587,38 +3590,38 @@ export type FindAllStreamsQueryResult = Apollo.QueryResult<
   FindAllStreamsQueryVariables
 >;
 export const FindChannelByUsernameDocument = gql`
-    query FindChannelByUsername($username: String!) {
-  findChannelByUsername(username: $username) {
-    id
-    username
-    displayName
-    avatar
-    bio
-    isVerified
-    socialLinks {
+  query FindChannelByUsername($username: String!) {
+    findChannelByUsername(username: $username) {
       id
-      title
-      url
-    }
-    stream {
-      id
-      title
-      thumbnailUrl
-      isLive
-      isChatEnabled
-      isChatFollowersOnly
-      isChatSubscribersOnly
-      category {
+      username
+      displayName
+      avatar
+      bio
+      isVerified
+      socialLinks {
         id
         title
+        url
+      }
+      stream {
+        id
+        title
+        thumbnailUrl
+        isLive
+        isChatEnabled
+        isChatFollowersOnly
+        isChatSubscribersOnly
+        category {
+          id
+          title
+        }
+      }
+      followings {
+        id
       }
     }
-    followings {
-      id
-    }
   }
-}
-    `;
+`;
 
 /**
  * __useFindChannelByUsernameQuery__
@@ -3695,27 +3698,27 @@ export type FindChannelByUsernameQueryResult = Apollo.QueryResult<
   FindChannelByUsernameQueryVariables
 >;
 export const FindRandomStreamsDocument = gql`
-    query FindRandomStreams {
-  findRandomStreams {
-    id
-    title
-    thumbnailUrl
-    isLive
-    user {
-      username
-      displayName
-      avatar
+  query FindRandomStreams {
+    findRandomStreams {
       id
-      isVerified
-    }
-    category {
       title
-      slug
-      description
+      thumbnailUrl
+      isLive
+      user {
+        username
+        displayName
+        avatar
+        id
+        isVerified
+      }
+      category {
+        title
+        slug
+        description
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useFindRandomStreamsQuery__
@@ -3787,28 +3790,28 @@ export type FindRandomStreamsQueryResult = Apollo.QueryResult<
   FindRandomStreamsQueryVariables
 >;
 export const FindCurrentSessionDocument = gql`
-    query FindCurrentSession {
-  findCurrentSession {
-    id
-    createdAt
-    userId
-    metadata {
-      ip
-      device {
-        browser
-        os
-        type
-      }
-      location {
-        city
-        country
-        latitude
-        longitude
+  query FindCurrentSession {
+    findCurrentSession {
+      id
+      createdAt
+      userId
+      metadata {
+        ip
+        device {
+          browser
+          os
+          type
+        }
+        location {
+          city
+          country
+          latitude
+          longitude
+        }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useFindCurrentSessionQuery__
@@ -3880,16 +3883,16 @@ export type FindCurrentSessionQueryResult = Apollo.QueryResult<
   FindCurrentSessionQueryVariables
 >;
 export const FindNotificationsByUserDocument = gql`
-    query FindNotificationsByUser {
-  findNotificationsByUser {
-    id
-    message
-    isRead
-    type
-    createdAt
+  query FindNotificationsByUser {
+    findNotificationsByUser {
+      id
+      message
+      isRead
+      type
+      createdAt
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useFindNotificationsByUserQuery__
@@ -3961,10 +3964,10 @@ export type FindNotificationsByUserQueryResult = Apollo.QueryResult<
   FindNotificationsByUserQueryVariables
 >;
 export const FindNotificationsUnreadCountDocument = gql`
-    query FindNotificationsUnreadCount {
-  findNotificationsUnreadCount
-}
-    `;
+  query FindNotificationsUnreadCount {
+    findNotificationsUnreadCount
+  }
+`;
 
 /**
  * __useFindNotificationsUnreadCountQuery__
@@ -4036,33 +4039,33 @@ export type FindNotificationsUnreadCountQueryResult = Apollo.QueryResult<
   FindNotificationsUnreadCountQueryVariables
 >;
 export const FindProfileDocument = gql`
-    query FindProfile {
-  findProfile {
-    id
-    email
-    username
-    displayName
-    lastUsernameChange
-    lastEmailChange
-    avatar
-    bio
-    isTotpEnabled
-    isVerified
-    isEmailVerified
-    notificationSettings {
-      siteNotifications
-      telegramNotifications
-    }
-    stream {
-      serverUrl
-      streamKey
-      isChatEnabled
-      isChatFollowersOnly
-      isChatSubscribersOnly
+  query FindProfile {
+    findProfile {
+      id
+      email
+      username
+      displayName
+      lastUsernameChange
+      lastEmailChange
+      avatar
+      bio
+      isTotpEnabled
+      isVerified
+      isEmailVerified
+      notificationSettings {
+        siteNotifications
+        telegramNotifications
+      }
+      stream {
+        serverUrl
+        streamKey
+        isChatEnabled
+        isChatFollowersOnly
+        isChatSubscribersOnly
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useFindProfileQuery__
@@ -4132,28 +4135,28 @@ export type FindProfileQueryResult = Apollo.QueryResult<
   FindProfileQueryVariables
 >;
 export const FindSessionsByUserDocument = gql`
-    query FindSessionsByUser {
-  findSessionsByUser {
-    id
-    createdAt
-    userId
-    metadata {
-      ip
-      device {
-        browser
-        os
-        type
-      }
-      location {
-        city
-        country
-        latitude
-        longitude
+  query FindSessionsByUser {
+    findSessionsByUser {
+      id
+      createdAt
+      userId
+      metadata {
+        ip
+        device {
+          browser
+          os
+          type
+        }
+        location {
+          city
+          country
+          latitude
+          longitude
+        }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useFindSessionsByUserQuery__
@@ -4225,15 +4228,15 @@ export type FindSessionsByUserQueryResult = Apollo.QueryResult<
   FindSessionsByUserQueryVariables
 >;
 export const FindSocialLinksDocument = gql`
-    query FindSocialLinks {
-  findSocialLinks {
-    id
-    title
-    url
-    position
+  query FindSocialLinks {
+    findSocialLinks {
+      id
+      title
+      url
+      position
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useFindSocialLinksQuery__
@@ -4305,13 +4308,13 @@ export type FindSocialLinksQueryResult = Apollo.QueryResult<
   FindSocialLinksQueryVariables
 >;
 export const GenerateTotpSecretDocument = gql`
-    query GenerateTotpSecret {
-  generateTotpSecret {
-    qrcodeUrl
-    secret
+  query GenerateTotpSecret {
+    generateTotpSecret {
+      qrcodeUrl
+      secret
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGenerateTotpSecretQuery__
@@ -4383,18 +4386,18 @@ export type GenerateTotpSecretQueryResult = Apollo.QueryResult<
   GenerateTotpSecretQueryVariables
 >;
 export const ChatMessageAddedDocument = gql`
-    subscription ChatMessageAdded($streamId: String!) {
-  chatMessageAdded(streamId: $streamId) {
-    createdAt
-    text
-    user {
-      id
-      username
-      displayName
+  subscription ChatMessageAdded($streamId: String!) {
+    chatMessageAdded(streamId: $streamId) {
+      createdAt
+      text
+      user {
+        id
+        username
+        displayName
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useChatMessageAddedSubscription__
@@ -4434,16 +4437,16 @@ export type ChatMessageAddedSubscriptionHookResult = ReturnType<
 export type ChatMessageAddedSubscriptionResult =
   Apollo.SubscriptionResult<ChatMessageAddedSubscription>;
 export const NotificationAddedDocument = gql`
-    subscription NotificationAdded($userId: String!) {
-  notificationAdded(userId: $userId) {
-    id
-    message
-    isRead
-    type
-    createdAt
+  subscription NotificationAdded($userId: String!) {
+    notificationAdded(userId: $userId) {
+      id
+      message
+      isRead
+      type
+      createdAt
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useNotificationAddedSubscription__
