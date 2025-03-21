@@ -8,7 +8,7 @@ import * as graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
 
 import { CoreModule } from './core/core.module';
 import { RedisService } from './core/redis/redis.service';
-import { type StringValue, ms } from './shared/utils/ms.util';
+import { ms, type StringValue } from './shared/utils/ms.util';
 import { parseBoolean } from './shared/utils/parse-boolean.util';
 
 async function bootstrap() {

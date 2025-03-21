@@ -1,4 +1,3 @@
-import type { PrismaService } from '@/src/core/prisma/prisma.service';
 import {
   BadRequestException,
   ConflictException,
@@ -8,6 +7,7 @@ import * as Upload from 'graphql-upload/Upload.js';
 import * as sharp from 'sharp';
 
 import type { User } from '@/prisma/generated';
+import type { PrismaService } from '@/src/core/prisma/prisma.service';
 import {
   AVATAR_HEIGHT,
   AVATAR_WIDTH,

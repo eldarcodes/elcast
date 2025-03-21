@@ -6,8 +6,6 @@ import { useEffect, useState } from 'react';
 
 import type { FindRandomCategoriesQuery } from '@/graphql/generated/output';
 
-import { useSidebar } from '@/hooks/use-sidebar';
-
 import { getRandomColor } from '@/utils/color';
 import { getMediaSource } from '@/utils/get-media-source';
 import { cn } from '@/utils/tw-merge';
@@ -18,7 +16,6 @@ interface CategoryCardProps {
 
 export function CategoryCard({ category }: CategoryCardProps) {
   const [randomColor, setRandomColor] = useState('');
-  const { isCollapsed } = useSidebar();
 
   useEffect(() => {
     setRandomColor(getRandomColor());

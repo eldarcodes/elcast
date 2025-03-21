@@ -1,10 +1,10 @@
-import type { ReadStream } from 'node:fs';
 import {
   type ArgumentMetadata,
   BadRequestException,
   Injectable,
   type PipeTransform,
 } from '@nestjs/common';
+import type { ReadStream } from 'node:fs';
 
 import { MAX_FILE_SIZE } from '../constants/file.constants';
 import { validateFileFormat, validateFileSize } from '../utils/file.util';

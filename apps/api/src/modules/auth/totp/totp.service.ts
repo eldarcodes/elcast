@@ -1,6 +1,6 @@
-import { randomBytes } from 'node:crypto';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { encode } from 'hi-base32';
+import { randomBytes } from 'node:crypto';
 import { TOTP } from 'otpauth';
 import * as QRCode from 'qrcode';
 
