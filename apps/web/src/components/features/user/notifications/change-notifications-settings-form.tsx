@@ -16,8 +16,8 @@ import { useChangeNotificationsSettingsMutation } from '@/graphql/generated/outp
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
 import {
+  type ChangeNotificationsSchema,
   changeNotificationsSchema,
-  ChangeNotificationsSchema,
 } from '@/schemas/user/change-notifications-settings.schema';
 
 export function ChangeNotificationsSettingsForm() {

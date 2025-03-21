@@ -6,11 +6,11 @@ import {
   useTracks,
 } from '@livekit/components-react';
 import { ConnectionState, Track } from 'livekit-client';
-import { JSX } from 'react';
+import type { JSX } from 'react';
 
 import { Skeleton } from '@/components/ui/common/skeleton';
 
-import { FindChannelByUsernameQuery } from '@/graphql/generated/output';
+import type { FindChannelByUsernameQuery } from '@/graphql/generated/output';
 
 import { StreamLoading } from './stream-loading';
 import { StreamOffline } from './stream-offline';

@@ -2,19 +2,19 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import * as GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
 import * as Upload from 'graphql-upload/Upload.js';
 
-import { User } from '@/prisma/generated';
+import type { User } from '@/prisma/generated';
 import { Authorization } from '@/src/shared/decorators/auth.decorator';
 import { Authorized } from '@/src/shared/decorators/authorized.decorator';
 import { FileValidationPipe } from '@/src/shared/pipes/file-validation.pipe';
 
-import { ChangeProfileInfoInput } from './inputs/change-info.input';
-import { ChangeProfileUsernameInput } from './inputs/change-username.input';
+import type { ChangeProfileInfoInput } from './inputs/change-info.input';
+import type { ChangeProfileUsernameInput } from './inputs/change-username.input';
 import {
-  SocialLinkInput,
+  type SocialLinkInput,
   SocialLinkOrderInput,
 } from './inputs/social-link.input';
 import { SocialLinkModel } from './models/social-link.model';
-import { ProfileService } from './profile.service';
+import type { ProfileService } from './profile.service';
 
 @Resolver('Profile')
 export class ProfileResolver {

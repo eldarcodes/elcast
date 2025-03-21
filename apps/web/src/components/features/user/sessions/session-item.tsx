@@ -8,7 +8,7 @@ import { CardContainer } from '@/components/ui/elements/card-container';
 import { ConfirmModal } from '@/components/ui/elements/confirm-modal';
 
 import {
-  FindSessionsByUserQuery,
+  type FindSessionsByUserQuery,
   useFindSessionsByUserQuery,
   useRemoveSessionMutation,
 } from '@/graphql/generated/output';

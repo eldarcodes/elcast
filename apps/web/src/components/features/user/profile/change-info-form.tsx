@@ -27,8 +27,8 @@ import { useCurrentProfile } from '@/hooks/use-current-profile';
 import { MAX_BIO_LENGTH } from '@/libs/constants/account.constants';
 
 import {
+  type ChangeInfoSchema,
   changeInfoSchema,
-  ChangeInfoSchema,
 } from '@/schemas/user/change-info.schema';
 
 import { ChangeUsernameForm } from './change-username-form';

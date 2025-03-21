@@ -22,8 +22,8 @@ import {
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
 import {
+  type UploadFileSchema,
   uploadFileSchema,
-  UploadFileSchema,
 } from '@/schemas/upload-file.schema';
 
 export function ChangeAvatarForm() {

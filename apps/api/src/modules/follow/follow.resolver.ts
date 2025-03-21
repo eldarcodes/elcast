@@ -4,7 +4,7 @@ import type { User } from '@/prisma/generated';
 import { Authorization } from '@/src/shared/decorators/auth.decorator';
 import { Authorized } from '@/src/shared/decorators/authorized.decorator';
 
-import { FollowService } from './follow.service';
+import type { FollowService } from './follow.service';
 import { FollowModel } from './models/follow.model';
 
 @Resolver('Follow')

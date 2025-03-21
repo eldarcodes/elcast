@@ -1,6 +1,6 @@
 import parse from 'html-react-parser';
 
-import { FindNotificationsByUserQuery } from '@/graphql/generated/output';
+import type { FindNotificationsByUserQuery } from '@/graphql/generated/output';
 
 import { getNotificationIcon } from '@/utils/get-notification-icon';
 

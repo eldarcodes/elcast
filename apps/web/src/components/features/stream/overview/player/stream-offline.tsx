@@ -2,7 +2,7 @@
 
 import { WifiOff } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 
 import { Card } from '@/components/ui/common/card';
 

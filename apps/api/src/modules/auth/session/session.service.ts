@@ -5,18 +5,18 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import type { ConfigService } from '@nestjs/config';
 import * as argon2 from 'argon2';
 import type { Request } from 'express';
 import { TOTP } from 'otpauth';
 
-import { PrismaService } from '@/src/core/prisma/prisma.service';
-import { RedisService } from '@/src/core/redis/redis.service';
+import type { PrismaService } from '@/src/core/prisma/prisma.service';
+import type { RedisService } from '@/src/core/redis/redis.service';
 import { parseBoolean } from '@/src/shared/utils/parse-boolean.util';
 import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
 import { destroySession, saveSession } from '@/src/shared/utils/session.util';
 
-import { LoginInput } from './inputs/login.input';
+import type { LoginInput } from './inputs/login.input';
 
 @Injectable()
 export class SessionService {

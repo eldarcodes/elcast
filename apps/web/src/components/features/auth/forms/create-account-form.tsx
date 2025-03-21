@@ -27,8 +27,8 @@ import { PasswordInput } from '@/components/ui/elements/password-input';
 import { useCreateUserMutation } from '@/graphql/generated/output';
 
 import {
+  type CreateAccountSchema,
   createAccountSchema,
-  CreateAccountSchema,
 } from '@/schemas/auth/create-account.schema';
 
 import { AuthWrapper } from '../auth-wrapper';

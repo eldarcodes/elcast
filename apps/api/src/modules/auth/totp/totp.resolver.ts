@@ -1,12 +1,12 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
-import { User } from '@/prisma/generated';
+import type { User } from '@/prisma/generated';
 import { Authorization } from '@/src/shared/decorators/auth.decorator';
 import { Authorized } from '@/src/shared/decorators/authorized.decorator';
 
-import { EnableTotpInput } from './inputs/enable-totp.input';
+import type { EnableTotpInput } from './inputs/enable-totp.input';
 import { TotpModel } from './models/totp.model';
-import { TotpService } from './totp.service';
+import type { TotpService } from './totp.service';
 
 @Resolver('Totp')
 export class TotpResolver {

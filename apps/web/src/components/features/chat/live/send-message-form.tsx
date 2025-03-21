@@ -20,8 +20,8 @@ import {
 } from '@/graphql/generated/output';
 
 import {
-  sendMessageSchema,
   type SendMessageSchema,
+  sendMessageSchema,
 } from '@/schemas/chat/send-message.schema';
 
 interface SendMessageFormProps {

@@ -2,7 +2,7 @@ import { Args, Query, Resolver } from '@nestjs/graphql';
 
 import { UserModel } from '../auth/account/models/user.model';
 
-import { ChannelService } from './channel.service';
+import type { ChannelService } from './channel.service';
 
 @Resolver('Channel')
 export class ChannelResolver {

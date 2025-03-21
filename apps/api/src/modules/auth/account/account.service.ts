@@ -6,18 +6,18 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import * as argon2 from 'argon2';
-import { Request } from 'express';
+import type { Request } from 'express';
 
-import { TokenType, User } from '@/prisma/generated';
-import { PrismaService } from '@/src/core/prisma/prisma.service';
+import { TokenType, type User } from '@/prisma/generated';
+import type { PrismaService } from '@/src/core/prisma/prisma.service';
 import { EMAIL_CHANGE_COOLDOWN_DAYS } from '@/src/shared/constants/account.constants';
 import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
 
-import { VerificationService } from '../verification/verification.service';
+import type { VerificationService } from '../verification/verification.service';
 
-import { ChangeEmailInput } from './inputs/change-email.input';
-import { ChangePasswordInput } from './inputs/change-password.input';
-import { CreateUserInput } from './inputs/create-user.input';
+import type { ChangeEmailInput } from './inputs/change-email.input';
+import type { ChangePasswordInput } from './inputs/change-password.input';
+import type { CreateUserInput } from './inputs/create-user.input';
 
 @Injectable()
 export class AccountService {

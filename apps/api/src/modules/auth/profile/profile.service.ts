@@ -1,3 +1,4 @@
+import type { PrismaService } from '@/src/core/prisma/prisma.service';
 import {
   BadRequestException,
   ConflictException,
@@ -7,18 +8,17 @@ import * as Upload from 'graphql-upload/Upload.js';
 import * as sharp from 'sharp';
 
 import type { User } from '@/prisma/generated';
-import { PrismaService } from '@/src/core/prisma/prisma.service';
 import {
   AVATAR_HEIGHT,
   AVATAR_WIDTH,
   USERNAME_CHANGE_COOLDOWN_DAYS,
 } from '@/src/shared/constants/account.constants';
 
-import { StorageService } from '../../libs/storage/storage.service';
+import type { StorageService } from '../../libs/storage/storage.service';
 
-import { ChangeProfileInfoInput } from './inputs/change-info.input';
-import { ChangeProfileUsernameInput } from './inputs/change-username.input';
-import {
+import type { ChangeProfileInfoInput } from './inputs/change-info.input';
+import type { ChangeProfileUsernameInput } from './inputs/change-username.input';
+import type {
   SocialLinkInput,
   SocialLinkOrderInput,
 } from './inputs/social-link.input';
@@ -45,8 +45,7 @@ export class ProfileService {
 
     const fileName = `/avatars/${user.id}.webp`;
 
-    const options =
-      file.fileName && file.fileName.endsWith('.gif') ? { animated: true } : {};
+    const options = file?.fileName.endsWith('.gif') ? { animated: true } : {};
 
     const processedBuffer = await sharp(buffer, options)
       .resize(AVATAR_WIDTH, AVATAR_HEIGHT)

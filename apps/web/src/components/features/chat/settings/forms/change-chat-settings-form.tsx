@@ -16,8 +16,8 @@ import { useChangeChatSettingsMutation } from '@/graphql/generated/output';
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
 import {
+  type ChangeChatSettingsSchema,
   changeChatSettingsSchema,
-  ChangeChatSettingsSchema,
 } from '@/schemas/chat/change-chat-settings.schema';
 
 export function ChangeChatSettingsForm() {

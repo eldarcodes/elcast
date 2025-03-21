@@ -1,21 +1,21 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import type { ConfigService } from '@nestjs/config';
 import * as Upload from 'graphql-upload/Upload.js';
 import { AccessToken } from 'livekit-server-sdk';
 import * as sharp from 'sharp';
 
 import type { Prisma, User } from '@/prisma/generated';
-import { PrismaService } from '@/src/core/prisma/prisma.service';
+import type { PrismaService } from '@/src/core/prisma/prisma.service';
 import {
   STREAM_THUMBNAIL_HEIGHT,
   STREAM_THUMBNAIL_WIDTH,
 } from '@/src/shared/constants/stream.constants';
 
-import { StorageService } from '../libs/storage/storage.service';
+import type { StorageService } from '../libs/storage/storage.service';
 
-import { ChangeStreamInfoInput } from './inputs/change-stream-info.input';
-import { FiltersInput } from './inputs/filters.input';
-import { GenerateStreamTokenInput } from './inputs/generate-stream-token.input';
+import type { ChangeStreamInfoInput } from './inputs/change-stream-info.input';
+import type { FiltersInput } from './inputs/filters.input';
+import type { GenerateStreamTokenInput } from './inputs/generate-stream-token.input';
 
 @Injectable()
 export class StreamService {
@@ -182,8 +182,7 @@ export class StreamService {
 
     const fileName = `/streams/${user.id}.webp`;
 
-    const options =
-      file.fileName && file.fileName.endsWith('.gif') ? { animated: true } : {};
+    const options = file?.fileName?.endsWith('.gif') ? { animated: true } : {};
 
     const processedBuffer = await sharp(buffer, options)
       .resize(STREAM_THUMBNAIL_WIDTH, STREAM_THUMBNAIL_HEIGHT)

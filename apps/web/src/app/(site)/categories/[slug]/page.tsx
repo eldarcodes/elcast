@@ -1,11 +1,11 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { CategoryOverview } from '@/components/features/category/overview/category-overview';
 
 import {
   FindCategoryBySlugDocument,
-  FindCategoryBySlugQuery,
+  type FindCategoryBySlugQuery,
 } from '@/graphql/generated/output';
 
 import { SERVER_URL } from '@/libs/constants/url.constants';

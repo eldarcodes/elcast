@@ -1,17 +1,22 @@
+import type { ReadStream } from 'node:fs';
 import {
   type ArgumentMetadata,
   BadRequestException,
   Injectable,
   type PipeTransform,
 } from '@nestjs/common';
-import { ReadStream } from 'fs';
 
 import { MAX_FILE_SIZE } from '../constants/file.constants';
 import { validateFileFormat, validateFileSize } from '../utils/file.util';
 
+interface File {
+  filename: string;
+  createReadStream: () => ReadStream;
+}
+
 @Injectable()
 export class FileValidationPipe implements PipeTransform {
-  public async transform(value: any, metadata: ArgumentMetadata) {
+  public async transform(value: File, metadata: ArgumentMetadata) {
     if (!value.filename) {
       throw new BadRequestException('File is not uploaded');
     }

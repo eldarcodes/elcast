@@ -7,7 +7,7 @@ import {
 
 import {
   LiveKitOptionsSymbol,
-  TypeLiveKitOptions,
+  type TypeLiveKitOptions,
 } from './types/livekit.types';
 
 @Injectable()

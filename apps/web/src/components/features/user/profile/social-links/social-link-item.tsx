@@ -33,8 +33,8 @@ import {
 import { useMediaQuery } from '@/hooks/use-media-query';
 
 import {
+  type SocialLinksSchema,
   socialLinksSchema,
-  SocialLinksSchema,
 } from '@/schemas/user/social-links.schema';
 
 import { getSocialIcon } from '@/utils/get-social-icon';

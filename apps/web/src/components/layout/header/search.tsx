@@ -3,7 +3,7 @@
 import { SearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { FormEvent, useEffect, useState } from 'react';
+import { type FormEvent, useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/common/button';
 import { Input } from '@/components/ui/common/input';

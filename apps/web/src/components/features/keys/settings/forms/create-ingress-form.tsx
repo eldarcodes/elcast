@@ -35,9 +35,9 @@ import { useCreateIngressMutation } from '@/graphql/generated/output';
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
 import {
-  createIngressSchema,
-  CreateIngressSchema,
+  type CreateIngressSchema,
   IngressType,
+  createIngressSchema,
 } from '@/schemas/stream/create-ingress.schema';
 
 export function CreateIngressForm() {

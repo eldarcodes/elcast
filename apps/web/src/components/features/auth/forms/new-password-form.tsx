@@ -19,8 +19,8 @@ import { PasswordInput } from '@/components/ui/elements/password-input';
 import { useNewPasswordMutation } from '@/graphql/generated/output';
 
 import {
+  type NewPasswordSchema,
   newPasswordSchema,
-  NewPasswordSchema,
 } from '@/schemas/auth/new-password.schema';
 
 import { AuthWrapper } from '../auth-wrapper';

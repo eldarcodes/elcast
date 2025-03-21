@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import type { ConfigService } from '@nestjs/config';
 import { Action, Command, Ctx, Start, Update } from 'nestjs-telegraf';
-import { Context, Telegraf } from 'telegraf';
+import { type Context, Telegraf } from 'telegraf';
 
-import { TokenType, User } from '@/prisma/generated';
-import { PrismaService } from '@/src/core/prisma/prisma.service';
+import { TokenType, type User } from '@/prisma/generated';
+import type { PrismaService } from '@/src/core/prisma/prisma.service';
 import type { SessionMetadata } from '@/src/shared/types/session-metadata.type';
 
 import { TELEGRAM_BUTTONS } from './telegram.buttons';
@@ -27,10 +27,11 @@ export class TelegramService extends Telegraf {
   }
 
   @Start()
-  public async onStart(@Ctx() ctx: any) {
+  public async onStart(@Ctx() ctx: Context) {
     const chatId = ctx.chat.id.toString();
+
     const token =
-      ctx.message.text.split(' ')[TelegramService.MESSAGE_TOKEN_INDEX];
+      ctx.message.text!.split(' ')[TelegramService.MESSAGE_TOKEN_INDEX];
 
     if (token) {
       const authToken = await this.prismaService.token.findUnique({
@@ -61,20 +62,21 @@ export class TelegramService extends Telegraf {
         TELEGRAM_BUTTONS.authSuccess,
       );
       return;
-    } else {
-      const user = await this.findUserByChatId(chatId);
+    }
 
-      if (user) {
-        await this.onMe(ctx);
-        return;
-      }
+    const user = await this.findUserByChatId(chatId);
 
-      await ctx.replyWithHTML(
-        TELEGRAM_MESSAGES.welcome,
-        TELEGRAM_BUTTONS.profile,
-      );
+    if (user) {
+      await this.onMe(ctx);
       return;
     }
+
+    await ctx.replyWithHTML(
+      TELEGRAM_MESSAGES.welcome,
+      TELEGRAM_BUTTONS.profile,
+    );
+
+    return;
   }
 
   @Command('me')

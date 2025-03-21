@@ -5,7 +5,7 @@ import { Fragment, useEffect } from 'react';
 import { Separator } from '@/components/ui/common/separator';
 
 import {
-  FindNotificationsByUserQuery,
+  type FindNotificationsByUserQuery,
   useFindNotificationsUnreadCountQuery,
   useMarkNotificationsAsReadMutation,
 } from '@/graphql/generated/output';

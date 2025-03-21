@@ -44,24 +44,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1.0,
     },
     {
-      url: APP_URL + '/streams',
+      url: `${APP_URL}/streams`,
       lastModified: new Date().toISOString(),
       priority: 0.8,
     },
     {
-      url: APP_URL + '/categories',
+      url: `${APP_URL}/categories`,
       lastModified: new Date().toISOString(),
       priority: 0.7,
     },
   ];
 
-  categories.forEach((category) =>
+  for (const category of categories) {
     routes.push({
-      url: APP_URL + `/categories/${category.slug}`,
+      url: `${APP_URL}/categories/${category.slug}`,
       lastModified: category.updatedAt,
       priority: 0.6,
-    }),
-  );
+    });
+  }
 
   return routes;
 }

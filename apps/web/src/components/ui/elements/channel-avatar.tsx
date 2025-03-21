@@ -1,6 +1,6 @@
-import { cva, type VariantProps } from 'class-variance-authority';
+import { type VariantProps, cva } from 'class-variance-authority';
 
-import { FindProfileQuery } from '@/graphql/generated/output';
+import type { FindProfileQuery } from '@/graphql/generated/output';
 
 import { getMediaSource } from '@/utils/get-media-source';
 import { cn } from '@/utils/tw-merge';
@@ -49,7 +49,7 @@ export function ChannelAvatar({
             size === 'lg' && 'text-2xl',
           )}
         >
-          {channel.username && channel.username[0]}
+          {channel.username?.[0]}
         </AvatarFallback>
       </Avatar>
     </div>

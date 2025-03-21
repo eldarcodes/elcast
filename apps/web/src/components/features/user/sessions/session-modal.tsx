@@ -13,7 +13,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/common/dialog';
 
-import { FindSessionsByUserQuery } from '@/graphql/generated/output';
+import type { FindSessionsByUserQuery } from '@/graphql/generated/output';
 
 interface SessionModalProps {
   session: FindSessionsByUserQuery['findSessionsByUser'][0];

@@ -5,9 +5,9 @@ import { StreamsList } from '@/components/features/stream/list/stream-list';
 
 import {
   FindRandomCategoriesDocument,
-  FindRandomCategoriesQuery,
+  type FindRandomCategoriesQuery,
   FindRandomStreamsDocument,
-  FindRandomStreamsQuery,
+  type FindRandomStreamsQuery,
 } from '@/graphql/generated/output';
 
 import { SERVER_URL } from '@/libs/constants/url.constants';

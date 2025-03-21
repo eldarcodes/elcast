@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/common/popover';
 
 import {
-  FindNotificationsByUserQuery,
+  type FindNotificationsByUserQuery,
   useFindNotificationsByUserQuery,
   useFindNotificationsUnreadCountQuery,
   useNotificationAddedSubscription,
@@ -43,7 +43,7 @@ export function Notifications() {
   >([]);
 
   useEffect(() => {
-    if (notificationsData && notificationsData.findNotificationsByUser) {
+    if (notificationsData?.findNotificationsByUser) {
       setNotifications(notificationsData.findNotificationsByUser ?? []);
     }
   }, [notificationsData]);

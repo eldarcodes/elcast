@@ -36,8 +36,8 @@ import {
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
 import {
-  enableTotpSchema,
   type EnableTotpSchema,
+  enableTotpSchema,
 } from '@/schemas/user/enable-totp.schema';
 
 export function EnableTotp() {

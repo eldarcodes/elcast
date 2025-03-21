@@ -1,7 +1,7 @@
 import { EmptyState } from '@/components/ui/elements/empty-state';
 import { Heading } from '@/components/ui/elements/heading';
 
-import { FindRandomCategoriesQuery } from '@/graphql/generated/output';
+import type { FindRandomCategoriesQuery } from '@/graphql/generated/output';
 
 import { CategoryCard } from './category-card';
 

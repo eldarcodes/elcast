@@ -35,8 +35,8 @@ import { USERNAME_CHANGE_COOLDOWN_DAYS } from '@/libs/constants/account.constant
 import { APP_URL } from '@/libs/constants/url.constants';
 
 import {
+  type ChangeUsernameSchema,
   changeUsernameSchema,
-  ChangeUsernameSchema,
 } from '@/schemas/user/change-username.schema';
 
 import { canChangeUsername } from '@/utils/cooldown-validation';

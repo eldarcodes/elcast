@@ -2,7 +2,7 @@
 
 import { LiveKitRoom } from '@livekit/components-react';
 
-import { FindChannelByUsernameQuery } from '@/graphql/generated/output';
+import type { FindChannelByUsernameQuery } from '@/graphql/generated/output';
 
 import { useStreamToken } from '@/hooks/use-stream-token';
 

@@ -10,7 +10,7 @@ import { ChannelVerified } from '@/components/ui/elements/channel-verified';
 import { Hint } from '@/components/ui/elements/hint';
 import { LiveBadge } from '@/components/ui/elements/live-badge';
 
-import { type FindRecommendedChannelsQuery } from '@/graphql/generated/output';
+import type { FindRecommendedChannelsQuery } from '@/graphql/generated/output';
 
 import { useSidebar } from '@/hooks/use-sidebar';
 

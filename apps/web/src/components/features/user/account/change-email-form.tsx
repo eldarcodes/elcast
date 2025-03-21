@@ -43,8 +43,8 @@ import { useCurrentProfile } from '@/hooks/use-current-profile';
 import { EMAIL_CHANGE_COOLDOWN_DAYS } from '@/libs/constants/account.constants';
 
 import {
+  type ChangeEmailSchema,
   changeEmailSchema,
-  ChangeEmailSchema,
 } from '@/schemas/user/change-email.schema';
 
 import { canChangeEmail } from '@/utils/cooldown-validation';

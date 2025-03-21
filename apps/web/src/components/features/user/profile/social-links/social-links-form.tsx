@@ -26,8 +26,8 @@ import {
 } from '@/graphql/generated/output';
 
 import {
+  type SocialLinksSchema,
   socialLinksSchema,
-  SocialLinksSchema,
 } from '@/schemas/user/social-links.schema';
 
 import { SocialLinksList } from './social-links-list';

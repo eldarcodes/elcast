@@ -1,6 +1,6 @@
-import { ConfigService } from '@nestjs/config';
+import type { ConfigService } from '@nestjs/config';
 
-import { TypeLiveKitOptions } from '@/src/modules/libs/livekit/types/livekit.types';
+import type { TypeLiveKitOptions } from '@/src/modules/libs/livekit/types/livekit.types';
 
 export function getLivekitConfig(
   configService: ConfigService,

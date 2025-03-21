@@ -29,8 +29,8 @@ import { useDeactivateAccountMutation } from '@/graphql/generated/output';
 import { useAuth } from '@/hooks/use-auth';
 
 import {
+  type DeactivateSchema,
   deactivateSchema,
-  DeactivateSchema,
 } from '@/schemas/auth/deactivate.schema';
 
 import { AuthWrapper } from '../auth-wrapper';

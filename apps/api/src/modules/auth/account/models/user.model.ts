@@ -1,6 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
-import { User } from '@/prisma/generated';
+import type { User } from '@/prisma/generated';
 import { FollowModel } from '@/src/modules/follow/models/follow.model';
 import { NotificationSettingsModel } from '@/src/modules/notification/models/notification-settings.model';
 import { NotificationModel } from '@/src/modules/notification/models/notification.model';

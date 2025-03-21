@@ -29,7 +29,7 @@ import { useLoginUserMutation } from '@/graphql/generated/output';
 
 import { useAuth } from '@/hooks/use-auth';
 
-import { loginSchema, LoginSchema } from '@/schemas/auth/login.schema';
+import { type LoginSchema, loginSchema } from '@/schemas/auth/login.schema';
 
 import { AuthWrapper } from '../auth-wrapper';
 

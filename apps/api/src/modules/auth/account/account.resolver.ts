@@ -1,15 +1,15 @@
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 
-import { User } from '@/prisma/generated';
+import type { User } from '@/prisma/generated';
 import { Authorization } from '@/src/shared/decorators/auth.decorator';
 import { Authorized } from '@/src/shared/decorators/authorized.decorator';
 import { UserAgent } from '@/src/shared/decorators/user-agent.decorator';
-import { GraphQLContext } from '@/src/shared/types/graphql-context.type';
+import type { GraphQLContext } from '@/src/shared/types/graphql-context.type';
 
-import { AccountService } from './account.service';
-import { ChangeEmailInput } from './inputs/change-email.input';
-import { ChangePasswordInput } from './inputs/change-password.input';
-import { CreateUserInput } from './inputs/create-user.input';
+import type { AccountService } from './account.service';
+import type { ChangeEmailInput } from './inputs/change-email.input';
+import type { ChangePasswordInput } from './inputs/change-password.input';
+import type { CreateUserInput } from './inputs/create-user.input';
 import { AuthModel } from './models/auth.model';
 import { UserModel } from './models/user.model';
 

@@ -4,18 +4,18 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import * as argon2 from 'argon2';
-import { Request } from 'express';
+import type { Request } from 'express';
 
 import { TokenType } from '@/prisma/generated';
-import { PrismaService } from '@/src/core/prisma/prisma.service';
+import type { PrismaService } from '@/src/core/prisma/prisma.service';
 import { generateToken } from '@/src/shared/utils/generate-token.util';
 import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
 
-import { MailService } from '../../libs/mail/mail.service';
-import { TelegramService } from '../../libs/telegram/telegram.service';
+import type { MailService } from '../../libs/mail/mail.service';
+import type { TelegramService } from '../../libs/telegram/telegram.service';
 
-import { NewPasswordInput } from './inputs/new-password.input';
-import { ResetPasswordInput } from './inputs/reset-password.input';
+import type { NewPasswordInput } from './inputs/new-password.input';
+import type { ResetPasswordInput } from './inputs/reset-password.input';
 
 @Injectable()
 export class PasswordRecoveryService {

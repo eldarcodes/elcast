@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { User } from '@/prisma/generated';
-import { PrismaService } from '@/src/core/prisma/prisma.service';
-import { PubSubService } from '@/src/core/pubsub/pubsub.service';
+import type { User } from '@/prisma/generated';
+import type { PrismaService } from '@/src/core/prisma/prisma.service';
+import type { PubSubService } from '@/src/core/pubsub/pubsub.service';
 
-import { ChangeChatSettingsInput } from './inputs/change-chat-settings.input';
-import { SendMessageInput } from './inputs/send-message.input';
+import type { ChangeChatSettingsInput } from './inputs/change-chat-settings.input';
+import type { SendMessageInput } from './inputs/send-message.input';
 
 @Injectable()
 export class ChatService {

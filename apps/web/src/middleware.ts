@@ -20,7 +20,7 @@ export default async function middleware(request: NextRequest) {
           Cookie: `sid=${sessionId}`,
         },
         body: JSON.stringify({
-          query: `query { findCurrentSession { id } }`,
+          query: 'query { findCurrentSession { id } }',
         }),
       });
 

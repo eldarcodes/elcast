@@ -1,4 +1,4 @@
-import { ReadStream } from 'fs';
+import type { ReadStream } from 'node:fs';
 
 export function validateFileFormat(
   fileName: string,

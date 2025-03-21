@@ -28,8 +28,8 @@ import {
 } from '@/graphql/generated/output';
 
 import {
-  changeStreamInfoSchema,
   type ChangeStreamInfoSchema,
+  changeStreamInfoSchema,
 } from '@/schemas/stream/change-stream-info.schema';
 
 interface ChangeInfoFormProps {

@@ -10,8 +10,8 @@ import { Form, FormField } from '@/components/ui/common/form';
 import { ToggleCard } from '@/components/ui/elements/toggle-card';
 
 import {
+  type ChangeThemeSchema,
   changeThemeSchema,
-  ChangeThemeSchema,
 } from '@/schemas/user/change-theme.schema';
 
 export function ChangeThemeForm() {

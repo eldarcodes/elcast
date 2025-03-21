@@ -8,7 +8,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { Heading } from '@/components/ui/elements/heading';
 
 import {
-  FindAllStreamsQuery,
+  type FindAllStreamsQuery,
   useFindAllStreamsQuery,
 } from '@/graphql/generated/output';
 
@@ -46,7 +46,7 @@ export function StreamsContent({ streams }: StreamsContentProps) {
       setStreamList(data.findAllStreams);
       setHasMore(data.findAllStreams.length === 12);
     }
-  }, [data, searchTerm]);
+  }, [data]);
 
   async function fetchMoreStreams() {
     if (!hasMore) return;

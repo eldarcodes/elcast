@@ -7,12 +7,12 @@ import { Authorization } from '@/src/shared/decorators/auth.decorator';
 import { Authorized } from '@/src/shared/decorators/authorized.decorator';
 import { FileValidationPipe } from '@/src/shared/pipes/file-validation.pipe';
 
-import { ChangeStreamInfoInput } from './inputs/change-stream-info.input';
-import { FiltersInput } from './inputs/filters.input';
-import { GenerateStreamTokenInput } from './inputs/generate-stream-token.input';
+import type { ChangeStreamInfoInput } from './inputs/change-stream-info.input';
+import type { FiltersInput } from './inputs/filters.input';
+import type { GenerateStreamTokenInput } from './inputs/generate-stream-token.input';
 import { GenerateTokenModel } from './models/generate-token.model';
 import { StreamModel } from './models/stream.model';
-import { StreamService } from './stream.service';
+import type { StreamService } from './stream.service';
 
 @Resolver('Stream')
 export class StreamResolver {

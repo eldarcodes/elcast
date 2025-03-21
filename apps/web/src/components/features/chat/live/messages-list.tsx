@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import {
   type FindChannelByUsernameQuery,
-  FindChatMessagesByStreamQuery,
+  type FindChatMessagesByStreamQuery,
   useChatMessageAddedSubscription,
   useFindChatMessagesByStreamQuery,
 } from '@/graphql/generated/output';
@@ -31,7 +31,7 @@ export function MessagesList({ channel }: MessagesListProps) {
   >([]);
 
   useEffect(() => {
-    if (data && data.findChatMessagesByStream) {
+    if (data?.findChatMessagesByStream) {
       setMessages(data.findChatMessagesByStream);
     }
   }, [data]);

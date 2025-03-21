@@ -36,7 +36,7 @@ import { useLogoutUserMutation } from '@/graphql/generated/output';
 import { useAuth } from '@/hooks/use-auth';
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
-import { languageOptions, Locale } from '@/libs/i18n/config';
+import { type Locale, languageOptions } from '@/libs/i18n/config';
 import { setLocale } from '@/libs/i18n/locale';
 
 import { cn } from '@/utils/tw-merge';

@@ -1,6 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
-import { Category } from '@/prisma/generated';
+import type { Category } from '@/prisma/generated';
 
 import { StreamModel } from '../../stream/models/stream.model';
 

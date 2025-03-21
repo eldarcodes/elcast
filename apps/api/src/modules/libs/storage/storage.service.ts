@@ -1,12 +1,12 @@
 import {
   DeleteObjectCommand,
-  DeleteObjectCommandInput,
+  type DeleteObjectCommandInput,
   PutObjectCommand,
   type PutObjectCommandInput,
   S3Client,
 } from '@aws-sdk/client-s3';
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import type { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class StorageService {
@@ -42,9 +42,7 @@ export class StorageService {
 
     try {
       await this.client.send(new PutObjectCommand(command));
-    } catch (error) {
-      throw error;
-    }
+    } catch (error) {}
   }
 
   public async remove(key: string) {
@@ -57,8 +55,6 @@ export class StorageService {
 
     try {
       await this.client.send(new DeleteObjectCommand(command));
-    } catch (error) {
-      throw error;
-    }
+    } catch (error) {}
   }
 }

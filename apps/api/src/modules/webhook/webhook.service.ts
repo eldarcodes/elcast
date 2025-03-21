@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
-import { PrismaService } from '@/src/core/prisma/prisma.service';
+import type { PrismaService } from '@/src/core/prisma/prisma.service';
 
-import { LivekitService } from '../libs/livekit/livekit.service';
-import { TelegramService } from '../libs/telegram/telegram.service';
-import { NotificationService } from '../notification/notification.service';
+import type { LivekitService } from '../libs/livekit/livekit.service';
+import type { TelegramService } from '../libs/telegram/telegram.service';
+import type { NotificationService } from '../notification/notification.service';
 
 @Injectable()
 export class WebhookService {

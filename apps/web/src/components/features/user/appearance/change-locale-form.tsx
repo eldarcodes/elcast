@@ -20,8 +20,8 @@ import { languageOptions } from '@/libs/i18n/config';
 import { setLocale } from '@/libs/i18n/locale';
 
 import {
+  type ChangeLocaleSchema,
   changeLocaleSchema,
-  ChangeLocaleSchema,
 } from '@/schemas/user/change-locale.schema';
 
 export function ChangeLocaleForm() {

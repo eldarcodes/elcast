@@ -6,9 +6,9 @@ import type { GraphQLContext } from '@/src/shared/types/graphql-context.type';
 
 import { AuthModel } from '../account/models/auth.model';
 
-import { LoginInput } from './inputs/login.input';
+import type { LoginInput } from './inputs/login.input';
 import { SessionModel } from './models/session.model';
-import { SessionService } from './session.service';
+import type { SessionService } from './session.service';
 
 @Resolver('Session')
 export class SessionResolver {

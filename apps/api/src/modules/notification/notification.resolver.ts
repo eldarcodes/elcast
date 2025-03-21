@@ -1,14 +1,14 @@
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 
-import { User } from '@/prisma/generated';
-import { PubSubService } from '@/src/core/pubsub/pubsub.service';
+import type { User } from '@/prisma/generated';
+import type { PubSubService } from '@/src/core/pubsub/pubsub.service';
 import { Authorization } from '@/src/shared/decorators/auth.decorator';
 import { Authorized } from '@/src/shared/decorators/authorized.decorator';
 
-import { ChangeNotificationSettingsInput } from './inputs/change-notification-settings.input';
+import type { ChangeNotificationSettingsInput } from './inputs/change-notification-settings.input';
 import { ChangeNotificationsSettingsResponse } from './models/notification-settings.model';
 import { NotificationModel } from './models/notification.model';
-import { NotificationService } from './notification.service';
+import type { NotificationService } from './notification.service';
 
 @Resolver('Notification')
 export class NotificationResolver {

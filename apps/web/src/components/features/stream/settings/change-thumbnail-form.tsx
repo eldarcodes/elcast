@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Trash } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { ChangeEvent, useRef } from 'react';
+import { type ChangeEvent, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -23,7 +23,7 @@ import {
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
 import {
-  UploadFileSchema,
+  type UploadFileSchema,
   uploadFileSchema,
 } from '@/schemas/upload-file.schema';
 

@@ -4,11 +4,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { User } from '@/prisma/generated';
-import { PrismaService } from '@/src/core/prisma/prisma.service';
+import type { User } from '@/prisma/generated';
+import type { PrismaService } from '@/src/core/prisma/prisma.service';
 
-import { TelegramService } from '../libs/telegram/telegram.service';
-import { NotificationService } from '../notification/notification.service';
+import type { TelegramService } from '../libs/telegram/telegram.service';
+import type { NotificationService } from '../notification/notification.service';
 
 @Injectable()
 export class FollowService {

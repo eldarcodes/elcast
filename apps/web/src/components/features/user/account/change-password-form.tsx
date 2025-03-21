@@ -21,8 +21,8 @@ import { PasswordInput } from '@/components/ui/elements/password-input';
 import { useChangePasswordMutation } from '@/graphql/generated/output';
 
 import {
+  type ChangePasswordSchema,
   changePasswordSchema,
-  ChangePasswordSchema,
 } from '@/schemas/user/change-password.schema';
 
 export function ChangePasswordForm() {

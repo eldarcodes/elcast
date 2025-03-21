@@ -8,8 +8,8 @@ import type { GraphQLContext } from '@/src/shared/types/graphql-context.type';
 
 import { AuthModel } from '../account/models/auth.model';
 
-import { DeactivateService } from './deactivate.service';
-import { DeactivateAccountInput } from './inputs/deactivate-account.input';
+import type { DeactivateService } from './deactivate.service';
+import type { DeactivateAccountInput } from './inputs/deactivate-account.input';
 
 @Resolver('Deactivate')
 export class DeactivateResolver {

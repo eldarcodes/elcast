@@ -95,7 +95,9 @@ async function main() {
     );
 
     const usedCategoryImages = CATEGORIES.reduce((acc, category) => {
-      return { ...acc, [category.slug]: 0 };
+      acc[category.slug] = 0;
+
+      return acc;
     }, {});
 
     await prisma.$transaction(

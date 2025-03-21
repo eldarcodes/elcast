@@ -1,5 +1,5 @@
 import { useTracks } from '@livekit/components-react';
-import { RemoteParticipant, Track } from 'livekit-client';
+import { type RemoteParticipant, Track } from 'livekit-client';
 import { useEffect, useRef, useState } from 'react';
 import { useEventListener } from 'usehooks-ts';
 
@@ -60,17 +60,28 @@ export function StreamPlayer({ participant }: StreamPlayerProps) {
     handleFullscreenChange,
   );
 
-  useTracks([Track.Source.Camera, Track.Source.Microphone])
-    .filter((track) => track.participant.identity === participant.identity)
-    .forEach((track) => {
-      if (videoRef.current) {
-        track.publication.track?.attach(videoRef.current);
-      }
-    });
+  const tracks = useTracks([
+    Track.Source.Camera,
+    Track.Source.Microphone,
+  ]).filter((track) => track.participant.identity === participant.identity);
+
+  for (const track of tracks) {
+    if (videoRef.current) {
+      track.publication.track?.attach(videoRef.current);
+    }
+  }
 
   return (
     <div ref={wrapperRef} className="relative flex h-full">
-      <video ref={videoRef} />
+      <video ref={videoRef}>
+        <track
+          kind="captions"
+          src="captions.vtt"
+          srcLang="en"
+          label="English"
+          default
+        />
+      </video>
 
       <div className="absolute top-0 h-full w-full opacity-0 hover:opacity-100">
         <div className="absolute bottom-0 flex h-16 w-full items-center justify-between px-4">

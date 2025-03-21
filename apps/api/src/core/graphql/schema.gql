@@ -24,9 +24,13 @@ input ChangeChatSettingsInput {
   isChatSubscribersOnly: Boolean!
 }
 
-"""Change user E-Email"""
+"""
+Change user E-Email
+"""
 input ChangeEmailInput {
-  """Email of the user"""
+  """
+  Email of the user
+  """
   email: String!
   pin: String
 }
@@ -41,12 +45,18 @@ type ChangeNotificationsSettingsResponse {
   telegramAuthToken: String
 }
 
-"""Change user password"""
+"""
+Change user password
+"""
 input ChangePasswordInput {
-  """New password of the user"""
+  """
+  New password of the user
+  """
   newPassword: String!
 
-  """Password of the user"""
+  """
+  Password of the user
+  """
   oldPassword: String!
 }
 
@@ -76,15 +86,23 @@ type ChatMessageModel {
   userId: String!
 }
 
-"""Create User Input"""
+"""
+Create User Input
+"""
 input CreateUserInput {
-  """Email of the user"""
+  """
+  Email of the user
+  """
   email: String!
 
-  """Password of the user"""
+  """
+  Password of the user
+  """
   password: String!
 
-  """Username of the user"""
+  """
+  Username of the user
+  """
   username: String!
 }
 
@@ -142,12 +160,18 @@ type LocationModel {
   longitude: Float!
 }
 
-"""Login input"""
+"""
+Login input
+"""
 input LoginInput {
-  """Auth login"""
+  """
+  Auth login
+  """
   login: String!
 
-  """Auth password"""
+  """
+  Auth password
+  """
   password: String!
   pin: String
 }
@@ -155,7 +179,9 @@ input LoginInput {
 type Mutation {
   changeChatSettings(data: ChangeChatSettingsInput!): Boolean!
   changeEmail(data: ChangeEmailInput!): AuthModel!
-  changeNotificationSettings(data: ChangeNotificationSettingsInput!): ChangeNotificationsSettingsResponse!
+  changeNotificationSettings(
+    data: ChangeNotificationSettingsInput!
+  ): ChangeNotificationsSettingsResponse!
   changePassword(data: ChangePasswordInput!): Boolean!
   changeProfileAvatar(avatar: Upload!): Boolean!
   changeProfileInfo(data: ChangeProfileInfoInput!): Boolean!
@@ -166,7 +192,9 @@ type Mutation {
   createIngress(ingressType: Float!): Boolean!
   createSocialLink(data: SocialLinkInput!): Boolean!
 
-  """Create a user"""
+  """
+  Create a user
+  """
   createUser(data: CreateUserInput!): Boolean!
   deactivateAccount(data: DeactivateAccountInput!): AuthModel!
   disableTotp: Boolean!
@@ -229,7 +257,9 @@ type Query {
   findAllCategories: [CategoryModel!]!
   findAllStreams(filters: FiltersInput!): [StreamModel!]!
 
-  """Find all users"""
+  """
+  Find all users
+  """
   findAllUsers: [UserModel!]!
   findCategoryBySlug(slug: String!): CategoryModel!
   findChannelByUsername(username: String!): UserModel!
@@ -241,7 +271,9 @@ type Query {
   findNotificationsByUser: [NotificationModel!]!
   findNotificationsUnreadCount: Float!
 
-  """Find profile"""
+  """
+  Find profile
+  """
   findProfile: UserModel!
   findRandomCategories: [CategoryModel!]!
   findRandomStreams: [StreamModel!]!
@@ -323,10 +355,14 @@ type TotpModel {
   secret: String!
 }
 
-"""The `Upload` scalar type represents a file upload."""
+"""
+The `Upload` scalar type represents a file upload.
+"""
 scalar Upload
 
-"""User model"""
+"""
+User model
+"""
 type UserModel {
   avatar: String
   bio: String

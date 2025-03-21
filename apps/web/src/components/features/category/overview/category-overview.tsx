@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 import { Heading } from '@/components/ui/elements/heading';
 
-import { FindCategoryBySlugQuery } from '@/graphql/generated/output';
+import type { FindCategoryBySlugQuery } from '@/graphql/generated/output';
 
 import { getMediaSource } from '@/utils/get-media-source';
 

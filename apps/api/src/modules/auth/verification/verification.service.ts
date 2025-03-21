@@ -5,16 +5,16 @@ import {
 } from '@nestjs/common';
 import type { Request } from 'express';
 
-import { TokenType, User } from '@/prisma/generated';
-import { PrismaService } from '@/src/core/prisma/prisma.service';
-import { SessionMetadata } from '@/src/shared/types/session-metadata.type';
+import { TokenType, type User } from '@/prisma/generated';
+import type { PrismaService } from '@/src/core/prisma/prisma.service';
+import type { SessionMetadata } from '@/src/shared/types/session-metadata.type';
 import { generateToken } from '@/src/shared/utils/generate-token.util';
 import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
 import { saveSession } from '@/src/shared/utils/session.util';
 
-import { MailService } from '../../libs/mail/mail.service';
+import type { MailService } from '../../libs/mail/mail.service';
 
-import { VerificationInput } from './inputs/verification.input';
+import type { VerificationInput } from './inputs/verification.input';
 
 @Injectable()
 export class VerificationService {

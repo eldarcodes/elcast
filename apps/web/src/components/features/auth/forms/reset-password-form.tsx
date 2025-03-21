@@ -26,8 +26,8 @@ import { Input } from '@/components/ui/common/input';
 import { useResetPasswordMutation } from '@/graphql/generated/output';
 
 import {
+  type ResetPasswordSchema,
   resetPasswordSchema,
-  ResetPasswordSchema,
 } from '@/schemas/auth/reset-password.schema';
 
 import { AuthWrapper } from '../auth-wrapper';

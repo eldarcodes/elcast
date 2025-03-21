@@ -1,13 +1,13 @@
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 
-import { User } from '@/prisma/generated';
-import { PubSubService } from '@/src/core/pubsub/pubsub.service';
+import type { User } from '@/prisma/generated';
+import type { PubSubService } from '@/src/core/pubsub/pubsub.service';
 import { Authorization } from '@/src/shared/decorators/auth.decorator';
 import { Authorized } from '@/src/shared/decorators/authorized.decorator';
 
-import { ChatService } from './chat.service';
-import { ChangeChatSettingsInput } from './inputs/change-chat-settings.input';
-import { SendMessageInput } from './inputs/send-message.input';
+import type { ChatService } from './chat.service';
+import type { ChangeChatSettingsInput } from './inputs/change-chat-settings.input';
+import type { SendMessageInput } from './inputs/send-message.input';
 import { ChatMessageModel } from './models/chat-message.model';
 
 @Resolver('Chat')

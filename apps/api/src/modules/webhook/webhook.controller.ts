@@ -8,7 +8,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 
-import { WebhookService } from './webhook.service';
+import type { WebhookService } from './webhook.service';
 
 @Controller('webhook')
 export class WebhookController {

@@ -1,11 +1,11 @@
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 
 import { UserAgent } from '@/src/shared/decorators/user-agent.decorator';
-import { GraphQLContext } from '@/src/shared/types/graphql-context.type';
+import type { GraphQLContext } from '@/src/shared/types/graphql-context.type';
 
-import { NewPasswordInput } from './inputs/new-password.input';
-import { ResetPasswordInput } from './inputs/reset-password.input';
-import { PasswordRecoveryService } from './password-recovery.service';
+import type { NewPasswordInput } from './inputs/new-password.input';
+import type { ResetPasswordInput } from './inputs/reset-password.input';
+import type { PasswordRecoveryService } from './password-recovery.service';
 
 @Resolver('PasswordRecovery')
 export class PasswordRecoveryResolver {

@@ -1,13 +1,13 @@
+import { randomBytes } from 'node:crypto';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { randomBytes } from 'crypto';
 import { encode } from 'hi-base32';
 import { TOTP } from 'otpauth';
 import * as QRCode from 'qrcode';
 
-import { User } from '@/prisma/generated';
-import { PrismaService } from '@/src/core/prisma/prisma.service';
+import type { User } from '@/prisma/generated';
+import type { PrismaService } from '@/src/core/prisma/prisma.service';
 
-import { EnableTotpInput } from './inputs/enable-totp.input';
+import type { EnableTotpInput } from './inputs/enable-totp.input';
 
 @Injectable()
 export class TotpService {

@@ -1,6 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
-import {
+import type {
   DeviceInfo,
   LocationInfo,
   SessionMetadata,

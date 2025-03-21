@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { FindChatMessagesByStreamQuery } from '@/graphql/generated/output';
+import type { FindChatMessagesByStreamQuery } from '@/graphql/generated/output';
 
 import { stringToColor } from '@/utils/color';
 

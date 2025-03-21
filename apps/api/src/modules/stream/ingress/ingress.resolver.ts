@@ -5,7 +5,7 @@ import type { User } from '@/prisma/generated';
 import { Authorization } from '@/src/shared/decorators/auth.decorator';
 import { Authorized } from '@/src/shared/decorators/authorized.decorator';
 
-import { IngressService } from './ingress.service';
+import type { IngressService } from './ingress.service';
 
 @Resolver('Ingress')
 export class IngressResolver {
