@@ -71,6 +71,9 @@ importers:
       device-detector-js:
         specifier: ^3.0.3
         version: 3.0.3
+      dotenv:
+        specifier: ^16.4.7
+        version: 16.4.7
       express-session:
         specifier: ^1.18.1
         version: 1.18.1
@@ -189,9 +192,6 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^8.0.0
         version: 8.27.0(eslint@8.57.1)(typescript@5.8.2)
-      dotenv:
-        specifier: ^16.4.7
-        version: 16.4.7
       eslint:
         specifier: ^8.0.0
         version: 8.57.1
