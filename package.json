@@ -7,6 +7,9 @@
         "packages/*"
     ],
     "packageManager": "pnpm@10.6.5",
+    "scripts": {
+        "clean-all": "cd apps/api/ && rm -rf node_modules dist && cd ../web && rm -rf node_modules .next"
+    },
     "engines": {
         "node": "^20.9.0",
         "pnpm": ">=9.5.0"
