@@ -47,6 +47,8 @@ Elcast is a dynamic livestreaming platform where users can discover and engage w
 
 **Client**: A frontend web application developed using Next.js, React, Apollo Client, and Tailwind CSS.
 
+*Package manager*: `pnpm`
+
 ### Server (Backend)
 
 - **Framework**: NestJS
@@ -56,7 +58,7 @@ Elcast is a dynamic livestreaming platform where users can discover and engage w
 - **GraphQL Server**: Apollo Server with NestJS
 - **Session Management**: Redis
 - **File Storage**: AWS S3
-- **Email Service**: Nodemailer & `@nestjs-modules/mailer`
+- **Email Service**: Nodemailer
 
 #### Scripts
 
