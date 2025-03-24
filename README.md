@@ -60,7 +60,7 @@ Elcast is a dynamic livestreaming platform where users can discover and engage w
 - **File Storage**: AWS S3
 - **Email Service**: Nodemailer
 
-#### Scripts
+**Scripts**
 
 - `start` - Start the production server
 - `start:dev` - Start the development server with hot reload
@@ -75,12 +75,12 @@ Elcast is a dynamic livestreaming platform where users can discover and engage w
 - **Language**: TypeScript
 - **State Management**: Zustand
 - **GraphQL Client**: Apollo Client
-- **Styling**: Tailwind CSS, Radix UI components
+- **Styling**: shadcn/ui, Tailwind CSS
 - **Forms & Validation**: React Hook Form, Zod
 - **Realtime**: LiveKit for interactive streaming
 - **Internationalization**: `next-intl`
 
-#### Scripts
+**Scripts**
 
 - `dev` - Start the development server
 - `build` - Build for production
