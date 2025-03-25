@@ -20,9 +20,16 @@ export function MessagesList({ channel }: MessagesListProps) {
     },
   });
 
-  const { data: newMessageData } = useChatMessageAddedSubscription({
+  useChatMessageAddedSubscription({
     variables: {
       streamId: channel.stream.id,
+    },
+    onData: ({ data }) => {
+      const newMessage = data.data?.chatMessageAdded;
+
+      if (newMessage) {
+        setMessages((prev) => [newMessage, ...prev]);
+      }
     },
   });
 
@@ -35,14 +42,6 @@ export function MessagesList({ channel }: MessagesListProps) {
       setMessages(data.findChatMessagesByStream);
     }
   }, [data]);
-
-  useEffect(() => {
-    if (newMessageData) {
-      const newMessage = newMessageData.chatMessageAdded;
-
-      setMessages((prev) => [newMessage, ...prev]);
-    }
-  }, [newMessageData]);
 
   return (
     <div className="flex h-full flex-1 flex-col-reverse overflow-y-auto">
