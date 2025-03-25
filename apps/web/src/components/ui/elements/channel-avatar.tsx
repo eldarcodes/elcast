@@ -28,7 +28,7 @@ const avatarSizes = cva('', {
 const onlineBadgeSizes = cva('', {
   variants: {
     size: {
-      sm: 'size-1',
+      sm: 'size-2',
       default: 'size-2',
       lg: 'size-3',
       xl: 'size-3',
@@ -55,7 +55,8 @@ export function ChannelAvatar({
 }: ChannelAvatarProps) {
   const { isUserOnline } = useOnlineUsers();
 
-  const isOnline = isUserOnline(channel.id);
+  const isOnline = true;
+  // const isOnline = isUserOnline(channel.id);
 
   return (
     <div className={cn('relative', className)}>
