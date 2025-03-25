@@ -43,6 +43,7 @@ interface ChannelAvatarProps extends VariantProps<typeof avatarSizes> {
   channel: Pick<FindProfileQuery['findProfile'], 'id' | 'username' | 'avatar'>;
   isLive?: boolean;
   className?: string;
+  showOnlineBadge?: boolean;
 }
 
 export function ChannelAvatar({
@@ -50,6 +51,7 @@ export function ChannelAvatar({
   channel,
   isLive,
   className,
+  showOnlineBadge = true,
 }: ChannelAvatarProps) {
   const { isUserOnline } = useOnlineUsers();
 
@@ -75,7 +77,7 @@ export function ChannelAvatar({
         </AvatarFallback>
       </Avatar>
 
-      {isOnline && (
+      {isOnline && showOnlineBadge && (
         <span
           className={cn(
             onlineBadgeSizes({ size }),

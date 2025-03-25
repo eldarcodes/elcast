@@ -84,6 +84,7 @@ export function ChangeAvatarForm() {
                 <ChannelAvatar
                   size="xl"
                   className="mb-3 flex justify-center sm:mb-0"
+                  showOnlineBadge={false}
                   channel={{
                     id: user?.id || '',
                     username: user?.username || '',
