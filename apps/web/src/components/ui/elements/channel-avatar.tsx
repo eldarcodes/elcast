@@ -55,8 +55,7 @@ export function ChannelAvatar({
 }: ChannelAvatarProps) {
   const { isUserOnline } = useOnlineUsers();
 
-  const isOnline = true;
-  // const isOnline = isUserOnline(channel.id);
+  const isOnline = isUserOnline(channel.id);
 
   return (
     <div className={cn('relative', className)}>
