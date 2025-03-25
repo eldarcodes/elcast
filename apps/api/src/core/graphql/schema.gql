@@ -184,6 +184,7 @@ type Mutation {
   reorderSocialLinks(list: [SocialLinkOrderInput!]!): Boolean!
   resetPassword(data: ResetPasswordInput!): Boolean!
   sendChatMessage(data: SendMessageInput!): ChatMessageModel!
+  sendUserPresenceHeartbeat: Boolean!
   sendVerificationToken: AuthModel!
   unfollowChannel(channelId: String!): Boolean!
   updateSocialLink(data: SocialLinkInput!, id: String!): Boolean!
@@ -249,6 +250,7 @@ type Query {
   findSessionsByUser: [SessionModel!]!
   findSocialLinks: [SocialLinkModel!]!
   generateTotpSecret: TotpModel!
+  getOnlineUsers: [UserModel!]!
 }
 
 input ResetPasswordInput {
@@ -316,6 +318,7 @@ type StreamModel {
 type Subscription {
   chatMessageAdded(streamId: String!): ChatMessageModel!
   notificationAdded(userId: String!): NotificationModel!
+  userStatusChanged: UserModel!
 }
 
 type TotpModel {
@@ -341,6 +344,7 @@ type UserModel {
   isEmailVerified: Boolean!
   isTotpEnabled: Boolean!
   isVerified: Boolean!
+  lastActive: DateTime!
   lastEmailChange: DateTime
   lastUsernameChange: DateTime
   notificationSettings: NotificationSettingsModel!

@@ -46,6 +46,8 @@ model User {
   lastUsernameChange DateTime? @map("last_username_change")
   lastEmailChange    DateTime? @map("last_email_change")
 
+  lastActive DateTime @default(now()) @map("last_active")
+
   @@map("users")
 }
 

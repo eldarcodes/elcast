@@ -460,7 +460,8 @@
     },
     "info": {
       "viewers": "viewers",
-      "offline": "Offline"
+      "offline": "Offline",
+      "online": "Online"
     },
     "actions": {
       "follow": {

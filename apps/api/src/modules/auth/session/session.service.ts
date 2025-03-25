@@ -11,7 +11,9 @@ import type { Request } from 'express';
 import { TOTP } from 'otpauth';
 
 import { PrismaService } from '@/src/core/prisma/prisma.service';
+import { PubSubService } from '@/src/core/pubsub/pubsub.service';
 import { RedisService } from '@/src/core/redis/redis.service';
+import { USER_ONLINE_THRESHOLD } from '@/src/shared/constants/account.constants';
 import { parseBoolean } from '@/src/shared/utils/parse-boolean.util';
 import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
 import { destroySession, saveSession } from '@/src/shared/utils/session.util';
@@ -24,6 +26,7 @@ export class SessionService {
     private readonly prismaService: PrismaService,
     private readonly configService: ConfigService,
     private readonly redisService: RedisService,
+    private readonly pubSubService: PubSubService,
   ) {}
 
   public async findByUser(req: Request) {
@@ -155,5 +158,28 @@ export class SessionService {
     );
 
     return true;
+  }
+
+  public async heartbeat(userId: string) {
+    const updatedUser = await this.prismaService.user.update({
+      where: { id: userId },
+      data: { lastActive: new Date() },
+    });
+
+    await this.pubSubService.publish('USER_STATUS_CHANGED', {
+      userStatusChanged: updatedUser,
+    });
+
+    return true;
+  }
+
+  public async getOnlineUsers() {
+    const threshold = new Date(Date.now() - USER_ONLINE_THRESHOLD);
+
+    return this.prismaService.user.findMany({
+      where: {
+        lastActive: { gte: threshold },
+      },
+    });
   }
 }

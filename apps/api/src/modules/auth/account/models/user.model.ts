@@ -79,6 +79,9 @@ export class UserModel implements User {
   isVerified: boolean;
 
   @Field(() => Date)
+  lastActive: Date;
+
+  @Field(() => Date)
   createdAt: Date;
 
   @Field(() => Date)
