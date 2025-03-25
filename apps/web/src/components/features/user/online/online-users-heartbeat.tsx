@@ -15,6 +15,7 @@ export function OnlineUsersHeartbeat() {
   useEffect(() => {
     const sendHeartbeat = () => {
       if (document.visibilityState === 'visible' && isAuthenticated) {
+        console.log({ isAuthenticated });
         onlineHeartbeat();
       }
     };
@@ -29,7 +30,7 @@ export function OnlineUsersHeartbeat() {
       clearInterval(interval);
       document.removeEventListener('visibilitychange', sendHeartbeat);
     };
-  }, [onlineHeartbeat]);
+  }, [onlineHeartbeat, isAuthenticated]);
 
   return null;
 }
