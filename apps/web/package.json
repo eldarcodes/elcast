@@ -1,6 +1,5 @@
 {
   "name": "@elcast/web",
-  "version": "1.0.0",
   "private": true,
   "description": "A streaming platform offering interactive live content.",
   "author": {

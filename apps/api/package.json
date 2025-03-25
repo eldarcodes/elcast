@@ -1,6 +1,5 @@
 {
   "name": "@elcast/api",
-  "version": "1.0.0",
   "description": "A streaming platform offering interactive live content.",
   "author": {
     "name": "Eldar Mirzabekov",
