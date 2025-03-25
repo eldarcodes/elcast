@@ -1,6 +1,10 @@
+'use client';
+
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { FindProfileQuery } from '@/graphql/generated/output';
+
+import { useOnlineUsers } from '@/hooks/use-online-users';
 
 import { getMediaSource } from '@/utils/get-media-source';
 import { cn } from '@/utils/tw-merge';
@@ -21,8 +25,22 @@ const avatarSizes = cva('', {
   },
 });
 
+const onlineBadgeSizes = cva('', {
+  variants: {
+    size: {
+      sm: 'size-1',
+      default: 'size-2',
+      lg: 'size-3',
+      xl: 'size-3',
+    },
+  },
+  defaultVariants: {
+    size: 'default',
+  },
+});
+
 interface ChannelAvatarProps extends VariantProps<typeof avatarSizes> {
-  channel: Pick<FindProfileQuery['findProfile'], 'username' | 'avatar'>;
+  channel: Pick<FindProfileQuery['findProfile'], 'id' | 'username' | 'avatar'>;
   isLive?: boolean;
   className?: string;
 }
@@ -33,6 +51,10 @@ export function ChannelAvatar({
   isLive,
   className,
 }: ChannelAvatarProps) {
+  const { isUserOnline } = useOnlineUsers();
+
+  const isOnline = isUserOnline(channel.id);
+
   return (
     <div className={cn('relative', className)}>
       <Avatar
@@ -52,6 +74,15 @@ export function ChannelAvatar({
           {channel.username && channel.username[0]}
         </AvatarFallback>
       </Avatar>
+
+      {isOnline && (
+        <span
+          className={cn(
+            onlineBadgeSizes({ size }),
+            'absolute bottom-0 right-0 block rounded-full border-2 border-white bg-green-500',
+          )}
+        />
+      )}
     </div>
   );
 }

@@ -11,11 +11,16 @@ export class ChannelService {
       where: {
         isDeactivated: false,
       },
-      orderBy: {
-        followings: {
-          _count: 'desc',
+      orderBy: [
+        {
+          followings: {
+            _count: 'desc',
+          },
         },
-      },
+        {
+          lastActive: 'desc',
+        },
+      ],
       include: {
         stream: true,
       },

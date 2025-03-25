@@ -20,3 +20,5 @@ export const DAYS_TO_KEEP_OLD_NOTIFICATIONS = 7;
 
 export const USERNAME_CHANGE_COOLDOWN_DAYS = 7;
 export const EMAIL_CHANGE_COOLDOWN_DAYS = 3;
+
+export const USER_ONLINE_THRESHOLD = 10000; // 10 seconds

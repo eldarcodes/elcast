@@ -1,3 +1,5 @@
+'use client';
+
 import { useParticipants } from '@livekit/components-react';
 import { User } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -7,6 +9,8 @@ import { ChannelAvatar } from '@/components/ui/elements/channel-avatar';
 import { ChannelVerified } from '@/components/ui/elements/channel-verified';
 
 import type { FindChannelByUsernameQuery } from '@/graphql/generated/output';
+
+import { useOnlineUsers } from '@/hooks/use-online-users';
 
 import { StreamActions, StreamActionsSkeleton } from './stream-actions';
 
@@ -18,6 +22,9 @@ export function StreamInfo({ channel }: StreamInfoProps) {
   const t = useTranslations('stream.info');
 
   const participants = useParticipants();
+  const { isUserOnline } = useOnlineUsers();
+
+  const isOnline = isUserOnline(channel.id);
 
   const participantCount = participants.length - 1;
 
@@ -36,7 +43,7 @@ export function StreamInfo({ channel }: StreamInfoProps) {
             size="lg"
           />
 
-          <div className="space-y-1">
+          <div>
             <h2 className="flex items-center gap-x-2 text-lg font-semibold">
               {channel.displayName}
               {channel.isVerified && <ChannelVerified />}
@@ -47,6 +54,10 @@ export function StreamInfo({ channel }: StreamInfoProps) {
                 <User className="size-4" />
                 {participantCount} {t('viewers')}
               </div>
+            ) : isOnline ? (
+              <p className="text-xs font-semibold text-green-500">
+                {t('online')}
+              </p>
             ) : (
               <p className="text-xs font-semibold text-muted-foreground">
                 {t('offline')}

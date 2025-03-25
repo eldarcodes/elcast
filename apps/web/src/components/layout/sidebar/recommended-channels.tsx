@@ -6,12 +6,15 @@ import { Separator } from '@/components/ui/common/separator';
 
 import { useFindRecommendedChannelsQuery } from '@/graphql/generated/output';
 
+import { useCurrentProfile } from '@/hooks/use-current-profile';
 import { useSidebar } from '@/hooks/use-sidebar';
 
 import { ChannelItem, ChannelItemSkeleton } from './channel-item';
 
 export function RecommendedChannels() {
   const t = useTranslations('layout.sidebar.recommended');
+
+  const { user } = useCurrentProfile();
 
   const { data, loading: isLoadingRecommended } =
     useFindRecommendedChannelsQuery();
@@ -34,9 +37,11 @@ export function RecommendedChannels() {
         ? Array.from({ length: 7 }).map((_, index) => (
             <ChannelItemSkeleton key={index} />
           ))
-        : channels.map((channel) => (
-            <ChannelItem key={channel.id} channel={channel} />
-          ))}
+        : channels
+            .filter((channel) => channel.id !== user?.id)
+            .map((channel) => (
+              <ChannelItem key={channel.id} channel={channel} />
+            ))}
     </div>
   );
 }

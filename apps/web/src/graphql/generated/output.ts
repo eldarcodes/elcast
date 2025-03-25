@@ -200,6 +200,7 @@ export type Mutation = {
   reorderSocialLinks: Scalars['Boolean']['output'];
   resetPassword: Scalars['Boolean']['output'];
   sendChatMessage: ChatMessageModel;
+  sendUserPresenceHeartbeat: Scalars['Boolean']['output'];
   sendVerificationToken: AuthModel;
   unfollowChannel: Scalars['Boolean']['output'];
   updateSocialLink: Scalars['Boolean']['output'];
@@ -397,6 +398,7 @@ export type Query = {
   findSessionsByUser: Array<SessionModel>;
   findSocialLinks: Array<SocialLinkModel>;
   generateTotpSecret: TotpModel;
+  getOnlineUsers: Array<UserModel>;
 };
 
 
@@ -494,6 +496,7 @@ export type Subscription = {
   __typename?: 'Subscription';
   chatMessageAdded: ChatMessageModel;
   notificationAdded: NotificationModel;
+  userStatusChanged: UserModel;
 };
 
 
@@ -528,6 +531,7 @@ export type UserModel = {
   isEmailVerified: Scalars['Boolean']['output'];
   isTotpEnabled: Scalars['Boolean']['output'];
   isVerified: Scalars['Boolean']['output'];
+  lastActive: Scalars['DateTime']['output'];
   lastEmailChange?: Maybe<Scalars['DateTime']['output']>;
   lastUsernameChange?: Maybe<Scalars['DateTime']['output']>;
   notificationSettings: NotificationSettingsModel;
@@ -755,6 +759,11 @@ export type ReorderSocialLinksMutationVariables = Exact<{
 
 export type ReorderSocialLinksMutation = { __typename?: 'Mutation', reorderSocialLinks: boolean };
 
+export type SendUserPresenceHeartbeatMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SendUserPresenceHeartbeatMutation = { __typename?: 'Mutation', sendUserPresenceHeartbeat: boolean };
+
 export type UpdateSocialLinkMutationVariables = Exact<{
   id: Scalars['String']['input'];
   data: SocialLinkInput;
@@ -856,6 +865,11 @@ export type GenerateTotpSecretQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GenerateTotpSecretQuery = { __typename?: 'Query', generateTotpSecret: { __typename?: 'TotpModel', qrcodeUrl: string, secret: string } };
 
+export type GetOnlineUsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetOnlineUsersQuery = { __typename?: 'Query', getOnlineUsers: Array<{ __typename?: 'UserModel', id: string, username: string, lastActive: any }> };
+
 export type ChatMessageAddedSubscriptionVariables = Exact<{
   streamId: Scalars['String']['input'];
 }>;
@@ -869,6 +883,11 @@ export type NotificationAddedSubscriptionVariables = Exact<{
 
 
 export type NotificationAddedSubscription = { __typename?: 'Subscription', notificationAdded: { __typename?: 'NotificationModel', id: string, message: string, isRead: boolean, type: NotificationType, createdAt: any } };
+
+export type UserStatusChangedSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserStatusChangedSubscription = { __typename?: 'Subscription', userStatusChanged: { __typename?: 'UserModel', id: string, username: string, lastActive: any } };
 
 
 export const CreateUserDocument = gql`
@@ -1898,6 +1917,36 @@ export function useReorderSocialLinksMutation(baseOptions?: Apollo.MutationHookO
 export type ReorderSocialLinksMutationHookResult = ReturnType<typeof useReorderSocialLinksMutation>;
 export type ReorderSocialLinksMutationResult = Apollo.MutationResult<ReorderSocialLinksMutation>;
 export type ReorderSocialLinksMutationOptions = Apollo.BaseMutationOptions<ReorderSocialLinksMutation, ReorderSocialLinksMutationVariables>;
+export const SendUserPresenceHeartbeatDocument = gql`
+    mutation SendUserPresenceHeartbeat {
+  sendUserPresenceHeartbeat
+}
+    `;
+export type SendUserPresenceHeartbeatMutationFn = Apollo.MutationFunction<SendUserPresenceHeartbeatMutation, SendUserPresenceHeartbeatMutationVariables>;
+
+/**
+ * __useSendUserPresenceHeartbeatMutation__
+ *
+ * To run a mutation, you first call `useSendUserPresenceHeartbeatMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSendUserPresenceHeartbeatMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendUserPresenceHeartbeatMutation, { data, loading, error }] = useSendUserPresenceHeartbeatMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSendUserPresenceHeartbeatMutation(baseOptions?: Apollo.MutationHookOptions<SendUserPresenceHeartbeatMutation, SendUserPresenceHeartbeatMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SendUserPresenceHeartbeatMutation, SendUserPresenceHeartbeatMutationVariables>(SendUserPresenceHeartbeatDocument, options);
+      }
+export type SendUserPresenceHeartbeatMutationHookResult = ReturnType<typeof useSendUserPresenceHeartbeatMutation>;
+export type SendUserPresenceHeartbeatMutationResult = Apollo.MutationResult<SendUserPresenceHeartbeatMutation>;
+export type SendUserPresenceHeartbeatMutationOptions = Apollo.BaseMutationOptions<SendUserPresenceHeartbeatMutation, SendUserPresenceHeartbeatMutationVariables>;
 export const UpdateSocialLinkDocument = gql`
     mutation UpdateSocialLink($id: String!, $data: SocialLinkInput!) {
   updateSocialLink(id: $id, data: $data)
@@ -2765,6 +2814,47 @@ export type GenerateTotpSecretQueryHookResult = ReturnType<typeof useGenerateTot
 export type GenerateTotpSecretLazyQueryHookResult = ReturnType<typeof useGenerateTotpSecretLazyQuery>;
 export type GenerateTotpSecretSuspenseQueryHookResult = ReturnType<typeof useGenerateTotpSecretSuspenseQuery>;
 export type GenerateTotpSecretQueryResult = Apollo.QueryResult<GenerateTotpSecretQuery, GenerateTotpSecretQueryVariables>;
+export const GetOnlineUsersDocument = gql`
+    query GetOnlineUsers {
+  getOnlineUsers {
+    id
+    username
+    lastActive
+  }
+}
+    `;
+
+/**
+ * __useGetOnlineUsersQuery__
+ *
+ * To run a query within a React component, call `useGetOnlineUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOnlineUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOnlineUsersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetOnlineUsersQuery(baseOptions?: Apollo.QueryHookOptions<GetOnlineUsersQuery, GetOnlineUsersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetOnlineUsersQuery, GetOnlineUsersQueryVariables>(GetOnlineUsersDocument, options);
+      }
+export function useGetOnlineUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOnlineUsersQuery, GetOnlineUsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetOnlineUsersQuery, GetOnlineUsersQueryVariables>(GetOnlineUsersDocument, options);
+        }
+export function useGetOnlineUsersSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetOnlineUsersQuery, GetOnlineUsersQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetOnlineUsersQuery, GetOnlineUsersQueryVariables>(GetOnlineUsersDocument, options);
+        }
+export type GetOnlineUsersQueryHookResult = ReturnType<typeof useGetOnlineUsersQuery>;
+export type GetOnlineUsersLazyQueryHookResult = ReturnType<typeof useGetOnlineUsersLazyQuery>;
+export type GetOnlineUsersSuspenseQueryHookResult = ReturnType<typeof useGetOnlineUsersSuspenseQuery>;
+export type GetOnlineUsersQueryResult = Apollo.QueryResult<GetOnlineUsersQuery, GetOnlineUsersQueryVariables>;
 export const ChatMessageAddedDocument = gql`
     subscription ChatMessageAdded($streamId: String!) {
   chatMessageAdded(streamId: $streamId) {
@@ -2835,3 +2925,34 @@ export function useNotificationAddedSubscription(baseOptions: Apollo.Subscriptio
       }
 export type NotificationAddedSubscriptionHookResult = ReturnType<typeof useNotificationAddedSubscription>;
 export type NotificationAddedSubscriptionResult = Apollo.SubscriptionResult<NotificationAddedSubscription>;
+export const UserStatusChangedDocument = gql`
+    subscription UserStatusChanged {
+  userStatusChanged {
+    id
+    username
+    lastActive
+  }
+}
+    `;
+
+/**
+ * __useUserStatusChangedSubscription__
+ *
+ * To run a query within a React component, call `useUserStatusChangedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useUserStatusChangedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserStatusChangedSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUserStatusChangedSubscription(baseOptions?: Apollo.SubscriptionHookOptions<UserStatusChangedSubscription, UserStatusChangedSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<UserStatusChangedSubscription, UserStatusChangedSubscriptionVariables>(UserStatusChangedDocument, options);
+      }
+export type UserStatusChangedSubscriptionHookResult = ReturnType<typeof useUserStatusChangedSubscription>;
+export type UserStatusChangedSubscriptionResult = Apollo.SubscriptionResult<UserStatusChangedSubscription>;
