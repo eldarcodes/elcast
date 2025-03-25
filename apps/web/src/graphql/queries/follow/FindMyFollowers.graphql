@@ -2,6 +2,7 @@ query FindMyFollowers {
   findMyFollowers {
     createdAt
     follower {
+      id
       username
       displayName
       avatar

@@ -16,7 +16,7 @@ interface StreamThumbnailProps {
   url: string | null | undefined;
   user: Pick<
     FindProfileQuery['findProfile'],
-    'username' | 'avatar' | 'isVerified' | 'displayName'
+    'id' | 'username' | 'avatar' | 'isVerified' | 'displayName'
   >;
   isLive?: boolean;
 }

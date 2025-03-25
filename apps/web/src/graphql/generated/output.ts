@@ -804,12 +804,12 @@ export type FindChatMessagesByStreamQuery = { __typename?: 'Query', findChatMess
 export type FindMyFollowersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindMyFollowersQuery = { __typename?: 'Query', findMyFollowers: Array<{ __typename?: 'FollowModel', createdAt: any, follower: { __typename?: 'UserModel', username: string, displayName: string, avatar?: string | null, isVerified: boolean } }> };
+export type FindMyFollowersQuery = { __typename?: 'Query', findMyFollowers: Array<{ __typename?: 'FollowModel', createdAt: any, follower: { __typename?: 'UserModel', id: string, username: string, displayName: string, avatar?: string | null, isVerified: boolean } }> };
 
 export type FindMyFollowingsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindMyFollowingsQuery = { __typename?: 'Query', findMyFollowings: Array<{ __typename?: 'FollowModel', createdAt: any, followingId: string }> };
+export type FindMyFollowingsQuery = { __typename?: 'Query', findMyFollowings: Array<{ __typename?: 'FollowModel', id: string, createdAt: any, followingId: string }> };
 
 export type FindAllStreamsQueryVariables = Exact<{
   filters: FiltersInput;
@@ -2227,6 +2227,7 @@ export const FindMyFollowersDocument = gql`
   findMyFollowers {
     createdAt
     follower {
+      id
       username
       displayName
       avatar
@@ -2270,6 +2271,7 @@ export type FindMyFollowersQueryResult = Apollo.QueryResult<FindMyFollowersQuery
 export const FindMyFollowingsDocument = gql`
     query FindMyFollowings {
   findMyFollowings {
+    id
     createdAt
     followingId
   }

@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 import type { OnlineUsersStore } from './online-users.types';
 
-export const onlineUsersStore = create<OnlineUsersStore>((set, get) => ({
+export const onlineUsersStore = create<OnlineUsersStore>((set) => ({
   onlineUsers: {},
 
   setOnlineUsers: (users) => set({ onlineUsers: users }),
