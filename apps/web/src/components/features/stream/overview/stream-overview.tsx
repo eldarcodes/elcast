@@ -56,7 +56,7 @@ export function StreamOverviewSkeleton() {
         <StreamInfoSkeleton />
         <AboutChannelSkeleton />
       </div>
-      <div className="order-2 col-span-1 flex h-80 flex-col space-y-6 lg:col-span-2">
+      <div className="order-2 col-span-1 flex flex-col space-y-6 lg:col-span-2">
         <LiveChatSkeleton />
       </div>
     </div>

@@ -39,7 +39,7 @@ export function AboutChannel({ channel }: AboutChannelProps) {
         </div>
 
         {channel.socialLinks.length ? (
-          <div className="grid gap-x-3 md:grid-cols-3 xl:grid-cols-8">
+          <div className="flex flex-wrap gap-x-3">
             {channel.socialLinks.map((socialLink) => {
               const Icon = getSocialIcon(socialLink.url);
 

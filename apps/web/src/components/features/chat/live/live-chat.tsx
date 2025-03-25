@@ -91,7 +91,5 @@ export function LiveChat({
 }
 
 export function LiveChatSkeleton() {
-  return (
-    <Skeleton className="fixed my-8 flex h-[82%] w-[21.5%] flex-col xl:mt-0" />
-  );
+  return <Skeleton className="flex h-full min-h-[300px] flex-col" />;
 }
