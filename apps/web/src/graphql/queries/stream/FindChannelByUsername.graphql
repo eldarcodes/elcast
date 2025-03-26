@@ -6,6 +6,7 @@ query FindChannelByUsername($username: String!) {
     avatar
     bio
     isVerified
+    lastActive
     socialLinks {
       id
       title
