@@ -12,6 +12,8 @@ import type { FindChannelByUsernameQuery } from '@/graphql/generated/output';
 
 import { useOnlineUsers } from '@/hooks/use-online-users';
 
+import { getRelativeTime } from '@/utils/date';
+
 import { StreamActions, StreamActionsSkeleton } from './stream-actions';
 
 interface StreamInfoProps {
@@ -22,9 +24,10 @@ export function StreamInfo({ channel }: StreamInfoProps) {
   const t = useTranslations('stream.info');
 
   const participants = useParticipants();
-  const { isUserOnline } = useOnlineUsers();
+  const { isUserOnline, getLastActive } = useOnlineUsers();
 
   const isOnline = isUserOnline(channel.id);
+  const lastActive = getLastActive(channel.id);
 
   const participantCount = participants.length - 1;
 
@@ -60,7 +63,9 @@ export function StreamInfo({ channel }: StreamInfoProps) {
               </p>
             ) : (
               <p className="text-xs font-semibold text-muted-foreground">
-                {t('offline')}
+                {t('offline', {
+                  time: getRelativeTime(lastActive),
+                })}
               </p>
             )}
           </div>
