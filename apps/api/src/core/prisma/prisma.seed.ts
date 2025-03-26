@@ -114,6 +114,10 @@ async function main() {
             continue;
           }
 
+          const randomDaysAgo = Math.floor(Math.random() * 7) + 1;
+          const lastActive = new Date();
+          lastActive.setDate(lastActive.getDate() - randomDaysAgo);
+
           const createdUser = await tx.user.create({
             data: {
               email: `${username}@eldarcodes.com`,
@@ -121,6 +125,7 @@ async function main() {
               username,
               displayName,
               isEmailVerified: true,
+              lastActive,
               notificationSettings: {
                 create: {
                   siteNotifications: true,
