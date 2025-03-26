@@ -5,4 +5,5 @@ export interface OnlineUsersStore {
 
   setOnlineUsers: (onlineUsers: OnlineUsers) => void;
   updateUserLastActive: (userId: string, lastActive: string) => void;
+  forceUpdate: () => void;
 }

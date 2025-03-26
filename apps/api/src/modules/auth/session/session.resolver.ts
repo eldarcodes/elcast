@@ -98,8 +98,11 @@ export class SessionResolver {
 
   @Subscription(() => UserModel, {
     resolve: (payload) => payload.userStatusChanged,
+    filter: (payload, variables) => {
+      return payload.userStatusChanged.id !== variables.userId;
+    },
   })
-  userStatusChanged() {
+  userStatusChanged(@Args('userId') userId: string) {
     return this.pubSubService.subscribe('USER_STATUS_CHANGED');
   }
 }

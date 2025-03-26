@@ -5,18 +5,21 @@ import { useEffect } from 'react';
 import { useSendUserPresenceHeartbeatMutation } from '@/graphql/generated/output';
 
 import { useAuth } from '@/hooks/use-auth';
+import { useOnlineUsers } from '@/hooks/use-online-users';
 
 import { USER_ONLINE_HEARTBEAT } from '@/libs/constants/account.constants';
 
 export function OnlineUsersHeartbeat() {
   const [onlineHeartbeat] = useSendUserPresenceHeartbeatMutation();
   const { isAuthenticated } = useAuth();
+  const { forceUpdate } = useOnlineUsers();
 
   useEffect(() => {
     const sendHeartbeat = () => {
       if (document.visibilityState === 'visible' && isAuthenticated) {
-        console.log({ isAuthenticated });
         onlineHeartbeat();
+
+        forceUpdate();
       }
     };
 

@@ -462,7 +462,7 @@
     },
     "info": {
       "viewers": "зрителей",
-      "offline": "Не в сети",
+      "offline": "был в сети {time}",
       "online": "В сети"
     },
     "actions": {

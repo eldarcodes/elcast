@@ -318,7 +318,7 @@ type StreamModel {
 type Subscription {
   chatMessageAdded(streamId: String!): ChatMessageModel!
   notificationAdded(userId: String!): NotificationModel!
-  userStatusChanged: UserModel!
+  userStatusChanged(userId: String!): UserModel!
 }
 
 type TotpModel {
