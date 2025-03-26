@@ -11,4 +11,7 @@ export const onlineUsersStore = create<OnlineUsersStore>((set) => ({
     set((state) => ({
       onlineUsers: { ...state.onlineUsers, [userId]: lastActive },
     })),
+
+  forceUpdate: () =>
+    set((state) => ({ onlineUsers: { ...state.onlineUsers } })),
 }));

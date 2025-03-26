@@ -58,7 +58,7 @@ export function ChannelAvatar({
   const isOnline = isUserOnline(channel.id);
 
   return (
-    <div className={cn('relative', className)}>
+    <div className={cn('relative h-full', className)}>
       <Avatar
         className={cn(avatarSizes({ size }), isLive && 'ring-2 ring-red-500')}
       >

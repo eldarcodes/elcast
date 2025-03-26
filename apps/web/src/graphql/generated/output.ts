@@ -509,6 +509,11 @@ export type SubscriptionNotificationAddedArgs = {
   userId: Scalars['String']['input'];
 };
 
+
+export type SubscriptionUserStatusChangedArgs = {
+  userId: Scalars['String']['input'];
+};
+
 export type TotpModel = {
   __typename?: 'TotpModel';
   qrcodeUrl: Scalars['String']['output'];
@@ -884,7 +889,9 @@ export type NotificationAddedSubscriptionVariables = Exact<{
 
 export type NotificationAddedSubscription = { __typename?: 'Subscription', notificationAdded: { __typename?: 'NotificationModel', id: string, message: string, isRead: boolean, type: NotificationType, createdAt: any } };
 
-export type UserStatusChangedSubscriptionVariables = Exact<{ [key: string]: never; }>;
+export type UserStatusChangedSubscriptionVariables = Exact<{
+  userId: Scalars['String']['input'];
+}>;
 
 
 export type UserStatusChangedSubscription = { __typename?: 'Subscription', userStatusChanged: { __typename?: 'UserModel', id: string, username: string, lastActive: any } };
@@ -2928,8 +2935,8 @@ export function useNotificationAddedSubscription(baseOptions: Apollo.Subscriptio
 export type NotificationAddedSubscriptionHookResult = ReturnType<typeof useNotificationAddedSubscription>;
 export type NotificationAddedSubscriptionResult = Apollo.SubscriptionResult<NotificationAddedSubscription>;
 export const UserStatusChangedDocument = gql`
-    subscription UserStatusChanged {
-  userStatusChanged {
+    subscription UserStatusChanged($userId: String!) {
+  userStatusChanged(userId: $userId) {
     id
     username
     lastActive
@@ -2949,10 +2956,11 @@ export const UserStatusChangedDocument = gql`
  * @example
  * const { data, loading, error } = useUserStatusChangedSubscription({
  *   variables: {
+ *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useUserStatusChangedSubscription(baseOptions?: Apollo.SubscriptionHookOptions<UserStatusChangedSubscription, UserStatusChangedSubscriptionVariables>) {
+export function useUserStatusChangedSubscription(baseOptions: Apollo.SubscriptionHookOptions<UserStatusChangedSubscription, UserStatusChangedSubscriptionVariables> & ({ variables: UserStatusChangedSubscriptionVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useSubscription<UserStatusChangedSubscription, UserStatusChangedSubscriptionVariables>(UserStatusChangedDocument, options);
       }

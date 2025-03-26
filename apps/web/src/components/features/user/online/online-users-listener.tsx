@@ -2,10 +2,12 @@
 
 import { useUserStatusChangedSubscription } from '@/graphql/generated/output';
 
+import { useCurrentProfile } from '@/hooks/use-current-profile';
 import { useOnlineUsers } from '@/hooks/use-online-users';
 
 export function OnlineUsersListener() {
   const { updateUserLastActive } = useOnlineUsers();
+  const { user } = useCurrentProfile();
 
   useUserStatusChangedSubscription({
     onData: ({ data }) => {
@@ -14,6 +16,9 @@ export function OnlineUsersListener() {
 
         updateUserLastActive(id, lastActive);
       }
+    },
+    variables: {
+      userId: user?.id || '',
     },
   });
 
