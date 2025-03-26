@@ -14,6 +14,8 @@ export function useOnlineUsers() {
   );
   const forceUpdate = onlineUsersStore((state) => state.forceUpdate);
 
+  const getLastActive = (userId: string) => onlineUsers[userId];
+
   const isUserOnline = (userId: string) => {
     const lastActive = onlineUsers[userId];
 
@@ -30,5 +32,6 @@ export function useOnlineUsers() {
     updateUserLastActive,
     isUserOnline,
     forceUpdate,
+    getLastActive,
   };
 }

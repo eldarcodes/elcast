@@ -24,9 +24,11 @@ export function StreamInfo({ channel }: StreamInfoProps) {
   const t = useTranslations('stream.info');
 
   const participants = useParticipants();
-  const { isUserOnline } = useOnlineUsers();
+  const { isUserOnline, getLastActive } = useOnlineUsers();
 
   const isOnline = isUserOnline(channel.id);
+
+  const lastActive = getLastActive(channel.id) || channel.lastActive;
 
   const participantCount = participants.length - 1;
 
@@ -63,7 +65,7 @@ export function StreamInfo({ channel }: StreamInfoProps) {
             ) : (
               <p className="text-xs font-semibold text-muted-foreground">
                 {t('offline', {
-                  time: getRelativeTime(channel.lastActive),
+                  time: getRelativeTime(lastActive),
                 })}
               </p>
             )}
