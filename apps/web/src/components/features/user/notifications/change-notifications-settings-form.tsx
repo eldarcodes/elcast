@@ -42,10 +42,13 @@ export function ChangeNotificationsSettingsForm() {
         const { telegramAuthToken } = data.changeNotificationSettings;
 
         if (telegramAuthToken) {
-          window.open(
-            `${process.env.NEXT_PUBLIC_TELEGRAM_BOT_URL}?start=${telegramAuthToken}`,
-            '_blank',
-          );
+          const link = document.createElement('a');
+          link.href = `${process.env.NEXT_PUBLIC_TELEGRAM_BOT_URL}?start=${telegramAuthToken}`;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
         }
       },
       onError: () => toast.error(t('errorMessage')),

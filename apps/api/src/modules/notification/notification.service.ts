@@ -65,7 +65,7 @@ export class NotificationService {
         },
         create: {
           siteNotifications,
-          telegramNotifications,
+          telegramNotifications: false,
           user: {
             connect: {
               id: user.id,
@@ -74,17 +74,14 @@ export class NotificationService {
         },
         update: {
           siteNotifications,
-          telegramNotifications,
+          telegramNotifications: false,
         },
         include: {
           user: true,
         },
       });
 
-    if (
-      notificationSettings.telegramNotifications &&
-      !notificationSettings.user.telegramId
-    ) {
+    if (telegramNotifications && !notificationSettings.user.telegramId) {
       const telegramAuthToken = await generateToken(
         this.prismaService,
         user,
@@ -97,10 +94,7 @@ export class NotificationService {
       };
     }
 
-    if (
-      !notificationSettings.telegramNotifications &&
-      notificationSettings.user.telegramId
-    ) {
+    if (!telegramNotifications && notificationSettings.user.telegramId) {
       await this.prismaService.user.update({
         where: {
           id: user.id,

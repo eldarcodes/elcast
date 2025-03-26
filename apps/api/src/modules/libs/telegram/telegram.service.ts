@@ -54,6 +54,15 @@ export class TelegramService extends Telegraf {
 
       await this.connectTelegram(authToken.userId, chatId);
 
+      await this.prismaService.notificationSettings.update({
+        where: {
+          userId: authToken.userId,
+        },
+        data: {
+          telegramNotifications: true,
+        },
+      });
+
       await this.prismaService.token.delete({ where: { id: authToken.id } });
 
       await ctx.replyWithHTML(
