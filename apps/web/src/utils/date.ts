@@ -3,7 +3,4 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 
 dayjs.extend(relativeTime);
 
-export const getRelativeTime = (date: string) => {
-  console.log(dayjs.locale());
-  return dayjs(date).fromNow();
-};
+export const getRelativeTime = (date: string) => dayjs(date).fromNow();
