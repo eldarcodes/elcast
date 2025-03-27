@@ -68,12 +68,27 @@ export class SessionService {
       `${this.configService.getOrThrow<string>('SESSION_FOLDER')}${sessionId}`,
     );
 
-    const session = JSON.parse(sessionData);
+    try {
+      const session = JSON.parse(sessionData);
 
-    return {
-      ...session,
-      id: sessionId,
-    };
+      const isExpired =
+        session.cookie?.expires &&
+        new Date(session.cookie.expires) < new Date();
+
+      if (isExpired) {
+        await this.clearSession(req);
+        await this.remove(req, sessionId);
+
+        throw new NotFoundException('Session not found');
+      }
+
+      return {
+        ...session,
+        id: sessionId,
+      };
+    } catch (error) {
+      throw new NotFoundException('Session not found');
+    }
   }
 
   public async login(req: Request, input: LoginInput, userAgent: string) {

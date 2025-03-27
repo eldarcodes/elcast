@@ -13,6 +13,7 @@ import {
 import { APP_URL } from '@/libs/constants/url.constants';
 
 import { ApolloClientProvider } from '@/providers/apollo-client-provider';
+import { AuthCheckProvider } from '@/providers/auth-check-provider';
 import { DayjsLocaleProvider } from '@/providers/dayjs-locale-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { ToastProvider } from '@/providers/toast-provider';
@@ -120,6 +121,7 @@ export default async function RootLayout({
             >
               <ToastProvider />
               <DayjsLocaleProvider />
+              <AuthCheckProvider />
 
               {children}
             </ThemeProvider>
