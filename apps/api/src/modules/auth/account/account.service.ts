@@ -75,7 +75,7 @@ export class AccountService {
         },
         notificationSettings: {
           create: {
-            siteNotifications: false,
+            siteNotifications: true,
             telegramNotifications: false,
           },
         },

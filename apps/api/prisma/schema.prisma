@@ -40,6 +40,8 @@ model User {
 
   stream Stream?
 
+  oauthAccounts OAuthAccount[]
+
   deactivatedAt      DateTime? @map("deactivated_at")
   createdAt          DateTime  @default(now()) @map("created_at")
   updatedAt          DateTime  @updatedAt @map("updated_at")
@@ -49,6 +51,25 @@ model User {
   lastActive DateTime @default(now()) @map("last_active")
 
   @@map("users")
+}
+
+model OAuthAccount {
+  id String @id @default(uuid())
+
+  type     String
+  provider String
+
+  refreshToken String? @map("refresh_token")
+  accessToken  String? @map("access_token")
+  expiresAt    Int     @map("expires_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String? @map("user_id")
+
+  @@map("accounts")
 }
 
 model Token {

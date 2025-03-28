@@ -78,6 +78,7 @@ export function LoginForm() {
       heading={t('heading')}
       backButtonLabel={t('backButtonLabel')}
       backButtonHref="/account/create"
+      showSocialAuth
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-3">

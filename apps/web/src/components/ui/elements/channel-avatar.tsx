@@ -58,33 +58,35 @@ export function ChannelAvatar({
   const isOnline = isUserOnline(channel.id);
 
   return (
-    <div className={cn('relative h-full', className)}>
-      <Avatar
-        className={cn(avatarSizes({ size }), isLive && 'ring-2 ring-red-500')}
-      >
-        <AvatarImage
-          src={getMediaSource(channel.avatar)}
-          className="object-cover"
-        />
-
-        <AvatarFallback
-          className={cn(
-            size === 'xl' && 'text-4xl',
-            size === 'lg' && 'text-2xl',
-          )}
+    <div>
+      <div className={cn('relative h-full', className)}>
+        <Avatar
+          className={cn(avatarSizes({ size }), isLive && 'ring-2 ring-red-500')}
         >
-          {channel.username && channel.username[0]}
-        </AvatarFallback>
-      </Avatar>
+          <AvatarImage
+            src={getMediaSource(channel.avatar)}
+            className="object-cover"
+          />
 
-      {isOnline && showOnlineBadge && (
-        <span
-          className={cn(
-            onlineBadgeSizes({ size }),
-            'absolute bottom-[1px] right-0 block rounded-full border-2 border-white bg-green-500',
-          )}
-        />
-      )}
+          <AvatarFallback
+            className={cn(
+              size === 'xl' && 'text-4xl',
+              size === 'lg' && 'text-2xl',
+            )}
+          >
+            {channel.username && channel.username[0]}
+          </AvatarFallback>
+        </Avatar>
+
+        {isOnline && showOnlineBadge && (
+          <span
+            className={cn(
+              onlineBadgeSizes({ size }),
+              'absolute bottom-[1px] right-0 block rounded-full border-2 border-white bg-green-500',
+            )}
+          />
+        )}
+      </div>
     </div>
   );
 }

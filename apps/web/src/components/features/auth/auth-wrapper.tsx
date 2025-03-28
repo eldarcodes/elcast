@@ -10,10 +10,14 @@ import {
   CardTitle,
 } from '@/components/ui/common/card';
 
+import { SocialAuthButtons } from './social-auth-buttons';
+
 interface AuthWrapperProps {
   heading: string;
   backButtonLabel?: string;
   backButtonHref?: string;
+
+  showSocialAuth?: boolean;
 }
 
 export function AuthWrapper({
@@ -22,6 +26,7 @@ export function AuthWrapper({
   heading,
   backButtonHref,
   backButtonLabel,
+  showSocialAuth = false,
 }: React.PropsWithChildren<AuthWrapperProps>) {
   return (
     <div className="mx-2 flex h-full items-center justify-center md:mx-0">
@@ -38,7 +43,10 @@ export function AuthWrapper({
           </CardTitle>
         </CardHeader>
 
-        <CardContent>{children}</CardContent>
+        <CardContent>
+          {showSocialAuth && <SocialAuthButtons />}
+          {children}
+        </CardContent>
 
         <CardFooter className="-mt-2">
           {backButtonLabel && backButtonHref && (
