@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 
 import { AccountModule } from '../modules/auth/account/account.module';
 import { DeactivateModule } from '../modules/auth/deactivate/deactivate.module';
+import { OAuthModule } from '../modules/auth/oauth/oauth.module';
 import { PasswordRecoveryModule } from '../modules/auth/password-recovery/password-recovery.module';
 import { ProfileModule } from '../modules/auth/profile/profile.module';
 import { SessionModule } from '../modules/auth/session/session.module';
@@ -58,6 +59,7 @@ import { RedisModule } from './redis/redis.module';
     }),
 
     AccountModule,
+    OAuthModule,
     SessionModule,
     VerificationModule,
     PasswordRecoveryModule,

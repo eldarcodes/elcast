@@ -22,8 +22,8 @@ export class AccountResolver {
     name: 'findProfile',
     description: 'Find profile',
   })
-  public async findProfile(@Authorized('id') id: string) {
-    return this.accountService.me(id);
+  public async findProfile(@Authorized() user: User) {
+    return this.accountService.me(user);
   }
 
   @Query(() => [UserModel], {

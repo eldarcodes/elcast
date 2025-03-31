@@ -30,12 +30,16 @@ import {
   SocialLinksSchema,
 } from '@/schemas/user/social-links.schema';
 
+import { cn } from '@/utils/tw-merge';
+
 import { SocialLinksList } from './social-links-list';
 
 export function SocialLinksForm() {
   const t = useTranslations('dashboard.settings.profile.socialLinks');
 
-  const { loading: isLoadingLinks, refetch } = useFindSocialLinksQuery();
+  const { data, loading: isLoadingLinks, refetch } = useFindSocialLinksQuery();
+
+  const socialLinks = data?.findSocialLinks ?? [];
 
   const form = useForm<SocialLinksSchema>({
     resolver: zodResolver(socialLinksSchema),
@@ -66,7 +70,10 @@ export function SocialLinksForm() {
   }
 
   return (
-    <FormWrapper heading={t('createForm.heading')} contentClassName="pb-0">
+    <FormWrapper
+      heading={t('createForm.heading')}
+      contentClassName={cn(socialLinks.length > 0 && 'pb-0')}
+    >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-4">
           <FormField
@@ -114,7 +121,7 @@ export function SocialLinksForm() {
         </form>
       </Form>
 
-      <Separator className="my-4" />
+      {socialLinks.length > 0 && <Separator className="my-4" />}
 
       <SocialLinksList />
     </FormWrapper>
