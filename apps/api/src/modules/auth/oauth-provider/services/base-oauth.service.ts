@@ -90,9 +90,6 @@ export class BaseOAuthService {
 
     return {
       ...userInfo,
-      access_token: tokenData.access_token,
-      refresh_token: tokenData.refresh_token,
-      expires_at: tokenData.expires_at || tokenData.expires_in,
       provider: this.options.name,
     };
   }

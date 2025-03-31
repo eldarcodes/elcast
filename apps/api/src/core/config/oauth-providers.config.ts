@@ -1,6 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 
 import { TypeOAuthProviderOptions } from '@/src/modules/auth/oauth-provider/oauth-provider.types';
+import { GitHubProvider } from '@/src/modules/auth/oauth-provider/services/github.provider';
 import { GoogleProvider } from '@/src/modules/auth/oauth-provider/services/google.provider';
 
 /**
@@ -21,6 +22,11 @@ export const getOauthProvidersConfig = async (
       client_id: configService.getOrThrow<string>('GOOGLE_CLIENT_ID'),
       client_secret: configService.getOrThrow<string>('GOOGLE_CLIENT_SECRET'),
       scopes: ['email', 'profile'],
+    }),
+    new GitHubProvider({
+      client_id: configService.getOrThrow<string>('GITHUB_CLIENT_ID'),
+      client_secret: configService.getOrThrow<string>('GITHUB_CLIENT_SECRET'),
+      scopes: ['read:user'],
     }),
   ],
 });

@@ -36,13 +36,13 @@ export class GoogleProvider extends BaseOAuthService {
     });
   }
 
-  public async extractUserInfo(
-    data: GoogleProfile,
-  ): Promise<TypeOAuthProviderUserInfo> {
-    return super.extractUserInfo({
+  public async extractUserInfo(data: GoogleProfile) {
+    const userInfo: Omit<TypeOAuthProviderUserInfo, 'provider'> = {
       email: data.email,
       name: data.name,
-      picture: data.picture,
-    });
+      avatar: data.picture,
+    };
+
+    return super.extractUserInfo(userInfo);
   }
 }

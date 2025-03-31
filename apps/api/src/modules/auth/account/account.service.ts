@@ -32,7 +32,7 @@ export class AccountService {
     return users;
   }
 
-  public async me(id: string) {
+  public async me({ id }: User) {
     const user = await this.prismaService.user.findUnique({
       where: { id },
       include: { socialLinks: true, notificationSettings: true, stream: true },
@@ -170,6 +170,15 @@ export class AccountService {
     });
 
     return true;
+  }
+
+  public async isUsernameTaken(username: string) {
+    const user = await this.prismaService.user.findUnique({
+      where: { username },
+      select: { id: true },
+    });
+
+    return !!user;
   }
 
   private async validateEmailVerificationToken(token: string) {

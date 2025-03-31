@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { getOauthProvidersConfig } from '@/src/core/config/oauth-providers.config';
 
+import { AccountModule } from '../account/account.module';
 import { OAuthProviderModule } from '../oauth-provider/oauth-provider.module';
 
 import { OAuthController } from './oauth.controller';
@@ -15,6 +16,7 @@ import { OAuthService } from './oauth.service';
       useFactory: getOauthProvidersConfig,
       inject: [ConfigService],
     }),
+    AccountModule,
   ],
   controllers: [OAuthController],
   providers: [OAuthService],
