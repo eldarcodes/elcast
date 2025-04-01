@@ -3,6 +3,7 @@ query FindProfile {
     id
     email
     username
+    hasPassword
     displayName
     lastUsernameChange
     lastEmailChange

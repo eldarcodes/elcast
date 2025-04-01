@@ -1,10 +1,16 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Info } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from '@/components/ui/common/alert';
 import { Button } from '@/components/ui/common/button';
 import {
   Form,
@@ -14,11 +20,12 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/common/form';
-import { Separator } from '@/components/ui/common/separator';
 import { FormWrapper } from '@/components/ui/elements/form-wrapper';
 import { PasswordInput } from '@/components/ui/elements/password-input';
 
 import { useChangePasswordMutation } from '@/graphql/generated/output';
+
+import { useCurrentProfile } from '@/hooks/use-current-profile';
 
 import {
   changePasswordSchema,
@@ -28,12 +35,10 @@ import {
 export function ChangePasswordForm() {
   const t = useTranslations('dashboard.settings.account.password');
 
+  const { user, refetch } = useCurrentProfile();
+
   const form = useForm<ChangePasswordSchema>({
     resolver: zodResolver(changePasswordSchema),
-    defaultValues: {
-      oldPassword: '',
-      newPassword: '',
-    },
   });
 
   const [changePassword, { loading: isLoadingChange }] =
@@ -41,6 +46,8 @@ export function ChangePasswordForm() {
       onCompleted: () => {
         form.reset();
         toast.success(t('successMessage'));
+
+        refetch();
       },
       onError: () => toast.error(t('errorMessage')),
     });
@@ -55,23 +62,35 @@ export function ChangePasswordForm() {
     <FormWrapper heading={t('heading')}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-4">
-          <FormField
-            control={form.control}
-            name="oldPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('oldPasswordLabel')}</FormLabel>
-                <FormControl>
-                  <PasswordInput
-                    disabled={isLoadingChange}
-                    placeholder="********"
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription>{t('oldPasswordDescription')}</FormDescription>
-              </FormItem>
-            )}
-          />
+          {user?.hasPassword ? (
+            <FormField
+              control={form.control}
+              name="oldPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('oldPasswordLabel')}</FormLabel>
+                  <FormControl>
+                    <PasswordInput
+                      disabled={isLoadingChange}
+                      placeholder="********"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    {t('oldPasswordDescription')}
+                  </FormDescription>
+                </FormItem>
+              )}
+            />
+          ) : (
+            <Alert variant="info">
+              <Info className="size-4" />
+              <AlertTitle>{t('newPasswordInfo.heading')}</AlertTitle>
+              <AlertDescription>
+                {t('newPasswordInfo.description')}
+              </AlertDescription>
+            </Alert>
+          )}
 
           <FormField
             control={form.control}
@@ -90,8 +109,6 @@ export function ChangePasswordForm() {
               </FormItem>
             )}
           />
-
-          <Separator />
 
           <div className="flex justify-end">
             <Button disabled={!isValid || isLoadingChange} type="submit">

@@ -47,7 +47,7 @@ input ChangePasswordInput {
   newPassword: String!
 
   """Password of the user"""
-  oldPassword: String!
+  oldPassword: String
 }
 
 input ChangeProfileInfoInput {
@@ -243,7 +243,7 @@ type Query {
   findNotificationsUnreadCount: Float!
 
   """Find profile"""
-  findProfile: UserModel!
+  findProfile: UserProfileModel!
   findRandomCategories: [CategoryModel!]!
   findRandomStreams: [StreamModel!]!
   findRecommendedChannels: [UserModel!]!
@@ -339,6 +339,36 @@ type UserModel {
   email: String!
   followers: [FollowModel!]!
   followings: [FollowModel!]!
+  id: ID!
+  isDeactivated: Boolean!
+  isEmailVerified: Boolean!
+  isTotpEnabled: Boolean!
+  isVerified: Boolean!
+  lastActive: DateTime!
+  lastEmailChange: DateTime
+  lastUsernameChange: DateTime
+  notificationSettings: NotificationSettingsModel!
+  notifications: [NotificationModel!]!
+  password: String!
+  socialLinks: [SocialLinkModel!]!
+  stream: StreamModel!
+  telegramId: String
+  totpSecret: String
+  updatedAt: DateTime!
+  username: String!
+}
+
+"""User profile model"""
+type UserProfileModel {
+  avatar: String
+  bio: String
+  createdAt: DateTime!
+  deactivatedAt: DateTime
+  displayName: String!
+  email: String!
+  followers: [FollowModel!]!
+  followings: [FollowModel!]!
+  hasPassword: Boolean!
   id: ID!
   isDeactivated: Boolean!
   isEmailVerified: Boolean!

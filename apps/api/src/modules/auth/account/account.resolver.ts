@@ -11,6 +11,7 @@ import { ChangeEmailInput } from './inputs/change-email.input';
 import { ChangePasswordInput } from './inputs/change-password.input';
 import { CreateUserInput } from './inputs/create-user.input';
 import { AuthModel } from './models/auth.model';
+import { UserProfileModel } from './models/user-profile.model';
 import { UserModel } from './models/user.model';
 
 @Resolver('Account')
@@ -18,7 +19,7 @@ export class AccountResolver {
   public constructor(private readonly accountService: AccountService) {}
 
   @Authorization()
-  @Query(() => UserModel, {
+  @Query(() => UserProfileModel, {
     name: 'findProfile',
     description: 'Find profile',
   })
