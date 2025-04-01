@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
 import { toast } from 'sonner';
@@ -12,6 +13,7 @@ type OAuthProvider = 'google' | 'github';
 
 export function SocialAuthButtons() {
   const router = useRouter();
+  const t = useTranslations('auth.common');
 
   const onClick = async (provider: OAuthProvider) => {
     const { origin: serverOrigin } = new URL(SERVER_URL);
@@ -32,6 +34,12 @@ export function SocialAuthButtons() {
 
   return (
     <>
+      <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+        <span className="relative z-10 bg-card px-2 text-muted-foreground">
+          {t('orContinueWith')}
+        </span>
+      </div>
+
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         <Button onClick={() => onClick('google')} variant="outline">
           <FaGoogle className="mr-2 size-4" />
@@ -42,14 +50,6 @@ export function SocialAuthButtons() {
           <FaGithub className="mr-2 size-4" />
           GitHub
         </Button>
-      </div>
-      <div className="relative mb-2 space-y-4">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-card px-2 text-muted-foreground">or</span>
-        </div>
       </div>
     </>
   );

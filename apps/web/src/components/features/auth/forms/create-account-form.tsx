@@ -64,8 +64,11 @@ export function CreateAccountForm() {
   return (
     <AuthWrapper
       heading={t('heading')}
+      subtitle={t('subtitle')}
       backButtonLabel={t('backButtonLabel')}
       backButtonHref="/account/login"
+      showAgreement
+      showSocialAuth={!isSuccess}
     >
       {isSuccess ? (
         <Alert className="my-12">

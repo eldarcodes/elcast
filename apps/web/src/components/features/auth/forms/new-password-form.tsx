@@ -63,6 +63,7 @@ export function NewPasswordForm() {
   return (
     <AuthWrapper
       heading={t('heading')}
+      subtitle={t('subtitle')}
       backButtonLabel={t('backButtonLabel')}
       backButtonHref="/account/login"
     >

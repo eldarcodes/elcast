@@ -76,9 +76,11 @@ export function LoginForm() {
   return (
     <AuthWrapper
       heading={t('heading')}
+      subtitle={t('subtitle')}
       backButtonLabel={t('backButtonLabel')}
       backButtonHref="/account/create"
       showSocialAuth
+      showAgreement
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-3">
