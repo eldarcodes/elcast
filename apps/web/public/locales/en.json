@@ -1,7 +1,8 @@
 {
   "auth": {
     "register": {
-      "heading": "Join Elcast today",
+      "heading": "Create an account",
+      "subtitle": "Sign up and join Elcast today!",
       "backButtonLabel": "Have an account? Log in",
       "usernameLabel": "Username",
       "usernameDescription": "This is the name people will know you by on Elcast. You can always change it later.",
@@ -20,7 +21,8 @@
       "errorMessage": "Couldn't verify account"
     },
     "login": {
-      "heading": "Log in to Elcast",
+      "heading": "Welcome back",
+      "subtitle": "Login to your Elcast account",
       "backButtonLabel": "Don't have an account? Sign up",
       "loginLabel": "Login",
       "loginDescription": "Your username or email",
@@ -33,7 +35,7 @@
       "errorMessage": "Error logging in"
     },
     "resetPassword": {
-      "heading": "Getting back into your Elcast account",
+      "heading": "Reset your password",
       "backButtonLabel": "Have an account? Log in",
       "emailLabel": "Email",
       "emailDescription": "Your Email that you used to create your account",
@@ -43,7 +45,8 @@
       "errorMessage": "There was an error resetting your password"
     },
     "newPassword": {
-      "heading": "Getting back into your Elcast account",
+      "heading": "Set a new password",
+      "subtitle": "Enter a new password to secure your Elcast account.",
       "backButtonLabel": "Have an account? Log in",
       "passwordLabel": "New password",
       "passwordDescription": "Password must be at least 8 characters long.",
@@ -64,6 +67,12 @@
       "submitButton": "Deactivate",
       "successMessage": "You have successfully deactivated your account",
       "errorMessage": "Deactivation error"
+    },
+    "common": {
+      "orContinueWith": "Or continue with",
+      "agreement": "By clicking continue, you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
+      "termsOfService": "Terms of Service",
+      "privacyPolicy": "Privacy Policy"
     }
   },
   "layout": {

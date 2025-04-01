@@ -1,7 +1,8 @@
 {
   "auth": {
     "register": {
-      "heading": "Присоединяйтесь к Elcast сегодня",
+      "heading": "Создайте учетную запись",
+      "subtitle": "Зарегистрируйтесь, чтобы присоединиться к Elcast!",
       "backButtonLabel": "Уже есть аккаунт? Войти",
       "usernameLabel": "Имя пользователя",
       "usernameDescription": "Это имя, под которым вас будут знать на Elcast. Вы всегда сможете изменить его позже.",
@@ -20,7 +21,8 @@
       "errorMessage": "Не удалось подтвердить аккаунт"
     },
     "login": {
-      "heading": "Войдите в Elcast",
+      "heading": "Добро пожаловать",
+      "subtitle": "Войдите в свою учетную запись Elcast",
       "backButtonLabel": "Нет аккаунта? Зарегистрируйтесь",
       "loginLabel": "Логин",
       "loginDescription": "Ваше имя пользователя или email",
@@ -33,7 +35,7 @@
       "errorMessage": "Ошибка при входе"
     },
     "resetPassword": {
-      "heading": "Возвращение в ваш аккаунт Elcast",
+      "heading": "Сброс пароля",
       "backButtonLabel": "Уже есть аккаунт? Войдите",
       "emailLabel": "Электронная почта",
       "emailDescription": "Электронная почта, которую вы использовали при создании аккаунта",
@@ -43,7 +45,8 @@
       "errorMessage": "Произошла ошибка при сбросе пароля"
     },
     "newPassword": {
-      "heading": "Возвращение в ваш аккаунт Elcast",
+      "heading": "Установите новый пароль",
+      "subtitle": "Введите новый пароль для защиты своей учетной записи Elcast.",
       "backButtonLabel": "Есть аккаунт? Войти",
       "passwordLabel": "Новый пароль",
       "passwordDescription": "Пароль должен быть длиной не менее 8 символов.",
@@ -64,6 +67,12 @@
       "submitButton": "Деактивировать",
       "successMessage": "Ваш аккаунт успешно деактивирован",
       "errorMessage": "Ошибка деактивации"
+    },
+    "common": {
+      "orContinueWith": "или продолжить с",
+      "agreement": "Нажимая «Продолжить», вы соглашаетесь с нашими <terms>Условиями использования</terms> и <privacy>Политикой конфиденциальности</privacy>.",
+      "termsOfService": "Условия использования",
+      "privacyPolicy": "Политика конфиденциальности"
     }
   },
   "layout": {
