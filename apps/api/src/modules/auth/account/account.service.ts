@@ -3,7 +3,6 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
-  UnauthorizedException,
 } from '@nestjs/common';
 import * as argon2 from 'argon2';
 import { Request } from 'express';
@@ -38,7 +37,10 @@ export class AccountService {
       include: { socialLinks: true, notificationSettings: true, stream: true },
     });
 
-    return user;
+    return {
+      ...user,
+      hasPassword: !!user.password,
+    };
   }
 
   public async create(input: CreateUserInput) {
@@ -156,10 +158,16 @@ export class AccountService {
   public async changePassword(user: User, input: ChangePasswordInput) {
     const { oldPassword, newPassword } = input;
 
-    const isValidPassword = await argon2.verify(user.password, oldPassword);
+    let isValidPassword = false;
+
+    if (user.password) {
+      isValidPassword = await argon2.verify(user.password, oldPassword);
+    } else {
+      isValidPassword = true;
+    }
 
     if (!isValidPassword) {
-      throw new UnauthorizedException('Invalid password');
+      throw new BadRequestException('Invalid password');
     }
 
     await this.prismaService.user.update({

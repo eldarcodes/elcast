@@ -257,7 +257,11 @@
           "newPasswordDescription": "Your new password must be at least 8 characters long. It is recommended to use special characters for added security.",
           "submitButton": "Save",
           "successMessage": "Password successfully updated",
-          "errorMessage": "Error when updating password"
+          "errorMessage": "Error when updating password",
+          "newPasswordInfo": {
+            "heading": "Social Login Successful",
+            "description": "You can now set a password for your account."
+          }
         },
         "twoFactor": {
           "heading": "TOTP Authentication",

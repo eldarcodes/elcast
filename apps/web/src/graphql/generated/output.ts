@@ -66,7 +66,7 @@ export type ChangePasswordInput = {
   /** New password of the user */
   newPassword: Scalars['String']['input'];
   /** Password of the user */
-  oldPassword: Scalars['String']['input'];
+  oldPassword?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ChangeProfileInfoInput = {
@@ -391,7 +391,7 @@ export type Query = {
   findNotificationsByUser: Array<NotificationModel>;
   findNotificationsUnreadCount: Scalars['Float']['output'];
   /** Find profile */
-  findProfile: UserModel;
+  findProfile: UserProfileModel;
   findRandomCategories: Array<CategoryModel>;
   findRandomStreams: Array<StreamModel>;
   findRecommendedChannels: Array<UserModel>;
@@ -531,6 +531,37 @@ export type UserModel = {
   email: Scalars['String']['output'];
   followers: Array<FollowModel>;
   followings: Array<FollowModel>;
+  id: Scalars['ID']['output'];
+  isDeactivated: Scalars['Boolean']['output'];
+  isEmailVerified: Scalars['Boolean']['output'];
+  isTotpEnabled: Scalars['Boolean']['output'];
+  isVerified: Scalars['Boolean']['output'];
+  lastActive: Scalars['DateTime']['output'];
+  lastEmailChange?: Maybe<Scalars['DateTime']['output']>;
+  lastUsernameChange?: Maybe<Scalars['DateTime']['output']>;
+  notificationSettings: NotificationSettingsModel;
+  notifications: Array<NotificationModel>;
+  password: Scalars['String']['output'];
+  socialLinks: Array<SocialLinkModel>;
+  stream: StreamModel;
+  telegramId?: Maybe<Scalars['String']['output']>;
+  totpSecret?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+  username: Scalars['String']['output'];
+};
+
+/** User profile model */
+export type UserProfileModel = {
+  __typename?: 'UserProfileModel';
+  avatar?: Maybe<Scalars['String']['output']>;
+  bio?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  deactivatedAt?: Maybe<Scalars['DateTime']['output']>;
+  displayName: Scalars['String']['output'];
+  email: Scalars['String']['output'];
+  followers: Array<FollowModel>;
+  followings: Array<FollowModel>;
+  hasPassword: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   isDeactivated: Scalars['Boolean']['output'];
   isEmailVerified: Scalars['Boolean']['output'];
@@ -853,7 +884,7 @@ export type FindNotificationsUnreadCountQuery = { __typename?: 'Query', findNoti
 export type FindProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserModel', id: string, email: string, username: string, displayName: string, lastUsernameChange?: any | null, lastEmailChange?: any | null, avatar?: string | null, bio?: string | null, isTotpEnabled: boolean, isVerified: boolean, isEmailVerified: boolean, notificationSettings: { __typename?: 'NotificationSettingsModel', siteNotifications: boolean, telegramNotifications: boolean }, stream: { __typename?: 'StreamModel', serverUrl?: string | null, streamKey?: string | null, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatSubscribersOnly: boolean } } };
+export type FindProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserProfileModel', id: string, email: string, username: string, hasPassword: boolean, displayName: string, lastUsernameChange?: any | null, lastEmailChange?: any | null, avatar?: string | null, bio?: string | null, isTotpEnabled: boolean, isVerified: boolean, isEmailVerified: boolean, notificationSettings: { __typename?: 'NotificationSettingsModel', siteNotifications: boolean, telegramNotifications: boolean }, stream: { __typename?: 'StreamModel', serverUrl?: string | null, streamKey?: string | null, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatSubscribersOnly: boolean } } };
 
 export type FindSessionsByUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2633,6 +2664,7 @@ export const FindProfileDocument = gql`
     id
     email
     username
+    hasPassword
     displayName
     lastUsernameChange
     lastEmailChange
