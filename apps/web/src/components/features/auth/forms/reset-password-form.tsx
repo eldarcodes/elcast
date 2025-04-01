@@ -3,8 +3,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CircleCheck } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Turnstile, { useTurnstile } from 'react-turnstile';
 import { toast } from 'sonner';
 
 import {
@@ -34,6 +36,9 @@ import { AuthWrapper } from '../auth-wrapper';
 
 export function ResetPasswordForm() {
   const t = useTranslations('auth.resetPassword');
+  const { theme } = useTheme();
+
+  const turnstile = useTurnstile();
 
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -41,6 +46,7 @@ export function ResetPasswordForm() {
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
       email: '',
+      captcha: '',
     },
   });
 
@@ -49,12 +55,21 @@ export function ResetPasswordForm() {
       onCompleted: () => {
         setIsSuccess(true);
       },
-      onError: () => toast.error(t('errorMessage')),
+      onError: () => {
+        toast.error(t('errorMessage'));
+
+        turnstile.reset();
+      },
     });
 
   const { isValid } = form.formState;
 
   function onSubmit(data: ResetPasswordSchema) {
+    if (!data.captcha) {
+      toast.warning(t('captchaWarning'));
+      return;
+    }
+
     resetPassword({ variables: { data } });
   }
 
@@ -87,6 +102,27 @@ export function ResetPasswordForm() {
                     />
                   </FormControl>
                   <FormDescription>{t('emailDescription')}</FormDescription>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="captcha"
+              render={({ field }) => (
+                <FormItem className="flex flex-col items-center justify-center">
+                  <FormControl>
+                    <Turnstile
+                      sitekey={
+                        process.env['CLOUDFLARE_TURNSTILE_SITE_KEY'] as string
+                      }
+                      onVerify={(token) => {
+                        form.setValue('captcha', token);
+                      }}
+                      theme={theme === 'dark' ? 'dark' : 'light'}
+                      {...field}
+                    />
+                  </FormControl>
                 </FormItem>
               )}
             />

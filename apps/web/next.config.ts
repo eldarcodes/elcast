@@ -22,6 +22,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  env: {
+    CLOUDFLARE_TURNSTILE_SITE_KEY: process.env['CLOUDFLARE_TURNSTILE_SITE_KEY'],
+  },
 };
 
 export default withNextIntl(nextConfig);

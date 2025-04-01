@@ -36,4 +36,9 @@ export class LoginInput {
   @IsString()
   @Length(PIN_LENGTH, PIN_LENGTH)
   public pin?: string;
+
+  @Field(() => String)
+  @IsString()
+  @IsNotEmpty()
+  public captcha: string;
 }

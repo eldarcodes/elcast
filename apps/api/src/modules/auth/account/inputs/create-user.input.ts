@@ -15,28 +15,27 @@ import {
 
 @InputType({ description: 'Create User Input' })
 export class CreateUserInput {
-  @Field({
-    description: 'Username of the user',
-  })
+  @Field(() => String)
   @IsString()
   @IsNotEmpty()
   @MinLength(MIN_USERNAME_LENGTH)
   @Matches(USERNAME_REGEX)
   public username: string;
 
-  @Field({
-    description: 'Email of the user',
-  })
+  @Field(() => String)
   @IsString()
   @IsNotEmpty()
   @IsEmail()
   public email: string;
 
-  @Field({
-    description: 'Password of the user',
-  })
+  @Field(() => String)
   @IsString()
   @IsNotEmpty()
   @MinLength(MIN_PASSWORD_LENGTH)
   public password: string;
+
+  @Field(() => String)
+  @IsString()
+  @IsNotEmpty()
+  public captcha: string;
 }

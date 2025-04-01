@@ -19,9 +19,9 @@ export function useOnlineUsers() {
   const isUserOnline = (userId: string) => {
     const lastActive = onlineUsers[userId];
 
-    if (!lastActive) return false;
     if (!user) return false;
     if (user.id === userId) return true;
+    if (!lastActive) return false;
 
     return Date.now() - new Date(lastActive).getTime() < USER_ONLINE_THRESHOLD;
   };

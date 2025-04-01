@@ -32,7 +32,8 @@
       "forgotPassword": "Forgot password?",
       "submitButton": "Log in",
       "successMessage": "You're now logged in",
-      "errorMessage": "Error logging in"
+      "errorMessage": "Error logging in",
+      "captchaWarning": "Please complete the CAPTCHA to log in"
     },
     "resetPassword": {
       "heading": "Reset your password",

@@ -1,5 +1,6 @@
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 
+import { Turnstile } from '@/src/shared/decorators/turnstile.decorator';
 import { UserAgent } from '@/src/shared/decorators/user-agent.decorator';
 import { GraphQLContext } from '@/src/shared/types/graphql-context.type';
 
@@ -13,6 +14,7 @@ export class PasswordRecoveryResolver {
     private readonly passwordRecoveryService: PasswordRecoveryService,
   ) {}
 
+  @Turnstile()
   @Mutation(() => Boolean, { name: 'resetPassword' })
   public async resetPassword(
     @Context() { req }: GraphQLContext,

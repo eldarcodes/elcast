@@ -3,6 +3,7 @@ import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { User } from '@/prisma/generated';
 import { Authorization } from '@/src/shared/decorators/auth.decorator';
 import { Authorized } from '@/src/shared/decorators/authorized.decorator';
+import { Turnstile } from '@/src/shared/decorators/turnstile.decorator';
 import { UserAgent } from '@/src/shared/decorators/user-agent.decorator';
 import { GraphQLContext } from '@/src/shared/types/graphql-context.type';
 
@@ -23,8 +24,8 @@ export class AccountResolver {
     name: 'findProfile',
     description: 'Find profile',
   })
-  public async findProfile(@Authorized() user: User) {
-    return this.accountService.me(user);
+  public async findProfile(@Authorized('id') userId: string) {
+    return this.accountService.me(userId);
   }
 
   @Query(() => [UserModel], {
@@ -35,6 +36,7 @@ export class AccountResolver {
     return this.accountService.findAll();
   }
 
+  @Turnstile()
   @Mutation(() => Boolean, {
     name: 'createUser',
     description: 'Create a user',

@@ -98,11 +98,9 @@ export type ChatMessageModel = {
 
 /** Create User Input */
 export type CreateUserInput = {
-  /** Email of the user */
+  captcha: Scalars['String']['input'];
   email: Scalars['String']['input'];
-  /** Password of the user */
   password: Scalars['String']['input'];
-  /** Username of the user */
   username: Scalars['String']['input'];
 };
 
@@ -161,6 +159,7 @@ export type LocationModel = {
 
 /** Login input */
 export type LoginInput = {
+  captcha: Scalars['String']['input'];
   /** Auth login */
   login: Scalars['String']['input'];
   /** Auth password */
@@ -427,6 +426,7 @@ export type QueryFindFollowersCountByChannelArgs = {
 };
 
 export type ResetPasswordInput = {
+  captcha: Scalars['String']['input'];
   email: Scalars['String']['input'];
 };
 
@@ -506,11 +506,6 @@ export type SubscriptionChatMessageAddedArgs = {
 
 
 export type SubscriptionNotificationAddedArgs = {
-  userId: Scalars['String']['input'];
-};
-
-
-export type SubscriptionUserStatusChangedArgs = {
   userId: Scalars['String']['input'];
 };
 
@@ -920,9 +915,7 @@ export type NotificationAddedSubscriptionVariables = Exact<{
 
 export type NotificationAddedSubscription = { __typename?: 'Subscription', notificationAdded: { __typename?: 'NotificationModel', id: string, message: string, isRead: boolean, type: NotificationType, createdAt: any } };
 
-export type UserStatusChangedSubscriptionVariables = Exact<{
-  userId: Scalars['String']['input'];
-}>;
+export type UserStatusChangedSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UserStatusChangedSubscription = { __typename?: 'Subscription', userStatusChanged: { __typename?: 'UserModel', id: string, username: string, lastActive: any } };
@@ -2968,8 +2961,8 @@ export function useNotificationAddedSubscription(baseOptions: Apollo.Subscriptio
 export type NotificationAddedSubscriptionHookResult = ReturnType<typeof useNotificationAddedSubscription>;
 export type NotificationAddedSubscriptionResult = Apollo.SubscriptionResult<NotificationAddedSubscription>;
 export const UserStatusChangedDocument = gql`
-    subscription UserStatusChanged($userId: String!) {
-  userStatusChanged(userId: $userId) {
+    subscription UserStatusChanged {
+  userStatusChanged {
     id
     username
     lastActive
@@ -2989,11 +2982,10 @@ export const UserStatusChangedDocument = gql`
  * @example
  * const { data, loading, error } = useUserStatusChangedSubscription({
  *   variables: {
- *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useUserStatusChangedSubscription(baseOptions: Apollo.SubscriptionHookOptions<UserStatusChangedSubscription, UserStatusChangedSubscriptionVariables> & ({ variables: UserStatusChangedSubscriptionVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useUserStatusChangedSubscription(baseOptions?: Apollo.SubscriptionHookOptions<UserStatusChangedSubscription, UserStatusChangedSubscriptionVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useSubscription<UserStatusChangedSubscription, UserStatusChangedSubscriptionVariables>(UserStatusChangedDocument, options);
       }

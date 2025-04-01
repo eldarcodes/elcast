@@ -8,4 +8,9 @@ export class ResetPasswordInput {
   @IsNotEmpty()
   @IsEmail()
   public email: string;
+
+  @Field(() => String)
+  @IsString()
+  @IsNotEmpty()
+  public captcha: string;
 }
