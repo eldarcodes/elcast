@@ -10,6 +10,7 @@ import { PasswordRecoveryModule } from '../modules/auth/password-recovery/passwo
 import { ProfileModule } from '../modules/auth/profile/profile.module';
 import { SessionModule } from '../modules/auth/session/session.module';
 import { TotpModule } from '../modules/auth/totp/totp.module';
+import { TurnstileModule } from '../modules/auth/turnstile/turnstile.module';
 import { VerificationModule } from '../modules/auth/verification/verification.module';
 import { CategoryModule } from '../modules/category/category.module';
 import { ChannelModule } from '../modules/channel/channel.module';
@@ -28,6 +29,7 @@ import { IS_DEV_ENV } from '../shared/utils/is-dev.util';
 
 import { getGraphQLConfig } from './config/graphql.config';
 import { getLivekitConfig } from './config/livekit.config';
+import { getTurnstileConfig } from './config/turnstile.config';
 import { PrismaModule } from './prisma/prisma.module';
 import { PubSubModule } from './pubsub/pubsub.module';
 import { RedisModule } from './redis/redis.module';
@@ -42,6 +44,11 @@ import { RedisModule } from './redis/redis.module';
       driver: ApolloDriver,
       imports: [ConfigModule],
       useFactory: getGraphQLConfig,
+      inject: [ConfigService],
+    }),
+    TurnstileModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: getTurnstileConfig,
       inject: [ConfigService],
     }),
 

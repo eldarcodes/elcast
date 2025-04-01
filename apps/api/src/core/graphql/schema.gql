@@ -78,13 +78,9 @@ type ChatMessageModel {
 
 """Create User Input"""
 input CreateUserInput {
-  """Email of the user"""
+  captcha: String!
   email: String!
-
-  """Password of the user"""
   password: String!
-
-  """Username of the user"""
   username: String!
 }
 
@@ -144,6 +140,8 @@ type LocationModel {
 
 """Login input"""
 input LoginInput {
+  captcha: String!
+
   """Auth login"""
   login: String!
 
@@ -254,6 +252,7 @@ type Query {
 }
 
 input ResetPasswordInput {
+  captcha: String!
   email: String!
 }
 

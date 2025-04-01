@@ -10,6 +10,7 @@ import {
 import { PubSubService } from '@/src/core/pubsub/pubsub.service';
 import { Authorization } from '@/src/shared/decorators/auth.decorator';
 import { Authorized } from '@/src/shared/decorators/authorized.decorator';
+import { Turnstile } from '@/src/shared/decorators/turnstile.decorator';
 import { UserAgent } from '@/src/shared/decorators/user-agent.decorator';
 import type { GraphQLContext } from '@/src/shared/types/graphql-context.type';
 
@@ -43,6 +44,7 @@ export class SessionResolver {
     return this.sessionService.findCurrent(req);
   }
 
+  @Turnstile()
   @Mutation(() => AuthModel, {
     name: 'loginUser',
   })

@@ -1,4 +1,8 @@
-import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import {
+  createParamDecorator,
+  ExecutionContext,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import type { User } from '@prisma/generated';
 
@@ -15,6 +19,10 @@ export const Authorized = createParamDecorator(
       const request = context.req;
 
       user = request.user;
+    }
+
+    if (!user) {
+      throw new UnauthorizedException('Unauthorized');
     }
 
     return data ? user[data] : user;

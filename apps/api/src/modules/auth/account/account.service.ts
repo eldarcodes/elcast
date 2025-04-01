@@ -31,9 +31,9 @@ export class AccountService {
     return users;
   }
 
-  public async me({ id }: User) {
+  public async me(userId: string) {
     const user = await this.prismaService.user.findUnique({
-      where: { id },
+      where: { id: userId },
       include: { socialLinks: true, notificationSettings: true, stream: true },
     });
 
