@@ -2,10 +2,12 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Turnstile, { useTurnstile } from 'react-turnstile';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/common/button';
@@ -38,7 +40,9 @@ export function LoginForm() {
 
   const router = useRouter();
   const t = useTranslations('auth.login');
+  const { theme } = useTheme();
 
+  const turnstile = useTurnstile();
   const [isShowTwoFactor, setIsShowTwoFactor] = useState(false);
 
   const form = useForm<LoginSchema>({
@@ -46,6 +50,7 @@ export function LoginForm() {
     defaultValues: {
       login: '',
       password: '',
+      captcha: '',
     },
   });
 
@@ -60,12 +65,21 @@ export function LoginForm() {
         router.push('/dashboard/settings');
       }
     },
-    onError: () => toast.error(t('errorMessage')),
+    onError: () => {
+      toast.error(t('errorMessage'));
+
+      turnstile.reset();
+    },
   });
 
   const { isValid } = form.formState;
 
   function onSubmit(data: LoginSchema) {
+    if (!data.captcha) {
+      toast.warning(t('captchaWarning'));
+      return;
+    }
+
     login({ variables: { data } });
   }
 
@@ -153,11 +167,32 @@ export function LoginForm() {
                   </FormItem>
                 )}
               />
+
+              <FormField
+                control={form.control}
+                name="captcha"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col items-center justify-center">
+                    <FormControl>
+                      <Turnstile
+                        sitekey={
+                          process.env['CLOUDFLARE_TURNSTILE_SITE_KEY'] as string
+                        }
+                        onVerify={(token) => {
+                          form.setValue('captcha', token);
+                        }}
+                        theme={theme === 'dark' ? 'dark' : 'light'}
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
             </>
           )}
 
           <Button
-            className="mt-2 w-full"
+            className="w-full"
             disabled={!isValid || isLoadingLogin || !twoFactorValid}
             type="submit"
           >
