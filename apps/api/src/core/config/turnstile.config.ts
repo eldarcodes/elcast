@@ -14,5 +14,16 @@ export function getTurnstileConfig(
 
       return captcha;
     },
+    skipIf(req: any) {
+      const operationName = req.body?.operationName;
+
+      if (operationName === 'LoginUser') {
+        const hasTotp = req.body.variables.data.pin;
+
+        return hasTotp;
+      }
+
+      return false;
+    },
   };
 }

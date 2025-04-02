@@ -93,7 +93,7 @@ export function LoginForm() {
       subtitle={t('subtitle')}
       backButtonLabel={t('backButtonLabel')}
       backButtonHref="/account/create"
-      showSocialAuth
+      showSocialAuth={!isShowTwoFactor}
       showAgreement
     >
       <Form {...form}>
