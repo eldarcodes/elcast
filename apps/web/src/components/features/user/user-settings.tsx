@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import {
   Tabs,
@@ -24,6 +25,17 @@ import { SessionsList } from './sessions/sessions-list';
 
 export function UserSettings() {
   const t = useTranslations('dashboard.settings');
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const currentTab = searchParams.get('tab') || 'profile';
+
+  const handleTabChange = (value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    params.set('tab', value);
+    router.replace(`?${params.toString()}`, { scroll: false });
+  };
 
   return (
     <div className="lg:px-10">
@@ -33,13 +45,17 @@ export function UserSettings() {
         size="lg"
       />
 
-      <Tabs defaultValue="profile" className="mt-3 max-w-full">
+      <Tabs
+        defaultValue={currentTab}
+        onValueChange={handleTabChange}
+        className="mt-3 max-w-full"
+      >
         <TabsList className="flex justify-between overflow-x-auto">
           <TabsTrigger className="min-w-32 flex-grow" value="profile">
             {t('header.profile')}
           </TabsTrigger>
-          <TabsTrigger className="min-w-32 flex-grow" value="account">
-            {t('header.account')}
+          <TabsTrigger className="min-w-32 flex-grow" value="security">
+            {t('header.security')}
           </TabsTrigger>
           <TabsTrigger className="min-w-32 flex-grow" value="appearance">
             {t('header.appearance')}
@@ -64,7 +80,7 @@ export function UserSettings() {
           </div>
         </TabsContent>
 
-        <TabsContent value="account">
+        <TabsContent value="security">
           <div className="mt-5 space-y-6">
             <Heading
               title={t('account.header.heading')}
