@@ -51,6 +51,7 @@ export class GitHubProvider extends BaseOAuthService {
 
   public async extractUserInfo(data: GitHubProfile) {
     const userInfo: Omit<TypeOAuthProviderUserInfo, 'provider'> = {
+      id: data.id.toString(),
       email: data.email,
       name: data.name || data.login,
       avatar: data.avatar_url,

@@ -1,4 +1,5 @@
 export interface TypeOAuthProviderUserInfo {
+  id: string;
   avatar: string;
   name: string;
   email: string;

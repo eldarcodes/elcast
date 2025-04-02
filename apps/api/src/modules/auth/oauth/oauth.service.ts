@@ -45,16 +45,21 @@ export class OAuthService {
     return username;
   }
 
-  private async connectOAuthAccount(userId: string, provider: string) {
+  private async connectOAuthAccount(
+    userId: string,
+    provider: string,
+    providerId: string,
+  ) {
     await this.prismaService.oAuthAccount.create({
       data: {
         provider,
+        providerId,
         userId,
       },
     });
   }
 
-  private async registerOAuthUser(profile: TypeOAuthProviderUserInfo) {
+  private async registerOAuthAccount(profile: TypeOAuthProviderUserInfo) {
     const username = await this.generateUniqueUsername(
       profile.username,
       profile.email,
@@ -73,6 +78,7 @@ export class OAuthService {
         oauthAccounts: {
           create: {
             provider: profile.provider,
+            providerId: profile.id,
           },
         },
         stream: {
@@ -109,14 +115,14 @@ export class OAuthService {
 
     if (user) {
       const linkedAccount = user.oauthAccounts.find(
-        (acc) => acc.provider === provider,
+        (acc) => acc.provider === profile.provider,
       );
 
       if (!linkedAccount) {
-        await this.connectOAuthAccount(user.id, provider);
+        await this.connectOAuthAccount(user.id, profile.provider, profile.id);
       }
     } else {
-      user = await this.registerOAuthUser(profile);
+      user = await this.registerOAuthAccount(profile);
     }
 
     const sessionMetadata = getSessionMetadata(req, userAgent);

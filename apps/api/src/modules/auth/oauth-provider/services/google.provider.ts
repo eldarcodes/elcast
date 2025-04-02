@@ -38,6 +38,7 @@ export class GoogleProvider extends BaseOAuthService {
 
   public async extractUserInfo(data: GoogleProfile) {
     const userInfo: Omit<TypeOAuthProviderUserInfo, 'provider'> = {
+      id: data.sub,
       email: data.email,
       name: data.name,
       avatar: data.picture,
