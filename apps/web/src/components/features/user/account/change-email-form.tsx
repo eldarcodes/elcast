@@ -53,6 +53,7 @@ export function ChangeEmailForm() {
 
   const [open, setOpen] = useState(false);
   const [isShowConfirm, setIsShowConfirm] = useState(false);
+  const [emailResent, setEmailResent] = useState(false);
 
   const { user, refetch } = useCurrentProfile();
 
@@ -85,6 +86,8 @@ export function ChangeEmailForm() {
     useSendVerificationTokenMutation({
       onCompleted: () => {
         toast.success(t('sendVerificationToken.successMessage'));
+
+        setEmailResent(true);
       },
       onError: () => toast.error(t('sendVerificationToken.errorMessage')),
     });
@@ -140,18 +143,20 @@ export function ChangeEmailForm() {
                 {t('notVerifiedText')}
               </p>
 
-              <Button
-                disabled={isLoadingSendToken}
-                onClick={() => sendVerificationToken()}
-                type="button"
-                variant="secondary"
-                size="sm"
-              >
-                {isLoadingSendToken && (
-                  <Loader2 className="size-4 animate-spin" />
-                )}
-                {t('sendVerificationToken.resend')}
-              </Button>
+              {!emailResent && (
+                <Button
+                  disabled={isLoadingSendToken}
+                  onClick={() => sendVerificationToken()}
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                >
+                  {isLoadingSendToken && (
+                    <Loader2 className="size-4 animate-spin" />
+                  )}
+                  {t('sendVerificationToken.resend')}
+                </Button>
+              )}
             </div>
           )}
         </FormItem>
