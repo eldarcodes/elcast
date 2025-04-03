@@ -1,8 +1,11 @@
 import { MailerService } from '@nestjs-modules/mailer';
+import { InjectQueue } from '@nestjs/bullmq';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { render } from '@react-email/components';
+import { Queue } from 'bullmq';
 
+import { MailJobName } from '@/src/shared/constants/queue.constants';
 import type { SessionMetadata } from '@/src/shared/types/session-metadata.type';
 
 import { AccountDeletionTemplate } from './templates/account-deletion.template';
@@ -18,13 +21,19 @@ export class MailService {
   public constructor(
     private readonly mailerService: MailerService,
     private readonly configService: ConfigService,
+
+    @InjectQueue('mail') private readonly mailQueue: Queue,
   ) {}
 
   public async sendVerificationToken(email: string, token: string) {
     const domain = this.configService.get<string>('ALLOWED_ORIGIN');
     const html = await render(VerificationTemplate({ domain, token }));
 
-    return this.sendMail(email, 'Verify Your Email Address', html);
+    return this.mailQueue.add(MailJobName.SEND_VERIFICATION_TOKEN, {
+      to: email,
+      subject: 'Verify Your Email Address',
+      html,
+    });
   }
 
   public async sendVerificationCode(
@@ -34,7 +43,11 @@ export class MailService {
   ) {
     const html = await render(VerificationCodeTemplate({ token, metadata }));
 
-    return this.sendMail(email, 'Verify Your Email Address', html);
+    return this.mailQueue.add(MailJobName.SEND_VERIFICATION_CODE, {
+      to: email,
+      subject: 'Verify Your Email Address',
+      html,
+    });
   }
 
   public async sendPasswordResetToken(
@@ -48,7 +61,11 @@ export class MailService {
       PasswordRecoveryTemplate({ domain, token, metadata }),
     );
 
-    return this.sendMail(email, 'Password reset', html);
+    return this.mailQueue.add(MailJobName.SEND_PASSWORD_RESET_TOKEN, {
+      to: email,
+      subject: 'Password reset',
+      html,
+    });
   }
 
   public async sendDeactivateToken(
@@ -58,7 +75,11 @@ export class MailService {
   ) {
     const html = await render(DeactivateTemplate({ token, metadata }));
 
-    return this.sendMail(email, 'Account Deactivation', html);
+    return this.mailQueue.add(MailJobName.SEND_DEACTIVATE_TOKEN, {
+      to: email,
+      subject: 'Account Deactivation',
+      html,
+    });
   }
 
   public async sendAccountDeletion(email: string) {
@@ -66,7 +87,11 @@ export class MailService {
 
     const html = await render(AccountDeletionTemplate({ domain }));
 
-    return this.sendMail(email, 'Account Deleted', html);
+    return this.mailQueue.add(MailJobName.SEND_ACCOUNT_DELETION, {
+      to: email,
+      subject: 'Account Deleted',
+      html,
+    });
   }
 
   public async sendEnableTwoFactor(email: string) {
@@ -74,16 +99,24 @@ export class MailService {
 
     const html = await render(EnableTwoFactorTemplate({ domain }));
 
-    return this.sendMail(email, 'Enable Two-Factor Authentication', html);
+    return this.mailQueue.add(MailJobName.SEND_ENABLE_TWO_FACTOR, {
+      to: email,
+      subject: 'Enable Two-Factor Authentication',
+      html,
+    });
   }
 
   public async sendVerifyChannel(email: string) {
     const html = await render(VerifyChannelTemplate());
 
-    return this.sendMail(email, 'Your channel is verified', html);
+    return this.mailQueue.add(MailJobName.SEND_VERIFY_CHANNEL, {
+      to: email,
+      subject: 'Your channel is verified',
+      html,
+    });
   }
 
-  private sendMail(email: string, subject: string, html: string) {
+  public sendMail(email: string, subject: string, html: string) {
     try {
       return this.mailerService.sendMail({
         to: email,
