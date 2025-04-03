@@ -338,6 +338,13 @@
           "heading": "Sessions",
           "description": "Sessions are devices that you are currently using or have used to access your Elcast account. Here you can see the active sessions right now."
         },
+        "removeOtherSessions": {
+          "heading": "Sign Out Everywhere",
+          "message": "This will log out you of Elcast everywhere you're logged in. If you believe your account has been compromised, we recommend you change your password.",
+          "button": "Sign Out Everywhere",
+          "successMessage": "All sessions have been successfully logged out",
+          "errorMessage": "Error logging out of all sessions"
+        },
         "info": {
           "current": "Current session",
           "active": "Active sessions",
