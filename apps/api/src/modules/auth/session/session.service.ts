@@ -175,6 +175,22 @@ export class SessionService {
     return true;
   }
 
+  public async removeAllOther(req: Request) {
+    const sessions = await this.findByUser(req);
+
+    if (sessions.length === 0) {
+      throw new NotFoundException('No sessions found');
+    }
+
+    for (const session of sessions) {
+      await this.redisService.del(
+        `${this.configService.getOrThrow<string>('SESSION_FOLDER')}${session.id}`,
+      );
+    }
+
+    return true;
+  }
+
   public async heartbeat(userId: string) {
     const updatedUser = await this.prismaService.user.update({
       where: { id: userId },

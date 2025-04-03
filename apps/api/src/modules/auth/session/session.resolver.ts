@@ -82,6 +82,14 @@ export class SessionResolver {
     return this.sessionService.remove(req, id);
   }
 
+  @Authorization()
+  @Mutation(() => Boolean, {
+    name: 'removeAllOtherSessions',
+  })
+  public async removeAll(@Context() { req }: GraphQLContext) {
+    return this.sessionService.removeAllOther(req);
+  }
+
   @Mutation(() => Boolean, {
     name: 'sendUserPresenceHeartbeat',
   })

@@ -175,6 +175,7 @@ type Mutation {
   logoutUser: Boolean!
   markNotificationsAsRead: Boolean!
   newPassword(data: NewPasswordInput!): Boolean!
+  removeAllOtherSessions: Boolean!
   removeProfileAvatar: Boolean!
   removeSession(id: String!): Boolean!
   removeSocialLink(id: String!): Boolean!

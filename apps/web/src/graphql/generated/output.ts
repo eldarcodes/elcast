@@ -192,6 +192,7 @@ export type Mutation = {
   logoutUser: Scalars['Boolean']['output'];
   markNotificationsAsRead: Scalars['Boolean']['output'];
   newPassword: Scalars['Boolean']['output'];
+  removeAllOtherSessions: Scalars['Boolean']['output'];
   removeProfileAvatar: Scalars['Boolean']['output'];
   removeSession: Scalars['Boolean']['output'];
   removeSocialLink: Scalars['Boolean']['output'];
@@ -768,6 +769,11 @@ export type MarkNotificationsAsReadMutationVariables = Exact<{ [key: string]: ne
 
 
 export type MarkNotificationsAsReadMutation = { __typename?: 'Mutation', markNotificationsAsRead: boolean };
+
+export type RemoveAllOtherSessionsMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RemoveAllOtherSessionsMutation = { __typename?: 'Mutation', removeAllOtherSessions: boolean };
 
 export type RemoveProfileAvatarMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -1832,6 +1838,36 @@ export function useMarkNotificationsAsReadMutation(baseOptions?: Apollo.Mutation
 export type MarkNotificationsAsReadMutationHookResult = ReturnType<typeof useMarkNotificationsAsReadMutation>;
 export type MarkNotificationsAsReadMutationResult = Apollo.MutationResult<MarkNotificationsAsReadMutation>;
 export type MarkNotificationsAsReadMutationOptions = Apollo.BaseMutationOptions<MarkNotificationsAsReadMutation, MarkNotificationsAsReadMutationVariables>;
+export const RemoveAllOtherSessionsDocument = gql`
+    mutation RemoveAllOtherSessions {
+  removeAllOtherSessions
+}
+    `;
+export type RemoveAllOtherSessionsMutationFn = Apollo.MutationFunction<RemoveAllOtherSessionsMutation, RemoveAllOtherSessionsMutationVariables>;
+
+/**
+ * __useRemoveAllOtherSessionsMutation__
+ *
+ * To run a mutation, you first call `useRemoveAllOtherSessionsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveAllOtherSessionsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeAllOtherSessionsMutation, { data, loading, error }] = useRemoveAllOtherSessionsMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useRemoveAllOtherSessionsMutation(baseOptions?: Apollo.MutationHookOptions<RemoveAllOtherSessionsMutation, RemoveAllOtherSessionsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveAllOtherSessionsMutation, RemoveAllOtherSessionsMutationVariables>(RemoveAllOtherSessionsDocument, options);
+      }
+export type RemoveAllOtherSessionsMutationHookResult = ReturnType<typeof useRemoveAllOtherSessionsMutation>;
+export type RemoveAllOtherSessionsMutationResult = Apollo.MutationResult<RemoveAllOtherSessionsMutation>;
+export type RemoveAllOtherSessionsMutationOptions = Apollo.BaseMutationOptions<RemoveAllOtherSessionsMutation, RemoveAllOtherSessionsMutationVariables>;
 export const RemoveProfileAvatarDocument = gql`
     mutation RemoveProfileAvatar {
   removeProfileAvatar
