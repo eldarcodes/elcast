@@ -486,6 +486,7 @@ export type StreamModel = {
   isLive: Scalars['Boolean']['output'];
   serverUrl?: Maybe<Scalars['String']['output']>;
   streamKey?: Maybe<Scalars['String']['output']>;
+  tags: Array<TagModel>;
   thumbnailUrl?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
@@ -513,6 +514,15 @@ export type SubscriptionNotificationAddedArgs = {
 
 export type SubscriptionUserStatusChangedArgs = {
   userId: Scalars['String']['input'];
+};
+
+export type TagModel = {
+  __typename?: 'TagModel';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  stream: StreamModel;
+  streamId: Scalars['String']['output'];
 };
 
 export type TotpModel = {

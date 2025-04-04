@@ -133,6 +133,8 @@ model Stream {
   category   Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId String?   @map("category_id")
 
+  tags StreamTag[]
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -167,6 +169,8 @@ model Category {
 
   thumbnailUrl String? @map("thumbnail_url")
 
+  tags CategoryTag[]
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -188,6 +192,44 @@ model Follow {
   @@unique([followerId, followingId])
   @@index([followerId, followingId])
   @@map("follows")
+}
+
+model Tag {
+  id   String @id @default(uuid())
+  name String @unique
+
+  streamTags   StreamTag[]
+  categoryTags CategoryTag[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("tags")
+}
+
+model StreamTag {
+  stream   Stream @relation(fields: [streamId], references: [id], onDelete: Cascade)
+  streamId String
+
+  tag   Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tagId String
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([streamId, tagId])
+  @@map("stream_tags")
+}
+
+model CategoryTag {
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId String
+
+  tag   Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tagId String
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([categoryId, tagId])
+  @@map("category_tags")
 }
 
 model Notification {

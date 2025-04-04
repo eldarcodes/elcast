@@ -80,7 +80,26 @@ async function main() {
 
     await cleanupOldAssets();
 
-    await prisma.category.createMany({ data: CATEGORIES });
+    for (const category of CATEGORIES) {
+      await prisma.category.create({
+        data: {
+          title: category.title,
+          slug: category.slug,
+          thumbnailUrl: category.thumbnailUrl,
+          description: category.description,
+          tags: {
+            create: category.tags.map((tag) => ({
+              tag: {
+                connectOrCreate: {
+                  where: { name: tag },
+                  create: { name: tag },
+                },
+              },
+            })),
+          },
+        },
+      });
+    }
 
     Logger.log('Categories have been successfully created');
 
