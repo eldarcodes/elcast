@@ -10,7 +10,10 @@ import {
 import { ConfigService } from '@nestjs/config';
 import type { Request, Response } from 'express';
 
+import { User } from '@/prisma/generated';
 import { OAuth } from '@/src/shared/decorators/oauth.decorator';
+import { OptionalAuth } from '@/src/shared/decorators/optional-auth.decorator';
+import { OptionalUser } from '@/src/shared/decorators/optional-user.decorator';
 import { UserAgent } from '@/src/shared/decorators/user-agent.decorator';
 
 import { OAuthProviderService } from '../oauth-provider/oauth-provider.service';
@@ -26,6 +29,7 @@ export class OAuthController {
   ) {}
 
   @OAuth()
+  @OptionalAuth()
   @Get('/callback/:provider')
   public async callback(
     @Req() req: Request,
@@ -33,9 +37,18 @@ export class OAuthController {
     @Query('code') code: string,
     @Param('provider') provider: string,
     @UserAgent() userAgent: string,
+    @OptionalUser() user: User | null,
   ) {
     if (!code) {
       throw new BadRequestException('Invalid code');
+    }
+
+    if (user) {
+      await this.oauthService.linkProviderAccount(user.id, provider, code);
+
+      return res.redirect(
+        `${this.configService.getOrThrow<string>('ALLOWED_ORIGIN')}/dashboard/settings?linked=true`,
+      );
     }
 
     await this.oauthService.extractProfileFromCode(

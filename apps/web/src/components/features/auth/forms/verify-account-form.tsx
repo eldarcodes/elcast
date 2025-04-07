@@ -31,9 +31,6 @@ export function VerifyAccountForm() {
       toast.success(t('successMessage'));
       router.push('/dashboard/settings');
     },
-    onError: () => {
-      toast.error(t('errorMessage'));
-    },
   });
 
   useEffect(() => {
