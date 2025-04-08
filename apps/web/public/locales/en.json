@@ -135,6 +135,8 @@
         "settings": "Settings",
         "streamSettings": "Stream Settings",
         "keys": "Stream Keys",
+        "connections": "Connections",
+        "appearance": "Appearance",
         "chatSettings": "Chat Settings",
         "followers": "Followers",
         "transactions": "Transactions"
@@ -148,7 +150,6 @@
         "description": "Here you can manage your settings",
         "profile": "Profile",
         "security": "Security",
-        "appearance": "Appearance",
         "notifications": "Notifications",
         "sessions": "Sessions"
       },

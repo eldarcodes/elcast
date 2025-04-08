@@ -137,6 +137,8 @@
         "settings": "Настройки",
         "streamSettings": "Настройки стрима",
         "keys": "Ключи стрима",
+        "appearance": "Внешний вид",
+        "connections": "Подключения",
         "chatSettings": "Настройки чата",
         "followers": "Подписчики",
         "transactions": "Транзакции"
@@ -150,7 +152,6 @@
         "description": "Здесь вы можете управлять своими настройками",
         "profile": "Профиль",
         "security": "Безопасность",
-        "appearance": "Внешний вид",
         "notifications": "Уведомления",
         "sessions": "Сессии"
       },
