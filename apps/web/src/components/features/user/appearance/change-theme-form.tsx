@@ -3,11 +3,15 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import { Form, FormField } from '@/components/ui/common/form';
-import { ToggleCard } from '@/components/ui/elements/toggle-card';
+import {
+  ToggleCard,
+  ToggleCardSkeleton,
+} from '@/components/ui/elements/toggle-card';
 
 import {
   changeThemeSchema,
@@ -17,6 +21,7 @@ import {
 export function ChangeThemeForm() {
   const t = useTranslations('dashboard.settings.appearance.theme');
 
+  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
   const form = useForm<ChangeThemeSchema>({
@@ -26,12 +31,20 @@ export function ChangeThemeForm() {
     },
   });
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   function onChange(value: boolean) {
     const newTheme = value ? 'dark' : 'light';
 
     setTheme(newTheme);
     form.setValue('theme', newTheme);
     toast.success(t('successMessage'));
+  }
+
+  if (!mounted) {
+    return <ToggleCardSkeleton className="h-[114px] sm:h-20" />;
   }
 
   return (

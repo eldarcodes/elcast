@@ -7,6 +7,7 @@ import { AccountModule } from '../account/account.module';
 import { OAuthProviderModule } from '../oauth-provider/oauth-provider.module';
 
 import { OAuthController } from './oauth.controller';
+import { OAuthResolver } from './oauth.resolver';
 import { OAuthService } from './oauth.service';
 
 @Module({
@@ -19,6 +20,6 @@ import { OAuthService } from './oauth.service';
     AccountModule,
   ],
   controllers: [OAuthController],
-  providers: [OAuthService],
+  providers: [OAuthResolver, OAuthService],
 })
 export class OAuthModule {}
