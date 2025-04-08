@@ -107,6 +107,38 @@ export class OAuthService {
     });
   }
 
+  public async disconnect(
+    userId: string,
+    provider: string,
+    providerId: string,
+  ) {
+    const account = await this.prismaService.oAuthAccount.findUnique({
+      where: {
+        provider_providerId: {
+          provider,
+          providerId,
+        },
+        userId,
+      },
+    });
+
+    if (!account) {
+      throw new ConflictException('Account not found');
+    }
+
+    await this.prismaService.oAuthAccount.delete({
+      where: {
+        provider_providerId: {
+          provider: account.provider,
+          providerId: account.providerId,
+        },
+        userId: account.userId,
+      },
+    });
+
+    return true;
+  }
+
   public async linkProviderAccount(
     userId: string,
     provider: string,

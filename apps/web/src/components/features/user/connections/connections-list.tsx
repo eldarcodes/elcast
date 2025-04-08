@@ -24,19 +24,19 @@ export function ConnectionsList() {
 
   const connectionsConfig = [
     {
-      id: 'github',
-      name: 'GitHub',
-      icon: FaGithub,
-      enabled: connections.some(
-        (connection) => connection.provider === 'github',
-      ),
-    },
-    {
       id: 'google',
       name: 'Google',
       icon: FaGoogle,
       enabled: connections.some(
         (connection) => connection.provider === 'google',
+      ),
+    },
+    {
+      id: 'github',
+      name: 'GitHub',
+      icon: FaGithub,
+      enabled: connections.some(
+        (connection) => connection.provider === 'github',
       ),
     },
   ];
