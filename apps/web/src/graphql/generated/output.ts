@@ -201,10 +201,12 @@ export type Mutation = {
   resetPassword: Scalars['Boolean']['output'];
   sendChatMessage: ChatMessageModel;
   sendUserPresenceHeartbeat: Scalars['Boolean']['output'];
+  sendVerificationCode: AuthModel;
   sendVerificationToken: AuthModel;
   unfollowChannel: Scalars['Boolean']['output'];
   updateSocialLink: Scalars['Boolean']['output'];
-  verifyAccount: AuthModel;
+  verifyAccountByCode: AuthModel;
+  verifyAccountByToken: AuthModel;
 };
 
 
@@ -334,8 +336,13 @@ export type MutationUpdateSocialLinkArgs = {
 };
 
 
-export type MutationVerifyAccountArgs = {
-  data: VerificationInput;
+export type MutationVerifyAccountByCodeArgs = {
+  data: VerificationCodeInput;
+};
+
+
+export type MutationVerifyAccountByTokenArgs = {
+  data: VerificationTokenInput;
 };
 
 export type NewPasswordInput = {
@@ -582,7 +589,11 @@ export type UserProfileModel = {
   username: Scalars['String']['output'];
 };
 
-export type VerificationInput = {
+export type VerificationCodeInput = {
+  code: Scalars['String']['input'];
+};
+
+export type VerificationTokenInput = {
   token: Scalars['String']['input'];
 };
 
@@ -626,17 +637,29 @@ export type ResetPasswordMutationVariables = Exact<{
 
 export type ResetPasswordMutation = { __typename?: 'Mutation', resetPassword: boolean };
 
+export type SendVerificationCodeMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SendVerificationCodeMutation = { __typename?: 'Mutation', sendVerificationCode: { __typename?: 'AuthModel', message?: string | null, user?: { __typename?: 'UserModel', id: string, isEmailVerified: boolean } | null } };
+
 export type SendVerificationTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SendVerificationTokenMutation = { __typename?: 'Mutation', sendVerificationToken: { __typename?: 'AuthModel', message?: string | null, user?: { __typename?: 'UserModel', id: string, isEmailVerified: boolean } | null } };
 
-export type VerifyAccountMutationVariables = Exact<{
-  data: VerificationInput;
+export type VerifyAccountByCodeMutationVariables = Exact<{
+  data: VerificationCodeInput;
 }>;
 
 
-export type VerifyAccountMutation = { __typename?: 'Mutation', verifyAccount: { __typename?: 'AuthModel', message?: string | null, user?: { __typename?: 'UserModel', isEmailVerified: boolean } | null } };
+export type VerifyAccountByCodeMutation = { __typename?: 'Mutation', verifyAccountByCode: { __typename?: 'AuthModel', message?: string | null, user?: { __typename?: 'UserModel', isEmailVerified: boolean } | null } };
+
+export type VerifyAccountByLinkMutationVariables = Exact<{
+  data: VerificationTokenInput;
+}>;
+
+
+export type VerifyAccountByLinkMutation = { __typename?: 'Mutation', verifyAccountByToken: { __typename?: 'AuthModel', message?: string | null, user?: { __typename?: 'UserModel', isEmailVerified: boolean } | null } };
 
 export type ChangeChatSettingsMutationVariables = Exact<{
   data: ChangeChatSettingsInput;
@@ -1131,6 +1154,42 @@ export function useResetPasswordMutation(baseOptions?: Apollo.MutationHookOption
 export type ResetPasswordMutationHookResult = ReturnType<typeof useResetPasswordMutation>;
 export type ResetPasswordMutationResult = Apollo.MutationResult<ResetPasswordMutation>;
 export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<ResetPasswordMutation, ResetPasswordMutationVariables>;
+export const SendVerificationCodeDocument = gql`
+    mutation SendVerificationCode {
+  sendVerificationCode {
+    message
+    user {
+      id
+      isEmailVerified
+    }
+  }
+}
+    `;
+export type SendVerificationCodeMutationFn = Apollo.MutationFunction<SendVerificationCodeMutation, SendVerificationCodeMutationVariables>;
+
+/**
+ * __useSendVerificationCodeMutation__
+ *
+ * To run a mutation, you first call `useSendVerificationCodeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSendVerificationCodeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendVerificationCodeMutation, { data, loading, error }] = useSendVerificationCodeMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSendVerificationCodeMutation(baseOptions?: Apollo.MutationHookOptions<SendVerificationCodeMutation, SendVerificationCodeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SendVerificationCodeMutation, SendVerificationCodeMutationVariables>(SendVerificationCodeDocument, options);
+      }
+export type SendVerificationCodeMutationHookResult = ReturnType<typeof useSendVerificationCodeMutation>;
+export type SendVerificationCodeMutationResult = Apollo.MutationResult<SendVerificationCodeMutation>;
+export type SendVerificationCodeMutationOptions = Apollo.BaseMutationOptions<SendVerificationCodeMutation, SendVerificationCodeMutationVariables>;
 export const SendVerificationTokenDocument = gql`
     mutation SendVerificationToken {
   sendVerificationToken {
@@ -1167,9 +1226,9 @@ export function useSendVerificationTokenMutation(baseOptions?: Apollo.MutationHo
 export type SendVerificationTokenMutationHookResult = ReturnType<typeof useSendVerificationTokenMutation>;
 export type SendVerificationTokenMutationResult = Apollo.MutationResult<SendVerificationTokenMutation>;
 export type SendVerificationTokenMutationOptions = Apollo.BaseMutationOptions<SendVerificationTokenMutation, SendVerificationTokenMutationVariables>;
-export const VerifyAccountDocument = gql`
-    mutation VerifyAccount($data: VerificationInput!) {
-  verifyAccount(data: $data) {
+export const VerifyAccountByCodeDocument = gql`
+    mutation VerifyAccountByCode($data: VerificationCodeInput!) {
+  verifyAccountByCode(data: $data) {
     message
     user {
       isEmailVerified
@@ -1177,32 +1236,68 @@ export const VerifyAccountDocument = gql`
   }
 }
     `;
-export type VerifyAccountMutationFn = Apollo.MutationFunction<VerifyAccountMutation, VerifyAccountMutationVariables>;
+export type VerifyAccountByCodeMutationFn = Apollo.MutationFunction<VerifyAccountByCodeMutation, VerifyAccountByCodeMutationVariables>;
 
 /**
- * __useVerifyAccountMutation__
+ * __useVerifyAccountByCodeMutation__
  *
- * To run a mutation, you first call `useVerifyAccountMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useVerifyAccountMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useVerifyAccountByCodeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVerifyAccountByCodeMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [verifyAccountMutation, { data, loading, error }] = useVerifyAccountMutation({
+ * const [verifyAccountByCodeMutation, { data, loading, error }] = useVerifyAccountByCodeMutation({
  *   variables: {
  *      data: // value for 'data'
  *   },
  * });
  */
-export function useVerifyAccountMutation(baseOptions?: Apollo.MutationHookOptions<VerifyAccountMutation, VerifyAccountMutationVariables>) {
+export function useVerifyAccountByCodeMutation(baseOptions?: Apollo.MutationHookOptions<VerifyAccountByCodeMutation, VerifyAccountByCodeMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<VerifyAccountMutation, VerifyAccountMutationVariables>(VerifyAccountDocument, options);
+        return Apollo.useMutation<VerifyAccountByCodeMutation, VerifyAccountByCodeMutationVariables>(VerifyAccountByCodeDocument, options);
       }
-export type VerifyAccountMutationHookResult = ReturnType<typeof useVerifyAccountMutation>;
-export type VerifyAccountMutationResult = Apollo.MutationResult<VerifyAccountMutation>;
-export type VerifyAccountMutationOptions = Apollo.BaseMutationOptions<VerifyAccountMutation, VerifyAccountMutationVariables>;
+export type VerifyAccountByCodeMutationHookResult = ReturnType<typeof useVerifyAccountByCodeMutation>;
+export type VerifyAccountByCodeMutationResult = Apollo.MutationResult<VerifyAccountByCodeMutation>;
+export type VerifyAccountByCodeMutationOptions = Apollo.BaseMutationOptions<VerifyAccountByCodeMutation, VerifyAccountByCodeMutationVariables>;
+export const VerifyAccountByLinkDocument = gql`
+    mutation VerifyAccountByLink($data: VerificationTokenInput!) {
+  verifyAccountByToken(data: $data) {
+    message
+    user {
+      isEmailVerified
+    }
+  }
+}
+    `;
+export type VerifyAccountByLinkMutationFn = Apollo.MutationFunction<VerifyAccountByLinkMutation, VerifyAccountByLinkMutationVariables>;
+
+/**
+ * __useVerifyAccountByLinkMutation__
+ *
+ * To run a mutation, you first call `useVerifyAccountByLinkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVerifyAccountByLinkMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [verifyAccountByLinkMutation, { data, loading, error }] = useVerifyAccountByLinkMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useVerifyAccountByLinkMutation(baseOptions?: Apollo.MutationHookOptions<VerifyAccountByLinkMutation, VerifyAccountByLinkMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<VerifyAccountByLinkMutation, VerifyAccountByLinkMutationVariables>(VerifyAccountByLinkDocument, options);
+      }
+export type VerifyAccountByLinkMutationHookResult = ReturnType<typeof useVerifyAccountByLinkMutation>;
+export type VerifyAccountByLinkMutationResult = Apollo.MutationResult<VerifyAccountByLinkMutation>;
+export type VerifyAccountByLinkMutationOptions = Apollo.BaseMutationOptions<VerifyAccountByLinkMutation, VerifyAccountByLinkMutationVariables>;
 export const ChangeChatSettingsDocument = gql`
     mutation ChangeChatSettings($data: ChangeChatSettingsInput!) {
   changeChatSettings(data: $data)

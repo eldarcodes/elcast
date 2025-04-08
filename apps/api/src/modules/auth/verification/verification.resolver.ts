@@ -5,6 +5,7 @@ import { Authorization } from '@/src/shared/decorators/auth.decorator';
 import { Authorized } from '@/src/shared/decorators/authorized.decorator';
 import { UserAgent } from '@/src/shared/decorators/user-agent.decorator';
 import type { GraphQLContext } from '@/src/shared/types/graphql-context.type';
+import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
 
 import { AuthModel } from '../account/models/auth.model';
 
@@ -48,5 +49,19 @@ export class VerificationResolver {
   })
   public async sendVerificationToken(@Authorized() user: User) {
     return this.verificationService.sendVerificationToken(user);
+  }
+
+  @Authorization()
+  @Mutation(() => AuthModel, {
+    name: 'sendVerificationCode',
+  })
+  public async sendVerificationCode(
+    @Context() { req }: GraphQLContext,
+    @Authorized() user: User,
+    @UserAgent() userAgent: string,
+  ) {
+    const sessionMetadata = getSessionMetadata(req, userAgent);
+
+    return this.verificationService.sendVerificationCode(user, sessionMetadata);
   }
 }

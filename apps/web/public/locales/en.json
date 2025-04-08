@@ -15,10 +15,20 @@
       "successMessage": "Account created successfully",
       "errorMessage": "Couldn't create account"
     },
-    "verify": {
-      "heading": "Account verification",
-      "successMessage": "Your account has been verified.",
-      "errorMessage": "Couldn't verify account"
+    "verifyLink": {
+      "heading": "Email verification",
+      "successMessage": "Your email has been verified.",
+      "errorMessage": "Couldn't verify email"
+    },
+    "verifyCode": {
+      "heading": "Verify your email",
+      "subtitle": "to continue to Elcast",
+      "codeLabel": "Verification code",
+      "codeDescription": "Enter the verification code sent to your email address",
+      "submitButton": "Verify",
+      "successMessage": "Your email has been verified.",
+      "errorMessage": "Couldn't verify email",
+      "resend": "Didn't receive the code? Resend"
     },
     "login": {
       "heading": "Welcome back",
