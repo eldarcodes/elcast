@@ -227,6 +227,17 @@ enum NotificationType {
   VERIFIED_CHANNEL
 }
 
+"""OAuth account model"""
+type OAuthAccountModel {
+  createdAt: DateTime!
+  id: ID!
+  provider: String!
+  providerId: String!
+  updatedAt: DateTime!
+  user: UserModel!
+  userId: String!
+}
+
 type Query {
   findAllCategories: [CategoryModel!]!
   findAllStreams(filters: FiltersInput!): [StreamModel!]!
@@ -251,6 +262,7 @@ type Query {
   findSessionsByUser: [SessionModel!]!
   findSocialLinks: [SocialLinkModel!]!
   generateTotpSecret: TotpModel!
+  getOAuthConnections: [OAuthAccountModel!]!
   getOnlineUsers: [UserModel!]!
 }
 

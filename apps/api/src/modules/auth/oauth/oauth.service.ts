@@ -99,6 +99,14 @@ export class OAuthService {
     });
   }
 
+  public async getOAuthConnections(userId: string) {
+    return this.prismaService.oAuthAccount.findMany({
+      where: {
+        userId,
+      },
+    });
+  }
+
   public async linkProviderAccount(
     userId: string,
     provider: string,
@@ -177,11 +185,7 @@ export class OAuthService {
       );
 
       if (!linkedAccount) {
-        await this.connectOAuthAccount(
-          user.id,
-          profile.provider,
-          profile.id,
-        );
+        await this.connectOAuthAccount(user.id, profile.provider, profile.id);
       }
     } else {
       user = await this.registerOAuthAccount(profile);
