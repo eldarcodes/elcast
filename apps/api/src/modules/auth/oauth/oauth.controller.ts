@@ -47,7 +47,7 @@ export class OAuthController {
       await this.oauthService.linkProviderAccount(user.id, provider, code);
 
       return res.redirect(
-        `${this.configService.getOrThrow<string>('ALLOWED_ORIGIN')}/dashboard/settings?linked=true`,
+        `${this.configService.getOrThrow<string>('ALLOWED_ORIGIN')}/dashboard/settings/connections`,
       );
     }
 

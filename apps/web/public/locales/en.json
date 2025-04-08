@@ -314,6 +314,8 @@
         },
         "connect": "Connect",
         "disconnect": "Disconnect",
+        "disconnectSuccessMessage": "Your {service} account has been successfully disconnected",
+        "disconnectErrorMessage": "Error disconnecting your {service} account",
         "connected": "Your {service} account is connected",
         "notConnected": "Your {service} account is not connected"
       },

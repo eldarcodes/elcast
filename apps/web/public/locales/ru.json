@@ -318,6 +318,8 @@
         },
         "connect": "Подключить",
         "disconnect": "Отключить",
+        "disconnectSuccessMessage": "Ваш аккаунт {service} успешно отключен",
+        "disconnectErrorMessage": "Ошибка при отключении аккаунта {service}",
         "connected": "Ваш аккаунт {service} подключен",
         "notConnected": "Ваш аккаунт {service} не подключен"
       },

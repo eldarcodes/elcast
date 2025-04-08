@@ -185,6 +185,7 @@ export type Mutation = {
   createUser: Scalars['Boolean']['output'];
   deactivateAccount: AuthModel;
   disableTotp: Scalars['Boolean']['output'];
+  disconnectOAuthConnection: Scalars['Boolean']['output'];
   enableTotp: Scalars['Boolean']['output'];
   followChannel: Scalars['Boolean']['output'];
   generateStreamToken: GenerateTokenModel;
@@ -272,6 +273,12 @@ export type MutationCreateUserArgs = {
 
 export type MutationDeactivateAccountArgs = {
   data: DeactivateAccountInput;
+};
+
+
+export type MutationDisconnectOAuthConnectionArgs = {
+  provider: Scalars['String']['input'];
+  providerId: Scalars['String']['input'];
 };
 
 
@@ -794,6 +801,14 @@ export type DisableTotpMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type DisableTotpMutation = { __typename?: 'Mutation', disableTotp: boolean };
 
+export type DisconnectOAuthConnectionMutationVariables = Exact<{
+  provider: Scalars['String']['input'];
+  providerId: Scalars['String']['input'];
+}>;
+
+
+export type DisconnectOAuthConnectionMutation = { __typename?: 'Mutation', disconnectOAuthConnection: boolean };
+
 export type EnableTotpMutationVariables = Exact<{
   data: EnableTotpInput;
 }>;
@@ -946,7 +961,7 @@ export type GenerateTotpSecretQuery = { __typename?: 'Query', generateTotpSecret
 export type GetOAuthConnectionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetOAuthConnectionsQuery = { __typename?: 'Query', getOAuthConnections: Array<{ __typename?: 'OAuthAccountModel', id: string, provider: string, createdAt: any }> };
+export type GetOAuthConnectionsQuery = { __typename?: 'Query', getOAuthConnections: Array<{ __typename?: 'OAuthAccountModel', id: string, provider: string, providerId: string, createdAt: any }> };
 
 export type GetOnlineUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1890,6 +1905,38 @@ export function useDisableTotpMutation(baseOptions?: Apollo.MutationHookOptions<
 export type DisableTotpMutationHookResult = ReturnType<typeof useDisableTotpMutation>;
 export type DisableTotpMutationResult = Apollo.MutationResult<DisableTotpMutation>;
 export type DisableTotpMutationOptions = Apollo.BaseMutationOptions<DisableTotpMutation, DisableTotpMutationVariables>;
+export const DisconnectOAuthConnectionDocument = gql`
+    mutation DisconnectOAuthConnection($provider: String!, $providerId: String!) {
+  disconnectOAuthConnection(provider: $provider, providerId: $providerId)
+}
+    `;
+export type DisconnectOAuthConnectionMutationFn = Apollo.MutationFunction<DisconnectOAuthConnectionMutation, DisconnectOAuthConnectionMutationVariables>;
+
+/**
+ * __useDisconnectOAuthConnectionMutation__
+ *
+ * To run a mutation, you first call `useDisconnectOAuthConnectionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDisconnectOAuthConnectionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [disconnectOAuthConnectionMutation, { data, loading, error }] = useDisconnectOAuthConnectionMutation({
+ *   variables: {
+ *      provider: // value for 'provider'
+ *      providerId: // value for 'providerId'
+ *   },
+ * });
+ */
+export function useDisconnectOAuthConnectionMutation(baseOptions?: Apollo.MutationHookOptions<DisconnectOAuthConnectionMutation, DisconnectOAuthConnectionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DisconnectOAuthConnectionMutation, DisconnectOAuthConnectionMutationVariables>(DisconnectOAuthConnectionDocument, options);
+      }
+export type DisconnectOAuthConnectionMutationHookResult = ReturnType<typeof useDisconnectOAuthConnectionMutation>;
+export type DisconnectOAuthConnectionMutationResult = Apollo.MutationResult<DisconnectOAuthConnectionMutation>;
+export type DisconnectOAuthConnectionMutationOptions = Apollo.BaseMutationOptions<DisconnectOAuthConnectionMutation, DisconnectOAuthConnectionMutationVariables>;
 export const EnableTotpDocument = gql`
     mutation EnableTotp($data: EnableTotpInput!) {
   enableTotp(data: $data)
@@ -3010,6 +3057,7 @@ export const GetOAuthConnectionsDocument = gql`
   getOAuthConnections {
     id
     provider
+    providerId
     createdAt
   }
 }

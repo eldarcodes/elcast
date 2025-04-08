@@ -2,6 +2,7 @@ query GetOAuthConnections {
   getOAuthConnections {
     id
     provider
+    providerId
     createdAt
   }
 }
