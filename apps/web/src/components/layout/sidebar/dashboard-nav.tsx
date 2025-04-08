@@ -26,11 +26,11 @@ export function DashboardNav() {
       href: '/dashboard/settings/appearance',
       icon: Palette,
     },
-    // {
-    //   label: t('connections'),
-    //   href: '/dashboard/settings/connections',
-    //   icon: Unplug,
-    // },
+    {
+      label: t('connections'),
+      href: '/dashboard/settings/connections',
+      icon: Unplug,
+    },
     {
       label: t('keys'),
       href: '/dashboard/keys',

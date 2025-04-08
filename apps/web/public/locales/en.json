@@ -307,6 +307,13 @@
           "button": "Deactivate"
         }
       },
+      "connections": {
+        "header": {
+          "heading": "Connections",
+          "description": "Link your accounts to simplify the login process. Connect services to easily access your account."
+        },
+        "connected": "Your {service} account is connected"
+      },
       "appearance": {
         "header": {
           "heading": "Appearance",
