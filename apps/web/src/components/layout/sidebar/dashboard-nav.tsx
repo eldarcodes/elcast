@@ -1,6 +1,13 @@
 'use client';
 
-import { KeyRound, MessageSquare, Settings, Users } from 'lucide-react';
+import {
+  KeyRound,
+  MessageSquare,
+  Palette,
+  Settings,
+  Unplug,
+  Users,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { type RouteItem, SidebarItem } from './sidebar-item';
@@ -13,6 +20,16 @@ export function DashboardNav() {
       label: t('settings'),
       href: '/dashboard/settings',
       icon: Settings,
+    },
+    {
+      label: t('appearance'),
+      href: '/dashboard/settings/appearance',
+      icon: Palette,
+    },
+    {
+      label: t('connections'),
+      href: '/dashboard/settings/connections',
+      icon: Unplug,
     },
     {
       label: t('keys'),
@@ -32,7 +49,7 @@ export function DashboardNav() {
   ];
 
   return (
-    <div className="space-y-2 px-2 pt-4 lg:pt-0">
+    <div className="space-y-2 px-2 pt-2 lg:pt-0">
       {routes.map((route) => (
         <SidebarItem key={route.href} route={route} />
       ))}

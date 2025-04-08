@@ -168,6 +168,7 @@ type Mutation {
   createUser(data: CreateUserInput!): Boolean!
   deactivateAccount(data: DeactivateAccountInput!): AuthModel!
   disableTotp: Boolean!
+  disconnectOAuthConnection(provider: String!, providerId: String!): Boolean!
   enableTotp(data: EnableTotpInput!): Boolean!
   followChannel(channelId: String!): Boolean!
   generateStreamToken(data: GenerateStreamTokenInput!): GenerateTokenModel!
@@ -184,10 +185,12 @@ type Mutation {
   resetPassword(data: ResetPasswordInput!): Boolean!
   sendChatMessage(data: SendMessageInput!): ChatMessageModel!
   sendUserPresenceHeartbeat: Boolean!
+  sendVerificationCode: AuthModel!
   sendVerificationToken: AuthModel!
   unfollowChannel(channelId: String!): Boolean!
   updateSocialLink(data: SocialLinkInput!, id: String!): Boolean!
-  verifyAccount(data: VerificationInput!): AuthModel!
+  verifyAccountByCode(data: VerificationCodeInput!): AuthModel!
+  verifyAccountByToken(data: VerificationTokenInput!): AuthModel!
 }
 
 input NewPasswordInput {
@@ -225,6 +228,17 @@ enum NotificationType {
   VERIFIED_CHANNEL
 }
 
+"""OAuth account model"""
+type OAuthAccountModel {
+  createdAt: DateTime!
+  id: ID!
+  provider: String!
+  providerId: String!
+  updatedAt: DateTime!
+  user: UserModel!
+  userId: String!
+}
+
 type Query {
   findAllCategories: [CategoryModel!]!
   findAllStreams(filters: FiltersInput!): [StreamModel!]!
@@ -249,6 +263,7 @@ type Query {
   findSessionsByUser: [SessionModel!]!
   findSocialLinks: [SocialLinkModel!]!
   generateTotpSecret: TotpModel!
+  getOAuthConnections: [OAuthAccountModel!]!
   getOnlineUsers: [UserModel!]!
 }
 
@@ -388,6 +403,10 @@ type UserProfileModel {
   username: String!
 }
 
-input VerificationInput {
+input VerificationCodeInput {
+  code: String!
+}
+
+input VerificationTokenInput {
   token: String!
 }

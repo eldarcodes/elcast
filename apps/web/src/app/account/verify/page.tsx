@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 
-import { VerifyAccountForm } from '@/components/features/auth/forms/verify-account-form';
+import { VerifyAccountByLinkForm } from '@/components/features/auth/forms/verify-account-link-form';
 
 export default async function VerifyAccountPage(props: {
   searchParams: Promise<{ token: string }>;
@@ -11,5 +11,5 @@ export default async function VerifyAccountPage(props: {
     return redirect('/account/create');
   }
 
-  return <VerifyAccountForm />;
+  return <VerifyAccountByLinkForm />;
 }

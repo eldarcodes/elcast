@@ -14,7 +14,10 @@ import { saveSession } from '@/src/shared/utils/session.util';
 
 import { MailService } from '../../libs/mail/mail.service';
 
-import { VerificationInput } from './inputs/verification.input';
+import {
+  VerificationCodeInput,
+  VerificationTokenInput,
+} from './inputs/verification.input';
 
 @Injectable()
 export class VerificationService {
@@ -23,13 +26,7 @@ export class VerificationService {
     private readonly mailService: MailService,
   ) {}
 
-  public async verify(
-    req: Request,
-    input: VerificationInput,
-    userAgent: string,
-  ) {
-    const { token } = input;
-
+  private async verify(req: Request, token: string, userAgent: string) {
     const existingToken = await this.prismaService.token.findUnique({
       where: {
         token,
@@ -80,6 +77,22 @@ export class VerificationService {
     });
 
     return saveSession(req, user, sessionMetadata);
+  }
+
+  public async verifyByToken(
+    req: Request,
+    input: VerificationTokenInput,
+    userAgent: string,
+  ) {
+    return this.verify(req, input.token, userAgent);
+  }
+
+  public async verifyByCode(
+    req: Request,
+    input: VerificationCodeInput,
+    userAgent: string,
+  ) {
+    return this.verify(req, input.code, userAgent);
   }
 
   public async sendVerificationToken(user: User) {

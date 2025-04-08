@@ -1,5 +1,7 @@
 import { useTranslations } from 'next-intl';
 
+import { cn } from '@/utils/tw-merge';
+
 import { Skeleton } from '../common/skeleton';
 import { Switch } from '../common/switch';
 
@@ -40,6 +42,6 @@ export function ToggleCard({
   );
 }
 
-export function ToggleCardSkeleton() {
-  return <Skeleton className="mt-6 h-20 w-full rounded-xl" />;
+export function ToggleCardSkeleton({ className }: { className?: string }) {
+  return <Skeleton className={cn('mt-6 h-20 w-full rounded-xl', className)} />;
 }

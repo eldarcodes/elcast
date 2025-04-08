@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { Request } from 'express';
 
 import { PrismaService } from '@/src/core/prisma/prisma.service';
@@ -99,6 +99,91 @@ export class OAuthService {
     });
   }
 
+  public async getOAuthConnections(userId: string) {
+    return this.prismaService.oAuthAccount.findMany({
+      where: {
+        userId,
+      },
+    });
+  }
+
+  public async disconnect(
+    userId: string,
+    provider: string,
+    providerId: string,
+  ) {
+    const account = await this.prismaService.oAuthAccount.findUnique({
+      where: {
+        provider_providerId: {
+          provider,
+          providerId,
+        },
+        userId,
+      },
+    });
+
+    if (!account) {
+      throw new ConflictException('Account not found');
+    }
+
+    await this.prismaService.oAuthAccount.delete({
+      where: {
+        provider_providerId: {
+          provider: account.provider,
+          providerId: account.providerId,
+        },
+        userId: account.userId,
+      },
+    });
+
+    return true;
+  }
+
+  public async linkProviderAccount(
+    userId: string,
+    provider: string,
+    code: string,
+  ) {
+    const providerInstance = this.oauthProviderService.findByService(provider);
+    const profile = await providerInstance.findUserByCode(code);
+
+    const existingLink = await this.prismaService.oAuthAccount.findFirst({
+      where: {
+        userId,
+        provider: profile.provider,
+      },
+    });
+
+    if (existingLink) {
+      throw new ConflictException(
+        `You have already linked your ${profile.provider} account.`,
+      );
+    }
+
+    const existingAccount = await this.prismaService.oAuthAccount.findUnique({
+      where: {
+        provider_providerId: {
+          provider: profile.provider,
+          providerId: profile.id,
+        },
+      },
+    });
+
+    if (existingAccount) {
+      if (existingAccount.userId !== userId) {
+        throw new ConflictException(`Account already linked to another user`);
+      }
+    } else {
+      await this.prismaService.oAuthAccount.create({
+        data: {
+          userId,
+          provider: profile.provider,
+          providerId: profile.id,
+        },
+      });
+    }
+  }
+
   public async extractProfileFromCode(
     req: Request,
     provider: string,
@@ -108,10 +193,23 @@ export class OAuthService {
     const providerInstance = this.oauthProviderService.findByService(provider);
     const profile = await providerInstance.findUserByCode(code);
 
-    let user = await this.prismaService.user.findUnique({
-      where: { email: profile.email },
-      include: { oauthAccounts: true },
+    const oauthAccount = await this.prismaService.oAuthAccount.findUnique({
+      where: {
+        provider_providerId: {
+          provider: profile.provider,
+          providerId: profile.id,
+        },
+      },
+      include: {
+        user: {
+          include: {
+            oauthAccounts: true,
+          },
+        },
+      },
     });
+
+    let user = oauthAccount?.user;
 
     if (user) {
       const linkedAccount = user.oauthAccounts.find(

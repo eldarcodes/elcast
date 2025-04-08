@@ -8,14 +8,14 @@ import { toast } from 'sonner';
 
 import { Alert } from '@/components/ui/common/alert';
 
-import { useVerifyAccountMutation } from '@/graphql/generated/output';
+import { useVerifyAccountByLinkMutation } from '@/graphql/generated/output';
 
 import { useAuth } from '@/hooks/use-auth';
 
 import { AuthWrapper } from '../auth-wrapper';
 
-export function VerifyAccountForm() {
-  const t = useTranslations('auth.verify');
+export function VerifyAccountByLinkForm() {
+  const t = useTranslations('auth.verifyLink');
 
   const { auth } = useAuth();
 
@@ -24,15 +24,12 @@ export function VerifyAccountForm() {
 
   const token = searchParams.get('token') ?? '';
 
-  const [verify, { error }] = useVerifyAccountMutation({
+  const [verify, { error }] = useVerifyAccountByLinkMutation({
     onCompleted: () => {
       auth();
 
       toast.success(t('successMessage'));
       router.push('/dashboard/settings');
-    },
-    onError: () => {
-      toast.error(t('errorMessage'));
     },
   });
 
