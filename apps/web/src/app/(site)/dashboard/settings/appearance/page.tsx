@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 
-import { ConnectionsSettings } from '@/components/features/user/connections/connections-settings';
+import { AppearanceSettings } from '@/components/features/user/appearance/appearance-settings';
 
 import { NO_INDEX_PAGE } from '@/libs/constants/seo.constants';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations('dashboard.settings.connections.header');
+  const t = await getTranslations('dashboard.settings.appearance.header');
 
   return {
     title: t('heading'),
@@ -15,6 +15,6 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function DashboardSettingsConnectionsPage() {
-  return <ConnectionsSettings />;
+export default function DashboardSettingsAppearancePage() {
+  return <AppearanceSettings />;
 }

@@ -1,0 +1,7 @@
+query GetOAuthConnections {
+  getOAuthConnections {
+    id
+    provider
+    createdAt
+  }
+}

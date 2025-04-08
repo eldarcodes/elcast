@@ -312,7 +312,10 @@
           "heading": "Connections",
           "description": "Link your accounts to simplify the login process. Connect services to easily access your account."
         },
-        "connected": "Your {service} account is connected"
+        "connect": "Connect",
+        "disconnect": "Disconnect",
+        "connected": "Your {service} account is connected",
+        "notConnected": "Your {service} account is not connected"
       },
       "appearance": {
         "header": {

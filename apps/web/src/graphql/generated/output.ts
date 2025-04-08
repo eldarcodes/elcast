@@ -382,6 +382,18 @@ export enum NotificationType {
   VerifiedChannel = 'VERIFIED_CHANNEL'
 }
 
+/** OAuth account model */
+export type OAuthAccountModel = {
+  __typename?: 'OAuthAccountModel';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  provider: Scalars['String']['output'];
+  providerId: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  user: UserModel;
+  userId: Scalars['String']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
   findAllCategories: Array<CategoryModel>;
@@ -405,6 +417,7 @@ export type Query = {
   findSessionsByUser: Array<SessionModel>;
   findSocialLinks: Array<SocialLinkModel>;
   generateTotpSecret: TotpModel;
+  getOAuthConnections: Array<OAuthAccountModel>;
   getOnlineUsers: Array<UserModel>;
 };
 
@@ -929,6 +942,11 @@ export type GenerateTotpSecretQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GenerateTotpSecretQuery = { __typename?: 'Query', generateTotpSecret: { __typename?: 'TotpModel', qrcodeUrl: string, secret: string } };
+
+export type GetOAuthConnectionsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetOAuthConnectionsQuery = { __typename?: 'Query', getOAuthConnections: Array<{ __typename?: 'OAuthAccountModel', id: string, provider: string, createdAt: any }> };
 
 export type GetOnlineUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2987,6 +3005,47 @@ export type GenerateTotpSecretQueryHookResult = ReturnType<typeof useGenerateTot
 export type GenerateTotpSecretLazyQueryHookResult = ReturnType<typeof useGenerateTotpSecretLazyQuery>;
 export type GenerateTotpSecretSuspenseQueryHookResult = ReturnType<typeof useGenerateTotpSecretSuspenseQuery>;
 export type GenerateTotpSecretQueryResult = Apollo.QueryResult<GenerateTotpSecretQuery, GenerateTotpSecretQueryVariables>;
+export const GetOAuthConnectionsDocument = gql`
+    query GetOAuthConnections {
+  getOAuthConnections {
+    id
+    provider
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useGetOAuthConnectionsQuery__
+ *
+ * To run a query within a React component, call `useGetOAuthConnectionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOAuthConnectionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOAuthConnectionsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetOAuthConnectionsQuery(baseOptions?: Apollo.QueryHookOptions<GetOAuthConnectionsQuery, GetOAuthConnectionsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetOAuthConnectionsQuery, GetOAuthConnectionsQueryVariables>(GetOAuthConnectionsDocument, options);
+      }
+export function useGetOAuthConnectionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOAuthConnectionsQuery, GetOAuthConnectionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetOAuthConnectionsQuery, GetOAuthConnectionsQueryVariables>(GetOAuthConnectionsDocument, options);
+        }
+export function useGetOAuthConnectionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetOAuthConnectionsQuery, GetOAuthConnectionsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetOAuthConnectionsQuery, GetOAuthConnectionsQueryVariables>(GetOAuthConnectionsDocument, options);
+        }
+export type GetOAuthConnectionsQueryHookResult = ReturnType<typeof useGetOAuthConnectionsQuery>;
+export type GetOAuthConnectionsLazyQueryHookResult = ReturnType<typeof useGetOAuthConnectionsLazyQuery>;
+export type GetOAuthConnectionsSuspenseQueryHookResult = ReturnType<typeof useGetOAuthConnectionsSuspenseQuery>;
+export type GetOAuthConnectionsQueryResult = Apollo.QueryResult<GetOAuthConnectionsQuery, GetOAuthConnectionsQueryVariables>;
 export const GetOnlineUsersDocument = gql`
     query GetOnlineUsers {
   getOnlineUsers {

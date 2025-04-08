@@ -49,7 +49,7 @@ export function DashboardNav() {
   ];
 
   return (
-    <div className="space-y-2 px-2 pt-4 lg:pt-0">
+    <div className="space-y-2 px-2 pt-2 lg:pt-0">
       {routes.map((route) => (
         <SidebarItem key={route.href} route={route} />
       ))}
