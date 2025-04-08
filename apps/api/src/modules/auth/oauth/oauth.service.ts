@@ -193,23 +193,14 @@ export class OAuthService {
     const providerInstance = this.oauthProviderService.findByService(provider);
     const profile = await providerInstance.findUserByCode(code);
 
-    const oauthAccount = await this.prismaService.oAuthAccount.findUnique({
+    let user = await this.prismaService.user.findUnique({
       where: {
-        provider_providerId: {
-          provider: profile.provider,
-          providerId: profile.id,
-        },
+        email: profile.email,
       },
       include: {
-        user: {
-          include: {
-            oauthAccounts: true,
-          },
-        },
+        oauthAccounts: true,
       },
     });
-
-    let user = oauthAccount?.user;
 
     if (user) {
       const linkedAccount = user.oauthAccounts.find(
