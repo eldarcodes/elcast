@@ -41,8 +41,12 @@ export class AccountResolver {
     name: 'createUser',
     description: 'Create a user',
   })
-  public async create(@Args('data') input: CreateUserInput) {
-    return this.accountService.create(input);
+  public async create(
+    @Context() { req }: GraphQLContext,
+    @UserAgent() userAgent: string,
+    @Args('data') input: CreateUserInput,
+  ) {
+    return this.accountService.create(req, input, userAgent);
   }
 
   @Authorization()

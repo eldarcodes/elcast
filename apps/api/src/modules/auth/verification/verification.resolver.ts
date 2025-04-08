@@ -8,7 +8,10 @@ import type { GraphQLContext } from '@/src/shared/types/graphql-context.type';
 
 import { AuthModel } from '../account/models/auth.model';
 
-import { VerificationInput } from './inputs/verification.input';
+import {
+  VerificationCodeInput,
+  VerificationTokenInput,
+} from './inputs/verification.input';
 import { VerificationService } from './verification.service';
 
 @Resolver('Verification')
@@ -18,14 +21,25 @@ export class VerificationResolver {
   ) {}
 
   @Mutation(() => AuthModel, {
-    name: 'verifyAccount',
+    name: 'verifyAccountByToken',
   })
-  public async verify(
+  public async verifyByToken(
     @Context() { req }: GraphQLContext,
-    @Args('data') input: VerificationInput,
+    @Args('data') input: VerificationTokenInput,
     @UserAgent() userAgent: string,
   ) {
-    return this.verificationService.verify(req, input, userAgent);
+    return this.verificationService.verifyByToken(req, input, userAgent);
+  }
+
+  @Mutation(() => AuthModel, {
+    name: 'verifyAccountByCode',
+  })
+  public async verifyByCode(
+    @Context() { req }: GraphQLContext,
+    @Args('data') input: VerificationCodeInput,
+    @UserAgent() userAgent: string,
+  ) {
+    return this.verificationService.verifyByCode(req, input, userAgent);
   }
 
   @Authorization()

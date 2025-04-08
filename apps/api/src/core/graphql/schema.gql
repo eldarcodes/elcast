@@ -187,7 +187,8 @@ type Mutation {
   sendVerificationToken: AuthModel!
   unfollowChannel(channelId: String!): Boolean!
   updateSocialLink(data: SocialLinkInput!, id: String!): Boolean!
-  verifyAccount(data: VerificationInput!): AuthModel!
+  verifyAccountByCode(data: VerificationCodeInput!): AuthModel!
+  verifyAccountByToken(data: VerificationTokenInput!): AuthModel!
 }
 
 input NewPasswordInput {
@@ -388,6 +389,10 @@ type UserProfileModel {
   username: String!
 }
 
-input VerificationInput {
+input VerificationCodeInput {
+  code: String!
+}
+
+input VerificationTokenInput {
   token: String!
 }
