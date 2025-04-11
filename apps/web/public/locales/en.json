@@ -107,6 +107,7 @@
           "language": "Language",
           "darkTheme": "Dark theme",
           "keys": "Stream Keys",
+          "connections": "Connections",
           "chatSettings": "Chat Settings",
           "followers": "Followers",
           "logout": "Sign out"

@@ -9,7 +9,6 @@ export const OptionalUser = createParamDecorator(
 
     if (ctx.getType() === 'http') {
       const request = ctx.switchToHttp().getRequest();
-      console.log('OptionalUser', request.user || 'no user');
       user = request.user ?? null;
     } else {
       const context = GqlExecutionContext.create(ctx).getContext();

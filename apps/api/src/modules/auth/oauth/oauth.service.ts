@@ -49,12 +49,14 @@ export class OAuthService {
     userId: string,
     provider: string,
     providerId: string,
+    email: string,
   ) {
     await this.prismaService.oAuthAccount.create({
       data: {
         provider,
         providerId,
         userId,
+        email,
       },
     });
   }
@@ -79,6 +81,7 @@ export class OAuthService {
           create: {
             provider: profile.provider,
             providerId: profile.id,
+            email: profile.email,
           },
         },
         stream: {
@@ -177,6 +180,7 @@ export class OAuthService {
       await this.prismaService.oAuthAccount.create({
         data: {
           userId,
+          email: profile.email,
           provider: profile.provider,
           providerId: profile.id,
         },
@@ -193,25 +197,37 @@ export class OAuthService {
     const providerInstance = this.oauthProviderService.findByService(provider);
     const profile = await providerInstance.findUserByCode(code);
 
-    let user = await this.prismaService.user.findUnique({
-      where: {
-        email: profile.email,
-      },
-      include: {
-        oauthAccounts: true,
-      },
-    });
+    const existingOauthAccount =
+      await this.prismaService.oAuthAccount.findUnique({
+        where: {
+          provider_providerId: {
+            provider: profile.provider,
+            providerId: profile.id,
+          },
+        },
+      });
 
-    if (user) {
-      const linkedAccount = user.oauthAccounts.find(
-        (acc) => acc.provider === profile.provider,
-      );
+    let user = null;
 
-      if (!linkedAccount) {
-        await this.connectOAuthAccount(user.id, profile.provider, profile.id);
-      }
+    if (existingOauthAccount) {
+      user = await this.prismaService.user.findUnique({
+        where: { id: existingOauthAccount.userId },
+      });
     } else {
-      user = await this.registerOAuthAccount(profile);
+      user = await this.prismaService.user.findUnique({
+        where: { email: profile.email },
+      });
+
+      if (user) {
+        await this.connectOAuthAccount(
+          user.id,
+          profile.provider,
+          profile.id,
+          profile.email,
+        );
+      } else {
+        await this.registerOAuthAccount(profile);
+      }
     }
 
     const sessionMetadata = getSessionMetadata(req, userAgent);

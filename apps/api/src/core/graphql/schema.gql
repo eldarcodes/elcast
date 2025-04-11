@@ -231,6 +231,7 @@ enum NotificationType {
 """OAuth account model"""
 type OAuthAccountModel {
   createdAt: DateTime!
+  email: String
   id: ID!
   provider: String!
   providerId: String!

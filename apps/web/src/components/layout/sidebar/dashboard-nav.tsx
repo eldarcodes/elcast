@@ -22,14 +22,14 @@ export function DashboardNav() {
       icon: Settings,
     },
     {
-      label: t('appearance'),
-      href: '/dashboard/settings/appearance',
-      icon: Palette,
-    },
-    {
       label: t('connections'),
       href: '/dashboard/settings/connections',
       icon: Unplug,
+    },
+    {
+      label: t('appearance'),
+      href: '/dashboard/settings/appearance',
+      icon: Palette,
     },
     {
       label: t('keys'),

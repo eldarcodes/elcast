@@ -393,6 +393,7 @@ export enum NotificationType {
 export type OAuthAccountModel = {
   __typename?: 'OAuthAccountModel';
   createdAt: Scalars['DateTime']['output'];
+  email?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   provider: Scalars['String']['output'];
   providerId: Scalars['String']['output'];
@@ -961,7 +962,7 @@ export type GenerateTotpSecretQuery = { __typename?: 'Query', generateTotpSecret
 export type GetOAuthConnectionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetOAuthConnectionsQuery = { __typename?: 'Query', getOAuthConnections: Array<{ __typename?: 'OAuthAccountModel', id: string, provider: string, providerId: string, createdAt: any }> };
+export type GetOAuthConnectionsQuery = { __typename?: 'Query', getOAuthConnections: Array<{ __typename?: 'OAuthAccountModel', id: string, provider: string, providerId: string, email?: string | null, createdAt: any }> };
 
 export type GetOnlineUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3058,6 +3059,7 @@ export const GetOAuthConnectionsDocument = gql`
     id
     provider
     providerId
+    email
     createdAt
   }
 }

@@ -3,6 +3,7 @@ query GetOAuthConnections {
     id
     provider
     providerId
+    email
     createdAt
   }
 }
