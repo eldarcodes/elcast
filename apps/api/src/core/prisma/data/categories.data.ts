@@ -10,6 +10,7 @@ export const CATEGORIES = [
     title: 'Counter-Strike',
     slug: 'counter-strike',
     thumbnailUrl: '/categories/counter-strike.webp',
+    tags: [],
     description:
       'Counter-Strike has been the pioneering tactical shooter since the franchise debuted in November 2000. This legacy continues with Counter-Strike: Global Offensive and the upcoming release of CS2.',
   },
