@@ -65,6 +65,12 @@ async function cleanupOldAssets() {
   }
 }
 
+function getRandomTags(tags: string[]): string[] {
+  const count = Math.floor(Math.random() * tags.length) + 1;
+  const shuffled = [...tags].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+}
+
 async function main() {
   try {
     Logger.log('Starting seeding...');
@@ -103,7 +109,9 @@ async function main() {
 
     Logger.log('Categories have been successfully created');
 
-    const categories = await prisma.category.findMany();
+    const categories = await prisma.category.findMany({
+      include: { tags: { include: { tag: true } } },
+    });
 
     const categoriesBySlug = Object.fromEntries(
       categories.map((category) => [category.slug, category]),
@@ -183,6 +191,18 @@ async function main() {
                 connect: {
                   id: createdUser.id,
                 },
+              },
+              tags: {
+                create: getRandomTags(
+                  category.tags.map((tag) => tag.tag.name),
+                ).map((tag) => ({
+                  tag: {
+                    connectOrCreate: {
+                      where: { name: tag },
+                      create: { name: tag },
+                    },
+                  },
+                })),
               },
               category: {
                 connect: {
