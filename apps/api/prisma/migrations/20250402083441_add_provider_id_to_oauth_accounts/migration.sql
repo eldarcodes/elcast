@@ -6,3 +6,5 @@
 */
 -- AlterTable
 ALTER TABLE "accounts" ADD COLUMN     "provider_id" TEXT NOT NULL;
+
+CREATE UNIQUE INDEX "accounts_provider_provider_id_key" ON "accounts"("provider", "provider_id");

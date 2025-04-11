@@ -185,6 +185,7 @@ export type Mutation = {
   createUser: Scalars['Boolean']['output'];
   deactivateAccount: AuthModel;
   disableTotp: Scalars['Boolean']['output'];
+  disconnectOAuthConnection: Scalars['Boolean']['output'];
   enableTotp: Scalars['Boolean']['output'];
   followChannel: Scalars['Boolean']['output'];
   generateStreamToken: GenerateTokenModel;
@@ -201,10 +202,12 @@ export type Mutation = {
   resetPassword: Scalars['Boolean']['output'];
   sendChatMessage: ChatMessageModel;
   sendUserPresenceHeartbeat: Scalars['Boolean']['output'];
+  sendVerificationCode: AuthModel;
   sendVerificationToken: AuthModel;
   unfollowChannel: Scalars['Boolean']['output'];
   updateSocialLink: Scalars['Boolean']['output'];
-  verifyAccount: AuthModel;
+  verifyAccountByCode: AuthModel;
+  verifyAccountByToken: AuthModel;
 };
 
 
@@ -273,6 +276,12 @@ export type MutationDeactivateAccountArgs = {
 };
 
 
+export type MutationDisconnectOAuthConnectionArgs = {
+  provider: Scalars['String']['input'];
+  providerId: Scalars['String']['input'];
+};
+
+
 export type MutationEnableTotpArgs = {
   data: EnableTotpInput;
 };
@@ -334,8 +343,13 @@ export type MutationUpdateSocialLinkArgs = {
 };
 
 
-export type MutationVerifyAccountArgs = {
-  data: VerificationInput;
+export type MutationVerifyAccountByCodeArgs = {
+  data: VerificationCodeInput;
+};
+
+
+export type MutationVerifyAccountByTokenArgs = {
+  data: VerificationTokenInput;
 };
 
 export type NewPasswordInput = {
@@ -375,6 +389,19 @@ export enum NotificationType {
   VerifiedChannel = 'VERIFIED_CHANNEL'
 }
 
+/** OAuth account model */
+export type OAuthAccountModel = {
+  __typename?: 'OAuthAccountModel';
+  createdAt: Scalars['DateTime']['output'];
+  email?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  provider: Scalars['String']['output'];
+  providerId: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  user: UserModel;
+  userId: Scalars['String']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
   findAllCategories: Array<CategoryModel>;
@@ -398,6 +425,7 @@ export type Query = {
   findSessionsByUser: Array<SessionModel>;
   findSocialLinks: Array<SocialLinkModel>;
   generateTotpSecret: TotpModel;
+  getOAuthConnections: Array<OAuthAccountModel>;
   getOnlineUsers: Array<UserModel>;
 };
 
@@ -592,7 +620,11 @@ export type UserProfileModel = {
   username: Scalars['String']['output'];
 };
 
-export type VerificationInput = {
+export type VerificationCodeInput = {
+  code: Scalars['String']['input'];
+};
+
+export type VerificationTokenInput = {
   token: Scalars['String']['input'];
 };
 
@@ -636,17 +668,29 @@ export type ResetPasswordMutationVariables = Exact<{
 
 export type ResetPasswordMutation = { __typename?: 'Mutation', resetPassword: boolean };
 
+export type SendVerificationCodeMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SendVerificationCodeMutation = { __typename?: 'Mutation', sendVerificationCode: { __typename?: 'AuthModel', message?: string | null, user?: { __typename?: 'UserModel', id: string, isEmailVerified: boolean } | null } };
+
 export type SendVerificationTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SendVerificationTokenMutation = { __typename?: 'Mutation', sendVerificationToken: { __typename?: 'AuthModel', message?: string | null, user?: { __typename?: 'UserModel', id: string, isEmailVerified: boolean } | null } };
 
-export type VerifyAccountMutationVariables = Exact<{
-  data: VerificationInput;
+export type VerifyAccountByCodeMutationVariables = Exact<{
+  data: VerificationCodeInput;
 }>;
 
 
-export type VerifyAccountMutation = { __typename?: 'Mutation', verifyAccount: { __typename?: 'AuthModel', message?: string | null, user?: { __typename?: 'UserModel', isEmailVerified: boolean } | null } };
+export type VerifyAccountByCodeMutation = { __typename?: 'Mutation', verifyAccountByCode: { __typename?: 'AuthModel', message?: string | null, user?: { __typename?: 'UserModel', isEmailVerified: boolean } | null } };
+
+export type VerifyAccountByLinkMutationVariables = Exact<{
+  data: VerificationTokenInput;
+}>;
+
+
+export type VerifyAccountByLinkMutation = { __typename?: 'Mutation', verifyAccountByToken: { __typename?: 'AuthModel', message?: string | null, user?: { __typename?: 'UserModel', isEmailVerified: boolean } | null } };
 
 export type ChangeChatSettingsMutationVariables = Exact<{
   data: ChangeChatSettingsInput;
@@ -767,6 +811,14 @@ export type DisableTotpMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type DisableTotpMutation = { __typename?: 'Mutation', disableTotp: boolean };
+
+export type DisconnectOAuthConnectionMutationVariables = Exact<{
+  provider: Scalars['String']['input'];
+  providerId: Scalars['String']['input'];
+}>;
+
+
+export type DisconnectOAuthConnectionMutation = { __typename?: 'Mutation', disconnectOAuthConnection: boolean };
 
 export type EnableTotpMutationVariables = Exact<{
   data: EnableTotpInput;
@@ -916,6 +968,11 @@ export type GenerateTotpSecretQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GenerateTotpSecretQuery = { __typename?: 'Query', generateTotpSecret: { __typename?: 'TotpModel', qrcodeUrl: string, secret: string } };
+
+export type GetOAuthConnectionsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetOAuthConnectionsQuery = { __typename?: 'Query', getOAuthConnections: Array<{ __typename?: 'OAuthAccountModel', id: string, provider: string, providerId: string, email?: string | null, createdAt: any }> };
 
 export type GetOnlineUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1141,6 +1198,42 @@ export function useResetPasswordMutation(baseOptions?: Apollo.MutationHookOption
 export type ResetPasswordMutationHookResult = ReturnType<typeof useResetPasswordMutation>;
 export type ResetPasswordMutationResult = Apollo.MutationResult<ResetPasswordMutation>;
 export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<ResetPasswordMutation, ResetPasswordMutationVariables>;
+export const SendVerificationCodeDocument = gql`
+    mutation SendVerificationCode {
+  sendVerificationCode {
+    message
+    user {
+      id
+      isEmailVerified
+    }
+  }
+}
+    `;
+export type SendVerificationCodeMutationFn = Apollo.MutationFunction<SendVerificationCodeMutation, SendVerificationCodeMutationVariables>;
+
+/**
+ * __useSendVerificationCodeMutation__
+ *
+ * To run a mutation, you first call `useSendVerificationCodeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSendVerificationCodeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendVerificationCodeMutation, { data, loading, error }] = useSendVerificationCodeMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSendVerificationCodeMutation(baseOptions?: Apollo.MutationHookOptions<SendVerificationCodeMutation, SendVerificationCodeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SendVerificationCodeMutation, SendVerificationCodeMutationVariables>(SendVerificationCodeDocument, options);
+      }
+export type SendVerificationCodeMutationHookResult = ReturnType<typeof useSendVerificationCodeMutation>;
+export type SendVerificationCodeMutationResult = Apollo.MutationResult<SendVerificationCodeMutation>;
+export type SendVerificationCodeMutationOptions = Apollo.BaseMutationOptions<SendVerificationCodeMutation, SendVerificationCodeMutationVariables>;
 export const SendVerificationTokenDocument = gql`
     mutation SendVerificationToken {
   sendVerificationToken {
@@ -1177,9 +1270,9 @@ export function useSendVerificationTokenMutation(baseOptions?: Apollo.MutationHo
 export type SendVerificationTokenMutationHookResult = ReturnType<typeof useSendVerificationTokenMutation>;
 export type SendVerificationTokenMutationResult = Apollo.MutationResult<SendVerificationTokenMutation>;
 export type SendVerificationTokenMutationOptions = Apollo.BaseMutationOptions<SendVerificationTokenMutation, SendVerificationTokenMutationVariables>;
-export const VerifyAccountDocument = gql`
-    mutation VerifyAccount($data: VerificationInput!) {
-  verifyAccount(data: $data) {
+export const VerifyAccountByCodeDocument = gql`
+    mutation VerifyAccountByCode($data: VerificationCodeInput!) {
+  verifyAccountByCode(data: $data) {
     message
     user {
       isEmailVerified
@@ -1187,32 +1280,68 @@ export const VerifyAccountDocument = gql`
   }
 }
     `;
-export type VerifyAccountMutationFn = Apollo.MutationFunction<VerifyAccountMutation, VerifyAccountMutationVariables>;
+export type VerifyAccountByCodeMutationFn = Apollo.MutationFunction<VerifyAccountByCodeMutation, VerifyAccountByCodeMutationVariables>;
 
 /**
- * __useVerifyAccountMutation__
+ * __useVerifyAccountByCodeMutation__
  *
- * To run a mutation, you first call `useVerifyAccountMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useVerifyAccountMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useVerifyAccountByCodeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVerifyAccountByCodeMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [verifyAccountMutation, { data, loading, error }] = useVerifyAccountMutation({
+ * const [verifyAccountByCodeMutation, { data, loading, error }] = useVerifyAccountByCodeMutation({
  *   variables: {
  *      data: // value for 'data'
  *   },
  * });
  */
-export function useVerifyAccountMutation(baseOptions?: Apollo.MutationHookOptions<VerifyAccountMutation, VerifyAccountMutationVariables>) {
+export function useVerifyAccountByCodeMutation(baseOptions?: Apollo.MutationHookOptions<VerifyAccountByCodeMutation, VerifyAccountByCodeMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<VerifyAccountMutation, VerifyAccountMutationVariables>(VerifyAccountDocument, options);
+        return Apollo.useMutation<VerifyAccountByCodeMutation, VerifyAccountByCodeMutationVariables>(VerifyAccountByCodeDocument, options);
       }
-export type VerifyAccountMutationHookResult = ReturnType<typeof useVerifyAccountMutation>;
-export type VerifyAccountMutationResult = Apollo.MutationResult<VerifyAccountMutation>;
-export type VerifyAccountMutationOptions = Apollo.BaseMutationOptions<VerifyAccountMutation, VerifyAccountMutationVariables>;
+export type VerifyAccountByCodeMutationHookResult = ReturnType<typeof useVerifyAccountByCodeMutation>;
+export type VerifyAccountByCodeMutationResult = Apollo.MutationResult<VerifyAccountByCodeMutation>;
+export type VerifyAccountByCodeMutationOptions = Apollo.BaseMutationOptions<VerifyAccountByCodeMutation, VerifyAccountByCodeMutationVariables>;
+export const VerifyAccountByLinkDocument = gql`
+    mutation VerifyAccountByLink($data: VerificationTokenInput!) {
+  verifyAccountByToken(data: $data) {
+    message
+    user {
+      isEmailVerified
+    }
+  }
+}
+    `;
+export type VerifyAccountByLinkMutationFn = Apollo.MutationFunction<VerifyAccountByLinkMutation, VerifyAccountByLinkMutationVariables>;
+
+/**
+ * __useVerifyAccountByLinkMutation__
+ *
+ * To run a mutation, you first call `useVerifyAccountByLinkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVerifyAccountByLinkMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [verifyAccountByLinkMutation, { data, loading, error }] = useVerifyAccountByLinkMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useVerifyAccountByLinkMutation(baseOptions?: Apollo.MutationHookOptions<VerifyAccountByLinkMutation, VerifyAccountByLinkMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<VerifyAccountByLinkMutation, VerifyAccountByLinkMutationVariables>(VerifyAccountByLinkDocument, options);
+      }
+export type VerifyAccountByLinkMutationHookResult = ReturnType<typeof useVerifyAccountByLinkMutation>;
+export type VerifyAccountByLinkMutationResult = Apollo.MutationResult<VerifyAccountByLinkMutation>;
+export type VerifyAccountByLinkMutationOptions = Apollo.BaseMutationOptions<VerifyAccountByLinkMutation, VerifyAccountByLinkMutationVariables>;
 export const ChangeChatSettingsDocument = gql`
     mutation ChangeChatSettings($data: ChangeChatSettingsInput!) {
   changeChatSettings(data: $data)
@@ -1787,6 +1916,38 @@ export function useDisableTotpMutation(baseOptions?: Apollo.MutationHookOptions<
 export type DisableTotpMutationHookResult = ReturnType<typeof useDisableTotpMutation>;
 export type DisableTotpMutationResult = Apollo.MutationResult<DisableTotpMutation>;
 export type DisableTotpMutationOptions = Apollo.BaseMutationOptions<DisableTotpMutation, DisableTotpMutationVariables>;
+export const DisconnectOAuthConnectionDocument = gql`
+    mutation DisconnectOAuthConnection($provider: String!, $providerId: String!) {
+  disconnectOAuthConnection(provider: $provider, providerId: $providerId)
+}
+    `;
+export type DisconnectOAuthConnectionMutationFn = Apollo.MutationFunction<DisconnectOAuthConnectionMutation, DisconnectOAuthConnectionMutationVariables>;
+
+/**
+ * __useDisconnectOAuthConnectionMutation__
+ *
+ * To run a mutation, you first call `useDisconnectOAuthConnectionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDisconnectOAuthConnectionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [disconnectOAuthConnectionMutation, { data, loading, error }] = useDisconnectOAuthConnectionMutation({
+ *   variables: {
+ *      provider: // value for 'provider'
+ *      providerId: // value for 'providerId'
+ *   },
+ * });
+ */
+export function useDisconnectOAuthConnectionMutation(baseOptions?: Apollo.MutationHookOptions<DisconnectOAuthConnectionMutation, DisconnectOAuthConnectionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DisconnectOAuthConnectionMutation, DisconnectOAuthConnectionMutationVariables>(DisconnectOAuthConnectionDocument, options);
+      }
+export type DisconnectOAuthConnectionMutationHookResult = ReturnType<typeof useDisconnectOAuthConnectionMutation>;
+export type DisconnectOAuthConnectionMutationResult = Apollo.MutationResult<DisconnectOAuthConnectionMutation>;
+export type DisconnectOAuthConnectionMutationOptions = Apollo.BaseMutationOptions<DisconnectOAuthConnectionMutation, DisconnectOAuthConnectionMutationVariables>;
 export const EnableTotpDocument = gql`
     mutation EnableTotp($data: EnableTotpInput!) {
   enableTotp(data: $data)
@@ -2902,6 +3063,49 @@ export type GenerateTotpSecretQueryHookResult = ReturnType<typeof useGenerateTot
 export type GenerateTotpSecretLazyQueryHookResult = ReturnType<typeof useGenerateTotpSecretLazyQuery>;
 export type GenerateTotpSecretSuspenseQueryHookResult = ReturnType<typeof useGenerateTotpSecretSuspenseQuery>;
 export type GenerateTotpSecretQueryResult = Apollo.QueryResult<GenerateTotpSecretQuery, GenerateTotpSecretQueryVariables>;
+export const GetOAuthConnectionsDocument = gql`
+    query GetOAuthConnections {
+  getOAuthConnections {
+    id
+    provider
+    providerId
+    email
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useGetOAuthConnectionsQuery__
+ *
+ * To run a query within a React component, call `useGetOAuthConnectionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOAuthConnectionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOAuthConnectionsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetOAuthConnectionsQuery(baseOptions?: Apollo.QueryHookOptions<GetOAuthConnectionsQuery, GetOAuthConnectionsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetOAuthConnectionsQuery, GetOAuthConnectionsQueryVariables>(GetOAuthConnectionsDocument, options);
+      }
+export function useGetOAuthConnectionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOAuthConnectionsQuery, GetOAuthConnectionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetOAuthConnectionsQuery, GetOAuthConnectionsQueryVariables>(GetOAuthConnectionsDocument, options);
+        }
+export function useGetOAuthConnectionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetOAuthConnectionsQuery, GetOAuthConnectionsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetOAuthConnectionsQuery, GetOAuthConnectionsQueryVariables>(GetOAuthConnectionsDocument, options);
+        }
+export type GetOAuthConnectionsQueryHookResult = ReturnType<typeof useGetOAuthConnectionsQuery>;
+export type GetOAuthConnectionsLazyQueryHookResult = ReturnType<typeof useGetOAuthConnectionsLazyQuery>;
+export type GetOAuthConnectionsSuspenseQueryHookResult = ReturnType<typeof useGetOAuthConnectionsSuspenseQuery>;
+export type GetOAuthConnectionsQueryResult = Apollo.QueryResult<GetOAuthConnectionsQuery, GetOAuthConnectionsQueryVariables>;
 export const GetOnlineUsersDocument = gql`
     query GetOnlineUsers {
   getOnlineUsers {

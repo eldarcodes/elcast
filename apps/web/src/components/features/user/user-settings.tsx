@@ -15,8 +15,6 @@ import { ChangeEmailForm } from './account/change-email-form';
 import { ChangePasswordForm } from './account/change-password-form';
 import { DeactivateCard } from './account/deactivate-card';
 import { WrapperTotp } from './account/totp/wrapper-totp';
-import { ChangeLocaleForm } from './appearance/change-locale-form';
-import { ChangeThemeForm } from './appearance/change-theme-form';
 import { ChangeNotificationsSettingsForm } from './notifications/change-notifications-settings-form';
 import { ChangeAvatarForm } from './profile/change-avatar-form';
 import { ChangeInfoForm } from './profile/change-info-form';
@@ -56,9 +54,6 @@ export function UserSettings() {
           </TabsTrigger>
           <TabsTrigger className="min-w-32 flex-grow" value="security">
             {t('header.security')}
-          </TabsTrigger>
-          <TabsTrigger className="min-w-32 flex-grow" value="appearance">
-            {t('header.appearance')}
           </TabsTrigger>
           <TabsTrigger className="min-w-32 flex-grow" value="notifications">
             {t('header.notifications')}
@@ -103,18 +98,6 @@ export function UserSettings() {
             />
 
             <DeactivateCard />
-          </div>
-        </TabsContent>
-
-        <TabsContent value="appearance">
-          <div className="mt-5 space-y-6">
-            <Heading
-              title={t('appearance.header.heading')}
-              description={t('appearance.header.description')}
-            />
-
-            <ChangeThemeForm />
-            <ChangeLocaleForm />
           </div>
         </TabsContent>
 

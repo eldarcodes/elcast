@@ -1,0 +1,3 @@
+mutation DisconnectOAuthConnection($provider: String!, $providerId: String!) {
+  disconnectOAuthConnection(provider: $provider, providerId: $providerId)
+}

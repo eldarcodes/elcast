@@ -43,7 +43,7 @@ export class AccountService {
     };
   }
 
-  public async create(input: CreateUserInput) {
+  public async create(req: Request, input: CreateUserInput, userAgent: string) {
     const { email, password, username: rawUsername } = input;
 
     const username = rawUsername.toLowerCase();
@@ -84,7 +84,9 @@ export class AccountService {
       },
     });
 
-    await this.verificationService.sendVerificationToken(user);
+    const sessionMetadata = getSessionMetadata(req, userAgent);
+
+    await this.verificationService.sendVerificationCode(user, sessionMetadata);
 
     return true;
   }

@@ -7,6 +7,7 @@ import {
   MessageSquare,
   Moon,
   Settings,
+  Unplug,
   User,
   Users,
 } from 'lucide-react';
@@ -121,6 +122,13 @@ export function ProfileMenu() {
             <DropdownMenuItem className="cursor-pointer">
               <Users className="mr-2 size-4" />
               {t('followers')}
+            </DropdownMenuItem>
+          </Link>
+
+          <Link href="/dashboard/settings/connections">
+            <DropdownMenuItem className="cursor-pointer">
+              <Unplug className="mr-2 size-4" />
+              {t('connections')}
             </DropdownMenuItem>
           </Link>
 

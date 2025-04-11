@@ -1,0 +1,8 @@
+mutation VerifyAccountByLink($data: VerificationTokenInput!) {
+  verifyAccountByToken(data: $data) {
+    message
+    user {
+      isEmailVerified
+    }
+  }
+}
