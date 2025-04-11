@@ -9,7 +9,6 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/common/button';
 
 import {
-  GetOAuthConnectionsQuery,
   useDisconnectOAuthConnectionMutation,
   useGetOAuthConnectionsQuery,
 } from '@/graphql/generated/output';
