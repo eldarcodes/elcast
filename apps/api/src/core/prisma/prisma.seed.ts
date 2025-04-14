@@ -76,6 +76,9 @@ async function main() {
       prisma.category.deleteMany(),
       prisma.chatMessage.deleteMany(),
       prisma.follow.deleteMany(),
+      prisma.oAuthAccount.deleteMany(),
+      prisma.notification.deleteMany(),
+      prisma.notificationSettings.deleteMany(),
     ]);
 
     await cleanupOldAssets();
