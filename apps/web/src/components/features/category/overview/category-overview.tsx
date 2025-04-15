@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import { Heading } from '@/components/ui/elements/heading';
-import { Tag } from '@/components/ui/elements/tag';
+import { Tags } from '@/components/ui/elements/tags';
 
 import { FindCategoryBySlugQuery } from '@/graphql/generated/output';
 
@@ -33,12 +33,7 @@ export function CategoryOverview({ category }: CategoryOverviewProps) {
         <div className="space-y-2">
           <Heading.Title title={category.title} size="lg" />
 
-          <div className="flex flex-wrap gap-2">
-            {category.tags &&
-              category.tags.map(({ tag }) => (
-                <Tag key={tag.id} name={tag.name} />
-              ))}
-          </div>
+          <Tags tags={category.tags} />
 
           <Heading.Description description={category.description || ''} />
         </div>

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { Tag } from '@/components/ui/elements/tag';
+import { Tags } from '@/components/ui/elements/tags';
 
 import type { FindRandomCategoriesQuery } from '@/graphql/generated/output';
 
@@ -60,12 +60,7 @@ export function CategoryCard({ category }: CategoryCardProps) {
           {category.title}
         </h2>
 
-        <div className="flex flex-wrap gap-1">
-          {category.tags &&
-            category.tags
-              .slice(0, 2)
-              .map(({ tag }) => <Tag key={tag.id} name={tag.name} />)}
-        </div>
+        <Tags tags={category.tags} maxTags={2} />
       </div>
     </Link>
   );
