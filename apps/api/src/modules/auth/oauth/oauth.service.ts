@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { Request } from 'express';
 
 import { PrismaService } from '@/src/core/prisma/prisma.service';
@@ -49,12 +49,14 @@ export class OAuthService {
     userId: string,
     provider: string,
     providerId: string,
+    email: string,
   ) {
     await this.prismaService.oAuthAccount.create({
       data: {
         provider,
         providerId,
         userId,
+        email,
       },
     });
   }
@@ -79,6 +81,7 @@ export class OAuthService {
           create: {
             provider: profile.provider,
             providerId: profile.id,
+            email: profile.email,
           },
         },
         stream: {
@@ -99,6 +102,92 @@ export class OAuthService {
     });
   }
 
+  public async getOAuthConnections(userId: string) {
+    return this.prismaService.oAuthAccount.findMany({
+      where: {
+        userId,
+      },
+    });
+  }
+
+  public async disconnect(
+    userId: string,
+    provider: string,
+    providerId: string,
+  ) {
+    const account = await this.prismaService.oAuthAccount.findUnique({
+      where: {
+        provider_providerId: {
+          provider,
+          providerId,
+        },
+        userId,
+      },
+    });
+
+    if (!account) {
+      throw new ConflictException('Account not found');
+    }
+
+    await this.prismaService.oAuthAccount.delete({
+      where: {
+        provider_providerId: {
+          provider: account.provider,
+          providerId: account.providerId,
+        },
+        userId: account.userId,
+      },
+    });
+
+    return true;
+  }
+
+  public async linkProviderAccount(
+    userId: string,
+    provider: string,
+    code: string,
+  ) {
+    const providerInstance = this.oauthProviderService.findByService(provider);
+    const profile = await providerInstance.findUserByCode(code);
+
+    const existingLink = await this.prismaService.oAuthAccount.findFirst({
+      where: {
+        userId,
+        provider: profile.provider,
+      },
+    });
+
+    if (existingLink) {
+      throw new ConflictException(
+        `You have already linked your ${profile.provider} account.`,
+      );
+    }
+
+    const existingAccount = await this.prismaService.oAuthAccount.findUnique({
+      where: {
+        provider_providerId: {
+          provider: profile.provider,
+          providerId: profile.id,
+        },
+      },
+    });
+
+    if (existingAccount) {
+      if (existingAccount.userId !== userId) {
+        throw new ConflictException(`Account already linked to another user`);
+      }
+    } else {
+      await this.prismaService.oAuthAccount.create({
+        data: {
+          userId,
+          email: profile.email,
+          provider: profile.provider,
+          providerId: profile.id,
+        },
+      });
+    }
+  }
+
   public async extractProfileFromCode(
     req: Request,
     provider: string,
@@ -108,21 +197,37 @@ export class OAuthService {
     const providerInstance = this.oauthProviderService.findByService(provider);
     const profile = await providerInstance.findUserByCode(code);
 
-    let user = await this.prismaService.user.findUnique({
-      where: { email: profile.email },
-      include: { oauthAccounts: true },
-    });
+    const existingOauthAccount =
+      await this.prismaService.oAuthAccount.findUnique({
+        where: {
+          provider_providerId: {
+            provider: profile.provider,
+            providerId: profile.id,
+          },
+        },
+      });
 
-    if (user) {
-      const linkedAccount = user.oauthAccounts.find(
-        (acc) => acc.provider === profile.provider,
-      );
+    let user = null;
 
-      if (!linkedAccount) {
-        await this.connectOAuthAccount(user.id, profile.provider, profile.id);
-      }
+    if (existingOauthAccount) {
+      user = await this.prismaService.user.findUnique({
+        where: { id: existingOauthAccount.userId },
+      });
     } else {
-      user = await this.registerOAuthAccount(profile);
+      user = await this.prismaService.user.findUnique({
+        where: { email: profile.email },
+      });
+
+      if (user) {
+        await this.connectOAuthAccount(
+          user.id,
+          profile.provider,
+          profile.id,
+          profile.email,
+        );
+      } else {
+        await this.registerOAuthAccount(profile);
+      }
     }
 
     const sessionMetadata = getSessionMetadata(req, userAgent);

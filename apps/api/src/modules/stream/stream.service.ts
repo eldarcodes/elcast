@@ -49,6 +49,11 @@ export class StreamService {
       include: {
         user: true,
         category: true,
+        tags: {
+          include: {
+            tag: true,
+          },
+        },
       },
       orderBy: {
         createdAt: 'desc',
@@ -137,6 +142,11 @@ export class StreamService {
       include: {
         user: true,
         category: true,
+        tags: {
+          include: {
+            tag: true,
+          },
+        },
       },
       skip: 0,
       take: total,

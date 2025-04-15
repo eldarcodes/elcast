@@ -1,9 +1,3 @@
-/*
-  Warnings:
-
-  - A unique constraint covering the columns `[provider,provider_id]` on the table `accounts` will be added. If there are existing duplicate values, this will fail.
-
-*/
 -- CreateTable
 CREATE TABLE "tags" (
     "id" TEXT NOT NULL,
@@ -33,9 +27,6 @@ CREATE TABLE "category_tags" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "tags_name_key" ON "tags"("name");
-
--- CreateIndex
-CREATE UNIQUE INDEX "accounts_provider_provider_id_key" ON "accounts"("provider", "provider_id");
 
 -- AddForeignKey
 ALTER TABLE "stream_tags" ADD CONSTRAINT "stream_tags_streamId_fkey" FOREIGN KEY ("streamId") REFERENCES "streams"("id") ON DELETE CASCADE ON UPDATE CASCADE;

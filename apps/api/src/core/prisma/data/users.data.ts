@@ -227,7 +227,7 @@ export const DISPLAY_NAMES = [
   'DazikoTV',
   'Lokkirid',
   'roolex',
-  'EldarCodes',
+  'morphenix',
   'Nomadi_',
   'Mon3kk',
   'Artirzn',

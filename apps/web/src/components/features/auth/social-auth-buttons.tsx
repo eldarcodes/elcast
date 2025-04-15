@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/common/button';
 
 import { SERVER_URL } from '@/libs/constants/url.constants';
 
-type OAuthProvider = 'google' | 'github';
+export type OAuthProvider = 'google' | 'github';
 
 export function SocialAuthButtons() {
   const router = useRouter();

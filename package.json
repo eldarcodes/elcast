@@ -1,6 +1,6 @@
 {
     "name": "elcast",
-    "version": "1.2.1",
+    "version": "1.3.1",
     "private": true,
     "workspaces": [
         "apps/*",
@@ -8,6 +8,11 @@
     ],
     "packageManager": "pnpm@10.6.5",
     "scripts": {
+        "api:dev": "pnpm run --filter api start:dev",
+        "api:studio": "pnpm run --filter api db:studio",
+        "api:seed": "pnpm run --filter api db:seed",
+        "web:dev": "pnpm run --filter web dev",
+        "web:codegen": "pnpm run --filter web codegen",
         "clean-all": "cd apps/api/ && rm -rf node_modules dist && cd ../web && rm -rf node_modules .next"
     },
     "engines": {

@@ -4,6 +4,12 @@ query FindRandomStreams {
     title
     thumbnailUrl
     isLive
+    tags {
+      tag {
+        id
+        name
+      }
+    }
     user {
       username
       displayName

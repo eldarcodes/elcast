@@ -1,7 +1,6 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CircleCheck } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { useState } from 'react';
@@ -9,11 +8,6 @@ import { useForm } from 'react-hook-form';
 import Turnstile, { useTurnstile } from 'react-turnstile';
 import { toast } from 'sonner';
 
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from '@/components/ui/common/alert';
 import { Button } from '@/components/ui/common/button';
 import {
   Form,
@@ -35,8 +29,10 @@ import {
 
 import { AuthWrapper } from '../auth-wrapper';
 
+import { VerifyAccountByCodeForm } from './verify-account-code-form';
+
 export function CreateAccountForm() {
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [isShowVerification, setIsShowVerification] = useState(false);
 
   const t = useTranslations('auth.register');
   const { theme } = useTheme();
@@ -54,7 +50,8 @@ export function CreateAccountForm() {
 
   const [create, { loading: isLoadingCreate }] = useCreateUserMutation({
     onCompleted: () => {
-      setIsSuccess(true);
+      setIsShowVerification(true);
+
       toast.success(t('successMessage'));
     },
     onError: () => {
@@ -75,6 +72,10 @@ export function CreateAccountForm() {
     create({ variables: { data } });
   }
 
+  if (isShowVerification) {
+    return <VerifyAccountByCodeForm />;
+  }
+
   return (
     <AuthWrapper
       heading={t('heading')}
@@ -82,101 +83,93 @@ export function CreateAccountForm() {
       backButtonLabel={t('backButtonLabel')}
       backButtonHref="/account/login"
       showAgreement
-      showSocialAuth={!isSuccess}
+      showSocialAuth
     >
-      {isSuccess ? (
-        <Alert className="my-12">
-          <CircleCheck className="size-4" />
-          <AlertTitle>{t('successAlertTitle')}</AlertTitle>
-          <AlertDescription>{t('successAlertDescription')}</AlertDescription>
-        </Alert>
-      ) : (
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-3">
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('usernameLabel')}</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isLoadingCreate}
-                      placeholder="johndoe"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>{t('usernameDescription')}</FormDescription>
-                </FormItem>
-              )}
-            />
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-3">
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('usernameLabel')}</FormLabel>
+                <FormControl>
+                  <Input
+                    disabled={isLoadingCreate}
+                    placeholder="johndoe"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>{t('usernameDescription')}</FormDescription>
+              </FormItem>
+            )}
+          />
 
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('emailLabel')}</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isLoadingCreate}
-                      placeholder="john.doe@acme.com"
-                      {...field}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('emailLabel')}</FormLabel>
+                <FormControl>
+                  <Input
+                    disabled={isLoadingCreate}
+                    placeholder="john.doe@acme.com"
+                    {...field}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
 
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('passwordLabel')}</FormLabel>
-                  <FormControl>
-                    <PasswordInput
-                      disabled={isLoadingCreate}
-                      placeholder="********"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>{t('passwordDescription')}</FormDescription>
-                </FormItem>
-              )}
-            />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('passwordLabel')}</FormLabel>
+                <FormControl>
+                  <PasswordInput
+                    disabled={isLoadingCreate}
+                    placeholder="********"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>{t('passwordDescription')}</FormDescription>
+              </FormItem>
+            )}
+          />
 
-            <FormField
-              control={form.control}
-              name="captcha"
-              render={({ field }) => (
-                <FormItem className="flex flex-col items-center justify-center">
-                  <FormControl>
-                    <Turnstile
-                      sitekey={
-                        process.env['CLOUDFLARE_TURNSTILE_SITE_KEY'] as string
-                      }
-                      onVerify={(token) => {
-                        form.setValue('captcha', token);
-                      }}
-                      theme={theme === 'dark' ? 'dark' : 'light'}
-                      {...field}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+          <FormField
+            control={form.control}
+            name="captcha"
+            render={({ field }) => (
+              <FormItem className="flex flex-col items-center justify-center">
+                <FormControl>
+                  <Turnstile
+                    sitekey={
+                      process.env['CLOUDFLARE_TURNSTILE_SITE_KEY'] as string
+                    }
+                    onVerify={(token) => {
+                      form.setValue('captcha', token);
+                    }}
+                    theme={theme === 'dark' ? 'dark' : 'light'}
+                    {...field}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
 
-            <Button
-              className="mt-2 w-full"
-              disabled={!isValid || isLoadingCreate}
-              type="submit"
-            >
-              {t('submitButton')}
-            </Button>
-          </form>
-        </Form>
-      )}
+          <Button
+            className="mt-2 w-full"
+            disabled={!isValid || isLoadingCreate}
+            type="submit"
+          >
+            {t('submitButton')}
+          </Button>
+        </form>
+      </Form>
     </AuthWrapper>
   );
 }

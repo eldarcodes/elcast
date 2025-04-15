@@ -20,6 +20,12 @@ query FindChannelByUsername($username: String!) {
       isChatEnabled
       isChatFollowersOnly
       isChatSubscribersOnly
+      tags {
+        tag {
+          id
+          name
+        }
+      }
       category {
         id
         title

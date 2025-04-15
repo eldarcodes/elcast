@@ -5,10 +5,14 @@ import { Authorization } from '@/src/shared/decorators/auth.decorator';
 import { Authorized } from '@/src/shared/decorators/authorized.decorator';
 import { UserAgent } from '@/src/shared/decorators/user-agent.decorator';
 import type { GraphQLContext } from '@/src/shared/types/graphql-context.type';
+import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
 
 import { AuthModel } from '../account/models/auth.model';
 
-import { VerificationInput } from './inputs/verification.input';
+import {
+  VerificationCodeInput,
+  VerificationTokenInput,
+} from './inputs/verification.input';
 import { VerificationService } from './verification.service';
 
 @Resolver('Verification')
@@ -18,14 +22,25 @@ export class VerificationResolver {
   ) {}
 
   @Mutation(() => AuthModel, {
-    name: 'verifyAccount',
+    name: 'verifyAccountByToken',
   })
-  public async verify(
+  public async verifyByToken(
     @Context() { req }: GraphQLContext,
-    @Args('data') input: VerificationInput,
+    @Args('data') input: VerificationTokenInput,
     @UserAgent() userAgent: string,
   ) {
-    return this.verificationService.verify(req, input, userAgent);
+    return this.verificationService.verifyByToken(req, input, userAgent);
+  }
+
+  @Mutation(() => AuthModel, {
+    name: 'verifyAccountByCode',
+  })
+  public async verifyByCode(
+    @Context() { req }: GraphQLContext,
+    @Args('data') input: VerificationCodeInput,
+    @UserAgent() userAgent: string,
+  ) {
+    return this.verificationService.verifyByCode(req, input, userAgent);
   }
 
   @Authorization()
@@ -34,5 +49,19 @@ export class VerificationResolver {
   })
   public async sendVerificationToken(@Authorized() user: User) {
     return this.verificationService.sendVerificationToken(user);
+  }
+
+  @Authorization()
+  @Mutation(() => AuthModel, {
+    name: 'sendVerificationCode',
+  })
+  public async sendVerificationCode(
+    @Context() { req }: GraphQLContext,
+    @Authorized() user: User,
+    @UserAgent() userAgent: string,
+  ) {
+    const sessionMetadata = getSessionMetadata(req, userAgent);
+
+    return this.verificationService.sendVerificationCode(user, sessionMetadata);
   }
 }
