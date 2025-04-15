@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Request } from 'express';
 
 import { PrismaService } from '@/src/core/prisma/prisma.service';
@@ -226,11 +230,15 @@ export class OAuthService {
           profile.email,
         );
       } else {
-        await this.registerOAuthAccount(profile);
+        user = await this.registerOAuthAccount(profile);
       }
     }
 
     const sessionMetadata = getSessionMetadata(req, userAgent);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
 
     return saveSession(req, user, sessionMetadata);
   }
