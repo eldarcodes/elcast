@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Skeleton } from '@/components/ui/common/skeleton';
 import { ChannelAvatar } from '@/components/ui/elements/channel-avatar';
 import { ChannelVerified } from '@/components/ui/elements/channel-verified';
+import { Tags } from '@/components/ui/elements/tags';
 
 import type { FindRandomStreamsQuery } from '@/graphql/generated/output';
 
@@ -44,6 +45,8 @@ export function StreamCard({ stream }: StreamCardProps) {
               {stream.category.title}
             </Link>
           )}
+
+          <Tags tags={stream.tags} maxTags={2} className="mt-1" />
         </div>
       </div>
     </div>
@@ -53,7 +56,7 @@ export function StreamCard({ stream }: StreamCardProps) {
 export function StreamCardSkeleton() {
   return (
     <div className="h-full w-full">
-      <Skeleton className="relative aspect-video rounded-xl" />
+      <Skeleton className="relative aspect-video rounded" />
       <Skeleton className="mt-3 h-4 w-full" />
 
       <div className="flex gap-x-4">

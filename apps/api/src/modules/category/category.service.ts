@@ -20,6 +20,11 @@ export class CategoryService {
             user: true,
           },
         },
+        tags: {
+          include: {
+            tag: true,
+          },
+        },
       },
     });
 
@@ -48,6 +53,11 @@ export class CategoryService {
             user: true,
           },
         },
+        tags: {
+          include: {
+            tag: true,
+          },
+        },
       },
     });
 
@@ -64,6 +74,16 @@ export class CategoryService {
           include: {
             user: true,
             category: true,
+            tags: {
+              include: {
+                tag: true,
+              },
+            },
+          },
+        },
+        tags: {
+          include: {
+            tag: true,
           },
         },
       },

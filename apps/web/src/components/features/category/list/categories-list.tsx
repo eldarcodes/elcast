@@ -15,7 +15,7 @@ export function CategoriesList({ heading, categories }: CategoriesListProps) {
     <>
       {heading && <Heading title={heading} />}
 
-      <div className="mt-6 grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7">
+      <div className="mt-6 flex flex-wrap gap-4">
         {categories.map((category) => (
           <CategoryCard key={category.id} category={category} />
         ))}

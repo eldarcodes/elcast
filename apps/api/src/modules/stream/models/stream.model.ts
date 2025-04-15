@@ -6,6 +6,8 @@ import { UserModel } from '../../auth/account/models/user.model';
 import { CategoryModel } from '../../category/models/category.model';
 import { ChatMessageModel } from '../../chat/models/chat-message.model';
 
+import { StreamTagModel } from './stream-tag.model';
+
 @ObjectType()
 export class StreamModel implements Stream {
   @Field(() => ID)
@@ -37,6 +39,9 @@ export class StreamModel implements Stream {
 
   @Field(() => CategoryModel, { nullable: true })
   public category: CategoryModel;
+
+  @Field(() => [StreamTagModel], { nullable: true })
+  public tags: StreamTagModel[];
 
   @Field(() => Boolean)
   public isChatEnabled: boolean;

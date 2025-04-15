@@ -4,6 +4,8 @@ import { Category } from '@/prisma/generated';
 
 import { StreamModel } from '../../stream/models/stream.model';
 
+import { CategoryTagModel } from './category-tag.model';
+
 @ObjectType()
 export class CategoryModel implements Category {
   @Field(() => ID)
@@ -23,6 +25,9 @@ export class CategoryModel implements Category {
 
   @Field(() => [StreamModel])
   streams: StreamModel[];
+
+  @Field(() => [CategoryTagModel], { nullable: true })
+  tags: CategoryTagModel[];
 
   @Field(() => Date)
   createdAt: Date;

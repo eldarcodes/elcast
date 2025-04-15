@@ -13,9 +13,18 @@ type CategoryModel {
   id: ID!
   slug: String!
   streams: [StreamModel!]!
+  tags: [CategoryTagModel!]
   thumbnailUrl: String!
   title: String!
   updatedAt: DateTime!
+}
+
+type CategoryTagModel {
+  category: CategoryModel!
+  categoryId: String!
+  createdAt: DateTime!
+  tag: TagModel!
+  tagId: String!
 }
 
 input ChangeChatSettingsInput {
@@ -324,6 +333,7 @@ type StreamModel {
   isLive: Boolean!
   serverUrl: String
   streamKey: String
+  tags: [StreamTagModel!]
   thumbnailUrl: String
   title: String!
   updatedAt: DateTime!
@@ -331,10 +341,26 @@ type StreamModel {
   userId: String!
 }
 
+type StreamTagModel {
+  createdAt: DateTime!
+  stream: StreamModel!
+  streamId: String!
+  tag: TagModel!
+  tagId: String!
+}
+
 type Subscription {
   chatMessageAdded(streamId: String!): ChatMessageModel!
   notificationAdded(userId: String!): NotificationModel!
   userStatusChanged(userId: String!): UserModel!
+}
+
+type TagModel {
+  categoryTags: [CategoryTagModel!]!
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  streamTags: [StreamTagModel!]!
 }
 
 type TotpModel {

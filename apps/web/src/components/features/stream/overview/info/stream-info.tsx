@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Skeleton } from '@/components/ui/common/skeleton';
 import { ChannelAvatar } from '@/components/ui/elements/channel-avatar';
 import { ChannelVerified } from '@/components/ui/elements/channel-verified';
+import { Tags } from '@/components/ui/elements/tags';
 
 import type { FindChannelByUsernameQuery } from '@/graphql/generated/output';
 
@@ -69,6 +70,8 @@ export function StreamInfo({ channel }: StreamInfoProps) {
                 })}
               </p>
             )}
+
+            <Tags tags={channel.stream.tags} className="mt-1" />
           </div>
         </div>
 

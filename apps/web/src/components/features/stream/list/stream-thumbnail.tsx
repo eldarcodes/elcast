@@ -29,9 +29,9 @@ export function StreamThumbnail({ url, user, isLive }: StreamThumbnailProps) {
   }, []);
 
   return (
-    <div className="group relative aspect-video cursor-pointer rounded-xl">
+    <div className="group relative aspect-video cursor-pointer rounded">
       <div
-        className="absolute inset-0 flex items-center justify-center rounded-xl opacity-0 transition-opacity group-hover:opacity-100"
+        className="absolute inset-0 flex items-center justify-center rounded opacity-0 transition-opacity group-hover:opacity-100"
         style={{
           backgroundColor: randomColor,
         }}
@@ -42,16 +42,16 @@ export function StreamThumbnail({ url, user, isLive }: StreamThumbnailProps) {
           src={getMediaSource(url)}
           alt={user.displayName}
           fill
-          className="rounded-xl object-cover transition-transform group-hover:-translate-y-2 group-hover:translate-x-2"
+          className="rounded object-cover transition-transform group-hover:-translate-y-2 group-hover:translate-x-2"
         />
       ) : (
-        <Card className="flex h-full w-full flex-col items-center justify-center gap-y-4 rounded-xl transition-transform group-hover:-translate-y-2 group-hover:translate-x-2">
+        <Card className="flex h-full w-full flex-col items-center justify-center gap-y-4 rounded transition-transform group-hover:-translate-y-1 group-hover:translate-x-1">
           <ChannelAvatar channel={user} isLive={isLive} />
         </Card>
       )}
 
       {isLive && (
-        <div className="absolute right-2 top-2 transition-transform group-hover:-translate-y-2 group-hover:translate-x-2">
+        <div className="absolute right-2 top-2 transition-transform group-hover:-translate-y-2 group-hover:translate-x-1">
           <LiveBadge />
         </div>
       )}
