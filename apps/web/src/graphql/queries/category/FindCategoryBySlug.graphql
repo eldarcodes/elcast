@@ -5,6 +5,12 @@ query FindCategoryBySlug($slug: String!) {
     thumbnailUrl
     description
     createdAt
+    tags {
+      tag {
+        id
+        name
+      }
+    }
     streams {
       id
       title
@@ -21,6 +27,12 @@ query FindCategoryBySlug($slug: String!) {
         title
         slug
         description
+      }
+      tags {
+        tag {
+          id
+          name
+        }
       }
     }
   }

@@ -42,6 +42,11 @@ export class ChannelService {
         stream: {
           include: {
             category: true,
+            tags: {
+              include: {
+                tag: true,
+              },
+            },
           },
         },
         socialLinks: {

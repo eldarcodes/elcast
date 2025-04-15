@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Skeleton } from '@/components/ui/common/skeleton';
 import { ChannelAvatar } from '@/components/ui/elements/channel-avatar';
 import { ChannelVerified } from '@/components/ui/elements/channel-verified';
+import { Tag } from '@/components/ui/elements/tag';
 
 import type { FindChannelByUsernameQuery } from '@/graphql/generated/output';
 
@@ -69,6 +70,13 @@ export function StreamInfo({ channel }: StreamInfoProps) {
                 })}
               </p>
             )}
+
+            <div className="mt-2 flex flex-wrap gap-1">
+              {channel.stream.tags &&
+                channel.stream.tags.map(({ tag }) => (
+                  <Tag key={tag.id} name={tag.name} />
+                ))}
+            </div>
           </div>
         </div>
 

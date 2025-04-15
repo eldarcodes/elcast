@@ -5,6 +5,12 @@ query FindRandomCategories {
     description
     slug
     createdAt
+    tags {
+      tag {
+        id
+        name
+      }
+    }
     thumbnailUrl
   }
 }

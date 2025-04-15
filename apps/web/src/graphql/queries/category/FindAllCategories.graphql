@@ -6,6 +6,12 @@ query FindAllCategories {
     slug
     createdAt
     thumbnailUrl
+    tags {
+      tag {
+        id
+        name
+      }
+    }
     updatedAt
   }
 }

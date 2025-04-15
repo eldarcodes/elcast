@@ -32,9 +32,19 @@ export type CategoryModel = {
   id: Scalars['ID']['output'];
   slug: Scalars['String']['output'];
   streams: Array<StreamModel>;
+  tags?: Maybe<Array<CategoryTagModel>>;
   thumbnailUrl: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type CategoryTagModel = {
+  __typename?: 'CategoryTagModel';
+  category: CategoryModel;
+  categoryId: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  tag: TagModel;
+  tagId: Scalars['String']['output'];
 };
 
 export type ChangeChatSettingsInput = {
@@ -514,12 +524,21 @@ export type StreamModel = {
   isLive: Scalars['Boolean']['output'];
   serverUrl?: Maybe<Scalars['String']['output']>;
   streamKey?: Maybe<Scalars['String']['output']>;
-  tags: Array<TagModel>;
+  tags?: Maybe<Array<StreamTagModel>>;
   thumbnailUrl?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
   user: UserModel;
   userId: Scalars['String']['output'];
+};
+
+export type StreamTagModel = {
+  __typename?: 'StreamTagModel';
+  createdAt: Scalars['DateTime']['output'];
+  stream: StreamModel;
+  streamId: Scalars['String']['output'];
+  tag: TagModel;
+  tagId: Scalars['String']['output'];
 };
 
 export type Subscription = {
@@ -546,11 +565,11 @@ export type SubscriptionUserStatusChangedArgs = {
 
 export type TagModel = {
   __typename?: 'TagModel';
+  categoryTags: Array<CategoryTagModel>;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
-  stream: StreamModel;
-  streamId: Scalars['String']['output'];
+  streamTags: Array<StreamTagModel>;
 };
 
 export type TotpModel = {
@@ -879,19 +898,19 @@ export type UpdateSocialLinkMutation = { __typename?: 'Mutation', updateSocialLi
 export type FindAllCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllCategoriesQuery = { __typename?: 'Query', findAllCategories: Array<{ __typename?: 'CategoryModel', id: string, title: string, description?: string | null, slug: string, createdAt: any, thumbnailUrl: string, updatedAt: any }> };
+export type FindAllCategoriesQuery = { __typename?: 'Query', findAllCategories: Array<{ __typename?: 'CategoryModel', id: string, title: string, description?: string | null, slug: string, createdAt: any, thumbnailUrl: string, updatedAt: any, tags?: Array<{ __typename?: 'CategoryTagModel', tag: { __typename?: 'TagModel', id: string, name: string } }> | null }> };
 
 export type FindCategoryBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
 
-export type FindCategoryBySlugQuery = { __typename?: 'Query', findCategoryBySlug: { __typename?: 'CategoryModel', id: string, title: string, thumbnailUrl: string, description?: string | null, createdAt: any, streams: Array<{ __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, user: { __typename?: 'UserModel', username: string, displayName: string, avatar?: string | null, id: string, isVerified: boolean }, category?: { __typename?: 'CategoryModel', title: string, slug: string, description?: string | null } | null }> } };
+export type FindCategoryBySlugQuery = { __typename?: 'Query', findCategoryBySlug: { __typename?: 'CategoryModel', id: string, title: string, thumbnailUrl: string, description?: string | null, createdAt: any, tags?: Array<{ __typename?: 'CategoryTagModel', tag: { __typename?: 'TagModel', id: string, name: string } }> | null, streams: Array<{ __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, user: { __typename?: 'UserModel', username: string, displayName: string, avatar?: string | null, id: string, isVerified: boolean }, category?: { __typename?: 'CategoryModel', title: string, slug: string, description?: string | null } | null, tags?: Array<{ __typename?: 'StreamTagModel', tag: { __typename?: 'TagModel', id: string, name: string } }> | null }> } };
 
 export type FindRandomCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindRandomCategoriesQuery = { __typename?: 'Query', findRandomCategories: Array<{ __typename?: 'CategoryModel', id: string, title: string, description?: string | null, slug: string, createdAt: any, thumbnailUrl: string }> };
+export type FindRandomCategoriesQuery = { __typename?: 'Query', findRandomCategories: Array<{ __typename?: 'CategoryModel', id: string, title: string, description?: string | null, slug: string, createdAt: any, thumbnailUrl: string, tags?: Array<{ __typename?: 'CategoryTagModel', tag: { __typename?: 'TagModel', id: string, name: string } }> | null }> };
 
 export type FindRecommendedChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -920,19 +939,19 @@ export type FindAllStreamsQueryVariables = Exact<{
 }>;
 
 
-export type FindAllStreamsQuery = { __typename?: 'Query', findAllStreams: Array<{ __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, user: { __typename?: 'UserModel', username: string, displayName: string, avatar?: string | null, id: string, isVerified: boolean }, category?: { __typename?: 'CategoryModel', title: string, slug: string, description?: string | null } | null }> };
+export type FindAllStreamsQuery = { __typename?: 'Query', findAllStreams: Array<{ __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, tags?: Array<{ __typename?: 'StreamTagModel', tag: { __typename?: 'TagModel', id: string, name: string } }> | null, user: { __typename?: 'UserModel', username: string, displayName: string, avatar?: string | null, id: string, isVerified: boolean }, category?: { __typename?: 'CategoryModel', title: string, slug: string, description?: string | null } | null }> };
 
 export type FindChannelByUsernameQueryVariables = Exact<{
   username: Scalars['String']['input'];
 }>;
 
 
-export type FindChannelByUsernameQuery = { __typename?: 'Query', findChannelByUsername: { __typename?: 'UserModel', id: string, username: string, displayName: string, avatar?: string | null, bio?: string | null, isVerified: boolean, lastActive: any, socialLinks: Array<{ __typename?: 'SocialLinkModel', id: string, title: string, url: string }>, stream: { __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatSubscribersOnly: boolean, category?: { __typename?: 'CategoryModel', id: string, title: string } | null }, followings: Array<{ __typename?: 'FollowModel', id: string }> } };
+export type FindChannelByUsernameQuery = { __typename?: 'Query', findChannelByUsername: { __typename?: 'UserModel', id: string, username: string, displayName: string, avatar?: string | null, bio?: string | null, isVerified: boolean, lastActive: any, socialLinks: Array<{ __typename?: 'SocialLinkModel', id: string, title: string, url: string }>, stream: { __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatSubscribersOnly: boolean, tags?: Array<{ __typename?: 'StreamTagModel', tag: { __typename?: 'TagModel', id: string, name: string } }> | null, category?: { __typename?: 'CategoryModel', id: string, title: string } | null }, followings: Array<{ __typename?: 'FollowModel', id: string }> } };
 
 export type FindRandomStreamsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindRandomStreamsQuery = { __typename?: 'Query', findRandomStreams: Array<{ __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, user: { __typename?: 'UserModel', username: string, displayName: string, avatar?: string | null, id: string, isVerified: boolean }, category?: { __typename?: 'CategoryModel', title: string, slug: string, description?: string | null } | null }> };
+export type FindRandomStreamsQuery = { __typename?: 'Query', findRandomStreams: Array<{ __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, tags?: Array<{ __typename?: 'StreamTagModel', tag: { __typename?: 'TagModel', id: string, name: string } }> | null, user: { __typename?: 'UserModel', username: string, displayName: string, avatar?: string | null, id: string, isVerified: boolean }, category?: { __typename?: 'CategoryModel', title: string, slug: string, description?: string | null } | null }> };
 
 export type FindCurrentSessionQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2233,6 +2252,12 @@ export const FindAllCategoriesDocument = gql`
     slug
     createdAt
     thumbnailUrl
+    tags {
+      tag {
+        id
+        name
+      }
+    }
     updatedAt
   }
 }
@@ -2277,6 +2302,12 @@ export const FindCategoryBySlugDocument = gql`
     thumbnailUrl
     description
     createdAt
+    tags {
+      tag {
+        id
+        name
+      }
+    }
     streams {
       id
       title
@@ -2293,6 +2324,12 @@ export const FindCategoryBySlugDocument = gql`
         title
         slug
         description
+      }
+      tags {
+        tag {
+          id
+          name
+        }
       }
     }
   }
@@ -2339,6 +2376,12 @@ export const FindRandomCategoriesDocument = gql`
     description
     slug
     createdAt
+    tags {
+      tag {
+        id
+        name
+      }
+    }
     thumbnailUrl
   }
 }
@@ -2561,6 +2604,12 @@ export const FindAllStreamsDocument = gql`
     title
     thumbnailUrl
     isLive
+    tags {
+      tag {
+        id
+        name
+      }
+    }
     user {
       username
       displayName
@@ -2632,6 +2681,12 @@ export const FindChannelByUsernameDocument = gql`
       isChatEnabled
       isChatFollowersOnly
       isChatSubscribersOnly
+      tags {
+        tag {
+          id
+          name
+        }
+      }
       category {
         id
         title
@@ -2683,6 +2738,12 @@ export const FindRandomStreamsDocument = gql`
     title
     thumbnailUrl
     isLive
+    tags {
+      tag {
+        id
+        name
+      }
+    }
     user {
       username
       displayName
