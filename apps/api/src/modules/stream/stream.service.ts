@@ -156,12 +156,43 @@ export class StreamService {
   }
 
   public async changeInfo(user: User, input: ChangeStreamInfoInput) {
-    const { title, categoryId } = input;
+    const { title, categoryId, tags } = input;
+
+    const stream = await this.prismaService.stream.findUnique({
+      where: { userId: user.id },
+      select: { id: true },
+    });
+
+    if (!stream) {
+      throw new Error('Stream not found');
+    }
+
+    const streamId = stream.id;
+
+    const tagRecords = await Promise.all(
+      tags.map(async (tagName) => {
+        return this.prismaService.tag.upsert({
+          where: { name: tagName },
+          update: {},
+          create: { name: tagName },
+        });
+      }),
+    );
+
+    await this.prismaService.streamTag.deleteMany({
+      where: { streamId },
+    });
+
+    await this.prismaService.streamTag.createMany({
+      data: tagRecords.map((tag) => ({
+        streamId,
+        tagId: tag.id,
+      })),
+      skipDuplicates: true,
+    });
 
     await this.prismaService.stream.update({
-      where: {
-        userId: user.id,
-      },
+      where: { id: streamId },
       data: {
         title,
         category: {
