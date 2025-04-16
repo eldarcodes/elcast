@@ -1,8 +1,9 @@
 'use client';
 
 import { LiveKitRoom } from '@livekit/components-react';
+import { useParams } from 'next/navigation';
 
-import { FindChannelByUsernameQuery } from '@/graphql/generated/output';
+import { useFindChannelByUsernameQuery } from '@/graphql/generated/output';
 
 import { useStreamToken } from '@/hooks/use-stream-token';
 
@@ -14,14 +15,20 @@ import { AboutChannel, AboutChannelSkeleton } from './info/about-channel';
 import { StreamInfo, StreamInfoSkeleton } from './info/stream-info';
 import { StreamVideo, StreamVideoSkeleton } from './player/stream-video';
 
-interface StreamOverviewProps {
-  channel: FindChannelByUsernameQuery['findChannelByUsername'];
-}
+export function StreamOverview() {
+  const { username } = useParams();
 
-export function StreamOverview({ channel }: StreamOverviewProps) {
-  const { token, name, identity } = useStreamToken(channel.id);
+  const { data, loading } = useFindChannelByUsernameQuery({
+    variables: {
+      username: username as string,
+    },
+  });
 
-  if (!token || !name || !identity) {
+  const channel = data?.findChannelByUsername;
+
+  const { token, name, identity } = useStreamToken(channel?.id ?? '');
+
+  if (loading || !channel || !token || !name || !identity) {
     return <StreamOverviewSkeleton />;
   }
 

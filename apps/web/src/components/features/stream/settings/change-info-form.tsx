@@ -20,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/common/select';
+import { InputTags } from '@/components/ui/elements/input-tags';
 
 import {
   type FindChannelByUsernameQuery,
@@ -34,12 +35,14 @@ import {
 
 interface ChangeInfoFormProps {
   stream: FindChannelByUsernameQuery['findChannelByUsername']['stream'];
+  onCompleted?: () => void;
 }
 
-export function ChangeInfoForm({ stream }: ChangeInfoFormProps) {
+export function ChangeInfoForm({ stream, onCompleted }: ChangeInfoFormProps) {
   const t = useTranslations('stream.settings.info');
 
   const { data } = useFindAllCategoriesQuery();
+
   const categories = data?.findAllCategories ?? [];
 
   const form = useForm<ChangeStreamInfoSchema>({
@@ -47,11 +50,14 @@ export function ChangeInfoForm({ stream }: ChangeInfoFormProps) {
     values: {
       title: stream?.title ?? '',
       categoryId: stream?.category?.id ?? '',
+      tags: stream?.tags?.map((tag) => tag.tag.name) ?? [],
     },
   });
 
   const [update, { loading: isLoadingUpdate }] = useChangeStreamInfoMutation({
     onCompleted() {
+      if (onCompleted) onCompleted();
+
       toast.success(t('successMessage'));
     },
     onError() {
@@ -105,6 +111,21 @@ export function ChangeInfoForm({ stream }: ChangeInfoFormProps) {
                   ))}
                 </SelectContent>
               </Select>
+              <FormDescription>{t('categoryDescription')}</FormDescription>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="tags"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t('categoryLabel')}</FormLabel>
+              <InputTags
+                value={field.value || []}
+                onChange={(tags) => field.onChange(tags)}
+              />
               <FormDescription>{t('categoryDescription')}</FormDescription>
             </FormItem>
           )}

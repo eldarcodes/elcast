@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 @InputType()
 export class ChangeStreamInfoInput {
@@ -12,4 +12,8 @@ export class ChangeStreamInfoInput {
   @IsString()
   @IsNotEmpty()
   public categoryId: string;
+
+  @Field(() => [String], { nullable: true })
+  @IsOptional()
+  public tags?: string[];
 }
