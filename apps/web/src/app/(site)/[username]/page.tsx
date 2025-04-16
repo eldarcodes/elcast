@@ -67,7 +67,5 @@ export default async function ChannelPage(props: {
 }) {
   const params = await props.params;
 
-  const { channel } = await findChannelByUsername(params);
-
-  return <StreamOverview channel={channel} />;
+  return <StreamOverview />;
 }

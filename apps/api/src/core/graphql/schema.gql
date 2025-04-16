@@ -70,6 +70,7 @@ input ChangeProfileUsernameInput {
 
 input ChangeStreamInfoInput {
   categoryId: String!
+  tags: [String!]
   title: String!
 }
 
