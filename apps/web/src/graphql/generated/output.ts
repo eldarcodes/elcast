@@ -90,6 +90,7 @@ export type ChangeProfileUsernameInput = {
 
 export type ChangeStreamInfoInput = {
   categoryId: Scalars['String']['input'];
+  tags?: InputMaybe<Array<Scalars['String']['input']>>;
   title: Scalars['String']['input'];
 };
 
