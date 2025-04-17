@@ -2,7 +2,9 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { BullModule } from '@nestjs/bullmq';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { APP_FILTER } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
+import { SentryGlobalFilter, SentryModule } from '@sentry/nestjs/setup';
 
 import { AccountModule } from '../modules/auth/account/account.module';
 import { DeactivateModule } from '../modules/auth/deactivate/deactivate.module';
@@ -43,6 +45,7 @@ import { RedisService } from './redis/redis.service';
       ignoreEnvFile: !IS_DEV_ENV,
       isGlobal: true,
     }),
+    SentryModule.forRoot(),
     BullModule.forRootAsync({
       useFactory: getBullMQConfig,
       inject: [RedisService],
@@ -88,6 +91,12 @@ import { RedisService } from './redis/redis.service';
     FollowModule,
     ChannelModule,
     NotificationModule,
+  ],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: SentryGlobalFilter,
+    },
   ],
 })
 export class CoreModule {}
