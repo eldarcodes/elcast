@@ -417,6 +417,7 @@ export type Query = {
   __typename?: 'Query';
   findAllCategories: Array<CategoryModel>;
   findAllStreams: Array<StreamModel>;
+  findAllStreamsByUsername: Array<StreamModel>;
   /** Find all users */
   findAllUsers: Array<UserModel>;
   findCategoryBySlug: CategoryModel;
@@ -443,6 +444,11 @@ export type Query = {
 
 export type QueryFindAllStreamsArgs = {
   filters: FiltersInput;
+};
+
+
+export type QueryFindAllStreamsByUsernameArgs = {
+  filters: UsernameFiltersInput;
 };
 
 
@@ -638,6 +644,10 @@ export type UserProfileModel = {
   totpSecret?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['DateTime']['output'];
   username: Scalars['String']['output'];
+};
+
+export type UsernameFiltersInput = {
+  searchTerm?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type VerificationCodeInput = {
@@ -941,6 +951,13 @@ export type FindAllStreamsQueryVariables = Exact<{
 
 
 export type FindAllStreamsQuery = { __typename?: 'Query', findAllStreams: Array<{ __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, tags?: Array<{ __typename?: 'StreamTagModel', tag: { __typename?: 'TagModel', id: string, name: string } }> | null, user: { __typename?: 'UserModel', username: string, displayName: string, avatar?: string | null, id: string, isVerified: boolean }, category?: { __typename?: 'CategoryModel', title: string, slug: string, description?: string | null } | null }> };
+
+export type FindAllStreamsByUsernameQueryVariables = Exact<{
+  filters: UsernameFiltersInput;
+}>;
+
+
+export type FindAllStreamsByUsernameQuery = { __typename?: 'Query', findAllStreamsByUsername: Array<{ __typename?: 'StreamModel', id: string, user: { __typename?: 'UserModel', displayName: string, username: string, avatar?: string | null, id: string }, category?: { __typename?: 'CategoryModel', title: string } | null }> };
 
 export type FindChannelByUsernameQueryVariables = Exact<{
   username: Scalars['String']['input'];
@@ -2659,6 +2676,55 @@ export type FindAllStreamsQueryHookResult = ReturnType<typeof useFindAllStreamsQ
 export type FindAllStreamsLazyQueryHookResult = ReturnType<typeof useFindAllStreamsLazyQuery>;
 export type FindAllStreamsSuspenseQueryHookResult = ReturnType<typeof useFindAllStreamsSuspenseQuery>;
 export type FindAllStreamsQueryResult = Apollo.QueryResult<FindAllStreamsQuery, FindAllStreamsQueryVariables>;
+export const FindAllStreamsByUsernameDocument = gql`
+    query FindAllStreamsByUsername($filters: UsernameFiltersInput!) {
+  findAllStreamsByUsername(filters: $filters) {
+    id
+    user {
+      displayName
+      username
+      avatar
+      id
+    }
+    category {
+      title
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindAllStreamsByUsernameQuery__
+ *
+ * To run a query within a React component, call `useFindAllStreamsByUsernameQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAllStreamsByUsernameQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindAllStreamsByUsernameQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *   },
+ * });
+ */
+export function useFindAllStreamsByUsernameQuery(baseOptions: Apollo.QueryHookOptions<FindAllStreamsByUsernameQuery, FindAllStreamsByUsernameQueryVariables> & ({ variables: FindAllStreamsByUsernameQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindAllStreamsByUsernameQuery, FindAllStreamsByUsernameQueryVariables>(FindAllStreamsByUsernameDocument, options);
+      }
+export function useFindAllStreamsByUsernameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAllStreamsByUsernameQuery, FindAllStreamsByUsernameQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindAllStreamsByUsernameQuery, FindAllStreamsByUsernameQueryVariables>(FindAllStreamsByUsernameDocument, options);
+        }
+export function useFindAllStreamsByUsernameSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FindAllStreamsByUsernameQuery, FindAllStreamsByUsernameQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindAllStreamsByUsernameQuery, FindAllStreamsByUsernameQueryVariables>(FindAllStreamsByUsernameDocument, options);
+        }
+export type FindAllStreamsByUsernameQueryHookResult = ReturnType<typeof useFindAllStreamsByUsernameQuery>;
+export type FindAllStreamsByUsernameLazyQueryHookResult = ReturnType<typeof useFindAllStreamsByUsernameLazyQuery>;
+export type FindAllStreamsByUsernameSuspenseQueryHookResult = ReturnType<typeof useFindAllStreamsByUsernameSuspenseQuery>;
+export type FindAllStreamsByUsernameQueryResult = Apollo.QueryResult<FindAllStreamsByUsernameQuery, FindAllStreamsByUsernameQueryVariables>;
 export const FindChannelByUsernameDocument = gql`
     query FindChannelByUsername($username: String!) {
   findChannelByUsername(username: $username) {

@@ -8,7 +8,7 @@ import { Authorized } from '@/src/shared/decorators/authorized.decorator';
 import { FileValidationPipe } from '@/src/shared/pipes/file-validation.pipe';
 
 import { ChangeStreamInfoInput } from './inputs/change-stream-info.input';
-import { FiltersInput } from './inputs/filters.input';
+import { FiltersInput, UsernameFiltersInput } from './inputs/filters.input';
 import { GenerateStreamTokenInput } from './inputs/generate-stream-token.input';
 import { GenerateTokenModel } from './models/generate-token.model';
 import { StreamModel } from './models/stream.model';
@@ -23,6 +23,13 @@ export class StreamResolver {
   })
   public async findAll(@Args('filters') input: FiltersInput) {
     return this.streamService.findAll(input);
+  }
+
+  @Query(() => [StreamModel], {
+    name: 'findAllStreamsByUsername',
+  })
+  public async findAllByUsername(@Args('filters') input: UsernameFiltersInput) {
+    return this.streamService.findAllByUsername(input);
   }
 
   @Query(() => [StreamModel], {

@@ -1,0 +1,14 @@
+query FindAllStreamsByUsername($filters: UsernameFiltersInput!) {
+  findAllStreamsByUsername(filters: $filters) {
+    id
+    user {
+      displayName
+      username
+      avatar
+      id
+    }
+    category {
+      title
+    }
+  }
+}

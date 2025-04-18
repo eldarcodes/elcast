@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/common/command';
 import { ChannelAvatar } from '@/components/ui/elements/channel-avatar';
 
-import { useFindAllStreamsLazyQuery } from '@/graphql/generated/output';
+import { useFindAllStreamsByUsernameLazyQuery } from '@/graphql/generated/output';
 
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
@@ -35,9 +35,9 @@ export const SearchModal = () => {
   const t = useTranslations('layout.header.headerMenu.profileMenu');
   const { user } = useCurrentProfile();
 
-  const [findStreams, { data }] = useFindAllStreamsLazyQuery();
+  const [findStreams, { data }] = useFindAllStreamsByUsernameLazyQuery();
 
-  const streams = data?.findAllStreams ?? [];
+  const streams = data?.findAllStreamsByUsername ?? [];
 
   const router = useRouter();
 
@@ -136,14 +136,16 @@ export const SearchModal = () => {
                 key={id}
                 onSelect={() => {
                   setOpen(false);
-                  router.push(`/${user.username}`);
+                  router.push(`/${user.displayName}`);
                 }}
               >
                 <div className="flex items-center gap-2">
                   <ChannelAvatar channel={user} />
 
                   <div>
-                    <div className="text-sm font-semibold">{user.username}</div>
+                    <div className="text-sm font-semibold">
+                      {user.displayName}
+                    </div>
                     <div className="text-xs text-muted-foreground">
                       {category?.title}
                     </div>

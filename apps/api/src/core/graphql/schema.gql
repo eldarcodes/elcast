@@ -253,6 +253,7 @@ type OAuthAccountModel {
 type Query {
   findAllCategories: [CategoryModel!]!
   findAllStreams(filters: FiltersInput!): [StreamModel!]!
+  findAllStreamsByUsername(filters: UsernameFiltersInput!): [StreamModel!]!
 
   """Find all users"""
   findAllUsers: [UserModel!]!
@@ -429,6 +430,10 @@ type UserProfileModel {
   totpSecret: String
   updatedAt: DateTime!
   username: String!
+}
+
+input UsernameFiltersInput {
+  searchTerm: String
 }
 
 input VerificationCodeInput {

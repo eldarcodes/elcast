@@ -18,3 +18,11 @@ export class FiltersInput {
   @IsOptional()
   public searchTerm?: string;
 }
+
+@InputType()
+export class UsernameFiltersInput {
+  @Field(() => String, { nullable: true })
+  @IsString()
+  @IsOptional()
+  public searchTerm?: string;
+}

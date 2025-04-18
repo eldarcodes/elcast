@@ -14,7 +14,7 @@ import {
 import { StorageService } from '../libs/storage/storage.service';
 
 import { ChangeStreamInfoInput } from './inputs/change-stream-info.input';
-import { FiltersInput } from './inputs/filters.input';
+import { FiltersInput, UsernameFiltersInput } from './inputs/filters.input';
 import { GenerateStreamTokenInput } from './inputs/generate-stream-token.input';
 
 @Injectable()
@@ -54,6 +54,32 @@ export class StreamService {
             tag: true,
           },
         },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return streams;
+  }
+
+  public async findAllByUsername(input: UsernameFiltersInput = {}) {
+    const { searchTerm } = input;
+
+    const streams = await this.prismaService.stream.findMany({
+      where: {
+        user: {
+          username: {
+            contains: searchTerm,
+            mode: 'insensitive',
+          },
+
+          isDeactivated: false,
+        },
+      },
+      include: {
+        user: true,
+        category: true,
       },
       orderBy: {
         createdAt: 'desc',
@@ -274,12 +300,6 @@ export class StreamService {
     return {
       OR: [
         {
-          title: {
-            contains: searchTerm,
-            mode: 'insensitive',
-          },
-        },
-        {
           user: {
             username: {
               contains: searchTerm,
@@ -293,6 +313,12 @@ export class StreamService {
               contains: searchTerm,
               mode: 'insensitive',
             },
+          },
+        },
+        {
+          title: {
+            contains: searchTerm,
+            mode: 'insensitive',
           },
         },
       ],
