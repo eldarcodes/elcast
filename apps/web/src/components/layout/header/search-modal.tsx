@@ -3,13 +3,10 @@
 import debounce from 'lodash.debounce';
 import {
   Folder,
-  KeyRound,
-  MessageSquare,
   Radio,
   Search,
   SearchIcon,
   Settings,
-  Unplug,
   User,
   Users,
 } from 'lucide-react';

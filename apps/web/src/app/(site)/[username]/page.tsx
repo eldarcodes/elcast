@@ -62,10 +62,6 @@ export async function generateMetadata(props: {
   };
 }
 
-export default async function ChannelPage(props: {
-  params: Promise<{ username: string }>;
-}) {
-  const params = await props.params;
-
+export default async function ChannelPage() {
   return <StreamOverview />;
 }
