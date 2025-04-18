@@ -27,7 +27,7 @@ export function Search() {
   }
 
   return (
-    <div className="ml-auto hidden md:block">
+    <div className="ml-auto hidden sm:block">
       <form className="relative flex items-center" onSubmit={onSubmit}>
         <Input
           placeholder={t('placeholder')}
@@ -37,7 +37,7 @@ export function Search() {
           className="w-full rounded-r-none pl-4 pr-10 lg:w-[350px]"
         />
 
-        <Button type="submit" className="w-[38px] rounded-l-none" size="icon">
+        <Button type="submit" className="w-[40px] rounded-l-none" size="icon">
           <SearchIcon />
         </Button>
       </form>
