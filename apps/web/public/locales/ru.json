@@ -105,6 +105,8 @@
           "successMessage": "Успешный выход из системы",
           "errorMessage": "Ошибка выхода из системы",
           "channel": "Мой канал",
+          "categories": "Категории",
+          "streams": "Стримы",
           "settings": "Настройки",
           "keys": "Ключи стрима",
           "connections": "Подключения",

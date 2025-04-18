@@ -103,6 +103,8 @@
           "successMessage": "Successfully logged out",
           "errorMessage": "Logout error",
           "channel": "My channel",
+          "categories": "Categories",
+          "streams": "Streams",
           "settings": "Settings",
           "language": "Language",
           "darkTheme": "Dark theme",

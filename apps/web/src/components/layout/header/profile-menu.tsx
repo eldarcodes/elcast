@@ -43,6 +43,7 @@ import { setLocale } from '@/libs/i18n/locale';
 import { cn } from '@/utils/tw-merge';
 
 import { Notifications } from './notifications/notifications';
+import { SearchModal } from './search-modal';
 
 export function ProfileMenu() {
   const { theme, setTheme } = useTheme();
@@ -82,6 +83,7 @@ export function ProfileMenu() {
     <Loader className="size-6 animate-spin text-muted-foreground" />
   ) : (
     <div className="flex items-center gap-x-6">
+      <SearchModal />
       <Notifications />
 
       <DropdownMenu>
