@@ -35,7 +35,7 @@ export function CategoryCard({ category }: CategoryCardProps) {
   return (
     <Link
       href={`/categories/${category.slug}`}
-      className="w-full max-w-52 flex-[1_0_auto]"
+      className="w-32 max-w-full flex-[1_0_auto] sm:w-40"
     >
       <div className="group relative cursor-pointer rounded">
         <div className="relative w-full" style={{ paddingBottom }}>

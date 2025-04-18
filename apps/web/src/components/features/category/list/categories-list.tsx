@@ -11,6 +11,8 @@ interface CategoriesListProps {
 }
 
 export function CategoriesList({ heading, categories }: CategoriesListProps) {
+  const isOdd = categories.length % 2 === 1;
+
   return categories.length ? (
     <>
       {heading && <Heading title={heading} />}
@@ -19,6 +21,10 @@ export function CategoriesList({ heading, categories }: CategoriesListProps) {
         {categories.map((category) => (
           <CategoryCard key={category.id} category={category} />
         ))}
+
+        {isOdd && (
+          <div className="invisible w-32 max-w-full flex-[1_0_auto] sm:w-40" />
+        )}
       </div>
     </>
   ) : (
