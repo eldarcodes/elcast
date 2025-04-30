@@ -59,7 +59,7 @@ export function ChannelAvatar({
 
   return (
     <div>
-      <div className={cn('relative h-full', className)}>
+      <div className={cn('relative', className)}>
         <Avatar
           className={cn(avatarSizes({ size }), isLive && 'ring-2 ring-red-500')}
         >

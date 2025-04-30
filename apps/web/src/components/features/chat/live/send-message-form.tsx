@@ -63,7 +63,7 @@ export function SendMessageForm({ channel, isDisabled }: SendMessageFormProps) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-3 flex items-center gap-x-4"
+        className="mt-3 flex items-center gap-x-2"
       >
         <FormField
           control={form.control}
@@ -85,7 +85,7 @@ export function SendMessageForm({ channel, isDisabled }: SendMessageFormProps) {
                         form.handleSubmit(onSubmit)();
                       }
                     }}
-                    className="min-h-[40px] resize-none pr-8"
+                    className="min-h-[36px] resize-none pr-8"
                     disabled={isDisabled || isLoadingSend}
                     {...field}
                   />
