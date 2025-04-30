@@ -87,7 +87,7 @@ export function ConnectionItem({ connection, enabled }: ConnectionItemProps) {
 
   return (
     <div key={provider} className={'flex items-center gap-x-4 p-6'}>
-      <div className="h-30 w-30 hidden items-center justify-center rounded bg-gray-200 p-4 sm:flex">
+      <div className="h-30 w-30 hidden items-center justify-center rounded bg-secondary p-4 sm:flex">
         <Icon className="size-8" />
       </div>
 

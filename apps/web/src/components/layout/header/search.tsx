@@ -37,7 +37,12 @@ export function Search() {
           className="w-full rounded-r-none pl-4 pr-10 lg:w-[350px]"
         />
 
-        <Button type="submit" className="w-[40px] rounded-l-none" size="icon">
+        <Button
+          type="submit"
+          className="w-[40px] rounded-l-none"
+          size="icon"
+          variant="secondary"
+        >
           <SearchIcon />
         </Button>
       </form>

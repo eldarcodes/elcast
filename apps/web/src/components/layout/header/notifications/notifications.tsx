@@ -1,4 +1,4 @@
-import { Bell } from 'lucide-react';
+import { Inbox } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -73,7 +73,7 @@ export function Notifications() {
             {displayCount}
           </div>
         )}
-        <Bell className="size-5 text-foreground" />
+        <Inbox className="size-5 text-foreground" />
       </PopoverTrigger>
 
       <PopoverContent
