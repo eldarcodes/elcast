@@ -20,7 +20,7 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        'fixed left-0 z-50 mt-[75px] hidden h-full flex-col border-r bg-card transition-all duration-200 ease-in-out md:flex',
+        'bg-sidebar fixed left-0 z-50 mt-[60px] hidden h-full flex-col border-r transition-all duration-200 ease-in-out md:flex',
         isCollapsed ? 'w-16' : 'w-64',
       )}
     >

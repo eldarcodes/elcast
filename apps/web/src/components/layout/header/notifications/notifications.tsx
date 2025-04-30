@@ -1,4 +1,5 @@
 import { Inbox } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -7,6 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/common/popover';
+import { Hint } from '@/components/ui/elements/hint';
 
 import {
   FindNotificationsByUserQuery,
@@ -22,6 +24,9 @@ import { NotificationsList } from './notifications-list';
 
 export function Notifications() {
   const { user } = useCurrentProfile();
+  const t = useTranslations(
+    'layout.header.headerMenu.profileMenu.notifications',
+  );
 
   const {
     data: notificationsCount,
@@ -73,7 +78,9 @@ export function Notifications() {
             {displayCount}
           </div>
         )}
-        <Inbox className="size-5 text-foreground" />
+        <Hint label={t('heading')} asChild>
+          <Inbox className="size-5 text-foreground" />
+        </Hint>
       </PopoverTrigger>
 
       <PopoverContent

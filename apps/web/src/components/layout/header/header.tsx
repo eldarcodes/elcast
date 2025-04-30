@@ -8,14 +8,16 @@ import { Search } from './search';
 
 export function Header() {
   return (
-    <header className="flex h-full items-center gap-x-4 border-b bg-card p-4">
-      <OnlineUsersFetcher />
-      <OnlineUsersListener />
-      <OnlineUsersHeartbeat />
+    <div className="fixed inset-y-0 z-50 h-[60px] w-full">
+      <header className="flex h-full items-center gap-x-4 border-b bg-card px-4">
+        <OnlineUsersFetcher />
+        <OnlineUsersListener />
+        <OnlineUsersHeartbeat />
 
-      <Logo />
-      <Search />
-      <HeaderMenu />
-    </header>
+        <Logo />
+        <Search />
+        <HeaderMenu />
+      </header>
+    </div>
   );
 }
