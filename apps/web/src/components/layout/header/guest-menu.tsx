@@ -1,4 +1,12 @@
-import { Check, Globe, LogIn, Moon, User } from 'lucide-react';
+import {
+  Activity,
+  Check,
+  ExternalLink,
+  Globe,
+  LogIn,
+  Moon,
+  User,
+} from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
@@ -12,6 +20,7 @@ import {
   DropdownMenuItem,
   DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
@@ -19,6 +28,7 @@ import {
 } from '@/components/ui/common/dropdown-menu';
 import { Switch } from '@/components/ui/common/switch';
 
+import { STATUS_URL } from '@/libs/constants/url.constants';
 import { languageOptions, Locale } from '@/libs/i18n/config';
 import { setLocale } from '@/libs/i18n/locale';
 
@@ -104,6 +114,18 @@ export function GuestMenu() {
               }}
             />
           </DropdownMenuItem>
+
+          <DropdownMenuSeparator />
+
+          <Link href={STATUS_URL} target="_blank" rel="noopener noreferrer">
+            <DropdownMenuItem className="cursor-pointer">
+              <Activity className="mr-2 size-4" />
+              {t('profileMenu.status')}
+              <DropdownMenuShortcut>
+                <ExternalLink className="size-4" />
+              </DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </Link>
 
           <DropdownMenuSeparator />
 

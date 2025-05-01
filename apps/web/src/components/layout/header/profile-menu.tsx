@@ -1,5 +1,7 @@
 import {
+  Activity,
   Check,
+  ExternalLink,
   Globe,
   KeyRound,
   Loader,
@@ -24,6 +26,7 @@ import {
   DropdownMenuItem,
   DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
@@ -37,6 +40,7 @@ import { useLogoutUserMutation } from '@/graphql/generated/output';
 import { useAuth } from '@/hooks/use-auth';
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
+import { STATUS_URL } from '@/libs/constants/url.constants';
 import { languageOptions, Locale } from '@/libs/i18n/config';
 import { setLocale } from '@/libs/i18n/locale';
 
@@ -184,6 +188,18 @@ export function ProfileMenu() {
               }}
             />
           </DropdownMenuItem>
+
+          <DropdownMenuSeparator />
+
+          <Link href={STATUS_URL} target="_blank" rel="noopener noreferrer">
+            <DropdownMenuItem className="cursor-pointer">
+              <Activity className="mr-2 size-4" />
+              {t('status')}
+              <DropdownMenuShortcut>
+                <ExternalLink className="size-4" />
+              </DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </Link>
 
           <DropdownMenuSeparator />
 
