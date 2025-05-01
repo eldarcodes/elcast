@@ -114,6 +114,7 @@
           "followers": "Подписчики",
           "language": "Язык",
           "darkTheme": "Темная тема",
+          "login": "Войти",
           "logout": "Выйти"
         }
       },

@@ -59,7 +59,7 @@ export function ProfileMenu() {
     onCompleted: () => {
       exit();
       toast.success(t('successMessage'));
-      router.push('/account/login');
+      router.push('/');
     },
     onError: () => {
       toast.error(t('errorMessage'));
@@ -79,10 +79,12 @@ export function ProfileMenu() {
     });
   }
 
-  return isLoadingProfile || !user ? (
-    <Loader className="size-6 animate-spin text-muted-foreground" />
-  ) : (
-    <div className="flex items-center gap-x-6">
+  if (isLoadingProfile || !user) {
+    return <Loader className="size-6 animate-spin text-muted-foreground" />;
+  }
+
+  return (
+    <div className="flex items-center gap-x-4">
       <SearchModal />
       <Notifications />
 

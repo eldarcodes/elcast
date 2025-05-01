@@ -14,6 +14,7 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 
+import { Button } from '@/components/ui/common/button';
 import {
   CommandDialog,
   CommandEmpty,
@@ -90,10 +91,14 @@ export const SearchModal = () => {
 
   return (
     <>
-      <SearchIcon
-        className="block size-5 cursor-pointer sm:hidden"
+      <Button
+        size="icon"
+        variant="ghost"
         onClick={() => setOpen(true)}
-      />
+        className="sm:hidden"
+      >
+        <SearchIcon />
+      </Button>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
         <div

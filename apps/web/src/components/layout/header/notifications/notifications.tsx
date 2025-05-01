@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
+import { Button } from '@/components/ui/common/button';
 import {
   Popover,
   PopoverContent,
@@ -74,12 +75,14 @@ export function Notifications() {
     <Popover>
       <PopoverTrigger>
         {count > 0 && (
-          <div className="absolute right-[60px] top-[17px] min-w-5 rounded-full bg-red-500 px-[5px] text-xs font-semibold text-white">
+          <div className="absolute right-[60px] top-[10px] min-w-5 rounded-full bg-red-500 px-[5px] text-xs font-semibold text-white">
             {displayCount}
           </div>
         )}
         <Hint label={t('heading')} asChild>
-          <Inbox className="size-5 text-foreground" />
+          <Button size="icon" variant="ghost">
+            <Inbox />
+          </Button>
         </Hint>
       </PopoverTrigger>
 
