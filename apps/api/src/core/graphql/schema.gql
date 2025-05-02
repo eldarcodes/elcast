@@ -177,6 +177,7 @@ type Mutation {
   """Create a user"""
   createUser(data: CreateUserInput!): Boolean!
   deactivateAccount(data: DeactivateAccountInput!): AuthModel!
+  deleteNotification(notificationId: String!): Boolean!
   disableTotp: Boolean!
   disconnectOAuthConnection(provider: String!, providerId: String!): Boolean!
   enableTotp(data: EnableTotpInput!): Boolean!
@@ -184,6 +185,7 @@ type Mutation {
   generateStreamToken(data: GenerateStreamTokenInput!): GenerateTokenModel!
   loginUser(data: LoginInput!): AuthModel!
   logoutUser: Boolean!
+  markNotificationAsRead(notificationId: String!): Boolean!
   markNotificationsAsRead: Boolean!
   newPassword(data: NewPasswordInput!): Boolean!
   removeAllOtherSessions: Boolean!

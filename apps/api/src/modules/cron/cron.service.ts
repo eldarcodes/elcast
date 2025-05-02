@@ -4,7 +4,6 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 import {
   DAYS_TO_KEEP_DEACTIVATED_ACCOUNTS,
-  DAYS_TO_KEEP_OLD_NOTIFICATIONS,
   MIN_FOLLOWERS_TO_GET_VERIFIED,
 } from '@/src/shared/constants/account.constants';
 
@@ -70,7 +69,7 @@ export class CronService {
     });
   }
 
-  @Cron('0 0 */7 * *') // every 7 days
+  @Cron('0 12 * * 1') // every Monday at 12:00 GMT
   public async notifyUsersEnablingTwoFactorAuth() {
     const users = await this.prismaService.user.findMany({
       where: {
@@ -133,22 +132,5 @@ export class CronService {
         }
       }
     }
-  }
-
-  @Cron(CronExpression.EVERY_DAY_AT_1AM)
-  public async deleteOldNotifications() {
-    const sevenDaysAgo = new Date();
-
-    sevenDaysAgo.setDate(
-      sevenDaysAgo.getDay() - DAYS_TO_KEEP_OLD_NOTIFICATIONS,
-    );
-
-    await this.prismaService.notification.deleteMany({
-      where: {
-        createdAt: {
-          lte: sevenDaysAgo,
-        },
-      },
-    });
   }
 }

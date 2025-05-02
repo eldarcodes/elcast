@@ -195,6 +195,7 @@ export type Mutation = {
   /** Create a user */
   createUser: Scalars['Boolean']['output'];
   deactivateAccount: AuthModel;
+  deleteNotification: Scalars['Boolean']['output'];
   disableTotp: Scalars['Boolean']['output'];
   disconnectOAuthConnection: Scalars['Boolean']['output'];
   enableTotp: Scalars['Boolean']['output'];
@@ -202,6 +203,7 @@ export type Mutation = {
   generateStreamToken: GenerateTokenModel;
   loginUser: AuthModel;
   logoutUser: Scalars['Boolean']['output'];
+  markNotificationAsRead: Scalars['Boolean']['output'];
   markNotificationsAsRead: Scalars['Boolean']['output'];
   newPassword: Scalars['Boolean']['output'];
   removeAllOtherSessions: Scalars['Boolean']['output'];
@@ -287,6 +289,11 @@ export type MutationDeactivateAccountArgs = {
 };
 
 
+export type MutationDeleteNotificationArgs = {
+  notificationId: Scalars['String']['input'];
+};
+
+
 export type MutationDisconnectOAuthConnectionArgs = {
   provider: Scalars['String']['input'];
   providerId: Scalars['String']['input'];
@@ -310,6 +317,11 @@ export type MutationGenerateStreamTokenArgs = {
 
 export type MutationLoginUserArgs = {
   data: LoginInput;
+};
+
+
+export type MutationMarkNotificationAsReadArgs = {
+  notificationId: Scalars['String']['input'];
 };
 
 
@@ -837,6 +849,13 @@ export type CreateSocialLinkMutationVariables = Exact<{
 
 export type CreateSocialLinkMutation = { __typename?: 'Mutation', createSocialLink: boolean };
 
+export type DeleteNotificationMutationVariables = Exact<{
+  notificationId: Scalars['String']['input'];
+}>;
+
+
+export type DeleteNotificationMutation = { __typename?: 'Mutation', deleteNotification: boolean };
+
 export type DisableTotpMutationVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -856,6 +875,13 @@ export type EnableTotpMutationVariables = Exact<{
 
 
 export type EnableTotpMutation = { __typename?: 'Mutation', enableTotp: boolean };
+
+export type MarkNotificationAsReadMutationVariables = Exact<{
+  notificationId: Scalars['String']['input'];
+}>;
+
+
+export type MarkNotificationAsReadMutation = { __typename?: 'Mutation', markNotificationAsRead: boolean };
 
 export type MarkNotificationsAsReadMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -1923,6 +1949,37 @@ export function useCreateSocialLinkMutation(baseOptions?: Apollo.MutationHookOpt
 export type CreateSocialLinkMutationHookResult = ReturnType<typeof useCreateSocialLinkMutation>;
 export type CreateSocialLinkMutationResult = Apollo.MutationResult<CreateSocialLinkMutation>;
 export type CreateSocialLinkMutationOptions = Apollo.BaseMutationOptions<CreateSocialLinkMutation, CreateSocialLinkMutationVariables>;
+export const DeleteNotificationDocument = gql`
+    mutation DeleteNotification($notificationId: String!) {
+  deleteNotification(notificationId: $notificationId)
+}
+    `;
+export type DeleteNotificationMutationFn = Apollo.MutationFunction<DeleteNotificationMutation, DeleteNotificationMutationVariables>;
+
+/**
+ * __useDeleteNotificationMutation__
+ *
+ * To run a mutation, you first call `useDeleteNotificationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteNotificationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteNotificationMutation, { data, loading, error }] = useDeleteNotificationMutation({
+ *   variables: {
+ *      notificationId: // value for 'notificationId'
+ *   },
+ * });
+ */
+export function useDeleteNotificationMutation(baseOptions?: Apollo.MutationHookOptions<DeleteNotificationMutation, DeleteNotificationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteNotificationMutation, DeleteNotificationMutationVariables>(DeleteNotificationDocument, options);
+      }
+export type DeleteNotificationMutationHookResult = ReturnType<typeof useDeleteNotificationMutation>;
+export type DeleteNotificationMutationResult = Apollo.MutationResult<DeleteNotificationMutation>;
+export type DeleteNotificationMutationOptions = Apollo.BaseMutationOptions<DeleteNotificationMutation, DeleteNotificationMutationVariables>;
 export const DisableTotpDocument = gql`
     mutation DisableTotp {
   disableTotp
@@ -2016,6 +2073,37 @@ export function useEnableTotpMutation(baseOptions?: Apollo.MutationHookOptions<E
 export type EnableTotpMutationHookResult = ReturnType<typeof useEnableTotpMutation>;
 export type EnableTotpMutationResult = Apollo.MutationResult<EnableTotpMutation>;
 export type EnableTotpMutationOptions = Apollo.BaseMutationOptions<EnableTotpMutation, EnableTotpMutationVariables>;
+export const MarkNotificationAsReadDocument = gql`
+    mutation MarkNotificationAsRead($notificationId: String!) {
+  markNotificationAsRead(notificationId: $notificationId)
+}
+    `;
+export type MarkNotificationAsReadMutationFn = Apollo.MutationFunction<MarkNotificationAsReadMutation, MarkNotificationAsReadMutationVariables>;
+
+/**
+ * __useMarkNotificationAsReadMutation__
+ *
+ * To run a mutation, you first call `useMarkNotificationAsReadMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMarkNotificationAsReadMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [markNotificationAsReadMutation, { data, loading, error }] = useMarkNotificationAsReadMutation({
+ *   variables: {
+ *      notificationId: // value for 'notificationId'
+ *   },
+ * });
+ */
+export function useMarkNotificationAsReadMutation(baseOptions?: Apollo.MutationHookOptions<MarkNotificationAsReadMutation, MarkNotificationAsReadMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MarkNotificationAsReadMutation, MarkNotificationAsReadMutationVariables>(MarkNotificationAsReadDocument, options);
+      }
+export type MarkNotificationAsReadMutationHookResult = ReturnType<typeof useMarkNotificationAsReadMutation>;
+export type MarkNotificationAsReadMutationResult = Apollo.MutationResult<MarkNotificationAsReadMutation>;
+export type MarkNotificationAsReadMutationOptions = Apollo.BaseMutationOptions<MarkNotificationAsReadMutation, MarkNotificationAsReadMutationVariables>;
 export const MarkNotificationsAsReadDocument = gql`
     mutation MarkNotificationsAsRead {
   markNotificationsAsRead

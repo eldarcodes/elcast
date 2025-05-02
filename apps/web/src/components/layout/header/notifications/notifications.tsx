@@ -20,10 +20,12 @@ import {
 
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
-import { NotificationsItem } from './notifications-item';
 import { NotificationsList } from './notifications-list';
+import { NotificationsToast } from './notifications-toast';
 
 export function Notifications() {
+  const [open, setOpen] = useState(false);
+
   const { user } = useCurrentProfile();
   const t = useTranslations(
     'layout.header.headerMenu.profileMenu.notifications',
@@ -61,20 +63,20 @@ export function Notifications() {
       refetchCount();
       setNotifications((prev) => [newNotification, ...prev]);
 
-      toast(<NotificationsItem notification={newNotification} />);
+      toast(<NotificationsToast notification={newNotification} />);
     }
   }, [newNotificationData]);
 
-  const count = notificationsCount?.findNotificationsUnreadCount ?? 0;
+  const unreadCount = notificationsCount?.findNotificationsUnreadCount ?? 0;
 
-  const displayCount = count > 10 ? '+9' : count;
+  const displayCount = unreadCount > 10 ? '+9' : unreadCount;
 
   if (isLoadingCount) return null;
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger>
-        {count > 0 && (
+        {unreadCount > 0 && (
           <div className="absolute right-[60px] top-[10px] min-w-5 rounded-full bg-red-500 px-[5px] text-xs font-semibold text-white">
             {displayCount}
           </div>
@@ -88,11 +90,12 @@ export function Notifications() {
 
       <PopoverContent
         align="end"
-        className="max-h-[500px] w-[320px] overflow-y-auto"
+        className="max-h-[500px] w-[350px] overflow-y-auto p-0"
       >
         <NotificationsList
           notifications={notifications}
           loading={isLoadingNotifications}
+          onClose={() => setOpen(false)}
         />
       </PopoverContent>
     </Popover>
