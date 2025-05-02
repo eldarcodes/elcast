@@ -112,6 +112,8 @@
           "connections": "Connections",
           "chatSettings": "Chat Settings",
           "followers": "Followers",
+          "status": "Status",
+          "login": "Sign in",
           "logout": "Sign out"
         }
       },

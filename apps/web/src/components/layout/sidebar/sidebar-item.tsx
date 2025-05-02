@@ -30,7 +30,10 @@ export function SidebarItem({ route }: SidebarItemProps) {
   return isCollapsed ? (
     <Hint label={route.label} side="right" asChild>
       <Button
-        className={cn('h-11 w-full justify-center', isActive && 'bg-accent')}
+        className={cn(
+          'hover:bg-sidebar-accent h-11 w-full justify-center',
+          isActive && 'bg-sidebar-accent',
+        )}
         variant="ghost"
         asChild
       >
@@ -41,7 +44,10 @@ export function SidebarItem({ route }: SidebarItemProps) {
     </Hint>
   ) : (
     <Button
-      className={cn('h-11 w-full justify-start', isActive && 'bg-accent')}
+      className={cn(
+        'hover:bg-sidebar-accent h-11 w-full justify-start',
+        isActive && 'bg-sidebar-accent',
+      )}
       variant="ghost"
       asChild
     >
