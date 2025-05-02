@@ -1,7 +1,7 @@
-import { Loader, MailOpen, Settings, X } from 'lucide-react';
+import { Ghost, Loader, MailOpen, Settings, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 
 import { Button } from '@/components/ui/common/button';
 import { Separator } from '@/components/ui/common/separator';
@@ -63,7 +63,8 @@ export function NotificationsList({
     });
   } else {
     body = (
-      <div className="px-3 py-6 text-center text-muted-foreground">
+      <div className="px-3 py-8 text-center text-muted-foreground">
+        <Ghost className="mx-auto mb-2 size-12" />
         {t('empty')}
       </div>
     );

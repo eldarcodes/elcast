@@ -90,7 +90,7 @@ export function Notifications() {
 
       <PopoverContent
         align="end"
-        className="max-h-[500px] w-[350px] overflow-y-auto p-0"
+        className="max-h-[500px] w-screen overflow-y-auto p-0 md:w-[350px]"
       >
         <NotificationsList
           notifications={notifications}
