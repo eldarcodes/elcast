@@ -47,8 +47,30 @@ export class NotificationResolver {
   @Mutation(() => Boolean, {
     name: 'markNotificationsAsRead',
   })
-  public async markAsRead(@Authorized() user: User) {
-    return this.notificationService.markAsRead(user);
+  public async markAllAsRead(@Authorized() user: User) {
+    return this.notificationService.markAllAsRead(user);
+  }
+
+  @Authorization()
+  @Mutation(() => Boolean, {
+    name: 'markNotificationAsRead',
+  })
+  public async markAsRead(
+    @Authorized() user: User,
+    @Args('notificationId') notificationId: string,
+  ) {
+    return this.notificationService.markAsRead(user, notificationId);
+  }
+
+  @Authorization()
+  @Mutation(() => Boolean, {
+    name: 'deleteNotification',
+  })
+  public async deleteNotification(
+    @Authorized() user: User,
+    @Args('notificationId') notificationId: string,
+  ) {
+    return this.notificationService.delete(user, notificationId);
   }
 
   @Authorization()

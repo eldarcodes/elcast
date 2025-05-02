@@ -25,7 +25,7 @@ export class NotificationService {
     return count;
   }
 
-  public async markAsRead(user: User) {
+  public async markAllAsRead(user: User) {
     await this.prismaService.notification.updateMany({
       where: {
         isRead: false,
@@ -33,6 +33,51 @@ export class NotificationService {
       },
       data: {
         isRead: true,
+      },
+    });
+
+    return true;
+  }
+
+  public async markAsRead(user: User, notificationId: string) {
+    const notification = await this.prismaService.notification.findUnique({
+      where: {
+        id: notificationId,
+        userId: user.id,
+      },
+    });
+
+    if (!notification) {
+      throw new Error('Notification not found');
+    }
+
+    await this.prismaService.notification.update({
+      where: {
+        id: notificationId,
+      },
+      data: {
+        isRead: true,
+      },
+    });
+
+    return true;
+  }
+
+  public async delete(user: User, notificationId: string) {
+    const notification = await this.prismaService.notification.findUnique({
+      where: {
+        id: notificationId,
+        userId: user.id,
+      },
+    });
+
+    if (!notification) {
+      throw new Error('Notification not found');
+    }
+
+    await this.prismaService.notification.delete({
+      where: {
+        id: notificationId,
       },
     });
 

@@ -1,11 +1,14 @@
-import { Loader } from 'lucide-react';
+import { Loader, MailOpen, Settings, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import { Fragment, useEffect } from 'react';
 
+import { Button } from '@/components/ui/common/button';
 import { Separator } from '@/components/ui/common/separator';
 
 import {
   FindNotificationsByUserQuery,
+  useFindNotificationsByUserQuery,
   useFindNotificationsUnreadCountQuery,
   useMarkNotificationsAsReadMutation,
 } from '@/graphql/generated/output';
@@ -15,27 +18,30 @@ import { NotificationsItem } from './notifications-item';
 interface NotificationsListProps {
   notifications: FindNotificationsByUserQuery['findNotificationsByUser'];
   loading: boolean;
+  onClose: () => void;
 }
 
 export function NotificationsList({
   notifications,
   loading,
+  onClose,
 }: NotificationsListProps) {
   const t = useTranslations(
     'layout.header.headerMenu.profileMenu.notifications',
   );
 
-  const { refetch: refetchCount } = useFindNotificationsUnreadCountQuery();
+  const { refetch: refetchNotifications } = useFindNotificationsByUserQuery();
+  const { data: notificationsCount, refetch: refetchCount } =
+    useFindNotificationsUnreadCountQuery();
 
-  const [markAsRead] = useMarkNotificationsAsReadMutation({
+  const unreadCount = notificationsCount?.findNotificationsUnreadCount ?? 0;
+
+  const [markAllAsRead] = useMarkNotificationsAsReadMutation({
     onCompleted: () => {
+      refetchNotifications();
       refetchCount();
     },
   });
-
-  useEffect(() => {
-    markAsRead();
-  }, []);
 
   let body = null;
 
@@ -51,21 +57,52 @@ export function NotificationsList({
       return (
         <Fragment key={notification.id}>
           <NotificationsItem notification={notification} />
-          {index < notifications.length - 1 && <Separator className="my-3" />}
+          {index < notifications.length - 1 && <Separator />}
         </Fragment>
       );
     });
   } else {
     body = (
-      <div className="text-center text-muted-foreground">{t('empty')}</div>
+      <div className="px-3 py-6 text-center text-muted-foreground">
+        {t('empty')}
+      </div>
     );
   }
 
   return (
     <>
-      <h2 className="text-center text-lg font-medium">{t('heading')}</h2>
+      <div className="relative flex items-center justify-between border-b p-3">
+        {unreadCount > 0 && (
+          <div>
+            <Button
+              size="iconSm"
+              variant="ghost"
+              onClick={() => markAllAsRead()}
+            >
+              <MailOpen className="size-5" />
+            </Button>
+          </div>
+        )}
 
-      <Separator className="my-3" />
+        <h3 className="text-md absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-medium">
+          {t('heading')}
+        </h3>
+
+        <div className="ml-auto flex items-center gap-x-2">
+          <Link
+            href="/dashboard/settings?tab=notifications"
+            className="leading-none"
+          >
+            <Button size="iconSm" variant="ghost">
+              <Settings className="size-5" />
+            </Button>
+          </Link>
+
+          <Button size="iconSm" variant="ghost" onClick={() => onClose()}>
+            <X className="size-5" />
+          </Button>
+        </div>
+      </div>
 
       {body}
     </>
