@@ -155,6 +155,7 @@ async function main() {
               username,
               displayName,
               isEmailVerified: true,
+              isVerified: Math.random() < 0.4,
               lastActive,
               notificationSettings: {
                 create: {
