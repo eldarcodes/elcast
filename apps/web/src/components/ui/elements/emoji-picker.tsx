@@ -1,12 +1,13 @@
-import Picker, {
-  type EmojiClickData,
-  EmojiStyle,
-  Theme,
-} from 'emoji-picker-react';
 import { Smile } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useTheme } from 'next-themes';
 
+import {
+  EmojiPicker as EmojiPickerBase,
+  EmojiPickerContent,
+  EmojiPickerSearch,
+} from '@/components/ui/common/emoji-picker';
+
+import { Button } from '../common/button';
 import { Popover, PopoverContent, PopoverTrigger } from '../common/popover';
 
 interface EmojiPickerProps {
@@ -16,25 +17,28 @@ interface EmojiPickerProps {
 
 export function EmojiPicker({ onChange, isDisabled }: EmojiPickerProps) {
   const t = useTranslations('stream.chat.sendMessage');
-
-  const { theme } = useTheme();
-
   return (
     <Popover>
       <PopoverTrigger
         className="disabled:cursor-not-allowed"
         disabled={isDisabled}
       >
-        <Smile className="size-[22px]" />
+        <Button type="button" size="iconSm" variant="ghost">
+          <Smile className="size-4" />
+        </Button>
       </PopoverTrigger>
 
-      <PopoverContent side="top" className="mb-4 mr-28 p-0">
-        <Picker
-          onEmojiClick={(emoji: EmojiClickData) => onChange(emoji.emoji)}
-          emojiStyle={EmojiStyle.APPLE}
-          searchPlaceHolder={t('emojiPlaceholder')}
-          theme={theme === 'dark' ? Theme.DARK : Theme.LIGHT}
-        />
+      <PopoverContent side="top" className="mb-2 mr-10 p-0">
+        <EmojiPickerBase
+          columns={10}
+          className="h-[326px] w-full rounded-lg shadow-md"
+          onEmojiSelect={({ emoji }) => {
+            onChange(emoji);
+          }}
+        >
+          <EmojiPickerSearch placeholder={t('emojiPlaceholder')} />
+          <EmojiPickerContent />
+        </EmojiPickerBase>
       </PopoverContent>
     </Popover>
   );

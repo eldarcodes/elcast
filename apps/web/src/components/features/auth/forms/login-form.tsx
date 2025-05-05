@@ -62,7 +62,7 @@ export function LoginForm() {
         auth();
 
         toast.success(t('successMessage'));
-        router.push('/dashboard/settings');
+        router.push('/');
       }
     },
     onError: () => {

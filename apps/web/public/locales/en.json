@@ -544,6 +544,7 @@
         "followersOnly": "For followers only"
       },
       "sendMessage": {
+        "sendButton": "Chat",
         "placeholder": "Send a message",
         "emojiPlaceholder": "Search",
         "errorMessage": "Error while sending message."

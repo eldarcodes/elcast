@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SendHorizonal } from 'lucide-react';
+import { Settings } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -61,15 +62,12 @@ export function SendMessageForm({ channel, isDisabled }: SendMessageFormProps) {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-3 flex items-center gap-x-2"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-2">
         <FormField
           control={form.control}
           name="text"
           render={({ field }) => (
-            <FormItem className="w-[calc(100%-36px)]">
+            <FormItem>
               <FormControl>
                 <div className="relative">
                   <Textarea
@@ -85,12 +83,12 @@ export function SendMessageForm({ channel, isDisabled }: SendMessageFormProps) {
                         form.handleSubmit(onSubmit)();
                       }
                     }}
-                    className="min-h-[36px] resize-none pr-8"
+                    className="min-h-9 resize-none pr-8 focus-visible:ring-2"
                     disabled={isDisabled || isLoadingSend}
                     {...field}
                   />
 
-                  <div className="absolute right-2 top-2 cursor-pointer">
+                  <div className="absolute right-[7px] top-[7px] cursor-pointer md:right-1 md:top-1">
                     <EmojiPicker
                       onChange={(emoji: string) =>
                         field.onChange(`${field.value} ${emoji}`)
@@ -104,13 +102,21 @@ export function SendMessageForm({ channel, isDisabled }: SendMessageFormProps) {
           )}
         />
 
-        <Button
-          size="icon"
-          type="submit"
-          disabled={isDisabled || !isValid || isLoadingSend}
-        >
-          <SendHorizonal className="size-4" />
-        </Button>
+        <div className="mt-2 flex items-center justify-end gap-x-1">
+          <Link href="/dashboard/chat" className="leading-none">
+            <Button size="iconSm" variant="ghost">
+              <Settings className="size-4" />
+            </Button>
+          </Link>
+
+          <Button
+            type="submit"
+            size="sm"
+            disabled={isDisabled || !isValid || isLoadingSend}
+          >
+            {t('sendButton')}
+          </Button>
+        </div>
       </form>
     </Form>
   );

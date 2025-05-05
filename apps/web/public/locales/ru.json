@@ -548,6 +548,7 @@
         "followersOnly": "Только для фолловеров"
       },
       "sendMessage": {
+        "sendButton": "Чат",
         "placeholder": "Отправить сообщение",
         "emojiPlaceholder": "Поиск",
         "errorMessage": "Ошибка при отправке сообщения."

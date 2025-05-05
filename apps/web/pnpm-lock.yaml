@@ -92,9 +92,9 @@ importers:
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
-      emoji-picker-react:
-        specifier: ^4.12.0
-        version: 4.12.2(react@19.1.0)
+      frimousse:
+        specifier: ^0.2.0
+        version: 0.2.0(react@19.1.0)
       graphql:
         specifier: ^16.10.0
         version: 16.10.0
@@ -117,7 +117,7 @@ importers:
         specifier: ^2.8.1
         version: 2.11.2
       lucide-react:
-        specifier: ^0.471.1
+        specifier: ^0.471.2
         version: 0.471.2(react@19.1.0)
       next:
         specifier: 15.2.4
@@ -2997,12 +2997,6 @@ packages:
   electron-to-chromium@1.5.137:
     resolution: {integrity: sha512-/QSJaU2JyIuTbbABAo/crOs+SuAZLS+fVVS10PVrIT9hrRkmZl8Hb0xPSkKRUUWHQtYzXHpQUW3Dy5hwMzGZkA==}
 
-  emoji-picker-react@4.12.2:
-    resolution: {integrity: sha512-6PDYZGlhidt+Kc0ay890IU4HLNfIR7/OxPvcNxw+nJ4HQhMKd8pnGnPn4n2vqC/arRFCNWQhgJP8rpsYKsz0GQ==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      react: '>=16'
-
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
 
@@ -3281,9 +3275,6 @@ packages:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
     engines: {node: '>=10'}
 
-  flairup@1.0.0:
-    resolution: {integrity: sha512-IKlE+pNvL2R+kVL1kEhUYqRxVqeFnjiIvHWDMLFXNaqyUdFXQM2wte44EfMYJNHkW16X991t2Zg8apKkhv7OBA==}
-
   flat-cache@4.0.1:
     resolution: {integrity: sha512-f7ccFPK3SXFHpx15UIGyRJ/FJQctuKZ0zVuN3frBo4HnK3cay9VEW0R6yPYFHC0AgqhukPzKjq22t5DmAyqGyw==}
     engines: {node: '>=16'}
@@ -3305,6 +3296,11 @@ packages:
 
   forwarded-parse@2.1.2:
     resolution: {integrity: sha512-alTFZZQDKMporBH77856pXgzhEzaUVmLCDk+egLgIgHst3Tpndzz8MnKe+GzRJRfvVdn69HhpW7cmXzvtLvJAw==}
+
+  frimousse@0.2.0:
+    resolution: {integrity: sha512-viSrsVQWKR4Q7xzC0lkx3Wu9i1+IHrth0QXn0nlIIJXpltwUnjkGXSTuoW7WHI5aJ4z49WR8E/pyQizFjlNtTA==}
+    peerDependencies:
+      react: ^18 || ^19
 
   fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
@@ -8578,11 +8574,6 @@ snapshots:
 
   electron-to-chromium@1.5.137: {}
 
-  emoji-picker-react@4.12.2(react@19.1.0):
-    dependencies:
-      flairup: 1.0.0
-      react: 19.1.0
-
   emoji-regex@8.0.0: {}
 
   emoji-regex@9.2.2: {}
@@ -9005,8 +8996,6 @@ snapshots:
       locate-path: 6.0.0
       path-exists: 4.0.0
 
-  flairup@1.0.0: {}
-
   flat-cache@4.0.1:
     dependencies:
       flatted: 3.3.3
@@ -9028,6 +9017,10 @@ snapshots:
       fetch-blob: 3.2.0
 
   forwarded-parse@2.1.2: {}
+
+  frimousse@0.2.0(react@19.1.0):
+    dependencies:
+      react: 19.1.0
 
   fs.realpath@1.0.0: {}
 
