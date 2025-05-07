@@ -83,10 +83,10 @@ export function VerificationCodeTemplate({
             <Text className="text-gray-600">
               For any questions or support, feel free to reach out to us at{' '}
               <Link
-                href="mailto:info@eldarcodes.com"
+                href="mailto:contact@eldarcodes.com"
                 className="text-[#18B9AE] underline"
               >
-                info@eldarcodes.com
+                contact@eldarcodes.com
               </Link>
               .
             </Text>

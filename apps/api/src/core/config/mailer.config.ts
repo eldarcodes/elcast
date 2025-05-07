@@ -13,7 +13,7 @@ export function getMailerConfig(configService: ConfigService): MailerOptions {
       },
     },
     defaults: {
-      from: `"Elcast" ${configService.getOrThrow<string>('MAIL_LOGIN')}`,
+      from: `"Elcast" noreply@eldarcodes.com`,
     },
   };
 }
