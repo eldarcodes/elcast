@@ -260,7 +260,7 @@ async function main() {
           }
 
           Logger.log(
-            `User "${createdUser.username}" and his stream have been successfully created`,
+            `User "${createdUser.displayName}" and his stream have been successfully created`,
           );
         }
       },

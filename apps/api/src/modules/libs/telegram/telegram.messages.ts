@@ -10,13 +10,13 @@ Click the button below and go to the <b>Notifications</b> section to complete th
   expiredToken: '❌ Expired token.',
   profile: (user: User, followersCount: number) =>
     `<b>👤 User Profile:</b>\n\n` +
-    `💬 Username: <b>${user.username}</b>\n` +
+    `💬 Username: <b>${user.displayName}</b>\n` +
     `📧 Email: <b>${user.email}</b>\n` +
     `👥 Followers Count: <b>${followersCount}</b>\n` +
     `📝 Bio: <b>${user.bio || 'Not provided'}</b>\n\n` +
     `🔧 Click the button below to go to your profile settings.`,
   follows: (user: User) =>
-    `<a href="https://elcast.eldarcodes.com/${user.username}">${user.username}</a>`,
+    `<a href="https://elcast.eldarcodes.com/${user.username}">${user.displayName}</a>`,
   resetPassword: (token: string, metadata: SessionMetadata) =>
     `<b>🔒 Password Reset</b>\n\n` +
     `You requested a password reset for your account on the <b>Elcast</b> platform.\n\n` +
