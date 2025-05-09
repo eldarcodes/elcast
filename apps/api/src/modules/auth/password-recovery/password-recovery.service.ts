@@ -53,6 +53,7 @@ export class PasswordRecoveryService {
 
     await this.mailService.sendPasswordResetToken(
       email,
+      user.displayName,
       resetToken.token,
       sessionMetadata,
     );

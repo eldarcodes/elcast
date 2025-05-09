@@ -1,90 +1,57 @@
-import {
-  Body,
-  Head,
-  Heading,
-  Link,
-  Preview,
-  Section,
-  Tailwind,
-  Text,
-} from '@react-email/components';
-import { Html } from '@react-email/html';
+import { Button, Text } from '@react-email/components';
 import * as React from 'react';
 
 import type { SessionMetadata } from '@/src/shared/types/session-metadata.type';
 
+import { MailLayout } from './components/layout';
+import { MailSessionMetadata } from './components/metadata';
+
 interface PasswordRecoveryTemplateProps {
   domain: string;
   token: string;
+  username: string;
   metadata: SessionMetadata;
 }
 
 export function PasswordRecoveryTemplate({
   domain,
   token,
+  username,
   metadata,
 }: PasswordRecoveryTemplateProps) {
   const resetLink = `${domain}/account/recovery/${token}`;
 
   return (
-    <Html>
-      <Head />
-      <Preview>Password Recovery</Preview>
+    <MailLayout preview="A link to reset your password">
+      <Text className="text-sm text-black">Hi {username},</Text>
 
-      <Tailwind>
-        <Body className="max-w-2xl mx-auto p-6 bg-slate-50">
-          <Section className="text-center mb-8">
-            <Heading className="text-3xl text-black font-bold">
-              Reset Your Password
-            </Heading>
-            <Text className="text-base text-black">
-              We received a request to reset your password for your Elcast
-              account. Click the link below to reset your password:
-            </Text>
+      <Text className="text-sm text-black">
+        We received a request to reset the password for your account. If you
+        made this request, you can reset your password using the link below:
+      </Text>
 
-            <Link
-              href={resetLink}
-              className="inline-flex justify-center items-center rounded-md text-sm font-medium text-white bg-[#18B9AE] px-5 py-2"
-            >
-              Reset Your Password
-            </Link>
-          </Section>
+      <Text
+        className="text-sm text-black text-center"
+        style={{ margin: '32px 0' }}
+      >
+        <Button
+          className="rounded-md bg-primary px-[12px] py-[12px] text-center font-semibold text-white"
+          href={resetLink}
+        >
+          👉 Reset Your Password
+        </Button>
+      </Text>
 
-          <Section className="bg-gray-100 rounded-lg p-6 mb-6">
-            <Heading className="text-xl font-semibold text-[#18B9AE]">
-              Information about this request
-            </Heading>
+      <Text className="text-sm text-black">
+        This link will expire in <b>5 minutes</b> for your security.
+      </Text>
 
-            <ul className="list-disc list-inside mt-2">
-              <li>
-                🌏 Location: {metadata.location.country},{' '}
-                {metadata.location.city}
-              </li>
-              <li>📱 Operating System: {metadata.device.os}</li>
-              <li>🌐 Browser: {metadata.device.browser}</li>
-              <li>💻 IP Address: {metadata.ip}</li>
-            </ul>
+      <Text className="text-sm text-black italic">
+        If you did not request a password reset, you can safely ignore this
+        email — your password will remain unchanged.
+      </Text>
 
-            <Text className="text-gray-600 text-black mt-4">
-              If you didn’t request a password reset, you can safely ignore this
-              email. Your password will remain unchanged.
-            </Text>
-          </Section>
-
-          <Section className="text-center mt-8">
-            <Text className="text-gray-600">
-              For any questions or support, feel free to reach out to us at{' '}
-              <Link
-                href="mailto:contact@eldarcodes.com"
-                className="text-[#18B9AE] underline"
-              >
-                contact@eldarcodes.com
-              </Link>
-              .
-            </Text>
-          </Section>
-        </Body>
-      </Tailwind>
-    </Html>
+      <MailSessionMetadata metadata={metadata} />
+    </MailLayout>
   );
 }

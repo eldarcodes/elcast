@@ -82,7 +82,10 @@ export class CronService {
 
     for (const user of users) {
       if (user.notificationSettings.siteNotifications) {
-        await this.mailService.sendEnableTwoFactor(user.email); // consider add setting for this notification
+        await this.mailService.sendEnableTwoFactor(
+          user.email,
+          user.displayName,
+        );
 
         await this.notificationService.createEnableTwoFactor(user.id);
       }

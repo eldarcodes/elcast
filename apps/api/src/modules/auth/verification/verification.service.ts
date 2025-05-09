@@ -120,6 +120,7 @@ export class VerificationService {
 
     await this.mailService.sendVerificationCode(
       user.email,
+      user.displayName,
       verificationToken.token,
       metadata,
     );
