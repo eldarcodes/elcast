@@ -45,10 +45,16 @@ export class VerificationResolver {
 
   @Authorization()
   @Mutation(() => AuthModel, {
-    name: 'sendVerificationToken',
+    name: 'sendVerificationLink',
   })
-  public async sendVerificationToken(@Authorized() user: User) {
-    return this.verificationService.sendVerificationToken(user);
+  public async sendVerificationLink(
+    @Context() { req }: GraphQLContext,
+    @Authorized() user: User,
+    @UserAgent() userAgent: string,
+  ) {
+    const sessionMetadata = getSessionMetadata(req, userAgent);
+
+    return this.verificationService.sendVerificationLink(user, sessionMetadata);
   }
 
   @Authorization()

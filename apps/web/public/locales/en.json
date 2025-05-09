@@ -260,7 +260,7 @@
             "successMessage": "Email successfully updated.",
             "errorMessage": "Error updating email."
           },
-          "sendVerificationToken": {
+          "sendVerificationLink": {
             "resend": "Resend",
             "successMessage": "Verification email sent",
             "errorMessage": "Error sending verification email"

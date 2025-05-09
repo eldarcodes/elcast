@@ -17,7 +17,7 @@ import { EnableTwoFactorTemplate } from './templates/enable-two-factor.template'
 import { PasswordRecoveryTemplate } from './templates/password-recovery.template';
 import { PasswordUpdatedTemplate } from './templates/password-updated.template';
 import { VerificationCodeTemplate } from './templates/verification-code.template';
-import { VerificationTemplate } from './templates/verification.template';
+import { VerificationLinkTemplate } from './templates/verification-link.template';
 import { VerifyChannelTemplate } from './templates/verify-channel.template';
 
 @Injectable()
@@ -29,9 +29,16 @@ export class MailService {
     @InjectQueue(MAIL_QUEUE_NAME) private readonly mailQueue: Queue,
   ) {}
 
-  public async sendVerificationToken(email: string, token: string) {
+  public async sendVerificationLink(
+    email: string,
+    username: string,
+    token: string,
+    metadata: SessionMetadata,
+  ) {
     const domain = this.configService.get<string>('ALLOWED_ORIGIN');
-    const html = await render(VerificationTemplate({ domain, token }));
+    const html = await render(
+      VerificationLinkTemplate({ domain, username, token, metadata }),
+    );
 
     return this.mailQueue.add(
       MailJobName.SEND_VERIFICATION_TOKEN,
@@ -58,7 +65,7 @@ export class MailService {
       MailJobName.SEND_VERIFICATION_CODE,
       {
         to: email,
-        subject: 'Verify your email address',
+        subject: 'Verify your Email Address',
         html,
       },
       { removeOnComplete: true },
