@@ -8,4 +8,5 @@ export enum MailJobName {
   SEND_ACCOUNT_DELETION = 'send_account_deletion',
   SEND_ENABLE_TWO_FACTOR = 'send_enable_two_factor',
   SEND_VERIFY_CHANNEL = 'send_verify_channel',
+  SEND_PASSWORD_UPDATED = 'send_password_updated',
 }

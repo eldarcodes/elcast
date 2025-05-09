@@ -12,6 +12,7 @@ import { PrismaService } from '@/src/core/prisma/prisma.service';
 import { EMAIL_CHANGE_COOLDOWN_DAYS } from '@/src/shared/constants/account.constants';
 import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
 
+import { MailService } from '../../libs/mail/mail.service';
 import { VerificationService } from '../verification/verification.service';
 
 import { ChangeEmailInput } from './inputs/change-email.input';
@@ -22,6 +23,7 @@ import { CreateUserInput } from './inputs/create-user.input';
 export class AccountService {
   public constructor(
     private readonly prismaService: PrismaService,
+    private readonly mailService: MailService,
     private readonly verificationService: VerificationService,
   ) {}
 
@@ -178,6 +180,8 @@ export class AccountService {
         password: await argon2.hash(newPassword),
       },
     });
+
+    await this.mailService.sendPasswordUpdated(user.email, user.username);
 
     return true;
   }
