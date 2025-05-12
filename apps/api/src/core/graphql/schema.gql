@@ -196,7 +196,6 @@ type Mutation {
   reorderSocialLinks(list: [SocialLinkOrderInput!]!): Boolean!
   resetPassword(data: ResetPasswordInput!): Boolean!
   sendChatMessage(data: SendMessageInput!): ChatMessageModel!
-  sendTestMail: Boolean!
   sendUserPresenceHeartbeat: Boolean!
   sendVerificationCode: AuthModel!
   sendVerificationLink: AuthModel!

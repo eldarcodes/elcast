@@ -9,5 +9,6 @@ export enum MailJobName {
   SEND_ENABLE_TWO_FACTOR = 'send_enable_two_factor',
   SEND_VERIFY_CHANNEL = 'send_verify_channel',
   SEND_PASSWORD_UPDATED = 'send_password_updated',
+  SEND_EMAIL_UPDATED = 'send_email_updated',
   SEND_WELCOME = 'send_welcome',
 }

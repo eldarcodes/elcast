@@ -13,6 +13,7 @@ import type { SessionMetadata } from '@/src/shared/types/session-metadata.type';
 
 import { AccountDeletionTemplate } from './templates/account-deletion.template';
 import { DeactivateTemplate } from './templates/deactivate.template';
+import { EmailUpdatedTemplate } from './templates/email-updated.template';
 import { EnableTwoFactorTemplate } from './templates/enable-two-factor.template';
 import { PasswordRecoveryTemplate } from './templates/password-recovery.template';
 import { PasswordUpdatedTemplate } from './templates/password-updated.template';
@@ -112,6 +113,28 @@ export class MailService {
       {
         to: email,
         subject: 'Password updated',
+        html,
+      },
+      { removeOnComplete: true },
+    );
+  }
+
+  public async sendEmailUpdated(email: string, username: string) {
+    const domain = this.configService.get<string>('ALLOWED_ORIGIN');
+
+    const html = await render(
+      EmailUpdatedTemplate({
+        username,
+        domain,
+        updatedDate: new Date(),
+      }),
+    );
+
+    return this.mailQueue.add(
+      MailJobName.SEND_EMAIL_UPDATED,
+      {
+        to: email,
+        subject: 'Email updated',
         html,
       },
       { removeOnComplete: true },

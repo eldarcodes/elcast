@@ -88,6 +88,7 @@ export class AccountService {
 
     const sessionMetadata = getSessionMetadata(req, userAgent);
 
+    await this.mailService.sendWelcome(user.email, user.displayName);
     await this.verificationService.sendVerificationCode(user, sessionMetadata);
 
     return true;
@@ -140,6 +141,9 @@ export class AccountService {
         isEmailVerified: false,
       },
     });
+
+    await this.mailService.sendEmailUpdated(user.email, user.username);
+    await this.mailService.sendEmailUpdated(newUser.email, newUser.username);
 
     if (!pin) {
       await this.verificationService.sendVerificationCode(
