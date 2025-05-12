@@ -29,38 +29,35 @@ export function EnableTwoFactorTemplate({
         knows your password, they won’t be able to access your account without
         this second factor.
       </Text>
-      <Text
-        className="text-[14px] text-black italic"
-        style={{ margin: '8px 0' }}
-      >
+      <Text className="text-sm text-black italic" style={{ margin: '8px 0' }}>
         Here’s why you should enable Two-Factor Authentication:
       </Text>
 
-      <ul className="pl-2 mt-0">
-        <li className="text-[14px]">
-          Protects your account from unauthorized access
+      <ul className="pl-0 mt-0 list-none text-sm text-black">
+        <li className="ml-0">
+          🔒 Protects your account from unauthorized access
         </li>
-        <li className="text-[14px]">Secures your personal information</li>
-        <li className="text-[14px]">Gives you peace of mind</li>
+        <li className="ml-0">🛡️ Secures your personal information</li>
+        <li className="ml-0">🧘 Gives you peace of mind</li>
       </ul>
 
       <Text
-        className="text-[14px] text-black italic"
+        className="text-sm text-black italic"
         style={{ margin: '16px 0 8px' }}
       >
         Enabling Two-Factor Authentication is quick and easy:
       </Text>
 
-      <ul className="pl-2 mt-0">
-        <li className="text-[14px]">
-          Log in to{' '}
+      <ul className="pl-0 mt-0 list-none text-sm text-black">
+        <li className="ml-0">
+          🔑 Log in to{' '}
           <Link href={domain} className="underline">
             your account
           </Link>
         </li>
-        <li className="text-[14px]">Go to Account Settings {'>'} Security</li>
-        <li className="text-[14px]">
-          Follow the instructions to enable Two-Factor Authentication
+        <li className="ml-0">⚙️ Go to Account Settings {'>'} Security</li>
+        <li className="ml-0">
+          ✅ Follow the instructions to enable Two-Factor Authentication
         </li>
       </ul>
     </MailLayout>

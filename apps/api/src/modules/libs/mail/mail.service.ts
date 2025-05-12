@@ -19,6 +19,7 @@ import { PasswordUpdatedTemplate } from './templates/password-updated.template';
 import { VerificationCodeTemplate } from './templates/verification-code.template';
 import { VerificationLinkTemplate } from './templates/verification-link.template';
 import { VerifyChannelTemplate } from './templates/verify-channel.template';
+import { WelcomeTemplate } from './templates/welcome.template';
 
 @Injectable()
 export class MailService {
@@ -148,6 +149,22 @@ export class MailService {
       {
         to: email,
         subject: 'Account Deletion Confirmation',
+        html,
+      },
+      { removeOnComplete: true },
+    );
+  }
+
+  public async sendWelcome(email: string, username: string) {
+    const domain = this.configService.get<string>('ALLOWED_ORIGIN');
+
+    const html = await render(WelcomeTemplate({ domain, username }));
+
+    return this.mailQueue.add(
+      MailJobName.SEND_WELCOME,
+      {
+        to: email,
+        subject: '🎉 Welcome to Elcast!',
         html,
       },
       { removeOnComplete: true },
