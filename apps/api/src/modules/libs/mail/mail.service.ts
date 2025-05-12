@@ -170,14 +170,14 @@ export class MailService {
     );
   }
 
-  public async sendVerifyChannel(email: string) {
-    const html = await render(VerifyChannelTemplate());
+  public async sendVerifyChannel(email: string, username: string) {
+    const html = await render(VerifyChannelTemplate({ username }));
 
     return this.mailQueue.add(
       MailJobName.SEND_VERIFY_CHANNEL,
       {
         to: email,
-        subject: 'Your channel is verified',
+        subject: 'Your channel is now verified!',
         html,
       },
       { removeOnComplete: true },
