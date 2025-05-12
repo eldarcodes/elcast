@@ -1,33 +1,33 @@
 import { Button, Text } from '@react-email/components';
 import * as React from 'react';
 
-import type { SessionMetadata } from '@/src/shared/types/session-metadata.type';
+import { SessionMetadata } from '@/src/shared/types/session-metadata.type';
 
 import { MailLayout } from './components/layout';
 import { MailSessionMetadata } from './components/metadata';
 
-interface PasswordRecoveryTemplateProps {
+interface VerificationLinkTemplateProps {
   domain: string;
-  token: string;
   username: string;
+  token: string;
   metadata: SessionMetadata;
 }
 
-export function PasswordRecoveryTemplate({
+export function VerificationLinkTemplate({
   domain,
-  token,
   username,
+  token,
   metadata,
-}: PasswordRecoveryTemplateProps) {
-  const resetLink = `${domain}/account/recovery/${token}`;
+}: VerificationLinkTemplateProps) {
+  const verificationLink = `${domain}/account/verify?token=${token}`;
 
   return (
-    <MailLayout preview="A link to reset your password">
+    <MailLayout preview="A link to verify your email address">
       <Text className="text-sm text-black">Hi {username},</Text>
 
       <Text className="text-sm text-black">
-        We received a request to reset the password for your account. If you
-        made this request, you can reset your password using the button below:
+        We received a request to verify email for your account. If you made this
+        request, you can reset your password using the button below:
       </Text>
 
       <Text
@@ -36,9 +36,9 @@ export function PasswordRecoveryTemplate({
       >
         <Button
           className="rounded-md bg-primary px-[12px] py-[12px] text-center font-semibold text-white"
-          href={resetLink}
+          href={verificationLink}
         >
-          👉 Reset Your Password
+          👉 Verify Email
         </Button>
       </Text>
 

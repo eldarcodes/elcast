@@ -57,7 +57,7 @@ export function AuthWrapper({
               )}
             </div>
 
-            <div className="relative hidden bg-muted dark:bg-foreground md:block">
+            <div className="relative hidden bg-muted/50 dark:bg-foreground/90 md:block">
               <Image
                 src="/images/logo-vertical.svg"
                 alt="Image"

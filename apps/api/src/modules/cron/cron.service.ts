@@ -4,7 +4,7 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 import {
   DAYS_TO_KEEP_DEACTIVATED_ACCOUNTS,
-  MIN_FOLLOWERS_TO_GET_VERIFIED,
+  MIN_TIME_TO_GET_VERIFIED,
 } from '@/src/shared/constants/account.constants';
 
 import { MailService } from '../libs/mail/mail.service';
@@ -22,7 +22,7 @@ export class CronService {
     private readonly notificationService: NotificationService,
   ) {}
 
-  @Cron(CronExpression.EVERY_DAY_AT_1AM)
+  @Cron(CronExpression.EVERY_DAY_AT_NOON) // 12:00 PM GMT every day
   public async deleteDeactivatedAccounts() {
     const sevenDaysAgo = new Date();
 
@@ -44,7 +44,7 @@ export class CronService {
     });
 
     for (const user of deactivatedAccounts) {
-      await this.mailService.sendAccountDeletion(user.email);
+      await this.mailService.sendAccountDeletion(user.email, user.displayName);
 
       if (user.notificationSettings.telegramNotifications && user.telegramId) {
         await this.telegramService.sendAccountDeletion(user.telegramId);
@@ -82,7 +82,10 @@ export class CronService {
 
     for (const user of users) {
       if (user.notificationSettings.siteNotifications) {
-        await this.mailService.sendEnableTwoFactor(user.email); // consider add setting for this notification
+        await this.mailService.sendEnableTwoFactor(
+          user.email,
+          user.displayName,
+        );
 
         await this.notificationService.createEnableTwoFactor(user.id);
       }
@@ -93,7 +96,7 @@ export class CronService {
     }
   }
 
-  @Cron(CronExpression.EVERY_DAY_AT_1AM)
+  @Cron(CronExpression.EVERY_DAY_AT_NOON) // 12:00 PM GMT every day
   public async verifyChannels() {
     const users = await this.prismaService.user.findMany({
       include: {
@@ -102,13 +105,10 @@ export class CronService {
     });
 
     for (const user of users) {
-      const followersCount = await this.prismaService.follow.count({
-        where: {
-          followingId: user.id,
-        },
-      });
+      const isAccountOlderThan7Days =
+        user.createdAt <= new Date(Date.now() - MIN_TIME_TO_GET_VERIFIED);
 
-      if (followersCount > MIN_FOLLOWERS_TO_GET_VERIFIED && !user.isVerified) {
+      if (isAccountOlderThan7Days && user.isEmailVerified && !user.isVerified) {
         await this.prismaService.user.update({
           where: {
             id: user.id,
@@ -119,8 +119,10 @@ export class CronService {
         });
 
         if (user.notificationSettings.siteNotifications) {
-          await this.mailService.sendVerifyChannel(user.email); // consider add setting for this notification
-
+          await this.mailService.sendVerifyChannel(
+            user.email,
+            user.displayName,
+          );
           await this.notificationService.createVerifyChannel(user.id);
         }
 

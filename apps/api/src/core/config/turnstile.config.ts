@@ -1,6 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 
 import { TurnstileOptions } from '@/src/shared/types/turnstile.type';
+import { isDev } from '@/src/shared/utils/is-dev.util';
 
 export function getTurnstileConfig(
   configService: ConfigService,
@@ -15,6 +16,10 @@ export function getTurnstileConfig(
       return captcha;
     },
     skipIf(req: any) {
+      if (isDev(configService)) {
+        return true;
+      }
+
       const operationName = req.body?.operationName;
 
       if (operationName === 'LoginUser') {

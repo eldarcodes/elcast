@@ -12,6 +12,7 @@
       "submitButton": "Sign up",
       "successAlertTitle": "Account created successfully",
       "successAlertDescription": "We've sent you an email to verify your account. Please check your inbox.",
+      "captchaWarning": "Please complete the CAPTCHA to log in",
       "successMessage": "Account created successfully",
       "errorMessage": "Couldn't create account"
     },
@@ -53,6 +54,7 @@
       "submitButton": "Reset password",
       "successAlertTitle": "The password reset link has been sent",
       "successAlertDescription": "We've sent you an email with a link to reset your password. Please check your inbox.",
+      "captchaWarning": "Please complete the CAPTCHA to log in",
       "errorMessage": "There was an error resetting your password"
     },
     "newPassword": {
@@ -260,7 +262,7 @@
             "successMessage": "Email successfully updated.",
             "errorMessage": "Error updating email."
           },
-          "sendVerificationToken": {
+          "sendVerificationLink": {
             "resend": "Resend",
             "successMessage": "Verification email sent",
             "errorMessage": "Error sending verification email"

@@ -1,59 +1,28 @@
-import {
-  Body,
-  Head,
-  Heading,
-  Html,
-  Link,
-  Preview,
-  Section,
-  Tailwind,
-  Text,
-} from '@react-email/components';
+import { Text } from '@react-email/components';
 import * as React from 'react';
 
-export function VerifyChannelTemplate() {
+import { MailLayout } from './components/layout';
+
+interface VerifyChannelTemplateProps {
+  username: string;
+}
+
+export function VerifyChannelTemplate({
+  username,
+}: VerifyChannelTemplateProps) {
   return (
-    <Html>
-      <Head />
-      <Preview>Your channel has been verified</Preview>
+    <MailLayout preview="Congratulations! Your channel is now verified.">
+      <Text className="text-sm text-black">Hi {username},</Text>
+      <Text className="text-sm text-black">
+        We’re happy to let you know that your channel has been successfully{' '}
+        <b>verified</b> 🎉. Your viewers will now see a{' '}
+        <i>verification badge</i> next to your channel name, letting them know
+        it’s the official account.
+      </Text>
 
-      <Tailwind>
-        <Body className="max-w-2xl mx-auto p-6 bg-slate-50">
-          <Section className="text-center mb-8">
-            <Heading className="text-3xl text-black font-bold">
-              Congratulations! Your channel is verified
-            </Heading>
-            <Text className="text-base text-black">
-              We're happy to announce that your channel is now verified and you
-              have an official badge.
-            </Text>
-          </Section>
-
-          <Section className="bg-white rounded-lg shadow-md p-6 text-center mb-6">
-            <Heading className="text-2xl text-black font-semibold">
-              What does that mean?
-            </Heading>
-
-            <Text className="text-base text-black mt-2">
-              The verification badge confirms the authenticity of your channel
-              and improves viewer trust.
-            </Text>
-          </Section>
-
-          <Section className="text-center mt-8">
-            <Text className="text-gray-600">
-              For any questions or support, feel free to reach out to us at{' '}
-              <Link
-                href="mailto:info@eldarcodes.com"
-                className="text-[#18B9AE] underline"
-              >
-                info@eldarcodes.com
-              </Link>
-              .
-            </Text>
-          </Section>
-        </Body>
-      </Tailwind>
-    </Html>
+      <Text className="text-sm text-black">
+        Thank you for being part of Elcast.
+      </Text>
+    </MailLayout>
   );
 }

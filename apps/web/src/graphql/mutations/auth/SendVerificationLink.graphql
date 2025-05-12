@@ -1,5 +1,5 @@
-mutation SendVerificationToken {
-  sendVerificationToken {
+mutation SendVerificationLink {
+  sendVerificationLink {
     message
     user {
       id

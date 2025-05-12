@@ -2,6 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import {
   IsEmail,
   IsNotEmpty,
+  IsOptional,
   IsString,
   Matches,
   MinLength,
@@ -36,6 +37,6 @@ export class CreateUserInput {
 
   @Field(() => String)
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   public captcha: string;
 }

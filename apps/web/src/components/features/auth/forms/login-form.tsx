@@ -33,6 +33,8 @@ import { useAuth } from '@/hooks/use-auth';
 
 import { loginSchema, LoginSchema } from '@/schemas/auth/login.schema';
 
+import { isDev } from '@/utils/is-dev';
+
 import { AuthWrapper } from '../auth-wrapper';
 
 export function LoginForm() {
@@ -75,7 +77,7 @@ export function LoginForm() {
   const { isValid } = form.formState;
 
   function onSubmit(data: LoginSchema) {
-    if (!data.captcha) {
+    if (!data.captcha && !isDev) {
       toast.warning(t('captchaWarning'));
       return;
     }
@@ -168,26 +170,30 @@ export function LoginForm() {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="captcha"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col items-center justify-center">
-                    <FormControl>
-                      <Turnstile
-                        sitekey={
-                          process.env['CLOUDFLARE_TURNSTILE_SITE_KEY'] as string
-                        }
-                        onVerify={(token) => {
-                          form.setValue('captcha', token);
-                        }}
-                        theme={theme === 'dark' ? 'dark' : 'light'}
-                        {...field}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
+              {!isDev && (
+                <FormField
+                  control={form.control}
+                  name="captcha"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col items-center justify-center">
+                      <FormControl>
+                        <Turnstile
+                          sitekey={
+                            process.env[
+                              'CLOUDFLARE_TURNSTILE_SITE_KEY'
+                            ] as string
+                          }
+                          onVerify={(token) => {
+                            form.setValue('captcha', token);
+                          }}
+                          theme={theme === 'dark' ? 'dark' : 'light'}
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              )}
             </>
           )}
 

@@ -34,7 +34,7 @@ import { FormWrapper } from '@/components/ui/elements/form-wrapper';
 
 import {
   useChangeEmailMutation,
-  useSendVerificationTokenMutation,
+  useSendVerificationLinkMutation,
 } from '@/graphql/generated/output';
 
 import { useCurrentProfile } from '@/hooks/use-current-profile';
@@ -82,14 +82,14 @@ export function ChangeEmailForm() {
     onError: () => toast.error(t('modal.errorMessage')),
   });
 
-  const [sendVerificationToken, { loading: isLoadingSendToken }] =
-    useSendVerificationTokenMutation({
+  const [sendVerificationLink, { loading: isLoadingSendLink }] =
+    useSendVerificationLinkMutation({
       onCompleted: () => {
-        toast.success(t('sendVerificationToken.successMessage'));
+        toast.success(t('sendVerificationLink.successMessage'));
 
         setEmailResent(true);
       },
-      onError: () => toast.error(t('sendVerificationToken.errorMessage')),
+      onError: () => toast.error(t('sendVerificationLink.errorMessage')),
     });
 
   function onSubmit(data: ChangeEmailSchema) {
@@ -145,16 +145,16 @@ export function ChangeEmailForm() {
 
               {!emailResent && (
                 <Button
-                  disabled={isLoadingSendToken}
-                  onClick={() => sendVerificationToken()}
+                  disabled={isLoadingSendLink}
+                  onClick={() => sendVerificationLink()}
                   type="button"
                   variant="secondary"
                   size="sm"
                 >
-                  {isLoadingSendToken && (
+                  {isLoadingSendLink && (
                     <Loader2 className="size-4 animate-spin" />
                   )}
-                  {t('sendVerificationToken.resend')}
+                  {t('sendVerificationLink.resend')}
                 </Button>
               )}
             </div>

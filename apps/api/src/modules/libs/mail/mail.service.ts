@@ -5,16 +5,22 @@ import { ConfigService } from '@nestjs/config';
 import { render } from '@react-email/components';
 import { Queue } from 'bullmq';
 
-import { MailJobName } from '@/src/shared/constants/queue.constants';
+import {
+  MAIL_QUEUE_NAME,
+  MailJobName,
+} from '@/src/shared/constants/queue.constants';
 import type { SessionMetadata } from '@/src/shared/types/session-metadata.type';
 
 import { AccountDeletionTemplate } from './templates/account-deletion.template';
 import { DeactivateTemplate } from './templates/deactivate.template';
+import { EmailUpdatedTemplate } from './templates/email-updated.template';
 import { EnableTwoFactorTemplate } from './templates/enable-two-factor.template';
 import { PasswordRecoveryTemplate } from './templates/password-recovery.template';
+import { PasswordUpdatedTemplate } from './templates/password-updated.template';
 import { VerificationCodeTemplate } from './templates/verification-code.template';
-import { VerificationTemplate } from './templates/verification.template';
+import { VerificationLinkTemplate } from './templates/verification-link.template';
 import { VerifyChannelTemplate } from './templates/verify-channel.template';
+import { WelcomeTemplate } from './templates/welcome.template';
 
 @Injectable()
 export class MailService {
@@ -22,98 +28,200 @@ export class MailService {
     private readonly mailerService: MailerService,
     private readonly configService: ConfigService,
 
-    @InjectQueue('mail') private readonly mailQueue: Queue,
+    @InjectQueue(MAIL_QUEUE_NAME) private readonly mailQueue: Queue,
   ) {}
 
-  public async sendVerificationToken(email: string, token: string) {
+  public async sendVerificationLink(
+    email: string,
+    username: string,
+    token: string,
+    metadata: SessionMetadata,
+  ) {
     const domain = this.configService.get<string>('ALLOWED_ORIGIN');
-    const html = await render(VerificationTemplate({ domain, token }));
+    const html = await render(
+      VerificationLinkTemplate({ domain, username, token, metadata }),
+    );
 
-    return this.mailQueue.add(MailJobName.SEND_VERIFICATION_TOKEN, {
-      to: email,
-      subject: 'Verify Your Email Address',
-      html,
-    });
+    return this.mailQueue.add(
+      MailJobName.SEND_VERIFICATION_TOKEN,
+      {
+        to: email,
+        subject: 'Verify Your Email Address',
+        html,
+      },
+      { removeOnComplete: true },
+    );
   }
 
   public async sendVerificationCode(
     email: string,
+    username: string,
     token: string,
     metadata: SessionMetadata,
   ) {
-    const html = await render(VerificationCodeTemplate({ token, metadata }));
+    const html = await render(
+      VerificationCodeTemplate({ token, username, metadata }),
+    );
 
-    return this.mailQueue.add(MailJobName.SEND_VERIFICATION_CODE, {
-      to: email,
-      subject: 'Verify Your Email Address',
-      html,
-    });
+    return this.mailQueue.add(
+      MailJobName.SEND_VERIFICATION_CODE,
+      {
+        to: email,
+        subject: 'Verify your Email Address',
+        html,
+      },
+      { removeOnComplete: true },
+    );
   }
 
   public async sendPasswordResetToken(
     email: string,
+    username: string,
     token: string,
     metadata: SessionMetadata,
   ) {
     const domain = this.configService.get<string>('ALLOWED_ORIGIN');
 
     const html = await render(
-      PasswordRecoveryTemplate({ domain, token, metadata }),
+      PasswordRecoveryTemplate({ domain, token, username, metadata }),
     );
 
-    return this.mailQueue.add(MailJobName.SEND_PASSWORD_RESET_TOKEN, {
-      to: email,
-      subject: 'Password reset',
-      html,
-    });
+    return this.mailQueue.add(
+      MailJobName.SEND_PASSWORD_RESET_TOKEN,
+      {
+        to: email,
+        subject: 'Reset your password',
+        html,
+      },
+      { removeOnComplete: true },
+    );
+  }
+
+  public async sendPasswordUpdated(email: string, username: string) {
+    const domain = this.configService.get<string>('ALLOWED_ORIGIN');
+
+    const html = await render(
+      PasswordUpdatedTemplate({
+        username,
+        domain,
+        updatedDate: new Date(),
+      }),
+    );
+
+    return this.mailQueue.add(
+      MailJobName.SEND_PASSWORD_UPDATED,
+      {
+        to: email,
+        subject: 'Password updated',
+        html,
+      },
+      { removeOnComplete: true },
+    );
+  }
+
+  public async sendEmailUpdated(email: string, username: string) {
+    const domain = this.configService.get<string>('ALLOWED_ORIGIN');
+
+    const html = await render(
+      EmailUpdatedTemplate({
+        username,
+        domain,
+        updatedDate: new Date(),
+      }),
+    );
+
+    return this.mailQueue.add(
+      MailJobName.SEND_EMAIL_UPDATED,
+      {
+        to: email,
+        subject: 'Email updated',
+        html,
+      },
+      { removeOnComplete: true },
+    );
   }
 
   public async sendDeactivateToken(
     email: string,
+    username: string,
     token: string,
     metadata: SessionMetadata,
   ) {
-    const html = await render(DeactivateTemplate({ token, metadata }));
+    const html = await render(
+      DeactivateTemplate({ token, username, metadata }),
+    );
 
-    return this.mailQueue.add(MailJobName.SEND_DEACTIVATE_TOKEN, {
-      to: email,
-      subject: 'Account Deactivation',
-      html,
-    });
+    return this.mailQueue.add(
+      MailJobName.SEND_DEACTIVATE_TOKEN,
+      {
+        to: email,
+        subject: 'Confirm your account deactivation',
+        html,
+      },
+      { removeOnComplete: true },
+    );
   }
 
-  public async sendAccountDeletion(email: string) {
+  public async sendAccountDeletion(email: string, username: string) {
     const domain = this.configService.get<string>('ALLOWED_ORIGIN');
 
-    const html = await render(AccountDeletionTemplate({ domain }));
+    const html = await render(AccountDeletionTemplate({ domain, username }));
 
-    return this.mailQueue.add(MailJobName.SEND_ACCOUNT_DELETION, {
-      to: email,
-      subject: 'Account Deleted',
-      html,
-    });
+    return this.mailQueue.add(
+      MailJobName.SEND_ACCOUNT_DELETION,
+      {
+        to: email,
+        subject: 'Account Deletion Confirmation',
+        html,
+      },
+      { removeOnComplete: true },
+    );
   }
 
-  public async sendEnableTwoFactor(email: string) {
+  public async sendWelcome(email: string, username: string) {
     const domain = this.configService.get<string>('ALLOWED_ORIGIN');
 
-    const html = await render(EnableTwoFactorTemplate({ domain }));
+    const html = await render(WelcomeTemplate({ domain, username }));
 
-    return this.mailQueue.add(MailJobName.SEND_ENABLE_TWO_FACTOR, {
-      to: email,
-      subject: 'Enable Two-Factor Authentication',
-      html,
-    });
+    return this.mailQueue.add(
+      MailJobName.SEND_WELCOME,
+      {
+        to: email,
+        subject: '🎉 Welcome to Elcast!',
+        html,
+      },
+      { removeOnComplete: true },
+    );
   }
 
-  public async sendVerifyChannel(email: string) {
-    const html = await render(VerifyChannelTemplate());
+  public async sendEnableTwoFactor(email: string, username: string) {
+    const domain = this.configService.get<string>('ALLOWED_ORIGIN');
 
-    return this.mailQueue.add(MailJobName.SEND_VERIFY_CHANNEL, {
-      to: email,
-      subject: 'Your channel is verified',
-      html,
-    });
+    const html = await render(EnableTwoFactorTemplate({ domain, username }));
+
+    return this.mailQueue.add(
+      MailJobName.SEND_ENABLE_TWO_FACTOR,
+      {
+        to: email,
+        subject: 'Enable Two-Factor Authentication',
+        html,
+      },
+      { removeOnComplete: true },
+    );
+  }
+
+  public async sendVerifyChannel(email: string, username: string) {
+    const html = await render(VerifyChannelTemplate({ username }));
+
+    return this.mailQueue.add(
+      MailJobName.SEND_VERIFY_CHANNEL,
+      {
+        to: email,
+        subject: 'Your channel is now verified!',
+        html,
+      },
+      { removeOnComplete: true },
+    );
   }
 
   public sendMail(email: string, subject: string, html: string) {

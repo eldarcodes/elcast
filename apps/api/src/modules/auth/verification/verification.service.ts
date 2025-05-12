@@ -95,16 +95,18 @@ export class VerificationService {
     return this.verify(req, input.code, userAgent);
   }
 
-  public async sendVerificationToken(user: User) {
+  public async sendVerificationLink(user: User, metadata: SessionMetadata) {
     const verificationToken = await generateToken(
       this.prismaService,
       user,
       TokenType.EMAIL_VERIFY,
     );
 
-    await this.mailService.sendVerificationToken(
+    await this.mailService.sendVerificationLink(
       user.email,
+      user.displayName,
       verificationToken.token,
+      metadata,
     );
 
     return true;
@@ -120,6 +122,7 @@ export class VerificationService {
 
     await this.mailService.sendVerificationCode(
       user.email,
+      user.displayName,
       verificationToken.token,
       metadata,
     );

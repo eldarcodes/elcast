@@ -1,98 +1,47 @@
-import {
-  Body,
-  Head,
-  Heading,
-  Link,
-  Preview,
-  Section,
-  Tailwind,
-  Text,
-} from '@react-email/components';
-import { Html } from '@react-email/html';
+import { Text } from '@react-email/components';
 import * as React from 'react';
 
 import type { SessionMetadata } from '@/src/shared/types/session-metadata.type';
 
+import { MailLayout } from './components/layout';
+import { MailSessionMetadata } from './components/metadata';
+
 interface DeactivateTemplateProps {
   token: string;
+  username: string;
   metadata: SessionMetadata;
 }
 
 export function DeactivateTemplate({
   token,
+  username,
   metadata,
 }: DeactivateTemplateProps) {
   return (
-    <Html>
-      <Head />
-      <Preview>Account Deactivation</Preview>
+    <MailLayout preview="Use the code to confirm deactivation.">
+      <Text className="text-sm text-black">Hi {username},</Text>
 
-      <Tailwind>
-        <Body className="max-w-2xl mx-auto p-6 bg-slate-50">
-          <Section className="text-center mb-8">
-            <Heading className="text-3xl text-black font-bold">
-              Deactivate Your Account
-            </Heading>
-            <Text className="text-base text-black">
-              We received a request to deactivate your account at <b>Elcast</b>.
-              If you initiated this request, please confirm by clicking the link
-              below:
-            </Text>
+      <Text className="text-sm text-black">
+        We received a request to deactivate your account. To confirm this
+        action, please use the following code:
+      </Text>
 
-            <Text className="text-gray-600 text-black mt-4">
-              If you didn’t request account deactivation, please ignore this
-              email or contact us immediately.
-            </Text>
-          </Section>
+      <div className="text-center my-5">
+        <div className="bg-gray-100 rounded px-6 py-4 text-center inline-block w-40">
+          <b className="text-2xl text-black">{token}</b>
+        </div>
+      </div>
 
-          <Section className="bg-gray-100 rounded-lg p-6 text-center mb-6">
-            <Heading className="text-2xl text-black font-semibold">
-              Confirmation code
-            </Heading>
-            <Heading className="text-3xl text-black font-semibold">
-              {token}
-            </Heading>
+      <Text className="text-sm text-black">
+        This code will expire in <b>5 minutes</b> for your security.
+      </Text>
 
-            <Text className="text-black">
-              This code will expire in 5 minutes.
-            </Text>
-          </Section>
+      <Text className="text-sm text-black italic">
+        If you did not request this, please ignore this email — your account
+        will remain active.
+      </Text>
 
-          <Section className="bg-gray-100 rounded-lg p-6 mb-6">
-            <Heading className="text-xl font-semibold text-[#18B9AE]">
-              Information about this request
-            </Heading>
-
-            <ul className="list-disc list-inside mt-2">
-              <li>
-                🌏 Location: {metadata.location.country},{' '}
-                {metadata.location.city}
-              </li>
-              <li>📱 Operating System: {metadata.device.os}</li>
-              <li>🌐 Browser: {metadata.device.browser}</li>
-              <li>💻 IP Address: {metadata.ip}</li>
-            </ul>
-
-            <Text className="text-gray-600 text-black mt-4">
-              If you didn’t request a password reset, you can safely ignore this
-              email. Your password will remain unchanged.
-            </Text>
-          </Section>
-
-          <Section className="text-center mt-8">
-            <Text className="text-gray-600">
-              For any questions or support, feel free to reach out to us at{' '}
-              <Link
-                href="mailto:info@eldarcodes.com"
-                className="text-[#18B9AE] underline"
-              >
-                info@eldarcodes.com
-              </Link>
-              .
-            </Text>
-          </Section>
-        </Body>
-      </Tailwind>
-    </Html>
+      <MailSessionMetadata metadata={metadata} />
+    </MailLayout>
   );
 }

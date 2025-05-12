@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     alternateLocale: 'ru_RU',
     type: 'website',
-    emails: ['info@eldarcodes.com'],
+    emails: ['contact@eldarcodes.com'],
     images: [
       {
         url: '/images/logo-seo.jpg',

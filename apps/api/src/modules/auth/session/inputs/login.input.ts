@@ -39,6 +39,6 @@ export class LoginInput {
 
   @Field(() => String)
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   public captcha: string;
 }

@@ -264,7 +264,7 @@
             "successMessage": "Электронная почта успешно обновлена.",
             "errorMessage": "Ошибка при обновлении электронной почты."
           },
-          "sendVerificationToken": {
+          "sendVerificationLink": {
             "resend": "Отправить код подтверждения",
             "successMessage": "Код подтверждения отправлен",
             "errorMessage": "Ошибка при отправке кода подтверждения"

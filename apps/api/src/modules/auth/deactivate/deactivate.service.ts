@@ -85,6 +85,7 @@ export class DeactivateService {
 
     await this.mailService.sendDeactivateToken(
       user.email,
+      user.displayName,
       deactivateToken.token,
       sessionMetadata,
     );

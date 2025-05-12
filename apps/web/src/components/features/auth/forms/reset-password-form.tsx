@@ -32,6 +32,8 @@ import {
   ResetPasswordSchema,
 } from '@/schemas/auth/reset-password.schema';
 
+import { isDev } from '@/utils/is-dev';
+
 import { AuthWrapper } from '../auth-wrapper';
 
 export function ResetPasswordForm() {
@@ -65,7 +67,7 @@ export function ResetPasswordForm() {
   const { isValid } = form.formState;
 
   function onSubmit(data: ResetPasswordSchema) {
-    if (!data.captcha) {
+    if (!data.captcha && !isDev) {
       toast.warning(t('captchaWarning'));
       return;
     }
@@ -106,26 +108,28 @@ export function ResetPasswordForm() {
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="captcha"
-              render={({ field }) => (
-                <FormItem className="flex flex-col items-center justify-center">
-                  <FormControl>
-                    <Turnstile
-                      sitekey={
-                        process.env['CLOUDFLARE_TURNSTILE_SITE_KEY'] as string
-                      }
-                      onVerify={(token) => {
-                        form.setValue('captcha', token);
-                      }}
-                      theme={theme === 'dark' ? 'dark' : 'light'}
-                      {...field}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+            {!isDev && (
+              <FormField
+                control={form.control}
+                name="captcha"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col items-center justify-center">
+                    <FormControl>
+                      <Turnstile
+                        sitekey={
+                          process.env['CLOUDFLARE_TURNSTILE_SITE_KEY'] as string
+                        }
+                        onVerify={(token) => {
+                          form.setValue('captcha', token);
+                        }}
+                        theme={theme === 'dark' ? 'dark' : 'light'}
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            )}
 
             <Button
               className="mt-2 w-full"

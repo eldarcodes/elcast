@@ -198,7 +198,7 @@ type Mutation {
   sendChatMessage(data: SendMessageInput!): ChatMessageModel!
   sendUserPresenceHeartbeat: Boolean!
   sendVerificationCode: AuthModel!
-  sendVerificationToken: AuthModel!
+  sendVerificationLink: AuthModel!
   unfollowChannel(channelId: String!): Boolean!
   updateSocialLink(data: SocialLinkInput!, id: String!): Boolean!
   verifyAccountByCode(data: VerificationCodeInput!): AuthModel!
