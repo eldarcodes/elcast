@@ -44,7 +44,7 @@ export class CronService {
     });
 
     for (const user of deactivatedAccounts) {
-      await this.mailService.sendAccountDeletion(user.email);
+      await this.mailService.sendAccountDeletion(user.email, user.displayName);
 
       if (user.notificationSettings.telegramNotifications && user.telegramId) {
         await this.telegramService.sendAccountDeletion(user.telegramId);

@@ -138,16 +138,16 @@ export class MailService {
     );
   }
 
-  public async sendAccountDeletion(email: string) {
+  public async sendAccountDeletion(email: string, username: string) {
     const domain = this.configService.get<string>('ALLOWED_ORIGIN');
 
-    const html = await render(AccountDeletionTemplate({ domain }));
+    const html = await render(AccountDeletionTemplate({ domain, username }));
 
     return this.mailQueue.add(
       MailJobName.SEND_ACCOUNT_DELETION,
       {
         to: email,
-        subject: 'Account Deleted',
+        subject: 'Account Deletion Confirmation',
         html,
       },
       { removeOnComplete: true },
