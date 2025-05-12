@@ -13,7 +13,7 @@ export const MAX_SOCIAL_LINK_TITLE_LENGTH = 50;
 export const AVATAR_WIDTH = 512;
 export const AVATAR_HEIGHT = 512;
 
-export const MIN_FOLLOWERS_TO_GET_VERIFIED = 10;
+export const MIN_TIME_TO_GET_VERIFIED = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 export const DAYS_TO_KEEP_DEACTIVATED_ACCOUNTS = 7;
 
