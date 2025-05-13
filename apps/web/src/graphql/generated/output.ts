@@ -214,7 +214,6 @@ export type Mutation = {
   reorderSocialLinks: Scalars['Boolean']['output'];
   resetPassword: Scalars['Boolean']['output'];
   sendChatMessage: ChatMessageModel;
-  sendTestMail: Scalars['Boolean']['output'];
   sendUserPresenceHeartbeat: Scalars['Boolean']['output'];
   sendVerificationCode: AuthModel;
   sendVerificationLink: AuthModel;

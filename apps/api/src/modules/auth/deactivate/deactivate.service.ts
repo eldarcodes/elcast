@@ -140,7 +140,9 @@ export class DeactivateService {
   }
 
   private async clearSessions(userId: string) {
-    const keys = await this.redisService.keys('*');
+    const keys = await this.redisService.keys(
+      `${this.configService.getOrThrow<string>('SESSION_FOLDER')}*`,
+    );
 
     for (const key of keys) {
       const sessionData = await this.redisService.get(key);

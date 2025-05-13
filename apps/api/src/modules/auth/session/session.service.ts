@@ -36,7 +36,9 @@ export class SessionService {
       throw new NotFoundException('User not found in session');
     }
 
-    const keys = await this.redisService.keys('*');
+    const keys = await this.redisService.keys(
+      `${this.configService.getOrThrow<string>('SESSION_FOLDER')}*`,
+    );
 
     const userSessions = [];
 
