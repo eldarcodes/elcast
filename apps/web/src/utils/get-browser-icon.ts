@@ -15,6 +15,7 @@ export function getBrowserIcon(browserName: string) {
     case 'firefox':
       return FaFirefoxBrowser;
     case 'safari':
+    case 'mobile safari':
       return FaSafari;
     case 'edge':
       return FaEdge;
