@@ -139,6 +139,24 @@ export class DeactivateService {
     return { user };
   }
 
+  public async reactivate(user: User) {
+    if (!user.isDeactivated) {
+      throw new BadRequestException('Account is not deactivated');
+    }
+
+    await this.prismaService.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        isDeactivated: false,
+        deactivatedAt: null,
+      },
+    });
+
+    return true;
+  }
+
   private async clearSessions(userId: string) {
     const keys = await this.redisService.keys(
       `${this.configService.getOrThrow<string>('SESSION_FOLDER')}*`,

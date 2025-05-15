@@ -27,4 +27,12 @@ export class DeactivateResolver {
   ) {
     return this.deactivateService.deactivate(req, input, user, userAgent);
   }
+
+  @Authorization()
+  @Mutation(() => Boolean, {
+    name: 'reactivateAccount',
+  })
+  public async reactivate(@Authorized() user: User) {
+    return this.deactivateService.reactivate(user);
+  }
 }
