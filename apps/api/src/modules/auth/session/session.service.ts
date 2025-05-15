@@ -109,10 +109,6 @@ export class SessionService {
       throw new NotFoundException('User not found');
     }
 
-    if (user.isDeactivated) {
-      throw new UnauthorizedException('User account is deactivated');
-    }
-
     const isValidPassword = await argon2.verify(user.password, password);
 
     if (!isValidPassword) {
