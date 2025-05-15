@@ -54,6 +54,7 @@ export function SessionItem({ session, isCurrentSession }: SessionItemProps) {
               heading={t('confirmModal.heading')}
               message={t('confirmModal.message')}
               onConfirm={() => removeSession({ variables: { id: session.id } })}
+              variant="destructive"
             >
               <Button variant="destructive" disabled={isLoadingRemove}>
                 {t('deleteButton')}
