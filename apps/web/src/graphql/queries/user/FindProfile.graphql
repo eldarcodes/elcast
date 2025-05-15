@@ -10,8 +10,10 @@ query FindProfile {
     avatar
     bio
     isTotpEnabled
+    isDeactivated
     isVerified
     isEmailVerified
+    deactivatedAt
     notificationSettings {
       siteNotifications
       telegramNotifications
