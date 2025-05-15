@@ -32,7 +32,6 @@ import { PasswordInput } from '@/components/ui/elements/password-input';
 
 import { useDeactivateAccountMutation } from '@/graphql/generated/output';
 
-import { useAuth } from '@/hooks/use-auth';
 import { useCurrentProfile } from '@/hooks/use-current-profile';
 
 import {
