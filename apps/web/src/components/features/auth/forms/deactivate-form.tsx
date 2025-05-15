@@ -1,12 +1,18 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Info } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from '@/components/ui/common/alert';
 import { Button } from '@/components/ui/common/button';
 import {
   Form,
@@ -27,6 +33,7 @@ import { PasswordInput } from '@/components/ui/elements/password-input';
 import { useDeactivateAccountMutation } from '@/graphql/generated/output';
 
 import { useAuth } from '@/hooks/use-auth';
+import { useCurrentProfile } from '@/hooks/use-current-profile';
 
 import {
   deactivateSchema,
@@ -38,6 +45,7 @@ import { AuthWrapper } from '../auth-wrapper';
 export function DeactivateForm() {
   const { exit } = useAuth();
 
+  const { user } = useCurrentProfile();
   const router = useRouter();
   const t = useTranslations('auth.deactivate');
 
@@ -76,9 +84,27 @@ export function DeactivateForm() {
 
   const twoFactorValid = isShowConfirm ? currentPin?.length === 6 : true;
 
+  if (user && !user?.hasPassword) {
+    return (
+      <AuthWrapper
+        heading={t('heading')}
+        showLogo={false}
+        backButtonLabel={t('backButtonLabel')}
+        backButtonHref="/dashboard/settings?tab=security"
+      >
+        <Alert variant="info">
+          <Info className="size-4" />
+          <AlertTitle>{t('noPasswordTitle')}</AlertTitle>
+          <AlertDescription>{t('noPasswordMessage')}</AlertDescription>
+        </Alert>
+      </AuthWrapper>
+    );
+  }
+
   return (
     <AuthWrapper
       heading={t('heading')}
+      showLogo={false}
       backButtonLabel={t('backButtonLabel')}
       backButtonHref="/dashboard/settings"
     >

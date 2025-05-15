@@ -70,11 +70,13 @@
     },
     "deactivate": {
       "heading": "Deactivate Account",
-      "backButtonLabel": "Go to Dashboard",
+      "backButtonLabel": "Go to Settings",
       "emailLabel": "Email",
-      "emailDescription": "Your email that you used during registration",
+      "emailDescription": "The email associated with your account",
       "passwordLabel": "Password",
-      "passwordDescription": "The password you used during registration",
+      "passwordDescription": "Your current account password",
+      "noPasswordTitle": "Password Required",
+      "noPasswordMessage": "To deactivate your account, please set a password first in your account settings.",
       "pinLabel": "6-digit code",
       "pinDescription": "A code has been sent to your email. If you enabled Telegram notifications, we sent the code there as well",
       "submitButton": "Deactivate",
@@ -306,7 +308,7 @@
         },
         "deactivation": {
           "heading": "Account Deactivation",
-          "description": "After deactivating your account, you will not be able to log in. Your account will be completely deleted after {deletionDays} days. Until then, you can contact support to restore access and unlock your account.",
+          "description": "Your account will be completely deleted after {deletionDays} days. Until then, you can log in and restore your account. After the deletion period, all your data will be permanently removed.",
           "confirmModal": {
             "heading": "Deactivation Confirmation",
             "message": "Are you sure you want to deactivate your account? Access can only be restored within {deletionDays} days."
