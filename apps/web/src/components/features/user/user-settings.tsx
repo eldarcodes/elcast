@@ -11,9 +11,12 @@ import {
 } from '@/components/ui/common/tabs';
 import { Heading } from '@/components/ui/elements/heading';
 
+import { useCurrentProfile } from '@/hooks/use-current-profile';
+
 import { ChangeEmailForm } from './account/change-email-form';
 import { ChangePasswordForm } from './account/change-password-form';
 import { DeactivateCard } from './account/deactivate-card';
+import { ReactivateCard } from './account/reactivate-card';
 import { WrapperTotp } from './account/totp/wrapper-totp';
 import { ChangeNotificationsSettingsForm } from './notifications/change-notifications-settings-form';
 import { ChangeAvatarForm } from './profile/change-avatar-form';
@@ -25,6 +28,8 @@ export function UserSettings() {
   const t = useTranslations('dashboard.settings');
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const { user } = useCurrentProfile();
 
   const currentTab = searchParams.get('tab') || 'profile';
 
@@ -97,7 +102,7 @@ export function UserSettings() {
               description={t('account.header.deactivationDescription')}
             />
 
-            <DeactivateCard />
+            {user?.isDeactivated ? <ReactivateCard /> : <DeactivateCard />}
           </div>
         </TabsContent>
 

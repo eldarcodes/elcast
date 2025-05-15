@@ -92,6 +92,10 @@
   },
   "layout": {
     "header": {
+      "deactivationAlert": {
+        "message": "Your account is scheduled for deletion {relativeDate} ({date}). You can <link>cancel this</link> before then to keep your data.",
+        "messageShort": "Your account is scheduled for deletion {relativeDate}."
+      },
       "logo": {
         "platform": "Streaming platform"
       },
@@ -242,7 +246,7 @@
           "securityHeading": "Security",
           "securityDescription": "Set up two-factor authentication and auto-renewals for enhanced protection of your data.",
           "deactivationHeading": "Deactivation",
-          "deactivationDescription": "If you want to temporarily or permanently disable your account, use this option. Be aware of the consequences."
+          "deactivationDescription": "If you want to permanently delete your account, use this option. Be aware of the consequences."
         },
         "email": {
           "heading": "Email Address",
@@ -314,6 +318,17 @@
             "message": "Are you sure you want to deactivate your account? Access can only be restored within {deletionDays} days."
           },
           "button": "Deactivate"
+        },
+        "reactivation": {
+          "heading": "Account Deactivation",
+          "description": "Your account is currently deactivated and will be permanently deleted {relativeDate}. To keep your data, you can cancel the deactivation now.",
+          "confirmModal": {
+            "heading": "Cancel Account Deactivation?",
+            "message": "Canceling the deactivation will stop the scheduled deletion and reactivate your account immediately. Do you want to continue?"
+          },
+          "successMessage": "Account reactivated successfully",
+          "errorMessage": "Error reactivating account",
+          "button": "Cancel Deactivation"
         }
       },
       "connections": {

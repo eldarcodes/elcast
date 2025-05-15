@@ -18,6 +18,7 @@ import {
 interface ConfirmModalProps {
   heading: string;
   message: string;
+  disabled?: boolean;
   variant?: 'destructive' | 'default';
   onConfirm: () => void;
 }
@@ -26,6 +27,7 @@ export function ConfirmModal({
   children,
   variant = 'default',
   heading,
+  disabled = false,
   message,
   onConfirm,
 }: PropsWithChildren<ConfirmModalProps>) {
@@ -43,6 +45,7 @@ export function ConfirmModal({
           <AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
           <AlertDialogAction
             onClick={onConfirm}
+            disabled={disabled}
             className={
               variant === 'destructive'
                 ? 'bg-destructive text-destructive-foreground hover:bg-destructive/90'

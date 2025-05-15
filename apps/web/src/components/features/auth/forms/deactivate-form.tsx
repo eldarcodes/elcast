@@ -43,9 +43,7 @@ import {
 import { AuthWrapper } from '../auth-wrapper';
 
 export function DeactivateForm() {
-  const { exit } = useAuth();
-
-  const { user } = useCurrentProfile();
+  const { user, refetch } = useCurrentProfile();
   const router = useRouter();
   const t = useTranslations('auth.deactivate');
 
@@ -65,7 +63,7 @@ export function DeactivateForm() {
         if (data.deactivateAccount.message) {
           setIsShowConfirm(true);
         } else {
-          exit();
+          refetch();
 
           toast.success(t('successMessage'));
           router.push('/');

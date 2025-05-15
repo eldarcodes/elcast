@@ -206,6 +206,7 @@ export type Mutation = {
   markNotificationAsRead: Scalars['Boolean']['output'];
   markNotificationsAsRead: Scalars['Boolean']['output'];
   newPassword: Scalars['Boolean']['output'];
+  reactivateAccount: Scalars['Boolean']['output'];
   removeAllOtherSessions: Scalars['Boolean']['output'];
   removeProfileAvatar: Scalars['Boolean']['output'];
   removeSession: Scalars['Boolean']['output'];
@@ -702,6 +703,11 @@ export type NewPasswordMutationVariables = Exact<{
 
 
 export type NewPasswordMutation = { __typename?: 'Mutation', newPassword: boolean };
+
+export type ReactivateAccountMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ReactivateAccountMutation = { __typename?: 'Mutation', reactivateAccount: boolean };
 
 export type ResetPasswordMutationVariables = Exact<{
   data: ResetPasswordInput;
@@ -1230,6 +1236,36 @@ export function useNewPasswordMutation(baseOptions?: Apollo.MutationHookOptions<
 export type NewPasswordMutationHookResult = ReturnType<typeof useNewPasswordMutation>;
 export type NewPasswordMutationResult = Apollo.MutationResult<NewPasswordMutation>;
 export type NewPasswordMutationOptions = Apollo.BaseMutationOptions<NewPasswordMutation, NewPasswordMutationVariables>;
+export const ReactivateAccountDocument = gql`
+    mutation ReactivateAccount {
+  reactivateAccount
+}
+    `;
+export type ReactivateAccountMutationFn = Apollo.MutationFunction<ReactivateAccountMutation, ReactivateAccountMutationVariables>;
+
+/**
+ * __useReactivateAccountMutation__
+ *
+ * To run a mutation, you first call `useReactivateAccountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useReactivateAccountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [reactivateAccountMutation, { data, loading, error }] = useReactivateAccountMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useReactivateAccountMutation(baseOptions?: Apollo.MutationHookOptions<ReactivateAccountMutation, ReactivateAccountMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ReactivateAccountMutation, ReactivateAccountMutationVariables>(ReactivateAccountDocument, options);
+      }
+export type ReactivateAccountMutationHookResult = ReturnType<typeof useReactivateAccountMutation>;
+export type ReactivateAccountMutationResult = Apollo.MutationResult<ReactivateAccountMutation>;
+export type ReactivateAccountMutationOptions = Apollo.BaseMutationOptions<ReactivateAccountMutation, ReactivateAccountMutationVariables>;
 export const ResetPasswordDocument = gql`
     mutation ResetPassword($data: ResetPasswordInput!) {
   resetPassword(data: $data)
