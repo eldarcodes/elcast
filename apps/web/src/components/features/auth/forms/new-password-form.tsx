@@ -64,6 +64,7 @@ export function NewPasswordForm() {
     <AuthWrapper
       heading={t('heading')}
       subtitle={t('subtitle')}
+      showLogo={false}
       backButtonLabel={t('backButtonLabel')}
       backButtonHref="/account/login"
     >

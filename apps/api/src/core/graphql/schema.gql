@@ -188,6 +188,7 @@ type Mutation {
   markNotificationAsRead(notificationId: String!): Boolean!
   markNotificationsAsRead: Boolean!
   newPassword(data: NewPasswordInput!): Boolean!
+  reactivateAccount: Boolean!
   removeAllOtherSessions: Boolean!
   removeProfileAvatar: Boolean!
   removeSession(id: String!): Boolean!

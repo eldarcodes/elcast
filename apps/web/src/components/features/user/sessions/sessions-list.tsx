@@ -68,6 +68,7 @@ export function SessionsList() {
               heading={t('removeOtherSessions.heading')}
               message={t('removeOtherSessions.message')}
               onConfirm={() => removeAllOtherSessions()}
+              variant="destructive"
             >
               <Button variant="destructive" disabled={isLoadingRemoveAll}>
                 {t('removeOtherSessions.button')}

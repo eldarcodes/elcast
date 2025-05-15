@@ -80,6 +80,7 @@ export function ResetPasswordForm() {
       heading={t('heading')}
       backButtonLabel={t('backButtonLabel')}
       backButtonHref="/account/login"
+      showLogo={false}
     >
       {isSuccess ? (
         <Alert className="my-12">

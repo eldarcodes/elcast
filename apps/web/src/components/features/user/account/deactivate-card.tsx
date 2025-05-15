@@ -23,6 +23,7 @@ export function DeactivateCard() {
       rightContent={
         <ConfirmModal
           heading={t('confirmModal.heading')}
+          variant="destructive"
           message={t('confirmModal.message', {
             deletionDays: ACCOUNT_DAYS_UNTIL_DELETION,
           })}

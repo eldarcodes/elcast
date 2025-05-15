@@ -38,7 +38,7 @@ export function VerifyAccountByLinkForm() {
   }, [token, verify]);
 
   return (
-    <AuthWrapper heading={t('heading')}>
+    <AuthWrapper heading={t('heading')} showLogo={false}>
       {error ? (
         <Alert variant="destructive">
           <div className="flex items-center gap-x-2">

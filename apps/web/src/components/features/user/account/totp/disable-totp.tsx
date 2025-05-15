@@ -28,6 +28,7 @@ export function DisableTotp() {
       heading={t('heading')}
       message={t('message')}
       onConfirm={() => disableTotp()}
+      variant="destructive"
     >
       <Button variant="secondary" disabled={isLoadingDisable}>
         {t('trigger')}
