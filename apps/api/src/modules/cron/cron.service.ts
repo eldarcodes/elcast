@@ -27,7 +27,7 @@ export class CronService {
     const sevenDaysAgo = new Date();
 
     sevenDaysAgo.setDate(
-      sevenDaysAgo.getDay() - DAYS_TO_KEEP_DEACTIVATED_ACCOUNTS,
+      sevenDaysAgo.getDate() - DAYS_TO_KEEP_DEACTIVATED_ACCOUNTS,
     );
 
     const deactivatedAccounts = await this.prismaService.user.findMany({
