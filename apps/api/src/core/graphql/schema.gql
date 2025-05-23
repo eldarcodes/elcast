@@ -59,6 +59,10 @@ input ChangePasswordInput {
   oldPassword: String
 }
 
+input ChangeProfileAccentColorInput {
+  accentColor: String!
+}
+
 input ChangeProfileInfoInput {
   bio: String!
   displayName: String!
@@ -165,6 +169,7 @@ type Mutation {
   changeEmail(data: ChangeEmailInput!): AuthModel!
   changeNotificationSettings(data: ChangeNotificationSettingsInput!): ChangeNotificationsSettingsResponse!
   changePassword(data: ChangePasswordInput!): Boolean!
+  changeProfileAccentColor(data: ChangeProfileAccentColorInput!): Boolean!
   changeProfileAvatar(avatar: Upload!): Boolean!
   changeProfileInfo(data: ChangeProfileInfoInput!): Boolean!
   changeProfileUsername(data: ChangeProfileUsernameInput!): Boolean!
@@ -378,6 +383,7 @@ scalar Upload
 
 """User model"""
 type UserModel {
+  accentColor: String
   avatar: String
   bio: String
   createdAt: DateTime!
@@ -407,6 +413,7 @@ type UserModel {
 
 """User profile model"""
 type UserProfileModel {
+  accentColor: String
   avatar: String
   bio: String
   createdAt: DateTime!

@@ -16,6 +16,7 @@ import {
 
 import { StorageService } from '../../libs/storage/storage.service';
 
+import { ChangeProfileAccentColorInput } from './inputs/change-accent-color.input';
 import { ChangeProfileInfoInput } from './inputs/change-info.input';
 import { ChangeProfileUsernameInput } from './inputs/change-username.input';
 import {
@@ -29,6 +30,24 @@ export class ProfileService {
     private readonly prismaService: PrismaService,
     private readonly storageService: StorageService,
   ) {}
+
+  public async changeAccentColor(
+    user: User,
+    input: ChangeProfileAccentColorInput,
+  ) {
+    const { accentColor } = input;
+
+    if (user.accentColor === accentColor) {
+      return true;
+    }
+
+    await this.prismaService.user.update({
+      where: { id: user.id },
+      data: { accentColor },
+    });
+
+    return true;
+  }
 
   public async changeAvatar(user: User, file: Upload) {
     if (user.avatar) {

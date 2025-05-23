@@ -16,6 +16,7 @@ query FindRandomStreams {
       avatar
       id
       isVerified
+      accentColor
     }
     category {
       title

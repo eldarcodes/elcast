@@ -79,6 +79,10 @@ export type ChangePasswordInput = {
   oldPassword?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type ChangeProfileAccentColorInput = {
+  accentColor: Scalars['String']['input'];
+};
+
 export type ChangeProfileInfoInput = {
   bio: Scalars['String']['input'];
   displayName: Scalars['String']['input'];
@@ -184,6 +188,7 @@ export type Mutation = {
   changeEmail: AuthModel;
   changeNotificationSettings: ChangeNotificationsSettingsResponse;
   changePassword: Scalars['Boolean']['output'];
+  changeProfileAccentColor: Scalars['Boolean']['output'];
   changeProfileAvatar: Scalars['Boolean']['output'];
   changeProfileInfo: Scalars['Boolean']['output'];
   changeProfileUsername: Scalars['Boolean']['output'];
@@ -242,6 +247,11 @@ export type MutationChangeNotificationSettingsArgs = {
 
 export type MutationChangePasswordArgs = {
   data: ChangePasswordInput;
+};
+
+
+export type MutationChangeProfileAccentColorArgs = {
+  data: ChangeProfileAccentColorInput;
 };
 
 
@@ -601,6 +611,7 @@ export type TotpModel = {
 /** User model */
 export type UserModel = {
   __typename?: 'UserModel';
+  accentColor?: Maybe<Scalars['String']['output']>;
   avatar?: Maybe<Scalars['String']['output']>;
   bio?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
@@ -631,6 +642,7 @@ export type UserModel = {
 /** User profile model */
 export type UserProfileModel = {
   __typename?: 'UserProfileModel';
+  accentColor?: Maybe<Scalars['String']['output']>;
   avatar?: Maybe<Scalars['String']['output']>;
   bio?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
@@ -822,6 +834,13 @@ export type ChangePasswordMutationVariables = Exact<{
 
 export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: boolean };
 
+export type ChangeProfileAccentColorMutationVariables = Exact<{
+  data: ChangeProfileAccentColorInput;
+}>;
+
+
+export type ChangeProfileAccentColorMutation = { __typename?: 'Mutation', changeProfileAccentColor: boolean };
+
 export type ChangeProfileAvatarMutationVariables = Exact<{
   avatar: Scalars['Upload']['input'];
 }>;
@@ -982,26 +1001,26 @@ export type FindAllStreamsQueryVariables = Exact<{
 }>;
 
 
-export type FindAllStreamsQuery = { __typename?: 'Query', findAllStreams: Array<{ __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, tags?: Array<{ __typename?: 'StreamTagModel', tag: { __typename?: 'TagModel', id: string, name: string } }> | null, user: { __typename?: 'UserModel', username: string, displayName: string, avatar?: string | null, id: string, isVerified: boolean }, category?: { __typename?: 'CategoryModel', title: string, slug: string, description?: string | null } | null }> };
+export type FindAllStreamsQuery = { __typename?: 'Query', findAllStreams: Array<{ __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, tags?: Array<{ __typename?: 'StreamTagModel', tag: { __typename?: 'TagModel', id: string, name: string } }> | null, user: { __typename?: 'UserModel', username: string, displayName: string, avatar?: string | null, id: string, isVerified: boolean, accentColor?: string | null }, category?: { __typename?: 'CategoryModel', title: string, slug: string, description?: string | null } | null }> };
 
 export type FindAllStreamsByUsernameQueryVariables = Exact<{
   filters: UsernameFiltersInput;
 }>;
 
 
-export type FindAllStreamsByUsernameQuery = { __typename?: 'Query', findAllStreamsByUsername: Array<{ __typename?: 'StreamModel', id: string, user: { __typename?: 'UserModel', displayName: string, username: string, avatar?: string | null, id: string }, category?: { __typename?: 'CategoryModel', title: string } | null }> };
+export type FindAllStreamsByUsernameQuery = { __typename?: 'Query', findAllStreamsByUsername: Array<{ __typename?: 'StreamModel', id: string, user: { __typename?: 'UserModel', displayName: string, username: string, avatar?: string | null, id: string, accentColor?: string | null }, category?: { __typename?: 'CategoryModel', title: string } | null }> };
 
 export type FindChannelByUsernameQueryVariables = Exact<{
   username: Scalars['String']['input'];
 }>;
 
 
-export type FindChannelByUsernameQuery = { __typename?: 'Query', findChannelByUsername: { __typename?: 'UserModel', id: string, username: string, displayName: string, avatar?: string | null, bio?: string | null, isVerified: boolean, lastActive: any, socialLinks: Array<{ __typename?: 'SocialLinkModel', id: string, title: string, url: string }>, stream: { __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatSubscribersOnly: boolean, tags?: Array<{ __typename?: 'StreamTagModel', tag: { __typename?: 'TagModel', id: string, name: string } }> | null, category?: { __typename?: 'CategoryModel', id: string, title: string } | null }, followings: Array<{ __typename?: 'FollowModel', id: string }> } };
+export type FindChannelByUsernameQuery = { __typename?: 'Query', findChannelByUsername: { __typename?: 'UserModel', id: string, username: string, displayName: string, avatar?: string | null, bio?: string | null, isVerified: boolean, lastActive: any, accentColor?: string | null, socialLinks: Array<{ __typename?: 'SocialLinkModel', id: string, title: string, url: string }>, stream: { __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatSubscribersOnly: boolean, tags?: Array<{ __typename?: 'StreamTagModel', tag: { __typename?: 'TagModel', id: string, name: string } }> | null, category?: { __typename?: 'CategoryModel', id: string, title: string } | null }, followings: Array<{ __typename?: 'FollowModel', id: string }> } };
 
 export type FindRandomStreamsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindRandomStreamsQuery = { __typename?: 'Query', findRandomStreams: Array<{ __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, tags?: Array<{ __typename?: 'StreamTagModel', tag: { __typename?: 'TagModel', id: string, name: string } }> | null, user: { __typename?: 'UserModel', username: string, displayName: string, avatar?: string | null, id: string, isVerified: boolean }, category?: { __typename?: 'CategoryModel', title: string, slug: string, description?: string | null } | null }> };
+export type FindRandomStreamsQuery = { __typename?: 'Query', findRandomStreams: Array<{ __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, tags?: Array<{ __typename?: 'StreamTagModel', tag: { __typename?: 'TagModel', id: string, name: string } }> | null, user: { __typename?: 'UserModel', username: string, displayName: string, avatar?: string | null, id: string, isVerified: boolean, accentColor?: string | null }, category?: { __typename?: 'CategoryModel', title: string, slug: string, description?: string | null } | null }> };
 
 export type FindCurrentSessionQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1021,7 +1040,7 @@ export type FindNotificationsUnreadCountQuery = { __typename?: 'Query', findNoti
 export type FindProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserProfileModel', id: string, email: string, username: string, hasPassword: boolean, displayName: string, lastUsernameChange?: any | null, lastEmailChange?: any | null, avatar?: string | null, bio?: string | null, isTotpEnabled: boolean, isDeactivated: boolean, isVerified: boolean, isEmailVerified: boolean, deactivatedAt?: any | null, notificationSettings: { __typename?: 'NotificationSettingsModel', siteNotifications: boolean, telegramNotifications: boolean }, stream: { __typename?: 'StreamModel', serverUrl?: string | null, streamKey?: string | null, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatSubscribersOnly: boolean } } };
+export type FindProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserProfileModel', id: string, email: string, username: string, hasPassword: boolean, displayName: string, lastUsernameChange?: any | null, lastEmailChange?: any | null, avatar?: string | null, bio?: string | null, isTotpEnabled: boolean, isDeactivated: boolean, isVerified: boolean, isEmailVerified: boolean, accentColor?: string | null, deactivatedAt?: any | null, notificationSettings: { __typename?: 'NotificationSettingsModel', siteNotifications: boolean, telegramNotifications: boolean }, stream: { __typename?: 'StreamModel', serverUrl?: string | null, streamKey?: string | null, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatSubscribersOnly: boolean } } };
 
 export type FindSessionsByUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1831,6 +1850,37 @@ export function useChangePasswordMutation(baseOptions?: Apollo.MutationHookOptio
 export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswordMutation>;
 export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>;
 export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
+export const ChangeProfileAccentColorDocument = gql`
+    mutation ChangeProfileAccentColor($data: ChangeProfileAccentColorInput!) {
+  changeProfileAccentColor(data: $data)
+}
+    `;
+export type ChangeProfileAccentColorMutationFn = Apollo.MutationFunction<ChangeProfileAccentColorMutation, ChangeProfileAccentColorMutationVariables>;
+
+/**
+ * __useChangeProfileAccentColorMutation__
+ *
+ * To run a mutation, you first call `useChangeProfileAccentColorMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangeProfileAccentColorMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changeProfileAccentColorMutation, { data, loading, error }] = useChangeProfileAccentColorMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useChangeProfileAccentColorMutation(baseOptions?: Apollo.MutationHookOptions<ChangeProfileAccentColorMutation, ChangeProfileAccentColorMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ChangeProfileAccentColorMutation, ChangeProfileAccentColorMutationVariables>(ChangeProfileAccentColorDocument, options);
+      }
+export type ChangeProfileAccentColorMutationHookResult = ReturnType<typeof useChangeProfileAccentColorMutation>;
+export type ChangeProfileAccentColorMutationResult = Apollo.MutationResult<ChangeProfileAccentColorMutation>;
+export type ChangeProfileAccentColorMutationOptions = Apollo.BaseMutationOptions<ChangeProfileAccentColorMutation, ChangeProfileAccentColorMutationVariables>;
 export const ChangeProfileAvatarDocument = gql`
     mutation ChangeProfileAvatar($avatar: Upload!) {
   changeProfileAvatar(avatar: $avatar)
@@ -2758,6 +2808,7 @@ export const FindAllStreamsDocument = gql`
       avatar
       id
       isVerified
+      accentColor
     }
     category {
       title
@@ -2809,6 +2860,7 @@ export const FindAllStreamsByUsernameDocument = gql`
       username
       avatar
       id
+      accentColor
     }
     category {
       title
@@ -2859,6 +2911,7 @@ export const FindChannelByUsernameDocument = gql`
     bio
     isVerified
     lastActive
+    accentColor
     socialLinks {
       id
       title
@@ -2941,6 +2994,7 @@ export const FindRandomStreamsDocument = gql`
       avatar
       id
       isVerified
+      accentColor
     }
     category {
       title
@@ -3133,6 +3187,7 @@ export const FindProfileDocument = gql`
     isDeactivated
     isVerified
     isEmailVerified
+    accentColor
     deactivatedAt
     notificationSettings {
       siteNotifications
