@@ -1,0 +1,3 @@
+mutation ChangeProfileColor($data: ChangeProfileColorInput!) {
+  changeProfileColor(data: $data)
+}

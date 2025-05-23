@@ -16,6 +16,7 @@ import {
 
 import { StorageService } from '../../libs/storage/storage.service';
 
+import { ChangeProfileColorInput } from './inputs/change-color.input';
 import { ChangeProfileInfoInput } from './inputs/change-info.input';
 import { ChangeProfileUsernameInput } from './inputs/change-username.input';
 import {
@@ -29,6 +30,21 @@ export class ProfileService {
     private readonly prismaService: PrismaService,
     private readonly storageService: StorageService,
   ) {}
+
+  public async changeColor(user: User, input: ChangeProfileColorInput) {
+    const { color } = input;
+
+    if (user.profileColor === color) {
+      return true;
+    }
+
+    await this.prismaService.user.update({
+      where: { id: user.id },
+      data: { profileColor: color },
+    });
+
+    return true;
+  }
 
   public async changeAvatar(user: User, file: Upload) {
     if (user.avatar) {

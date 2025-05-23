@@ -59,6 +59,10 @@ input ChangePasswordInput {
   oldPassword: String
 }
 
+input ChangeProfileColorInput {
+  color: String!
+}
+
 input ChangeProfileInfoInput {
   bio: String!
   displayName: String!
@@ -166,6 +170,7 @@ type Mutation {
   changeNotificationSettings(data: ChangeNotificationSettingsInput!): ChangeNotificationsSettingsResponse!
   changePassword(data: ChangePasswordInput!): Boolean!
   changeProfileAvatar(avatar: Upload!): Boolean!
+  changeProfileColor(data: ChangeProfileColorInput!): Boolean!
   changeProfileInfo(data: ChangeProfileInfoInput!): Boolean!
   changeProfileUsername(data: ChangeProfileUsernameInput!): Boolean!
   changeStreamInfo(data: ChangeStreamInfoInput!): Boolean!
@@ -397,6 +402,7 @@ type UserModel {
   notificationSettings: NotificationSettingsModel!
   notifications: [NotificationModel!]!
   password: String!
+  profileColor: String
   socialLinks: [SocialLinkModel!]!
   stream: StreamModel!
   telegramId: String
@@ -427,6 +433,7 @@ type UserProfileModel {
   notificationSettings: NotificationSettingsModel!
   notifications: [NotificationModel!]!
   password: String!
+  profileColor: String
   socialLinks: [SocialLinkModel!]!
   stream: StreamModel!
   telegramId: String

@@ -79,6 +79,10 @@ export type ChangePasswordInput = {
   oldPassword?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type ChangeProfileColorInput = {
+  color: Scalars['String']['input'];
+};
+
 export type ChangeProfileInfoInput = {
   bio: Scalars['String']['input'];
   displayName: Scalars['String']['input'];
@@ -185,6 +189,7 @@ export type Mutation = {
   changeNotificationSettings: ChangeNotificationsSettingsResponse;
   changePassword: Scalars['Boolean']['output'];
   changeProfileAvatar: Scalars['Boolean']['output'];
+  changeProfileColor: Scalars['Boolean']['output'];
   changeProfileInfo: Scalars['Boolean']['output'];
   changeProfileUsername: Scalars['Boolean']['output'];
   changeStreamInfo: Scalars['Boolean']['output'];
@@ -247,6 +252,11 @@ export type MutationChangePasswordArgs = {
 
 export type MutationChangeProfileAvatarArgs = {
   avatar: Scalars['Upload']['input'];
+};
+
+
+export type MutationChangeProfileColorArgs = {
+  data: ChangeProfileColorInput;
 };
 
 
@@ -620,6 +630,7 @@ export type UserModel = {
   notificationSettings: NotificationSettingsModel;
   notifications: Array<NotificationModel>;
   password: Scalars['String']['output'];
+  profileColor?: Maybe<Scalars['String']['output']>;
   socialLinks: Array<SocialLinkModel>;
   stream: StreamModel;
   telegramId?: Maybe<Scalars['String']['output']>;
@@ -651,6 +662,7 @@ export type UserProfileModel = {
   notificationSettings: NotificationSettingsModel;
   notifications: Array<NotificationModel>;
   password: Scalars['String']['output'];
+  profileColor?: Maybe<Scalars['String']['output']>;
   socialLinks: Array<SocialLinkModel>;
   stream: StreamModel;
   telegramId?: Maybe<Scalars['String']['output']>;
@@ -828,6 +840,13 @@ export type ChangeProfileAvatarMutationVariables = Exact<{
 
 
 export type ChangeProfileAvatarMutation = { __typename?: 'Mutation', changeProfileAvatar: boolean };
+
+export type ChangeProfileColorMutationVariables = Exact<{
+  data: ChangeProfileColorInput;
+}>;
+
+
+export type ChangeProfileColorMutation = { __typename?: 'Mutation', changeProfileColor: boolean };
 
 export type ChangeProfileInfoMutationVariables = Exact<{
   data: ChangeProfileInfoInput;
@@ -1862,6 +1881,37 @@ export function useChangeProfileAvatarMutation(baseOptions?: Apollo.MutationHook
 export type ChangeProfileAvatarMutationHookResult = ReturnType<typeof useChangeProfileAvatarMutation>;
 export type ChangeProfileAvatarMutationResult = Apollo.MutationResult<ChangeProfileAvatarMutation>;
 export type ChangeProfileAvatarMutationOptions = Apollo.BaseMutationOptions<ChangeProfileAvatarMutation, ChangeProfileAvatarMutationVariables>;
+export const ChangeProfileColorDocument = gql`
+    mutation ChangeProfileColor($data: ChangeProfileColorInput!) {
+  changeProfileColor(data: $data)
+}
+    `;
+export type ChangeProfileColorMutationFn = Apollo.MutationFunction<ChangeProfileColorMutation, ChangeProfileColorMutationVariables>;
+
+/**
+ * __useChangeProfileColorMutation__
+ *
+ * To run a mutation, you first call `useChangeProfileColorMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangeProfileColorMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changeProfileColorMutation, { data, loading, error }] = useChangeProfileColorMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useChangeProfileColorMutation(baseOptions?: Apollo.MutationHookOptions<ChangeProfileColorMutation, ChangeProfileColorMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ChangeProfileColorMutation, ChangeProfileColorMutationVariables>(ChangeProfileColorDocument, options);
+      }
+export type ChangeProfileColorMutationHookResult = ReturnType<typeof useChangeProfileColorMutation>;
+export type ChangeProfileColorMutationResult = Apollo.MutationResult<ChangeProfileColorMutation>;
+export type ChangeProfileColorMutationOptions = Apollo.BaseMutationOptions<ChangeProfileColorMutation, ChangeProfileColorMutationVariables>;
 export const ChangeProfileInfoDocument = gql`
     mutation ChangeProfileInfo($data: ChangeProfileInfoInput!) {
   changeProfileInfo(data: $data)

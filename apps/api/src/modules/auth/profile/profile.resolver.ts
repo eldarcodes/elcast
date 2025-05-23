@@ -7,6 +7,7 @@ import { Authorization } from '@/src/shared/decorators/auth.decorator';
 import { Authorized } from '@/src/shared/decorators/authorized.decorator';
 import { FileValidationPipe } from '@/src/shared/pipes/file-validation.pipe';
 
+import { ChangeProfileColorInput } from './inputs/change-color.input';
 import { ChangeProfileInfoInput } from './inputs/change-info.input';
 import { ChangeProfileUsernameInput } from './inputs/change-username.input';
 import {
@@ -19,6 +20,17 @@ import { ProfileService } from './profile.service';
 @Resolver('Profile')
 export class ProfileResolver {
   public constructor(private readonly profileService: ProfileService) {}
+
+  @Authorization()
+  @Mutation(() => Boolean, {
+    name: 'changeProfileColor',
+  })
+  public async changeColor(
+    @Authorized() user: User,
+    @Args('data') input: ChangeProfileColorInput,
+  ) {
+    return this.profileService.changeColor(user, input);
+  }
 
   @Authorization()
   @Mutation(() => Boolean, {
