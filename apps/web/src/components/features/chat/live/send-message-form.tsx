@@ -20,6 +20,8 @@ import {
   useSendChatMessageMutation,
 } from '@/graphql/generated/output';
 
+import { useCurrentProfile } from '@/hooks/use-current-profile';
+
 import {
   sendMessageSchema,
   type SendMessageSchema,
@@ -32,6 +34,8 @@ interface SendMessageFormProps {
 
 export function SendMessageForm({ channel, isDisabled }: SendMessageFormProps) {
   const t = useTranslations('stream.chat.sendMessage');
+
+  const { user } = useCurrentProfile();
 
   const form = useForm<SendMessageSchema>({
     resolver: zodResolver(sendMessageSchema),
@@ -103,11 +107,13 @@ export function SendMessageForm({ channel, isDisabled }: SendMessageFormProps) {
         />
 
         <div className="mt-2 flex items-center justify-end gap-x-1">
-          <Link href="/dashboard/chat" className="leading-none">
-            <Button size="iconSm" variant="ghost">
-              <Settings className="size-4" />
-            </Button>
-          </Link>
+          {channel.id === user?.id && (
+            <Link href="/dashboard/chat" className="leading-none">
+              <Button size="iconSm" variant="ghost">
+                <Settings className="size-4" />
+              </Button>
+            </Link>
+          )}
 
           <Button
             type="submit"
