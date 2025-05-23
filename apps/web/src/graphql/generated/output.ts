@@ -79,8 +79,8 @@ export type ChangePasswordInput = {
   oldPassword?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type ChangeProfileColorInput = {
-  color: Scalars['String']['input'];
+export type ChangeProfileAccentColorInput = {
+  accentColor: Scalars['String']['input'];
 };
 
 export type ChangeProfileInfoInput = {
@@ -188,8 +188,8 @@ export type Mutation = {
   changeEmail: AuthModel;
   changeNotificationSettings: ChangeNotificationsSettingsResponse;
   changePassword: Scalars['Boolean']['output'];
+  changeProfileAccentColor: Scalars['Boolean']['output'];
   changeProfileAvatar: Scalars['Boolean']['output'];
-  changeProfileColor: Scalars['Boolean']['output'];
   changeProfileInfo: Scalars['Boolean']['output'];
   changeProfileUsername: Scalars['Boolean']['output'];
   changeStreamInfo: Scalars['Boolean']['output'];
@@ -250,13 +250,13 @@ export type MutationChangePasswordArgs = {
 };
 
 
-export type MutationChangeProfileAvatarArgs = {
-  avatar: Scalars['Upload']['input'];
+export type MutationChangeProfileAccentColorArgs = {
+  data: ChangeProfileAccentColorInput;
 };
 
 
-export type MutationChangeProfileColorArgs = {
-  data: ChangeProfileColorInput;
+export type MutationChangeProfileAvatarArgs = {
+  avatar: Scalars['Upload']['input'];
 };
 
 
@@ -611,6 +611,7 @@ export type TotpModel = {
 /** User model */
 export type UserModel = {
   __typename?: 'UserModel';
+  accentColor?: Maybe<Scalars['String']['output']>;
   avatar?: Maybe<Scalars['String']['output']>;
   bio?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
@@ -630,7 +631,6 @@ export type UserModel = {
   notificationSettings: NotificationSettingsModel;
   notifications: Array<NotificationModel>;
   password: Scalars['String']['output'];
-  profileColor?: Maybe<Scalars['String']['output']>;
   socialLinks: Array<SocialLinkModel>;
   stream: StreamModel;
   telegramId?: Maybe<Scalars['String']['output']>;
@@ -642,6 +642,7 @@ export type UserModel = {
 /** User profile model */
 export type UserProfileModel = {
   __typename?: 'UserProfileModel';
+  accentColor?: Maybe<Scalars['String']['output']>;
   avatar?: Maybe<Scalars['String']['output']>;
   bio?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
@@ -662,7 +663,6 @@ export type UserProfileModel = {
   notificationSettings: NotificationSettingsModel;
   notifications: Array<NotificationModel>;
   password: Scalars['String']['output'];
-  profileColor?: Maybe<Scalars['String']['output']>;
   socialLinks: Array<SocialLinkModel>;
   stream: StreamModel;
   telegramId?: Maybe<Scalars['String']['output']>;
@@ -834,19 +834,19 @@ export type ChangePasswordMutationVariables = Exact<{
 
 export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: boolean };
 
+export type ChangeProfileAccentColorMutationVariables = Exact<{
+  data: ChangeProfileAccentColorInput;
+}>;
+
+
+export type ChangeProfileAccentColorMutation = { __typename?: 'Mutation', changeProfileAccentColor: boolean };
+
 export type ChangeProfileAvatarMutationVariables = Exact<{
   avatar: Scalars['Upload']['input'];
 }>;
 
 
 export type ChangeProfileAvatarMutation = { __typename?: 'Mutation', changeProfileAvatar: boolean };
-
-export type ChangeProfileColorMutationVariables = Exact<{
-  data: ChangeProfileColorInput;
-}>;
-
-
-export type ChangeProfileColorMutation = { __typename?: 'Mutation', changeProfileColor: boolean };
 
 export type ChangeProfileInfoMutationVariables = Exact<{
   data: ChangeProfileInfoInput;
@@ -1040,7 +1040,7 @@ export type FindNotificationsUnreadCountQuery = { __typename?: 'Query', findNoti
 export type FindProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserProfileModel', id: string, email: string, username: string, hasPassword: boolean, displayName: string, lastUsernameChange?: any | null, lastEmailChange?: any | null, avatar?: string | null, bio?: string | null, isTotpEnabled: boolean, isDeactivated: boolean, isVerified: boolean, isEmailVerified: boolean, deactivatedAt?: any | null, notificationSettings: { __typename?: 'NotificationSettingsModel', siteNotifications: boolean, telegramNotifications: boolean }, stream: { __typename?: 'StreamModel', serverUrl?: string | null, streamKey?: string | null, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatSubscribersOnly: boolean } } };
+export type FindProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserProfileModel', id: string, email: string, username: string, hasPassword: boolean, displayName: string, lastUsernameChange?: any | null, lastEmailChange?: any | null, avatar?: string | null, bio?: string | null, isTotpEnabled: boolean, isDeactivated: boolean, isVerified: boolean, isEmailVerified: boolean, accentColor?: string | null, deactivatedAt?: any | null, notificationSettings: { __typename?: 'NotificationSettingsModel', siteNotifications: boolean, telegramNotifications: boolean }, stream: { __typename?: 'StreamModel', serverUrl?: string | null, streamKey?: string | null, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatSubscribersOnly: boolean } } };
 
 export type FindSessionsByUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1850,6 +1850,37 @@ export function useChangePasswordMutation(baseOptions?: Apollo.MutationHookOptio
 export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswordMutation>;
 export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>;
 export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
+export const ChangeProfileAccentColorDocument = gql`
+    mutation ChangeProfileAccentColor($data: ChangeProfileAccentColorInput!) {
+  changeProfileAccentColor(data: $data)
+}
+    `;
+export type ChangeProfileAccentColorMutationFn = Apollo.MutationFunction<ChangeProfileAccentColorMutation, ChangeProfileAccentColorMutationVariables>;
+
+/**
+ * __useChangeProfileAccentColorMutation__
+ *
+ * To run a mutation, you first call `useChangeProfileAccentColorMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangeProfileAccentColorMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changeProfileAccentColorMutation, { data, loading, error }] = useChangeProfileAccentColorMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useChangeProfileAccentColorMutation(baseOptions?: Apollo.MutationHookOptions<ChangeProfileAccentColorMutation, ChangeProfileAccentColorMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ChangeProfileAccentColorMutation, ChangeProfileAccentColorMutationVariables>(ChangeProfileAccentColorDocument, options);
+      }
+export type ChangeProfileAccentColorMutationHookResult = ReturnType<typeof useChangeProfileAccentColorMutation>;
+export type ChangeProfileAccentColorMutationResult = Apollo.MutationResult<ChangeProfileAccentColorMutation>;
+export type ChangeProfileAccentColorMutationOptions = Apollo.BaseMutationOptions<ChangeProfileAccentColorMutation, ChangeProfileAccentColorMutationVariables>;
 export const ChangeProfileAvatarDocument = gql`
     mutation ChangeProfileAvatar($avatar: Upload!) {
   changeProfileAvatar(avatar: $avatar)
@@ -1881,37 +1912,6 @@ export function useChangeProfileAvatarMutation(baseOptions?: Apollo.MutationHook
 export type ChangeProfileAvatarMutationHookResult = ReturnType<typeof useChangeProfileAvatarMutation>;
 export type ChangeProfileAvatarMutationResult = Apollo.MutationResult<ChangeProfileAvatarMutation>;
 export type ChangeProfileAvatarMutationOptions = Apollo.BaseMutationOptions<ChangeProfileAvatarMutation, ChangeProfileAvatarMutationVariables>;
-export const ChangeProfileColorDocument = gql`
-    mutation ChangeProfileColor($data: ChangeProfileColorInput!) {
-  changeProfileColor(data: $data)
-}
-    `;
-export type ChangeProfileColorMutationFn = Apollo.MutationFunction<ChangeProfileColorMutation, ChangeProfileColorMutationVariables>;
-
-/**
- * __useChangeProfileColorMutation__
- *
- * To run a mutation, you first call `useChangeProfileColorMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useChangeProfileColorMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [changeProfileColorMutation, { data, loading, error }] = useChangeProfileColorMutation({
- *   variables: {
- *      data: // value for 'data'
- *   },
- * });
- */
-export function useChangeProfileColorMutation(baseOptions?: Apollo.MutationHookOptions<ChangeProfileColorMutation, ChangeProfileColorMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<ChangeProfileColorMutation, ChangeProfileColorMutationVariables>(ChangeProfileColorDocument, options);
-      }
-export type ChangeProfileColorMutationHookResult = ReturnType<typeof useChangeProfileColorMutation>;
-export type ChangeProfileColorMutationResult = Apollo.MutationResult<ChangeProfileColorMutation>;
-export type ChangeProfileColorMutationOptions = Apollo.BaseMutationOptions<ChangeProfileColorMutation, ChangeProfileColorMutationVariables>;
 export const ChangeProfileInfoDocument = gql`
     mutation ChangeProfileInfo($data: ChangeProfileInfoInput!) {
   changeProfileInfo(data: $data)
@@ -3183,6 +3183,7 @@ export const FindProfileDocument = gql`
     isDeactivated
     isVerified
     isEmailVerified
+    accentColor
     deactivatedAt
     notificationSettings {
       siteNotifications

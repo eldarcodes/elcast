@@ -13,6 +13,7 @@ query FindProfile {
     isDeactivated
     isVerified
     isEmailVerified
+    accentColor
     deactivatedAt
     notificationSettings {
       siteNotifications

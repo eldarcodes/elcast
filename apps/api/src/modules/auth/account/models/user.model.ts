@@ -43,7 +43,7 @@ export class UserModel implements User {
   isDeactivated: boolean;
 
   @Field(() => String, { nullable: true })
-  profileColor: string;
+  accentColor: string;
 
   @Field(() => Date, { nullable: true })
   deactivatedAt: Date;

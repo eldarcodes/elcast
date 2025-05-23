@@ -19,6 +19,7 @@ import { DeactivateCard } from './account/deactivate-card';
 import { ReactivateCard } from './account/reactivate-card';
 import { WrapperTotp } from './account/totp/wrapper-totp';
 import { ChangeNotificationsSettingsForm } from './notifications/change-notifications-settings-form';
+import { ChangeAccentColorForm } from './profile/change-accent-color-form';
 import { ChangeAvatarForm } from './profile/change-avatar-form';
 import { ChangeInfoForm } from './profile/change-info-form';
 import { SocialLinksForm } from './profile/social-links/social-links-form';
@@ -76,6 +77,7 @@ export function UserSettings() {
             />
             <ChangeAvatarForm />
             <ChangeInfoForm />
+            <ChangeAccentColorForm />
             <SocialLinksForm />
           </div>
         </TabsContent>

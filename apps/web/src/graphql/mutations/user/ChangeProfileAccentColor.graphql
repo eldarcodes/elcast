@@ -1,0 +1,3 @@
+mutation ChangeProfileAccentColor($data: ChangeProfileAccentColorInput!) {
+  changeProfileAccentColor(data: $data)
+}

@@ -184,6 +184,27 @@
           "successRemoveMessage": "Profile image removed successfully.",
           "errorRemoveMessage": "Error removing profile image."
         },
+        "accentColor": {
+          "heading": "Profile Accent Color",
+          "description": "Choose an accent color to highlight your personal brand around Elcast and in your channel elements.",
+          "presets": {
+            "purple": "Purple",
+            "magenta": "Magenta",
+            "pink": "Pink",
+            "lightPink": "Light Pink",
+            "red": "Red",
+            "orange": "Orange",
+            "yellow": "Yellow",
+            "green": "Green",
+            "teal": "Teal",
+            "aqua": "Aqua",
+            "blue": "Blue",
+            "darkBlue": "Dark Blue"
+          },
+          "successMessage": "Profile accent color updated successfully",
+          "errorMessage": "Error updating profile accent color",
+          "submitButton": "Save Changes"
+        },
         "info": {
           "heading": "Profile Settings",
           "displayNameLabel": "Display Name",

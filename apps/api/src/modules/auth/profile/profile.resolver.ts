@@ -7,7 +7,7 @@ import { Authorization } from '@/src/shared/decorators/auth.decorator';
 import { Authorized } from '@/src/shared/decorators/authorized.decorator';
 import { FileValidationPipe } from '@/src/shared/pipes/file-validation.pipe';
 
-import { ChangeProfileColorInput } from './inputs/change-color.input';
+import { ChangeProfileAccentColorInput } from './inputs/change-accent-color.input';
 import { ChangeProfileInfoInput } from './inputs/change-info.input';
 import { ChangeProfileUsernameInput } from './inputs/change-username.input';
 import {
@@ -23,13 +23,13 @@ export class ProfileResolver {
 
   @Authorization()
   @Mutation(() => Boolean, {
-    name: 'changeProfileColor',
+    name: 'changeProfileAccentColor',
   })
-  public async changeColor(
+  public async changeAccentColor(
     @Authorized() user: User,
-    @Args('data') input: ChangeProfileColorInput,
+    @Args('data') input: ChangeProfileAccentColorInput,
   ) {
-    return this.profileService.changeColor(user, input);
+    return this.profileService.changeAccentColor(user, input);
   }
 
   @Authorization()

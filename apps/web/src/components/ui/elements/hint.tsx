@@ -26,7 +26,9 @@ export function Hint({
   return (
     <TooltipProvider>
       <Tooltip delayDuration={0}>
-        <TooltipTrigger asChild={asChild}>{children}</TooltipTrigger>
+        <TooltipTrigger asChild={asChild} tabIndex={-1} type="button">
+          {children}
+        </TooltipTrigger>
 
         <TooltipContent
           className="border bg-foreground text-background"

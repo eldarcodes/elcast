@@ -184,6 +184,27 @@
           "successRemoveMessage": "Изображение профиля успешно удалено.",
           "errorRemoveMessage": "Ошибка удаления изображения профиля."
         },
+        "accentColor": {
+          "heading": "Акцентный цвет профиля",
+          "description": "Выберите акцентный цвет для своего личного бренда на Elcast и элементов канала.",
+          "presets": {
+            "purple": "Лиловый",
+            "magenta": "Пурпурный",
+            "pink": "Розовый",
+            "lightPink": "Светло-розовый",
+            "red": "Красный",
+            "orange": "Оранжевый",
+            "yellow": "Желтый",
+            "green": "Зеленый",
+            "teal": "Бирюзовый",
+            "aqua": "Голубой",
+            "blue": "Синий",
+            "darkBlue": "Темно-синий"
+          },
+          "successMessage": "Profile accent color updated successfully",
+          "errorMessage": "Error updating profile accent color",
+          "submitButton": "Save Changes"
+        },
         "info": {
           "heading": "Настройки профиля",
           "displayNameLabel": "Отображаемое имя",
