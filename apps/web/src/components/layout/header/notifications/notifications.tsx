@@ -76,13 +76,13 @@ export function Notifications() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger>
-        {unreadCount > 0 && (
-          <div className="absolute right-[60px] top-[10px] min-w-5 rounded-full bg-red-500 px-[5px] text-xs font-semibold text-white">
-            {displayCount}
-          </div>
-        )}
         <Hint label={t('heading')} asChild>
-          <Button size="icon" variant="ghost">
+          <Button size="icon" variant="ghost" className="relative">
+            {unreadCount > 0 && (
+              <div className="absolute right-[-7px] top-[-3px] min-w-5 rounded-full bg-red-500 px-[5px] text-xs font-semibold text-white">
+                {displayCount}
+              </div>
+            )}
             <Inbox />
           </Button>
         </Hint>
