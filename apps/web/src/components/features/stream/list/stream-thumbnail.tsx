@@ -9,31 +9,29 @@ import { LiveBadge } from '@/components/ui/elements/live-badge';
 
 import type { FindProfileQuery } from '@/graphql/generated/output';
 
-import { getRandomColor } from '@/utils/color';
 import { getMediaSource } from '@/utils/get-media-source';
+import { cn } from '@/utils/tw-merge';
 
 interface StreamThumbnailProps {
   url: string | null | undefined;
   user: Pick<
     FindProfileQuery['findProfile'],
-    'id' | 'username' | 'avatar' | 'isVerified' | 'displayName'
+    'id' | 'username' | 'avatar' | 'isVerified' | 'displayName' | 'accentColor'
   >;
   isLive?: boolean;
 }
 
 export function StreamThumbnail({ url, user, isLive }: StreamThumbnailProps) {
-  const [randomColor, setRandomColor] = useState('');
-
-  useEffect(() => {
-    setRandomColor(getRandomColor());
-  }, []);
-
+  console.log(user.accentColor);
   return (
     <div className="group relative aspect-video cursor-pointer rounded">
       <div
-        className="absolute inset-0 flex items-center justify-center rounded opacity-0 transition-opacity group-hover:opacity-100"
+        className={cn(
+          'absolute inset-0 flex items-center justify-center rounded opacity-0 transition-opacity group-hover:opacity-100',
+          !user.accentColor && 'bg-primary',
+        )}
         style={{
-          backgroundColor: randomColor,
+          backgroundColor: user.accentColor || '',
         }}
       />
 

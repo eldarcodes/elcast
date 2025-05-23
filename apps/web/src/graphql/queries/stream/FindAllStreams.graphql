@@ -16,6 +16,7 @@ query FindAllStreams($filters: FiltersInput!) {
       avatar
       id
       isVerified
+      accentColor
     }
     category {
       title
