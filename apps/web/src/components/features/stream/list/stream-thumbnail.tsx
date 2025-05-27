@@ -22,7 +22,6 @@ interface StreamThumbnailProps {
 }
 
 export function StreamThumbnail({ url, user, isLive }: StreamThumbnailProps) {
-  console.log(user.accentColor);
   return (
     <div className="group relative aspect-video cursor-pointer rounded">
       <div

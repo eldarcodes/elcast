@@ -63,7 +63,10 @@ export function DeactivationAlert() {
   const { user } = useCurrentProfile();
 
   useEffect(() => {
-    if (!user) return;
+    if (!user) {
+      closeDeactivationAlert();
+      return;
+    }
 
     if (user?.isDeactivated) {
       openDeactivationAlert();
