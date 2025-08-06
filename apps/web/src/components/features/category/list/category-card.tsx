@@ -33,10 +33,7 @@ export function CategoryCard({ category }: CategoryCardProps) {
   const paddingBottom = getPaddingBottomPercent(285, 380);
 
   return (
-    <Link
-      href={`/categories/${category.slug}`}
-      className="w-32 max-w-full flex-[1_0_auto] sm:w-40"
-    >
+    <Link href={`/categories/${category.slug}`}>
       <div className="group relative cursor-pointer rounded">
         <div className="relative w-full" style={{ paddingBottom }}>
           <div

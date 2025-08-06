@@ -11,20 +11,14 @@ interface CategoriesListProps {
 }
 
 export function CategoriesList({ heading, categories }: CategoriesListProps) {
-  const isOdd = categories.length % 2 === 1;
-
   return categories.length ? (
     <>
       {heading && <Heading title={heading} />}
 
-      <div className="mt-6 flex flex-wrap gap-4">
+      <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
         {categories.map((category) => (
           <CategoryCard key={category.id} category={category} />
         ))}
-
-        {isOdd && (
-          <div className="invisible w-32 max-w-full flex-[1_0_auto] sm:w-40" />
-        )}
       </div>
     </>
   ) : (
