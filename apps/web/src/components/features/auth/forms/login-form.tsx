@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Turnstile, { useTurnstile } from 'react-turnstile';
 import { toast } from 'sonner';
@@ -108,7 +108,7 @@ export function LoginForm() {
                 <FormItem>
                   <FormLabel>{t('pinLabel')}</FormLabel>
                   <FormControl>
-                    <InputOTP maxLength={6} {...field}>
+                    <InputOTP maxLength={6} {...field} autoFocus>
                       <InputOTPGroup>
                         <InputOTPSlot index={0} />
                         <InputOTPSlot index={1} />

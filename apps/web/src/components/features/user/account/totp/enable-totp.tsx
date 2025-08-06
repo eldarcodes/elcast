@@ -126,7 +126,7 @@ export function EnableTotp() {
                   <FormLabel>{t('pinLabel')}</FormLabel>
 
                   <FormControl>
-                    <InputOTP maxLength={6} {...field}>
+                    <InputOTP maxLength={6} {...field} autoFocus>
                       <InputOTPGroup>
                         <InputOTPSlot index={0} />
                         <InputOTPSlot index={1} />
