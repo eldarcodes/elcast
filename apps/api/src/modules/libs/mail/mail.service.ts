@@ -232,7 +232,7 @@ export class MailService {
         html,
       });
     } catch (error) {
-      console.error(`Failed to send email to ${email}:`, error);
+      console.error(`Failed to send email to ${email}: `, error);
     }
   }
 }
