@@ -69,7 +69,7 @@ export class CronService {
     });
   }
 
-  @Cron('0 12 * * 1') // every Monday at 12:00 GMT
+  @Cron("0 12 1 * *") // every 1st day of month at 12:00 GMT
   public async notifyUsersEnablingTwoFactorAuth() {
     const users = await this.prismaService.user.findMany({
       where: {
