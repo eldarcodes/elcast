@@ -28,15 +28,17 @@ async function findChannelByUsername(params: { username: string }) {
       },
     });
 
-    const data = await response.json();
+    const { data } = await response.json();
+
+    if (!data) {
+      throw new Error('Not found channel');
+    }
 
     return {
-      channel: data.data
-        .findChannelByUsername as FindChannelByUsernameQuery['findChannelByUsername'],
+      channel:
+        data.findChannelByUsername as FindChannelByUsernameQuery['findChannelByUsername'],
     };
   } catch (error) {
-    console.error(error);
-
     return notFound();
   }
 }
@@ -49,13 +51,13 @@ export async function generateMetadata(props: {
   const { channel } = await findChannelByUsername(params);
 
   return {
-    title: channel.displayName,
-    description: channel.bio ?? channel.displayName,
+    title: channel?.displayName,
+    description: channel?.bio ?? channel?.displayName,
     openGraph: {
       images: [
         {
-          url: getMediaSource(channel.avatar),
-          alt: channel.displayName,
+          url: getMediaSource(channel?.avatar),
+          alt: channel?.displayName,
         },
       ],
     },
