@@ -180,7 +180,7 @@ export function LoginForm() {
                         <Turnstile
                           sitekey={
                             process.env[
-                              'CLOUDFLARE_TURNSTILE_SITE_KEY'
+                              'NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY'
                             ] as string
                           }
                           onVerify={(token) => {

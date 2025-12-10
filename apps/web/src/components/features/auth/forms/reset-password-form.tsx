@@ -118,7 +118,9 @@ export function ResetPasswordForm() {
                     <FormControl>
                       <Turnstile
                         sitekey={
-                          process.env['CLOUDFLARE_TURNSTILE_SITE_KEY'] as string
+                          process.env[
+                            'NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY'
+                          ] as string
                         }
                         onVerify={(token) => {
                           form.setValue('captcha', token);

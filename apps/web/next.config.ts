@@ -24,7 +24,8 @@ const nextConfig: NextConfig = {
     ],
   },
   env: {
-    CLOUDFLARE_TURNSTILE_SITE_KEY: process.env['CLOUDFLARE_TURNSTILE_SITE_KEY'],
+    NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY:
+      process.env['NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY'],
   },
 };
 
