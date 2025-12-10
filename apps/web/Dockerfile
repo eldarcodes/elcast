@@ -4,9 +4,11 @@ RUN npm i -g pnpm
 
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
+ARG NEXT_PUBLIC_SERVER_URL
 
-ENV NODE_ENV=production
+ENV NEXT_PUBLIC_SERVER_URL=$NEXT_PUBLIC_SERVER_URL
+
+COPY package.json pnpm-lock.yaml ./
 
 RUN pnpm install --frozen-lockfile
 
